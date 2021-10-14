@@ -2,13 +2,13 @@
 
 * [The Swift Programming Language en Español](README.md)
 
-## Introducción a Swift <a id="01-welcome-to-swift"></a>
+## Introducción a Swift <a href="01-welcome-to-swift" id="01-welcome-to-swift"></a>
 
 * [Acerca de Swift](01-welcome-to-swift/01-about-swift.md)
 * [Compatibilidad de Versiones](01-welcome-to-swift/02-version-compatibility.md)
 * [Un Recorrido Por Swift](01-welcome-to-swift/03-a-swift-tour.md)
 
-## Guía del Lenguaje <a id="02-language-guide"></a>
+## Guía del Lenguaje <a href="02-language-guide" id="02-language-guide"></a>
 
 * [Fundamentos](02-language-guide/01-the-basics.md)
 * [Operadores Básicos](02-language-guide/02-basic-operators.md)
@@ -39,9 +39,9 @@
 * [Access Control](02-language-guide/27-access-control.md)
 * [Advanced Operators](02-language-guide/28-advanced-operators.md)
 
-## Referencia del Lenguaje <a id="03-language-reference"></a>
+## Referencia del Lenguaje <a href="03-language-reference" id="03-language-reference"></a>
 
-* [Acerca de la Referencia del Lenguaje](03-language-reference/acerca-de-la-referencia-del-lenguaje.md)
+* [Acerca de la Referencia del Lenguaje](03-language-reference/01-about-the-language-reference.md)
 * [Lexical Structure](03-language-reference/02-lexical-structure.md)
 * [Types](03-language-reference/03-types.md)
 * [Expressions](03-language-reference/04-expressions.md)
@@ -52,7 +52,6 @@
 * [Generic Parameters and Arguments](03-language-reference/09-generic-parameters-and-arguments.md)
 * [Summary of the Grammar](03-language-reference/10-summary-of-the-grammar.md)
 
-## Historial de Revisión <a id="04-revision-history"></a>
+## Historial de Revisión <a href="04-revision-history" id="04-revision-history"></a>
 
 * [Documento del Historial de Revisión](04-revision-history/document-revision-history.md)
-

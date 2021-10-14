@@ -12,6 +12,6 @@ Esta es la traducción al español del libro [The Swift Programming Language](ht
   - [Fundamentos](02-language-guide/01-the-basics.md)
   - [Operadores Básicos](02-language-guide/02-basic-operators.md)
 - Referencia del Lenguaje
-  - [Acerca de la Referencia del Lenguaje](03-language-reference/acerca-de-la-referencia-del-lenguaje.md)
+  - [Acerca de la Referencia del Lenguaje](03-language-reference/01-about-the-language-reference.md)
 - Historial de Revisión
   - [Documento del Historial de Revisión](04-revision-history/document-revision-history.md)
