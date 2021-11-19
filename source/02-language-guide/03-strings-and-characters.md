@@ -1,2 +1,0 @@
-# Strings and Characters
-

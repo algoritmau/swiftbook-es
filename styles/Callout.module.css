@@ -1,0 +1,33 @@
+.callout {
+  margin: 32px 0 40px 40px;
+  border-left: solid 5px #ccc;
+  background-color: #f5f5f5;
+  color: #242424;
+  padding: 20px;
+  font-size: 10px;
+  border-radius: 2px;
+}
+
+.callout--experiment {
+  border-color: #0088cc;
+}
+
+.callout :not(:first-child),
+.callout code {
+  margin: 0;
+  font-size: 16px;
+  line-height: 160%;
+}
+
+.callout__title {
+  text-transform: uppercase;
+  font-weight: normal;
+  color: #707070;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.4rem;
+}
+
+.callout__body {
+  color: red;
+}

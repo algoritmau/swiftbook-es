@@ -1,0 +1,39 @@
+{
+  "name": "swift-book-es",
+  "version": "1.0.0",
+  "description": "Repository of the Spanish translation of The Swift Programming Language book",
+  "author": {
+    "name": "Mauricio Paternina",
+    "email": "hello@spaceinva.dev",
+    "url": "https://spaceinva.dev"
+  },
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "12.0.4",
+    "nextra": "^1.1.0",
+    "nextra-theme-docs": "^1.2.6",
+    "prism-react-renderer": "^1.2.1",
+    "prismjs": "^1.25.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-config-next": "12.0.4",
+    "prettier": "^2.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spaceinvadev/swift-book-es.git"
+  },
+  "issues": {
+    "url": "https://github.com/spaceinvadev/swift-book-es#issues"
+  }
+}

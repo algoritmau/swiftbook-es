@@ -1,2 +1,0 @@
-# Generic Parameters and Arguments
-
