@@ -1,0 +1,26 @@
+# Fundamentos
+
+Swift es un nuevo lenguaje de programación para desarrollar aplicaciones para iOS, macOS, watchOS, y tvOS. Sin embargo, muchas partes de Swift te resultarán familiares a partir de tu experiencia desarrollando en C y Objective-C.
+
+Swift proporciona sus propias versiones de todos los tipos fundamentales de C y Objective-C, incluyendo `Int` para enteros, `Double` y `Float` para valores de coma flotante, `Bool` para valores de tipo _boolean_, y `String` para datos textuales. Swift también ofrece poderosas versiones de los tres tipos principales de colecciones: `Array`, `Set`, y `Dictionary`, como se describe en [Tipos de Colecciones](/language-guide/collection-types).
+
+Al igual que C, Swift utiliza variables para almacenar y referenciar valores mediante un nombre de identificación. Swift también hace un uso extensivo de variables cuyos valores no se pueden modificar. Dichas variables se conocen como constantes y son mucho más poderosas que las constantes en C. En Swift, las constantes son utilizadas para hacer que el código resulte más seguro y más claro en la intención cuando se trabaja con valores que no necesitan cambiar.
+
+Además de los tipos familiares, Swift presenta tipos avanzados que no se encuentran en Objective-C, como las tuplas. Las tuplas te permiten crear y pasar conjuntos de valores. Puedes utilizar una tupla para devolver varios valores de una función como un único valor compuesto.
+
+Swift también presenta tipos opcionales, los cuales manejan la ausencia de un valor. Los opcionales indican "_existe_ un valor, y es igual a _x_" o "_no existe_ valor alguno". Usar opcionales es similar a usar `nil` con punteros en Objective-C, pero funcionan para cualquier tipo, no solo para las clases. Los opcionales no solo son más seguros y significativos que los punteros `nil` en Objective-C, sino que forman parte esencial de muchas de las funciones más poderosas de Swift.
+
+Swift es un lenguaje de tipo seguro, lo que significa que el lenguaje te ayuda a tener claro los tipos de valores con los que puede trabajar tu código. Si una parte de tu código requiere un `String`, _type safety_ te impedirá pasar un `Int` por error. Del mismo modo, _type safety_ evitará que pases, accidentalmente, un `String` opcional a un fragmento de código que requiere un `String` no opcional. _Type safety_ te ayuda a detectar y corregir errores lo antes posible en el proceso de desarrollo.
+
+## Constantes y variables
+
+Las constantes y variables asocian un nombre (como `maximoNumeroDeIntentosDeLogin` o `mensajeDeBienvenida`) con un valor de un tipo particular (como el número `10` o el _string_ `"Hola"`). El valor de una _constante_ no se puede cambiar una vez que se establece, mientras que una _variable_ puede ser asociada a un valor diferente en el futuro.
+
+### Declaración de constantes y variables
+
+Las constantes y variables deben ser declararadas antes de ser utilizadas. Declaras constantes con la palabra clave `let` y variables con la palabra clave `var`. A continuación, se muestra un ejemplo de cómo se pueden utilizar las constantes y variables para realizar un seguimiento del número de intentos de inicio de sesión que ha realizado un usuario:
+
+```swift
+let maximoNumeroDeIntentosDeLogin = 10
+var intentoActualDeLogin = 0
+```
