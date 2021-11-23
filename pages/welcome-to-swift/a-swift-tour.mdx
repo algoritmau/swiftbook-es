@@ -1,4 +1,8 @@
-import Callout from '../../components/Callout.js'
+---
+title: Un Recorrido Por Swift
+---
+
+import Callout from "../../components/Callout.js"
 
 # Un Recorrido Por Swift
 
@@ -40,8 +44,7 @@ let doubleExplicito: Double = 70
 ```
 
 <Callout type="experiment">
-  Crea una constante con un tipo específico <code>Float</code> y un valor de{' '}
-  <code>4</code>.
+  Crea una constante con un tipo específico `Float` y un valor de `4`.
 </Callout>
 
 Los valores nunca son convertidos a un tipo diferente de manera implícita. Si necesitas convertir un valor a un tipo diferente, debes crear –explícitamente–, una instancia del tipo deseado.
@@ -53,8 +56,8 @@ let etiquetaAncho = etiqueta + String(ancho)
 ```
 
 <Callout type="experiment">
-  Remueve la conversión a <code>String</code> en la última línea. ¿Cuál es el
-  error que aparece?
+  Remueve la conversión a `String` en la última línea. ¿Cuál es el error que
+  aparece?
 </Callout>
 
 Hay una manera incluso más sencilla de insertar valores en una cadena de texto: Escribe el valor en paréntesis, precedido por un backslash (`\`). Por ejemplo:
@@ -67,8 +70,8 @@ let resumenFrutas = "Tengo \(manzanas + naranjas) frutas."
 ```
 
 <Callout type="experiment">
-  Usa <code>\\()</code> para insertar una operación con números de coma flotante
-  en una cadena de texto y para incluir el nombre de una persona en un saludo.
+  Usa `\()` para insertar una operación con números de coma flotante en una
+  cadena de texto y para incluir el nombre de una persona en un saludo.
 </Callout>
 
 Usa tres comillas dobles para cadenas de texto que ocupan más de una línea. La sangría (_indentation_) al inicio de cada línea de la cadena de texto es removida siempre y cuando concuerde con la sangría de las comillas de cierre. Por ejemplo:
@@ -149,9 +152,8 @@ if let nombre = nombreOpcional {
 ```
 
 <Callout type="experiment">
-  Cambia el valor de <code>nombreOpcional</code> a <code>nil</code>. ¿Cuál
-  saludo obtienes? Agrega una cláusula <code>else</code> que defina un saludo
-  diferente si <code>nombreOpcional</code> es <code>nil</code>.
+  Cambia el valor de `nombreOpcional` a `nil`. ¿Cuál saludo obtienes? Agrega una
+  cláusula `else` que defina un saludo diferente si `nombreOpcional` es `nil`.
 </Callout>
 
 Si el valor opcional es `nil`, el condicional evalúa a `false` y el código en las llaves es ignorado. En caso contrario, se obtiene el valor opcional y se le asigna a la constante después de `let`, lo cual hace que el valor obtenido esté disponible dentro del bloque de código.
@@ -210,8 +212,8 @@ print(mayor)
 ```
 
 <Callout type="experiment">
-  Reemplaza <code>_</code> por una variable con nombre y haz seguimiento del
-  tipo de número que resultó ser el mayor.
+  Reemplaza `_` por una variable con nombre y haz seguimiento del tipo de número
+  que resultó ser el mayor.
 </Callout>
 
 Usa `while` para repetir un bloque de código hasta que se satisfaga una condición. La condición del bucle puede ir al final, para asegurar que este se ejecute al menos una vez.
@@ -257,8 +259,8 @@ saludar(persona: "Bob", dia: "Martes")
 ```
 
 <Callout type="experiment">
-  Remueve el parámetro <code>dia</code>. Agrega un parámetro que incluya el
-  almuerzo especial de hoy en el saludo.
+  Remueve el parámetro `dia`. Agrega un parámetro que incluya el almuerzo
+  especial de hoy en el saludo.
 </Callout>
 
 Por defecto, las funciones usan los nombres de sus parámetros como etiquetas para sus argumentos. Crea tu propia etiqueta para un argumento anteponiéndola al nombre del parámetro, o agrega `_` para no usar una etiqueta para un argumento.
@@ -385,7 +387,7 @@ class Figura {
 ```
 
 <Callout type="experiment">
-  Agrega una constante con <code>let</code> y otro método que tome un argumento.
+  Agrega una constante con `let` y otro método que tome un argumento.
 </Callout>
 
 Crea una instancia de una clase al poner paréntesis después del nombre de la clase. Usa sintaxis de punto para acceder a las propiedades y métodos de la instancia.
@@ -445,10 +447,9 @@ prueba.descripcionBasica()
 ```
 
 <Callout type="experiment">
-  Crea otra subclase de <code>FiguraConNombre</code> llamada{' '}
-  <code>Circulo</code>, que tome un radio y un nombre como argumentos de su
-  inicializador. Implementa los métodos <code>area()</code> y{' '}
-  <code>descripcionBasica()</code> en la clase <code>Circulo</code>.
+  Crea otra subclase de `FiguraConNombre` llamada `Circulo`, que tome un radio y
+  un nombre como argumentos de su inicializador. Implementa los métodos `area()`
+  y `descripcionBasica()` en la clase `Circulo`.
 </Callout>
 
 Aparte de simples propiedades que se almacenan, las propiedades pueden tener un _getter_ y un _setter_.
@@ -559,8 +560,8 @@ let valorBrutoAce = ace.rawValue
 ```
 
 <Callout type="experiment">
-  Crea una función que compare dos valores de tipo <code>Escala</code>{' '}
-  comparando sus valores brutos.
+  Crea una función que compare dos valores de tipo `Escala` comparando sus
+  valores brutos.
 </Callout>
 
 De manera predeterminada, Swift asigna los valores brutos comenzando por cero y aumentando en uno cada vez, pero es posible cambiar dicho comportamiento al especificar valores explícitamente. En el ejemplo anterior, a `Ace` se le asigna explícitamente un valor bruto de `1` y el resto de los valores brutos se asignan en orden. También es posible utilizar cadenas de texto o números de coma flotante como el tipo bruto de una enumeración. Usa la propiedad `rawValue` para acceder al valor bruto del caso de una enumeración.
@@ -598,8 +599,8 @@ let descripcionCorazones = corazones.descripcionBasica()
 ```
 
 <Callout type="experiment">
-  Crea un método <code>color()</code> para la enumeración <code>Palo</code> que
-  devuelva «negro» para picas y tréboles, y «rojo» para corazones y diamantes.
+  Crea un método `color()` para la enumeración `Palo` que devuelva «negro» para
+  picas y tréboles, y «rojo» para corazones y diamantes.
 </Callout>
 
 Fíjate en las dos formas en que se referenció el caso `corazones` de la enumeración: al asignar un valor a la constante `corazones`, el caso `Palo.corazones` se referencia por su nombre completo porque la constante no tiene un tipo especificado explícitamente. Dentro del bucle switch, el caso se referencia mediante la forma abreviada `.corazones` porque ya sabemos que el valor de `self` es un tipo de palo. Puedes utilizar la forma abreviada siempre que el tipo del valor ya sea conocido.
@@ -624,7 +625,7 @@ switch success {
 ```
 
 <Callout type="experiment">
-  Agrega un tercer caso a <code>RespuestaServidor</code> y al bucle _switch_.
+  Agrega un tercer caso a `RespuestaServidor` y al bucle _switch_.
 </Callout>
 
 Observa cómo las horas de amanecer y atardecer se extraen del valor `RespuestaServidor` como parte de la comparación del valor con los casos del bucle switch.
@@ -685,9 +686,9 @@ let descripcionB = b.descripcionBasica
 ```
 
 <Callout type="experiment">
-  Agrega otro requisito a <code>ProtocoloEjemplo</code>. ¿Qué cambios debes
-  hacer en <code>ClaseBasica</code> y <code>EstructuraBasica</code> para que
-  estas tengan conformidad con el protocolo?
+  Agrega otro requisito a `ProtocoloEjemplo`. ¿Qué cambios debes hacer en
+  `ClaseBasica` y `EstructuraBasica` para que estas tengan conformidad con el
+  protocolo?
 </Callout>
 
 Nota el uso de la palabra clave `mutating` en la declaración de `EstructuraBasica` para marcar un método que modifica la estructura. En la declaración de `ClaseBasica` no se necesita que ninguno de sus métodos esté marcado como modificador ya que los métodos de una clase siempre pueden modificar la clase misma.
@@ -708,8 +709,8 @@ print(7.descripcionBasica)
 ```
 
 <Callout type="experiment">
-  Crea una extensión para el tipo <code>Double</code> que agregue la propiedad{' '}
-  <code>valorAbsoluto</code>.
+  Crea una extensión para el tipo `Double` que agregue la propiedad
+  `valorAbsoluto`.
 </Callout>
 
 Puedes usar el nombre de un protocolo como cualquier otro tipo con nombre; por ejemplo, para crear una colección de objetos que tiene tipos diferentes, pero que todos se ajusten a un solo protocolo. Al trabajar con valores cuyo tipo es un tipo de protocolo, los métodos externos a la definición del protocolo no estarán disponibles.
@@ -759,8 +760,8 @@ do {
 ```
 
 <Callout type="experiment">
-  Cambia el nombre de la impresora a <code>"Nunca Tiene Toner"</code>, de manera
-  que la función <code>enviar(tarea:impresoraDestino:)</code> arroje un error.
+  Cambia el nombre de la impresora a `"Nunca Tiene Toner"`, de manera que la
+  función `enviar(tarea:impresoraDestino:)` arroje un error.
 </Callout>
 
 Puedes usar múltiples bloques `catch` que manejen errores específicos. Para esto, define un patrón después de `catch` al igual que lo haces después de `case` en un bucle switch.
@@ -780,10 +781,9 @@ do {
 ```
 
 <Callout type="experiment">
-  Agrega código de manera que se arroje un error dentro del bloque{' '}
-  <code>do</code>. ¿Qué tipo de error es necesario arrojar para que este sea
-  manejado por el primer bloque <code>catch</code>? ¿Qué tal con el segundo y
-  tercer bloque?
+  Agrega código de manera que se arroje un error dentro del bloque `do`. ¿Qué
+  tipo de error es necesario arrojar para que este sea manejado por el primer
+  bloque `catch`? ¿Qué tal con el segundo y tercer bloque?
 </Callout>
 
 Otra forma de manejar los errores es usando `try?` para convertir el resultado en un opcional. Si la función arroja un error, el error específico se descarta y el resultado es `nil`. De lo contrario, el resultado es un opcional que contiene el valor que devolvió la función.
@@ -859,9 +859,9 @@ anyCommonElements([1, 2, 3], [3])
 ```
 
 <Callout type="experiment">
-  Modifica la función <code>anyCommonElements(_:_:)</code>` para crear una
-  función que devuelva un _array_ de los elementos que dos secuencias
-  cualesquiera tienen en común.
+  Modifica la función `anyCommonElements(_:_:)` para crear una función que
+  devuelva un _array_ de los elementos que dos secuencias cualesquiera tienen en
+  común.
 </Callout>
 
 Escribir `<T: Equatable>` es igual a escribir `<T> ... where T: Equatable`.
