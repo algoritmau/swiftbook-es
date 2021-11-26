@@ -9,7 +9,7 @@ export default {
   darkMode: true,
   font: false,
   footer: true,
-  footerText: `Copyright © ${new Date().getFullYear()} Apple Inc. Todos los derechos reservados.`,
+  footerText: `Copyright © ${new Date().getFullYear()} Apple Inc.`,
   footerEditLink: `Editar esta página en GitHub`,
   logo: (
     <>
@@ -20,13 +20,24 @@ export default {
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta httpEquiv="Content-Language" content="es" />
       <meta
         name="description"
         content="The Swift Programming Language en Español"
       />
       <meta
+        name="og:description"
+        content="The Swift Programming Language en Español"
+      />
+      <meta
         name="og:title"
         content="The Swift Programming Language en Español"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/assets/favicon.ico"
       />
     </>
   )
