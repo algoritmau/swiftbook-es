@@ -15,8 +15,8 @@
 .callout :not(:first-child),
 .callout code {
   margin: 0;
-  font-size: 16px;
-  line-height: 160%;
+  font-size: 0.96rem;
+  line-height: 176%;
 }
 
 .callout__title {
@@ -25,7 +25,7 @@
   color: #707070;
   font-size: 0.7rem;
   letter-spacing: 2px;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.8rem;
 }
 
 .callout__body {
