@@ -22,10 +22,24 @@ body {
   color: #242424;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-block-start: 1.2rem;
+  margin-block-end: 3.2rem;
+}
+
 h2 {
   border: none;
   margin-block-start: 4rem;
-  font-weight: 300;
   font-size: 2rem;
   line-height: 1;
   padding: 0;
