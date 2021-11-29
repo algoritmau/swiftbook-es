@@ -33,6 +33,7 @@ h6 {
 
 h1 {
   font-size: 3rem;
+  line-height: 128%;
   margin-block-start: 1.2rem;
   margin-block-end: 3.2rem;
 }
@@ -168,4 +169,12 @@ nav img + span {
 .dark code {
   color: #889bb1 !important;
   background-color: #29333e !important;
+}
+
+.logo {
+  color: #242424;
+}
+
+.dark .logo {
+  color: #fefefe;
 }
