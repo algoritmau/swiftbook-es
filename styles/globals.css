@@ -1,8 +1,24 @@
 @font-face {
   font-family: 'MD IO';
-  src: url('/assets/fonts/MDIO0.3-Regular.woff2') format('woff2'),
-    url('/assets/fonts/MDIO0.3-Regular.woff') format('woff');
+  src: url('/assets/fonts/MDIO0.4-Regular.woff2') format('woff2'),
+    url('/assets/fonts/MDIO0.4-Regular.woff') format('woff');
   font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MD IO';
+  src: url('/assets/fonts/MDIO0.4-Italic.woff2') format('woff2'),
+    url('/assets/fonts/MDIO0.4-Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MD IO';
+  src: url('/assets/fonts/MDIO0.4-Bold.woff2') format('woff2'),
+    url('/assets/fonts/MDIO0.4-Bold.woff') format('woff');
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -150,6 +166,8 @@ nav img + span {
   background-color: #fefefe !important;
   color: #fafafa !important;
   border-radius: 0;
+  padding: 1.6rem 1rem !important;
+  border-radius: 2px;
 }
 
 .react-syntax-highlighter-line-number {
@@ -167,6 +185,11 @@ nav img + span {
 }
 
 .dark code {
+  background-color: #fefefe !important;
+  color: #141414 !important;
+}
+
+.dark p code {
   color: #889bb1 !important;
   background-color: #29333e !important;
 }
@@ -177,4 +200,45 @@ nav img + span {
 
 .dark .logo {
   color: #fefefe;
+}
+
+/* Code */
+code {
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+code .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1rem;
+  margin-right: 16px;
+  display: inline-block;
+  text-align: right;
+  color: rgba(115, 138, 148, 0.4);
+}
+
+.shiki-wrapper {
+  margin-inline-start: 8%;
+}
+
+.shiki {
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  padding: 1.2rem 1.4rem;
+}
+
+.shiki .line::before {
+  border-right: 4px solid #cde9f4;
+}
+
+/* TODO: Fix styles switch for dark theme on Callout */
+
+html.dark [class^='Callout__callout'] {
+  color: #d9d9d9;
+  background-color: #242424;
+}
+
+.dark p[class^='Callout__callout__title'] {
+  color: #878b9f;
 }
