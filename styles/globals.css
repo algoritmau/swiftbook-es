@@ -242,3 +242,19 @@ html.dark [class^='Callout__callout'] {
 .dark p[class^='Callout__callout__title'] {
   color: #878b9f;
 }
+
+.pseudocode {
+  width: fit-content;
+  margin: 2.4rem 0 1.6rem 8%;
+  font-family: var(--font-monospace);
+}
+
+.pseudocode__highlight {
+  padding: 2px 6px;
+  background-color: #e9effa;
+  border: 1px solid #c4d4f1;
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-style: inherit;
+  white-space: nowrap;
+}
