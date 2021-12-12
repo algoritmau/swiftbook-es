@@ -1,14 +1,14 @@
-import SyntaxHighlighter from "react-syntax-highlighter"
-import { xcode } from "react-syntax-highlighter/dist/esm/styles/hljs"
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { grayscale } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 const CodeSnippet = ({ children, isCalloutChild = false }) => {
   const code = children.trim()
-  const calloutChildClass = isCalloutChild ? "code-snippet--callout-child" : ""
+  const calloutChildClass = isCalloutChild ? 'code-snippet--callout-child' : ''
 
   return (
     <SyntaxHighlighter
       language="swift"
-      style={xcode}
+      style={grayscale}
       showLineNumbers={true}
       className={`code-snippet ${calloutChildClass}`}
     >
