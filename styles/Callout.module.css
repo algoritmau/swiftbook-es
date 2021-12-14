@@ -26,8 +26,5 @@
   font-size: 0.7rem;
   letter-spacing: 2px;
   margin-bottom: 0.8rem;
-}
-
-.callout__body {
-  color: red;
+  width: fit-content;
 }

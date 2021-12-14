@@ -47,6 +47,22 @@ h6 {
   font-weight: 300;
 }
 
+h1 code,
+h2 code,
+h3 code {
+  font-weight: 400;
+}
+
+.dark h1 code,
+.dark h2 code,
+.dark h3 code,
+.dark h4 code,
+.dark h5 code,
+.dark h6 code {
+  color: #fefefe !important;
+  background-color: #29333e !important;
+}
+
 h1 {
   font-size: 3rem;
   line-height: 128%;
@@ -64,7 +80,6 @@ h2 {
 
 h2 code {
   font-size: 1.6rem;
-  font-weight: 700;
 }
 
 h3 {
@@ -74,12 +89,15 @@ h3 {
 
 h3 code {
   font-size: 1.2rem;
-  font-weight: 700;
+}
+
+h4 code {
+  font-size: 1.15rem;
 }
 
 a {
   color: inherit;
-  color: #7766cc;
+  color: #0088cc;
 }
 
 * {
@@ -257,4 +275,14 @@ html.dark [class^='Callout__callout'] {
   padding: 2px 6px;
   font-style: inherit;
   white-space: nowrap;
+}
+
+.dark .pseudocode__highlight {
+  background-color: #99a8c5;
+  border-color: #dbe3f1;
+  color: #313d56;
+}
+
+.pseudocode__keyword {
+  font-weight: 700;
 }
