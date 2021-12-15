@@ -293,11 +293,16 @@ html.dark [class^='Callout__callout'] {
   color: var(--color-gray);
 }
 
+/* Grammar Component */
 .grammar {
   margin: 2rem 0 2rem 8%;
-  padding: 0.64rem 1rem;
+  padding: 0.4rem 1rem;
   border-left: 5px solid #e9e9e9;
   font-size: 0.8rem;
+}
+
+.dark .grammar {
+  border-color: #35353c;
 }
 
 .grammar__title {
@@ -311,7 +316,11 @@ html.dark [class^='Callout__callout'] {
 
 .grammar__syntaxDef {
   margin: 0 !important;
-  line-height: 0;
+}
+
+.grammar__syntaxDef--flex {
+  display: flex;
+  align-items: center;
 }
 
 .grammar__syntaxDef__name {
@@ -321,26 +330,39 @@ html.dark [class^='Callout__callout'] {
 
 .grammar__syntaxDef__arrow {
   display: inline-block;
-  padding: 0 0.6rem;
+  padding: 0 0.6rem 0 0.48rem;
 }
 
+.grammar__syntaxDef__punctuation-wrapper,
+.grammar__syntaxDef__keyword,
+.grammar__syntaxDef__divider,
 .grammar__syntaxDef__lcub,
 .grammar__syntaxDef__rcub {
   font-family: var(--font-monospace);
   font-weight: 700;
 }
 
+.grammar__syntaxDef__punctuation-wrapper--opening,
 .grammar__syntaxDef__lcub {
   margin-inline-end: 0.4rem;
 }
 
+.grammar__syntaxDef__punctuation-wrapper--closing,
 .grammar__syntaxDef__rcub {
   margin-inline-start: 0.4rem;
 }
 
-.grammar__syntaxDef__pipe {
-  margin-inline: 0.2rem;
-  font-family: var(--font-monospace);
+.grammar__syntaxDef__divider {
+  margin-inline: 0.32rem;
+}
+
+.grammar__syntaxDef__divider--regular {
+  font-weight: 400;
+  margin-inline: 0.16rem;
+}
+
+.grammar__syntaxDef__divider--regular p {
+  display: inline-block;
 }
 
 .grammar__syntaxDef__link {
@@ -351,6 +373,14 @@ html.dark [class^='Callout__callout'] {
 
 .grammar__syntaxDef__link--last {
   margin-inline-end: 0;
+}
+
+.grammar__syntaxDef__link:hover {
+  text-decoration: underline;
+}
+
+.grammar__syntaxDef__keyword + .grammar__syntaxDef__link {
+  margin-inline-start: 0.4rem;
 }
 
 .grammar__syntaxDef__link__sub {
