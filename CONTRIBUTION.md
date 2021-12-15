@@ -87,3 +87,6 @@ Aquí hay algunas sugerencias para la traducción de términos de uso común en 
 | stub                      | _stub_                                |
 | template literals         | _template literals_                   |
 | test                      | prueba                                |
+| type annotation           | definición de tipo                    |
+| type inference            | inferencia de tipo                    |
+| type safety               | seguridad de tipo                     |
