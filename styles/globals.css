@@ -387,3 +387,12 @@ html.dark [class^='Callout__callout'] {
   color: var(--color-gray);
   font-style: italic;
 }
+
+.dark [class^='Callout_callout'] {
+  background-color: #181818;
+  color: #bebebe;
+}
+
+.dark [class^='Callout_callout__title'] {
+  color: #818181;
+}
