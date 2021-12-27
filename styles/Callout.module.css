@@ -12,6 +12,10 @@
   border-color: #0088cc;
 }
 
+.callout--important {
+  border-color: #f05137;
+}
+
 .callout :not(:first-child),
 .callout code {
   margin: 0;
