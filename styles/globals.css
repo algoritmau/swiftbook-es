@@ -133,7 +133,8 @@ aside a {
 
 footer div:first-of-type span,
 footer div:first-of-type a {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  line-height: 1;
 }
 
 footer div:first-of-type a {
