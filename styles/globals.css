@@ -1,3 +1,8 @@
+:root {
+  --color-accent-blue: #0088cc;
+  --color-accent-blue-dark: #0074a2;
+}
+
 @font-face {
   font-family: 'MD IO';
   src: url('/assets/fonts/MDIO0.4-Regular.woff2') format('woff2'),
@@ -97,8 +102,13 @@ h4 code {
 }
 
 a {
-  color: inherit;
-  color: #0088cc;
+  color: var(--color-accent-blue);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--color-accent-blue-dark);
 }
 
 * {
@@ -157,6 +167,10 @@ nav img {
 
 nav img + span {
   margin-top: 4px;
+}
+
+article ul {
+  margin-inline-start: 4rem;
 }
 
 /* Images */
@@ -236,20 +250,6 @@ code .line::before {
   display: inline-block;
   text-align: right;
   color: rgba(115, 138, 148, 0.4);
-}
-
-.shiki-wrapper {
-  margin-inline-start: 8%;
-}
-
-.shiki {
-  border: 1px solid #eaeaea;
-  border-radius: 4px;
-  padding: 1.2rem 1.4rem;
-}
-
-.shiki .line::before {
-  border-right: 4px solid #cde9f4;
 }
 
 /* TODO: Fix styles switch for dark theme on Callout */
