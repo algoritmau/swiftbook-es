@@ -1,6 +1,6 @@
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
 import swift from 'react-syntax-highlighter/dist/cjs/languages/hljs/swift'
-import grayscale from 'react-syntax-highlighter/dist/esm/styles/hljs/grayscale'
+import grayscale from 'react-syntax-highlighter/dist/cjs/styles/hljs/grayscale'
 
 SyntaxHighlighter.registerLanguage('swift', swift)
 
