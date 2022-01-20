@@ -2,6 +2,8 @@
 
 Esta es la traducción al español del libro [_The Swift Programming Language_](https://docs.swift.org/swift-book/) de Apple.
 
+> > Este es un trabajo en progreso. Muchos artículos no están traducidos en este momento.
+
 ## Tabla de contenidos
 
 - [INTRODUCCIÓN A SWIFT](./pages/welcome-to-swift/about-swift.mdx)
@@ -53,22 +55,18 @@ Esta es la traducción al español del libro [_The Swift Programming Language_](
 
 ## Cómo contribuir
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Si deseas contribuir con las traducciones, visita la [Guía de Contribución](./CONTRIBUTING.md).
 
 ## Getting Started
 
-First, run the development server:
+Para trabajar local, clona este repo y ejecuta:
 
 ```bash
-npm run dev
-# or
-yarn dev
+npm install && npm run dev
+# o
+yarn install && yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visita [http://localhost:3000](http://localhost:3000) en el navegador para ver la página.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Los artículos a editar los encontrarás en los folders `pages/language-guide` y `pages/language-reference`. La página se actualizará automáticamente a medida que edites los archivos.
