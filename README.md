@@ -2,7 +2,7 @@
 
 Esta es la traducción al español del libro [_The Swift Programming Language_](https://docs.swift.org/swift-book/) de Apple.
 
-> > Este es un trabajo en progreso. Muchos artículos no están traducidos en este momento.
+> ⚠️ Este es un trabajo en progreso. Muchos artículos no están traducidos en este momento.
 
 ## Tabla de contenidos
 
