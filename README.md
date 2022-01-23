@@ -1,8 +1,10 @@
 # The Swift Programming Language en Español
 
-Esta es la traducción al español del libro [_The Swift Programming Language_](https://docs.swift.org/swift-book/) de Apple.
+Esta es la traducción al español del libro [_The Swift Programming Language_](https://docs.swift.org/swift-book/).
 
 > ⚠️ Este es un trabajo en progreso. Muchos artículos no están traducidos en este momento.
+
+<br />
 
 ## Tabla de contenidos
 
@@ -53,9 +55,19 @@ Esta es la traducción al español del libro [_The Swift Programming Language_](
 - [HISTORIAL DE REVISIÓN](./pages/revision-history/document-revision-history.mdx)
   - [Historial del Documento de Revisión](./pages/revision-history/document-revision-history.mdx)
 
+<br />
+
 ## Cómo contribuir
 
 Si deseas contribuir con las traducciones, visita la [Guía de Contribución](./CONTRIBUTING.md).
+
+<br />
+
+## Guía de estilo y Glosario
+
+Visita la [Guía de estilo y Glosario](./STYLEGUIDE.md) para obtener más información sobre los mismos.
+
+<br />
 
 ## Getting Started
 
