@@ -223,6 +223,7 @@ article ul {
   color: #141414 !important;
 }
 
+.dark li code,
 .dark p code {
   color: #889bb1 !important;
   background-color: #29333e !important;
