@@ -1,11 +1,12 @@
-> Para conocer el estado y progreso actuales de la traducción, visita [Progreso de la traducción](https://github.com/spaceinvadev/swift-book-es/issues/3)
+# Bienvenid@ a la guía de contribución de The Swift Programming Language en Español
 
-<br />
-<br />
+¡Gracias por invertir tu tiempo en contribuir con nuestro proyecto! Cualquier aporte que hagas se verá reflejado en [swift-book-es.vercel.app/](https://swift-book-es.vercel.app/) ✨.
 
-# ¿Cómo contribuir? 🤔
+Lee nuestro [código de conducta](./CODE_OF_CONDUCT.md), el cual nos permite mantener nuestra comunidad accesible y respetable.
 
-Bienvenid@ a la traducción al español del libro [_The Swift Programming Language_](https://docs.swift.org/swift-book/). Primeramente, agradezco tu interés en contribuir a con el proyecto. A continuación te enseño algunos enlaces de utilidad y algunas instrucciones que debes seguir para empezar a contribuir.
+En esta guía, brindamos una descripción general del flujo de trabajo de contribución desde la apertura de un _issue_, la creación de un _PR_, la revisión, y la fusión (_merge_) del _PR_.
+
+Usa el ícono de la tabla de contenido en la esquina superior izquierda de este documento para acceder rápidamente a una sección específica de esta guía.
 
 <br />
 
