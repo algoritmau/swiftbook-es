@@ -67,13 +67,13 @@ The exact meaning of “subscript” depends on the context in which it's used. 
 For example, Swift's `Dictionary` type implements a subscript to set and retrieve the values stored in a `Dictionary` instance. You can set a value in a dictionary by providing a key of the dictionary's key type within subscript brackets, and assigning a value of the dictionary's value type to the subscript:
 
 <CodeSnippet>
-  {`var numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]
+  {`var numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]\n
 numberOfLegs["bird"] = 2`}
 </CodeSnippet>
 
 The example above defines a variable called `numberOfLegs` and initializes it with a dictionary literal containing three key-value pairs. The type of the `numberOfLegs` dictionary is inferred to be `[String: Int]`. After creating the dictionary, this example uses subscript assignment to add a `String` key of `"bird"` and an `Int` value of `2` to the dictionary.
 
-For more information about `Dictionary` subscripting, see [Accessing and Modifying a Dictionary](./collection-types#accessing-and-modifying-a-dictionary).
+For more information about `Dictionary` subscripting, see [Accessing and Modifying a Dictionary](./tipos-de-colecciones#acceder-y-modificar-un-diccionario).
 
 <Callout>
   Swift's `Dictionary` type implements its key-value subscripting as a subscript
@@ -88,7 +88,7 @@ For more information about `Dictionary` subscripting, see [Accessing and Modifyi
 
 Subscripts can take any number of input parameters, and these input parameters can be of any type. Subscripts can also return a value of any type.
 
-Like functions, subscripts can take a varying number of parameters and provide default values for their parameters, as discussed in [Variadic Parameters](./functions#variadic-parameters) and [Default Parameter Values](./functions#default-parameter-values). However, unlike functions, subscripts can't use in-out parameters.
+Like functions, subscripts can take a varying number of parameters and provide default values for their parameters, as discussed in [Variadic Parameters](./funciones#parametros-variadicos) and [Default Parameter Values](./funciones#valores-predeterminados-de-parametros). However, unlike functions, subscripts can't use in-out parameters.
 
 A class or structure can provide as many subscript implementations as it needs, and the appropriate subscript to be used will be inferred based on the types of the value or values that are contained within the subscript brackets at the point that the subscript is used. This definition of multiple subscripts is known as _subscript overloading_.
 
@@ -119,7 +119,7 @@ While it's most common for a subscript to take a single parameter, you can also 
 }`}
 </CodeSnippet>
 
-`Matrix` provides an initializer that takes two parameters called `rows` and `columns`, and creates an array that's large enough to store `rows * columns` values of type `Double`. Each position in the matrix is given an initial value of `0.0`. To achieve this, the array's size, and an initial cell value of `0.0`, are passed to an array initializer that creates and initializes a new array of the correct size. This initializer is described in more detail in [Creating an Array with a Default Value](./collection-types#creating-an-array-with-a-default-value).
+`Matrix` provides an initializer that takes two parameters called `rows` and `columns`, and creates an array that's large enough to store `rows * columns` values of type `Double`. Each position in the matrix is given an initial value of `0.0`. To achieve this, the array's size, and an initial cell value of `0.0`, are passed to an array initializer that creates and initializes a new array of the correct size. This initializer is described in more detail in [Creating an Array with a Default Value](./tipos-de-colecciones#crear-un-array-con-un-valor-predeterminado).
 
 You can construct a new `Matrix` instance by passing an appropriate row and column count to its initializer:
 

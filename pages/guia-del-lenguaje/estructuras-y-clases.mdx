@@ -30,7 +30,7 @@ Structures and classes in Swift have many things in common. Both can:
 - Be extended to expand their functionality beyond a default implementation
 - Conform to protocols to provide standard functionality of a certain kind
 
-For more information, see [Properties](./properties), [Methods](./methods), [Subscripts](./subscripts), [Initialization](./initialization), [Extensions](./extensions), and [Protocols](./protocols).
+For more information, see [Properties](./propiedades), [Methods](./metodos), [Subscripts](./subscripts), [Initialization](./inicializacion), [Extensions](./extensiones), and [Protocols](./protocolos).
 
 Classes have additional capabilities that structures don't have:
 
@@ -39,11 +39,11 @@ Classes have additional capabilities that structures don't have:
 - Deinitializers enable an instance of a class to free up any resources it has assigned.
 - Reference counting allows more than one reference to a class instance.
 
-For more information, see [Inheritance](./inheritance), [Type Casting](./type-casting), [Deinitialization](./deinitialization), and [Automatic Reference Counting](./automatic-reference-counting).
+For more information, see [Inheritance](./herencia), [Type Casting](./type-casting), [Deinitialization](./desinicializacion), and [Automatic Reference Counting](./automatic-reference-counting).
 
 The additional capabilities that classes support come at the cost of increased complexity. As a general guideline, prefer structures because they're easier to reason about, and use classes when they're appropriate or necessary. In practice, this means most of the custom data types you define will be structures and enumerations. For a more detailed comparison, see [Choosing Between Structures and Classes](https://developer.apple.com/documentation/swift/choosing_between_structures_and_classes).
 
-Classes and actors share many of the same characteristics and behaviors. For information about actors, see [Concurrency](./concurrency).
+Classes and actors share many of the same characteristics and behaviors. For information about actors, see [Concurrency](./concurrencia).
 
 ### Definition Syntax
 
@@ -96,7 +96,7 @@ The syntax for creating instances is very similar for both structures and classe
 let someVideoMode = VideoMode()`}
 </CodeSnippet>
 
-Structures and classes both use initializer syntax for new instances. The simplest form of initializer syntax uses the type name of the class or structure followed by empty parentheses, such as `Resolution()` or `VideoMode()`. This creates a new instance of the class or structure, with any properties initialized to their default values. Class and structure initialization is described in more detail in [Initialization](./initialization).
+Structures and classes both use initializer syntax for new instances. The simplest form of initializer syntax uses the type name of the class or structure followed by empty parentheses, such as `Resolution()` or `VideoMode()`. This creates a new instance of the class or structure, with any properties initialized to their default values. Class and structure initialization is described in more detail in [Initialization](./inicializacion).
 
 ### Accessing Properties
 
@@ -119,7 +119,7 @@ You can drill down into subproperties, such as the `width` property in the `reso
 You can also use dot syntax to assign a new value to a variable property:
 
 <CodeSnippet>
-  {`someVideoMode.resolution.width = 1280
+  {`someVideoMode.resolution.width = 1280\n
 print("The width of someVideoMode is now \\(someVideoMode.resolution.width)")
 // Prints "The width of someVideoMode is now 1280"`}
 </CodeSnippet>
@@ -130,7 +130,7 @@ All structures have an automatically generated _memberwise initializer_, which y
 
 <CodeSnippet>{`let vga = Resolution(width: 640, height: 480)`}</CodeSnippet>
 
-Unlike structures, class instances don't receive a default memberwise initializer. Initializers are described in more detail in [Initialization](./initialization).
+Unlike structures, class instances don't receive a default memberwise initializer. Initializers are described in more detail in [Initialization](./inicializacion).
 
 ## Structures and Enumerations Are Value Types
 
@@ -228,7 +228,7 @@ This example declares a new constant called `tenEighty` and sets it to refer to 
 Next, `tenEighty` is assigned to a new constant, called `alsoTenEighty`, and the frame rate of `alsoTenEighty` is modified:
 
 <CodeSnippet>
-  {`let alsoTenEighty = tenEighty
+  {`let alsoTenEighty = tenEighty\n
 alsoTenEighty.frameRate = 30.0`}
 </CodeSnippet>
 
@@ -273,7 +273,7 @@ Use these operators to check whether two constants or variables refer to the sam
 
 Note that _identical to_ (represented by three equals signs, or `===`) doesn't mean the same thing as _equal to_ (represented by two equals signs, or `==`). _Identical to_ means that two constants or variables of class type refer to exactly the same class instance. _Equal to_ means that two instances are considered equal or equivalent in value, for some appropriate meaning of _equal_, as defined by the type's designer.
 
-When you define your own custom structures and classes, it's your responsibility to decide what qualifies as two instances being equal. The process of defining your own implementations of the `==` and `!=` operators is described in [Equivalence Operators](./advanced-operators#equivalence-operators).
+When you define your own custom structures and classes, it's your responsibility to decide what qualifies as two instances being equal. The process of defining your own implementations of the `==` and `!=` operators is described in [Equivalence Operators](./operadores-avanzados#operadores-de-equivalencia).
 
 ### Pointers
 

@@ -19,17 +19,17 @@ Swift provides three primary _collection types_, known as arrays, sets, and dict
 
 Arrays, sets, and dictionaries in Swift are always clear about the types of values and keys that they can store. This means that you can't insert a value of the wrong type into a collection by mistake. It also means you can be confident about the type of values you will retrieve from a collection.
 
-<Callout type="note">
+<Callout>
   Swift's array, set, and dictionary types are implemented as generic
   collections. For more about generic types and collections, see
-  [Generics](./generics).
+  [Generics](./genericos).
 </Callout>
 
 ## Mutability of Collections
 
 If you create an array, a set, or a dictionary, and assign it to a variable, the collection that's created will be _mutable_. This means that you can change (or _mutate_) the collection after it's created by adding, removing, or changing items in the collection. If you assign an array, a set, or a dictionary to a constant, that collection is _immutable_, and its size and contents can't be changed.
 
-<Callout type="note">
+<Callout>
   It's good practice to create immutable collections in all cases where the
   collection doesn't need to change. Doing so makes it easier for you to reason
   about your code and enables the Swift compiler to optimize the performance of
@@ -40,7 +40,7 @@ If you create an array, a set, or a dictionary, and assign it to a variable, the
 
 An _array_ stores values of the same type in an ordered list. The same value can appear in an array multiple times at different positions.
 
-<Callout type="note">
+<Callout>
   Swift's Array type is bridged to Foundation's `NSArray` class. For more
   information about using Array with Foundation and Cocoa, see [Bridging Between
   Array and
@@ -56,7 +56,7 @@ The type of a Swift array is written in full as `Array<Element>`, where `Element
 You can create an empty array of a certain type using initializer syntax:
 
 <CodeSnippet>
-  {`var someInts: [Int] = []
+  {`var someInts: [Int] = []\n
 print("someInts is of type [Int] with \\(someInts.count) items.")
 // Prints "someInts is of type [Int] with 0 items."`}
 </CodeSnippet>
@@ -111,7 +111,7 @@ The example below creates an array called `shoppingList` to store `String` value
 
 The `shoppingList` variable is declared as “an array of string values”, written as `[String]`. Because this particular array has specified a value type of `String`, it's allowed to store `String` values only. Here, the `shoppingList` array is initialized with two `String` values (`"Eggs"` and `"Milk"`), written within an array literal.
 
-<Callout type="note">
+<Callout>
   The `shoppingList` array is declared as a variable (with the `var` introducer)
   and not a constant (with the `let` introducer) because more items are added to
   the shopping list in the examples below.
@@ -170,7 +170,7 @@ Retrieve a value from the array by using _subscript syntax_, passing the index o
 // firstItem is equal to "Eggs"`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   The first item in the array has an index of `0`, not `1`. Arrays in Swift are
   always zero-indexed.
 </Callout>
@@ -210,7 +210,7 @@ Similarly, you remove an item from the array with the `remove(at:)` method. This
 // the mapleSyrup constant is now equal to the removed "Maple Syrup" string`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   If you try to access or modify a value for an index that's outside of an
   array's existing bounds, you will trigger a runtime error. You can check that
   an index is valid before using it by comparing it to the array's `count`
@@ -263,13 +263,13 @@ If you need the integer index of each item as well as its value, use the `enumer
 // Item 5: Bananas`}
 </CodeSnippet>
 
-For more about the `for-in` loop, see [`for-in` Loops](./control-flow#for-in-loops).
+For more about the `for-in` loop, see [`for-in` Loops](./flujo-de-control#bucles-for-in).
 
 ## Sets
 
 A _set_ stores distinct values of the same type in a collection with no defined ordering. You can use a set instead of an array when the order of items isn't important, or when you need to ensure that an item only appears once.
 
-<Callout type="note">
+<Callout>
   Swift's `Set` type is bridged to Foundation's `NSSet` class. For more
   information about using `Set` with Foundation and Cocoa, see [Bridging Between
   Set and NSSet](https://developer.apple.com/documentation/swift/set#2845530).
@@ -279,14 +279,14 @@ A _set_ stores distinct values of the same type in a collection with no defined 
 
 A type must be _hashable_ in order to be stored in a set—that is, the type must provide a way to compute a _hash value_ for itself. A hash value is an `Int` value that's the same for all objects that compare equally, such that if `a == b`, the hash value of `a` is equal to the hash value of `b`.
 
-All of Swift's basic types (such as `String`, `Int`, `Double`, and `Bool`) are hashable by default, and can be used as set value types or dictionary key types. Enumeration case values without associated values (as described in [Enumerations](./enumerations)) are also hashable by default.
+All of Swift's basic types (such as `String`, `Int`, `Double`, and `Bool`) are hashable by default, and can be used as set value types or dictionary key types. Enumeration case values without associated values (as described in [Enumerations](./enumeraciones)) are also hashable by default.
 
-<Callout type="note">
+<Callout>
   You can use your own custom types as set value types or dictionary key types
   by making them conform to the `Hashable` protocol from the Swift standard
   library. For information about implementing the required `hash(into:)` method,
   see [`Hashable`](https://developer.apple.com/documentation/swift/hashable).
-  For information about conforming to protocols, see [Protocols](./protocols).
+  For information about conforming to protocols, see [Protocols](./protocolos).
 </Callout>
 
 ### Set Type Syntax
@@ -303,7 +303,9 @@ print("letters is of type Set<Character> with \\(letters.count) items.")
 // Prints "letters is of type Set<Character> with 0 items."`}
 </CodeSnippet>
 
-<Callout type="note">The type of the `letters` variable is inferred to be `Set<\Character>`, from the type of the initializer.</Callout>
+<Callout>
+  The type of the `letters` variable is inferred to be `Set<Character>`, from the type of the initializer.
+</Callout>
 
 Alternatively, if the context already provides type information, such as a function argument or an already typed variable or constant, you can create an empty set with an empty array literal:
 
@@ -327,7 +329,7 @@ The example below creates a set called `favoriteGenres` to store `String` values
 
 The `favoriteGenres` variable is declared as “a set of `String` values”, written as `Set<String>`. Because this particular set has specified a value type of `String`, it's only allowed to store `String` values. Here, the `favoriteGenres` set is initialized with three `String` values (`"Rock"`, `"Classical"`, and `"Hip hop"`), written within an array literal.
 
-<Callout type="note">
+<Callout>
   The `favoriteGenres` set is declared as a variable (with the `var` introducer)
   and not a constant (with the `let` introducer) because items are added and
   removed in the examples below.
@@ -403,7 +405,7 @@ You can iterate over the values in a set with a `for-in` loop.
 // Hip hop`}
 </CodeSnippet>
 
-For more about the `for-in` loop, see [`for-in` Loops](./control-flow#for-in-loops).
+For more about the `for-in` loop, see [`for-in` Loops](./flujo-de-control#bucles-for-in).
 
 Swift's `Set` type doesn't have a defined ordering. To iterate over the values of a set in a specific order, use the `sorted()` method, which returns the set's elements as an array sorted using the `<` operator.
 
@@ -485,7 +487,7 @@ farmAnimals.isDisjoint(with: cityAnimals)
 
 A _dictionary_ stores associations between keys of the same type and values of the same type in a collection with no defined ordering. Each value is associated with a unique _key_, which acts as an identifier for that value within the dictionary. Unlike items in an array, items in a dictionary don't have a specified order. You use a dictionary when you need to look up values based on their identifier, in much the same way that a real-world dictionary is used to look up the definition for a particular word.
 
-<Callout type="note">
+<Callout>
   Swift's `Dictionary` type is bridged to Foundation's `NSDictionary` class. For
   more information about using `Dictionary` with Foundation and Cocoa, see
   [Bridging Between Dictionary and
@@ -496,7 +498,7 @@ A _dictionary_ stores associations between keys of the same type and values of t
 
 The type of a Swift dictionary is written in full as `Dictionary<Key, Value>`, where `Key` is the type of value that can be used as a dictionary key, and `Value` is the type of value that the dictionary stores for those keys.
 
-<Callout type="note">
+<Callout>
   A dictionary `Key` type must conform to the `Hashable` protocol, like a set's
   value type.
 </Callout>
@@ -544,7 +546,7 @@ The example below creates a dictionary to store the names of international airpo
 
 The `airports` dictionary is declared as having a type of `[String: String]`, which means “a `Dictionary` whose keys are of type `String`, and whose values are also of type `String`”.
 
-<Callout type="note">
+<Callout>
   The `airports` dictionary is declared as a variable (with the `var`
   introducer), and not a constant (with the `let` introducer), because more
   airports are added to the dictionary in the examples below.
@@ -650,7 +652,7 @@ You can iterate over the key-value pairs in a dictionary with a `for-in` loop. E
 // YYZ: Toronto Pearson`}
 </CodeSnippet>
 
-For more about the `for-in` loop, see [`for-in` Loops](./control-flow#for-in-loops).
+For more about the `for-in` loop, see [`for-in` Loops](./flujo-de-control#bucles-for-in).
 
 You can also retrieve an iterable collection of a dictionary's keys or values by accessing its `keys` and `values` properties:
 

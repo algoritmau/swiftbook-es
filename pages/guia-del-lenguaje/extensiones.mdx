@@ -18,9 +18,9 @@ Extensions in Swift can:
 - Define and use new nested types
 - Make an existing type conform to a protocol
 
-In Swift, you can even extend a protocol to provide implementations of its requirements or add additional functionality that conforming types can take advantage of. For more details, see [Protocol Extensions](./protocols).
+In Swift, you can even extend a protocol to provide implementations of its requirements or add additional functionality that conforming types can take advantage of. For more details, see [Protocol Extensions](./protocolos).
 
-<Callout type="note">
+<Callout>
   Extensions can add new functionality to a type, but they can't override
   existing functionality.
 </Callout>
@@ -43,11 +43,11 @@ An extension can extend an existing type to make it adopt one or more protocols.
 }`}
 </CodeSnippet>
 
-Adding protocol conformance in this way is described in [Adding Protocol Conformance with an Extension](./protocols).
+Adding protocol conformance in this way is described in [Adding Protocol Conformance with an Extension](./protocolos).
 
-An extension can be used to extend an existing generic type, as described in [Extending a Generic Type](./generics). You can also extend a generic type to conditionally add functionality, as described in [Extensions with a Generic Where Clause](./generics).
+An extension can be used to extend an existing generic type, as described in [Extending a Generic Type](./genericos). You can also extend a generic type to conditionally add functionality, as described in [Extensions with a Generic Where Clause](./genericos).
 
-<Callout type="note">
+<Callout>
   If you define an extension to add new functionality to an existing type, the
   new functionality will be available on all existing instances of that type,
   even if they were created before the extension was defined.
@@ -65,10 +65,10 @@ Extensions can add computed instance properties and computed type properties to 
     var mm: Double { return self / 1_000.0 }
     var ft: Double { return self / 3.28084 }
 }\n
-let oneInch = 25.4.mm
+let oneInch = 25.4.mm\n
 print("One inch is \\(oneInch) meters")
 // Prints "One inch is 0.0254 meters"\n
-let threeFeet = 3.ft
+let threeFeet = 3.ft\n
 print("Three feet is \\(threeFeet) meters")
 // Prints "Three feet is 0.914399970739201 meters"`}
 </CodeSnippet>
@@ -85,7 +85,7 @@ let aMarathon = 42.km + 195.m
 print("A marathon is \(aMarathon) meters long")
 // Prints "A marathon is 42195.0 meters long"
 
-<Callout type="note">
+<Callout>
   Extensions can add new computed properties, but they can't add stored
   properties, or add property observers to existing properties.
 </Callout>
@@ -96,7 +96,7 @@ Extensions can add new initializers to existing types. This enables you to exten
 
 Extensions can add new convenience initializers to a class, but they can't add new designated initializers or deinitializers to a class. Designated initializers and deinitializers must always be provided by the original class implementation.
 
-If you use an extension to add an initializer to a value type that provides default values for all of its stored properties and doesn't define any custom initializers, you can call the default initializer and memberwise initializer for that value type from within your extension's initializer. This wouldn't be the case if you had written the initializer as part of the value type's original implementation, as described in [Initializer Delegation for Value Types](./initialization).
+If you use an extension to add an initializer to a value type that provides default values for all of its stored properties and doesn't define any custom initializers, you can call the default initializer and memberwise initializer for that value type from within your extension's initializer. This wouldn't be the case if you had written the initializer as part of the value type's original implementation, as described in [Initializer Delegation for Value Types](./inicializacion).
 
 If you use an extension to add an initializer to a structure that was declared in another module, the new initializer can't access `self` until it calls an initializer from the defining module.
 
@@ -115,7 +115,7 @@ struct Rect {
 }`}
 </CodeSnippet>
 
-Because the `Rect` structure provides default values for all of its properties, it receives a default initializer and a memberwise initializer automatically, as described in [Default Initializers](./initialization). These initializers can be used to create new `Rect` instances:
+Because the `Rect` structure provides default values for all of its properties, it receives a default initializer and a memberwise initializer automatically, as described in [Default Initializers](./inicializacion). These initializers can be used to create new `Rect` instances:
 
 <CodeSnippet>
   {`let defaultRect = Rect()
@@ -129,7 +129,7 @@ You can extend the `Rect` structure to provide an additional initializer that ta
   {`extension Rect {
     init(center: Point, size: Size) {
         let originX = center.x - (size.width / 2)
-        let originY = center.y - (size.height / 2)
+        let originY = center.y - (size.height / 2)\n
         self.init(origin: Point(x: originX, y: originY), size: size)
     }
 }`}
@@ -143,7 +143,7 @@ This new initializer starts by calculating an appropriate origin point based on 
 // centerRect's origin is (2.5, 2.5) and its size is (3.0, 3.0)`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   If you provide a new initializer with an extension, you are still responsible
   for making sure that each instance is fully initialized once the initializer
   completes.
@@ -188,7 +188,7 @@ The example below adds a new mutating method called `square` to Swift's `Int` ty
         self = self * self
     }
 }\n
-var someInt = 3
+var someInt = 3\n
 someInt.square()
 // someInt is now 9`}
 </CodeSnippet>
@@ -205,10 +205,10 @@ Extensions can add new subscripts to an existing type. This example adds an inte
 <CodeSnippet>
   {`extension Int {
     subscript(digitIndex: Int) -> Int {
-        var decimalBase = 1
+        var decimalBase = 1\n
         for _ in 0..<digitIndex {
             decimalBase *= 10
-        }
+        }\n
         return (self / decimalBase) % 10
     }
 }\n
@@ -274,7 +274,7 @@ printIntegerKinds([3, 19, -27, 0, -6, 0, 7])
 
 This function, `printIntegerKinds(_:)`, takes an input _array_ of `Int` values and iterates over those values in turn. For each integer in the _array_, the function considers the `kind` computed property for that integer, and prints an appropriate description.
 
-<Callout type="note">
+<Callout>
   `number.kind` is already known to be of type `Int.Kind`. Because of this, all
   of the `Int.Kind` case values can be written in shorthand form inside the
   `switch` statement, such as `.negative` rather than `Int.Kind.negative`.

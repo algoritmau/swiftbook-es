@@ -13,7 +13,7 @@ Swift's `String` and `Character` types provide a fast, Unicode-compliant way to 
 
 Despite this simplicity of syntax, Swift's `String` type is a fast, modern string implementation. Every string is composed of encoding-independent Unicode characters, and provides support for accessing those characters in various Unicode representations.
 
-<Callout type="note">
+<Callout>
   Swift's `String` type is bridged with Foundation's `NSString` class.
   Foundation also extends `String` to expose methods defined by `NSString`. This
   means, if you import Foundation, you can access those `NSString` methods on
@@ -150,15 +150,15 @@ Find out whether a `String` value is empty by checking its Boolean `isEmpty` pro
 You indicate whether a particular `String` can be modified (or _mutated_) by assigning it to a variable (in which case it can be modified), or to a constant (in which case it can't be modified):
 
 <CodeSnippet>
-  {`var variableString = "Horse"
+  {`var variableString = "Horse"\n
 variableString += " and carriage"
 // variableString is now "Horse and carriage"\n
-let constantString = "Highlander"
+let constantString = "Highlander"\n
 constantString += " and another Highlander"
 // this reports a compile-time error - a constant string cannot be modified`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   This approach is different from string mutation in Objective-C and Cocoa,
   where you choose between two classes (`NSString` and `NSMutableString`) to
   indicate whether a string can be mutated.
@@ -166,7 +166,7 @@ constantString += " and another Highlander"
 
 ## Strings Are Value Types
 
-Swift's `String` type is a _value type_. If you create a new `String` value, that `String` value is _copied_ when it's passed to a function or method, or when it's assigned to a constant or variable. In each case, a new copy of the existing `String` value is created, and the new copy is passed or assigned, not the original version. Value types are described in [Structures and Enumerations Are Value Types](./classes-and-structures#structures-and-enumerations-are-value-types).
+Swift's `String` type is a _value type_. If you create a new `String` value, that `String` value is _copied_ when it's passed to a function or method, or when it's assigned to a constant or variable. In each case, a new copy of the existing `String` value is created, and the new copy is passed or assigned, not the original version. Value types are described in [Structures and Enumerations Are Value Types](./estructuras-y-clases#las-estructuras-y-las-enumeraciones-son-valores-tipos).
 
 Swift's copy-by-default `String` behavior ensures that when a function or method passes you a `String` value, it's clear that you own that exact `String` value, regardless of where it came from. You can be confident that the string you are passed won't be modified unless you modify it yourself.
 
@@ -187,7 +187,7 @@ You can access the individual `Character` values for a `String` by iterating ove
 // 🐶`}
 </CodeSnippet>
 
-The `for-in` loop is described in [For-In Loops](./control-flow#for-in-loops).
+The `for-in` loop is described in [For-In Loops](./flujo-de-control#bucles-for-in).
 
 Alternatively, you can create a stand-alone `Character` constant or variable from a single-character string literal by providing a `Character` type annotation:
 
@@ -197,7 +197,7 @@ Alternatively, you can create a stand-alone `Character` constant or variable fro
 
 <CodeSnippet>
   {`let catCharacters: [Character] = ["C", "a", "t", "!", "🐱"]
-let catString = String(catCharacters)
+let catString = String(catCharacters)\n
 print(catString)
 // Prints "Cat!🐱"`}
 </CodeSnippet>
@@ -229,7 +229,7 @@ welcome.append(exclamationMark)
 // welcome now equals "hello there!"`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   You can't append a `String` or `Character` to an existing `Character`
   variable, because a `Character` value must contain a single character only.
 </Callout>
@@ -289,7 +289,7 @@ To use string interpolation inside a string that uses extended delimiters, match
 // Prints "6 times 7 is 42."`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   The expressions you write inside parentheses within an interpolated string
   can't contain an unescaped backslash (`\`), a carriage return, or a line feed.
   However, they can contain other string literals.
@@ -346,7 +346,7 @@ Unicode scalars for regional indicator symbols can be combined in pairs to make 
 To retrieve a count of the `Character` values in a string, use the `count` property of the string:
 
 <CodeSnippet>
-  {`let unusualMenagerie = "Koala 🐨, Snail 🐌, Penguin 🐧, Dromedary 🐪"
+  {`let unusualMenagerie = "Koala 🐨, Snail 🐌, Penguin 🐧, Dromedary 🐪"\n
 print("unusualMenagerie has \\(unusualMenagerie.count) characters")
 // Prints "unusualMenagerie has 40 characters"`}
 </CodeSnippet>
@@ -356,7 +356,7 @@ Note that Swift's use of extended grapheme clusters for `Character` values means
 For example, if you initialize a new string with the four-character word `cafe`, and then append a `COMBINING ACUTE ACCENT` (`U+0301`) to the end of the string, the resulting string will still have a character count of `4`, with a fourth character of `é`, not `e`:
 
 <CodeSnippet>
-  {`var word = "cafe"
+  {`var word = "cafe"\n
 print("the number of characters in \\(word) is \\(word.count)")
 // Prints "the number of characters in cafe is 4"\n
 word += "\u{301}"    // COMBINING ACUTE ACCENT, U+0301\n
@@ -364,7 +364,7 @@ print("the number of characters in \\(word) is \\(word.count)")
 // Prints "the number of characters in café is 4"`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   Extended grapheme clusters can be composed of multiple Unicode scalars. This
   means that different characters—and different representations of the same
   character—can require different amounts of memory to store. Because of this,
@@ -398,14 +398,14 @@ You access the indices before and after a given index using the `index(before:)`
 You can use subscript syntax to access the `Character` at a particular `String` index.
 
 <CodeSnippet>
-  {`let greeting = "Guten Tag!"
+  {`let greeting = "Guten Tag!"\n
 greeting[greeting.startIndex]
 // G
 greeting[greeting.index(before: greeting.endIndex)]
 // !
 greeting[greeting.index(after: greeting.startIndex)]
-// u
-let index = greeting.index(greeting.startIndex, offsetBy: 7)
+// u\n
+let index = greeting.index(greeting.startIndex, offsetBy: 7)\n
 greeting[index]
 // a`}
 </CodeSnippet>
@@ -426,7 +426,7 @@ Use the `indices` property to access all of the indices of individual characters
 // Prints "G u t e n   T a g ! "`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   You can use the `startIndex` and `endIndex` properties and the
   `index(before:)`, `index(after:)`, and `index(_:offsetBy:)` methods on any
   type that conforms to the `Collection` protocol. This includes `String`, as
@@ -451,12 +451,12 @@ To remove a single character from a string at a specified index, use the `remove
 <CodeSnippet>
   {`welcome.remove(at: welcome.index(before: welcome.endIndex))
 // welcome now equals "hello there"\n
-let range = welcome.index(welcome.endIndex, offsetBy: -6)..<welcome.endIndex
+let range = welcome.index(welcome.endIndex, offsetBy: -6)..<welcome.endIndex\n
 welcome.removeSubrange(range)
 // welcome now equals "hello"`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   You can use the `insert(_:at:)`, `insert(contentsOf:at:)`, `remove(at:)`, and
   `removeSubrange(_:)` methods on any type that conforms to the
   `RangeReplaceableCollection` protocol. This includes `String`, as shown here,
@@ -488,7 +488,7 @@ In the example above, `greeting` is a string, which means it has a region of mem
   className="figure-small"
 />
 
-<Callout type="note">
+<Callout>
   Both `String` and `Substring` conform to the
   [StringProtocol](https://developer.apple.com/documentation/swift/stringprotocol)
   protocol, which means it's often convenient for string-manipulation functions
@@ -502,7 +502,7 @@ Swift provides three ways to compare textual values: string and character equali
 
 ### String and Character Equality
 
-String and character equality is checked with the “equal to” operator (`==`) and the “not equal to” operator (`!=`), as described in [Comparison Operators](./basic-operators#comparison-operators):
+String and character equality is checked with the “equal to” operator (`==`) and the “not equal to” operator (`!=`), as described in [Comparison Operators](./operadores-basicos#operadores-de-comparacion):
 
 <CodeSnippet>
   {`let quotation = "We're a lot alike, you and I."
@@ -539,7 +539,7 @@ if latinCapitalLetterA != cyrillicCapitalLetterA {
 // Prints "These two characters aren't equivalent."`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   String and character comparisons in Swift aren't locale-sensitive.
 </Callout>
 
@@ -594,7 +594,7 @@ print("\\(mansionCount) mansion scenes; \\(cellCount) cell scenes")
 // Prints "6 mansion scenes; 2 cell scenes"`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   The `hasPrefix(_:)` and `hasSuffix(_:)` methods perform a
   character-by-character canonical equivalence comparison between the extended
   grapheme clusters in each string, as described in [String and Character

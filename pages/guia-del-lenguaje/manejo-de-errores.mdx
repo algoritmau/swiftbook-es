@@ -13,7 +13,7 @@ Some operations aren't guaranteed to always complete execution or produce a usef
 
 As an example, consider the task of reading and processing data from a file on disk. There are a number of ways this task can fail, including the file not existing at the specified path, the file not having read permissions, or the file not being encoded in a compatible format. Distinguishing among these different situations allows a program to resolve some errors and to communicate to the user any errors it can't resolve.
 
-<Callout type="note">
+<Callout>
   Error handling in Swift interoperates with error handling patterns that use
   the `NSError` class in Cocoa and Objective-C. For more information about this
   class, see [Handling Cocoa Errors in
@@ -46,7 +46,7 @@ There are four ways to handle errors in Swift. You can propagate the error from 
 
 When a function throws an error, it changes the flow of your program, so it's important that you can quickly identify places in your code that can throw errors. To identify these places in your code, write the `try` keyword—or the `try?` or `try!` variation—before a piece of code that calls a function, method, or initializer that can throw an error. These keywords are described in the sections below.
 
-<Callout type="note">
+<Callout>
   Error handling in Swift resembles exception handling in other languages, with
   the use of the `try`, `catch`, and `throw` keywords. Unlike exception handling
   in many languages—including Objective-C—error handling in Swift doesn't
@@ -66,7 +66,7 @@ func cannotThrowErrors() -> String`}
 
 A throwing function propagates errors that are thrown inside of it to the scope from which it's called.
 
-<Callout type="note">
+<Callout>
   Only throwing functions can propagate errors. Any errors thrown inside a
   nonthrowing function must be handled inside the function.
 </Callout>
@@ -115,7 +115,7 @@ Because the `vend(itemNamed:)` method propagates any errors it throws, any code 
     "Eve": "Pretzels",
 ]\n
 func buyFavoriteSnack(person: String, vendingMachine: VendingMachine) throws {
-    let snackName = favoriteSnacks[person] ?? "Candy Bar"
+    let snackName = favoriteSnacks[person] ?? "Candy Bar"\n
     try vendingMachine.vend(itemNamed: snackName)
 }`}
 </CodeSnippet>
@@ -128,7 +128,7 @@ Throwing initializers can propagate errors in the same way as throwing functions
   {`struct PurchasedSnack {
     let name: String\n
     init(name: String, vendingMachine: VendingMachine) throws {
-        try vendingMachine.vend(itemNamed: name)
+        try vendingMachine.vend(itemNamed: name)\n
         self.name = name
     }
 }`}
@@ -174,7 +174,7 @@ Here is the general form of a `do-catch` statement:
   <span>&rcub;</span>
 </p>
 
-You write a pattern after `catch` to indicate what errors that clause can handle. If a `catch` clause doesn't have a pattern, the clause matches any error and binds the error to a local constant named `error`. For more information about pattern matching, see [Patterns](../language-reference/patterns).
+You write a pattern after `catch` to indicate what errors that clause can handle. If a `catch` clause doesn't have a pattern, the clause matches any error and binds the error to a local constant named `error`. For more information about pattern matching, see [Patterns](../referencia-del-lenguaje/patrones).
 
 For example, the following code matches against all three cases of the `VendingMachineError` enumeration.
 
@@ -182,7 +182,7 @@ For example, the following code matches against all three cases of the `VendingM
   {`var vendingMachine = VendingMachine()
 vendingMachine.coinsDeposited = 8\n
 do {
-    try buyFavoriteSnack(person: "Alice", vendingMachine: vendingMachine)
+    try buyFavoriteSnack(person: "Alice", vendingMachine: vendingMachine)\n
     print("Success! Yum.")
 } catch VendingMachineError.invalidSelection {
     print("Invalid Selection.")
@@ -294,6 +294,6 @@ A `defer` statement defers execution until the current scope is exited. This sta
 
 The above example uses a `defer` statement to ensure that the `open(_:)` function has a corresponding call to `close(_:)`.
 
-<Callout type="note">
+<Callout>
   You can use a `defer` statement even when no error handling code is involved.
 </Callout>

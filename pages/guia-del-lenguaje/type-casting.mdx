@@ -11,7 +11,7 @@ _Type casting_ is a way to check the type of an instance, or to treat that insta
 
 Type casting in Swift is implemented with the `is` and `as` operators. These two operators provide a simple and expressive way to check the type of a value or cast a value to a different type.
 
-You can also use type casting to check whether a type conforms to a protocol, as described in [Checking for Protocol Conformance](./protocols).
+You can also use type casting to check whether a type conforms to a protocol, as described in [Checking for Protocol Conformance](./protocolos).
 
 ## Defining a Class Hierarchy for Type Casting
 
@@ -21,7 +21,7 @@ The first snippet defines a new base class called `MediaItem`. This class provid
 
 <CodeSnippet>
   {`class MediaItem {
-    var name: String
+    var name: String\n
     init(name: String) {
         self.name = name
     }
@@ -32,16 +32,16 @@ The next snippet defines two subclasses of `MediaItem`. The first subclass, `Mov
 
 <CodeSnippet>
   {`class Movie: MediaItem {
-    var director: String
+    var director: String\n
     init(name: String, director: String) {
-        self.director = director
+        self.director = director\n
         super.init(name: name)
     }
 }\n
 class Song: MediaItem {
-    var artist: String
+    var artist: String\n
     init(name: String, artist: String) {
-        self.artist = artist
+        self.artist = artist\n
         super.init(name: name)
     }
 }`}
@@ -123,7 +123,7 @@ Downcasting to `Movie` fails when applied to the `Song` instances in the `librar
 
 If the downcasting succeeds, the properties of `movie` are then used to print a description for that `Movie` instance, including the name of its `director`. A similar principle is used to check for `Song` instances, and to print an appropriate description (including `artist` name) whenever a `Song` is found in the library.
 
-<Callout type="note">
+<Callout>
   Casting doesn't actually modify the instance or change its values. The
   underlying instance remains the same; it's simply treated and accessed as an
   instance of the type to which it has been cast.
@@ -191,7 +191,7 @@ To discover the specific type of a constant or variable that's known only to be 
 // Hello, Michael`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   The `Any` type represents values of any type, including optional types. Swift gives you a warning if you use an optional value where a value of type `Any` is expected. If you really do need to use an optional value as an `Any` value, you can use the `as` operator to explicitly cast the optional to `Any`, as shown below.
 
   <CodeSnippet isCalloutChild={true}>

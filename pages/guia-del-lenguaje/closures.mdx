@@ -16,7 +16,7 @@ Closures can capture and store references to any constants and variables from th
   explained in detail below in [Capturing Values](#capturing-values).
 </Callout>
 
-Global and nested functions, as introduced in [Functions](./functions), are actually special cases of closures. Closures take one of three forms:
+Global and nested functions, as introduced in [Functions](./funciones), are actually special cases of closures. Closures take one of three forms:
 
 - Global functions are closures that have a name and don't capture any values.
 - Nested functions are closures that have a name and can capture values from their enclosing function.
@@ -31,7 +31,7 @@ Swift's closure expressions have a clean, clear style, with optimizations that e
 
 ## Closure Expressions
 
-Nested functions, as introduced in [Nested Functions](./functions#nested-functions), are a convenient means of naming and defining self-contained blocks of code as part of a larger function. However, it's sometimes useful to write shorter versions of function-like constructs without a full declaration and name. This is particularly true when you work with functions or methods that take functions as one or more of their arguments.
+Nested functions, as introduced in [Nested Functions](./funciones#funciones-anidadas), are a convenient means of naming and defining self-contained blocks of code as part of a larger function. However, it's sometimes useful to write shorter versions of function-like constructs without a full declaration and name. This is particularly true when you work with functions or methods that take functions as one or more of their arguments.
 
 _Closure expressions_ are a way to write inline closures in a brief, focused syntax. Closure expressions provide several syntax optimizations for writing closures in a shortened form without loss of clarity or intent. The closure expression examples below illustrate these optimizations by refining a single example of the `sorted(by:)` method over several iterations, each of which expresses the same functionality in a more succinct way.
 
@@ -128,7 +128,7 @@ There's actually an even _shorter_ way to write the closure expression above. Sw
 
 <CodeSnippet>{`reversedNames = names.sorted(by: >)`}</CodeSnippet>
 
-For more about operator methods, see [Operator Methods](./advanced-operators#operator-methods).
+For more about operator methods, see [Operator Methods](./operadores-avanzados#metodos-de-operadores).
 
 ## Trailing Closures
 
@@ -255,7 +255,7 @@ Here's an example of a function called `makeIncrementer`, which contains a neste
 }`}
 </CodeSnippet>
 
-The return type of `makeIncrementer` is `() -> Int`. This means that it returns a _function_, rather than a simple value. The function it returns has no parameters, and returns an `Int` value each time it's called. To learn how functions can return other functions, see [Function Types as Return Types](./functions#function-types-as-return-types).
+The return type of `makeIncrementer` is `() -> Int`. This means that it returns a _function_, rather than a simple value. The function it returns has no parameters, and returns an `Int` value each time it's called. To learn how functions can return other functions, see [Function Types as Return Types](./funciones#tipos-funciones-como-tipos-devueltos).
 
 The `makeIncrementer(forIncrement:)` function defines an integer variable called `runningTotal`, to store the current running total of the incrementer that will be returned. This variable is initialized with a value of `0`.
 
@@ -309,7 +309,7 @@ Calling the original incrementer (`incrementByTen`) again continues to increment
 // returns a value of 40`}
 </CodeSnippet>
 
-If you assign a closure to a property of a class instance, and the closure captures that instance by referring to the instance or its members, you will create a strong reference cycle between the closure and the instance. Swift uses _capture lists_ to break these strong reference cycles. For more information, see [Strong Reference Cycles for Closures](./automatic-reference-counting#strong-reference-cycles-for-closures).
+If you assign a closure to a property of a class instance, and the closure captures that instance by referring to the instance or its members, you will create a strong reference cycle between the closure and the instance. Swift uses _capture lists_ to break these strong reference cycles. For more information, see [Strong Reference Cycles for Closures](./automatic-reference-counting#ciclos-fuertes-de-referencia-para-closures).
 
 ## Closures Are Reference Types
 
@@ -320,7 +320,7 @@ Whenever you assign a function or a closure to a constant or a variable, you are
 This also means that if you assign a closure to two different constants or variables, both of those constants or variables refer to the same closure.
 
 <CodeSnippet>
-  {`let alsoIncrementByTen = incrementByTen
+  {`let alsoIncrementByTen = incrementByTen\n
 alsoIncrementByTen()
 // returns a value of 50\n
 incrementByTen()
@@ -359,11 +359,11 @@ class SomeClass {
         someFunctionWithNonescapingClosure { x = 200 }
     }
 }\n
-let instance = SomeClass()
-instance.doSomething()
+let instance = SomeClass()\n
+instance.doSomething()\n
 print(instance.x)
 // Prints "200"\n
-completionHandlers.first?()
+completionHandlers.first?()\n
 print(instance.x)
 // Prints "100"`}
 </CodeSnippet>
@@ -380,7 +380,7 @@ Here's a version of `doSomething()` that captures `self` by including it in the 
 }`}
 </CodeSnippet>
 
-If `self` is an instance of a structure or an enumeration, you can always refer to `self` implicitly. However, an escaping closure can't capture a mutable reference to `self` when `self` is an instance of a structure or an enumeration. Structures and enumerations don't allow shared mutability, as discussed in [Structures and Enumerations Are Value Types](./classes-and-structures#structures-and-enumerations-are-value-types).
+If `self` is an instance of a structure or an enumeration, you can always refer to `self` implicitly. However, an escaping closure can't capture a mutable reference to `self` when `self` is an instance of a structure or an enumeration. Structures and enumerations don't allow shared mutability, as discussed in [Structures and Enumerations Are Value Types](./estructuras-y-clases#las-estructuras-y-las-enumeraciones-son-tipos-valores).
 
 <CodeSnippet>
   {`struct SomeStruct {
@@ -403,12 +403,12 @@ It's common to _call_ functions that take autoclosures, but it's not common to _
 An autoclosure lets you delay evaluation, because the code inside isn't run until you call the closure. Delaying evaluation is useful for code that has side effects or is computationally expensive, because it lets you control when that code is evaluated. The code below shows how a closure delays evaluation.
 
 <CodeSnippet>
-  {`var customersInLine = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+  {`var customersInLine = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]\n
 print(customersInLine.count)
 // Prints "5"\n
-let customerProvider = { customersInLine.remove(at: 0) }
+let customerProvider = { customersInLine.remove(at: 0) }\n
 print(customersInLine.count)
-// Prints "5"\n
+// Prints "5"
 print("Now serving \\(customerProvider())!")
 // Prints "Now serving Chris!"
 print(customersInLine.count)

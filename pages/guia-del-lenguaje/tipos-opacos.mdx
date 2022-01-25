@@ -2,7 +2,6 @@
 title: Opaque Types
 ---
 
-import Callout from '../../components/Callout.js'
 import CodeSnippet from '../../components/CodeSnippet.js'
 
 # Opaque Types
@@ -27,7 +26,7 @@ struct Triangle: Shape {
         return result.joined(separator: "\\n")
     }
 }\n
-let smallTriangle = Triangle(size: 3)
+let smallTriangle = Triangle(size: 3)\n
 print(smallTriangle.draw())
 // *
 // **
@@ -44,7 +43,7 @@ You could use generics to implement operations like flipping a shape vertically,
         return lines.reversed().joined(separator: "\\n")
     }
 }\n
-let flippedTriangle = FlippedShape(shape: smallTriangle)
+let flippedTriangle = FlippedShape(shape: smallTriangle)\n
 print(flippedTriangle.draw())
 // ***
 // **
@@ -61,7 +60,7 @@ This approach to defining a `JoinedShape<T: Shape, U: Shape>` structure that joi
         return top.draw() + "\\n" + bottom.draw()
     }
 }\n
-let joinedTriangles = JoinedShape(top: smallTriangle, bottom: flippedTriangle)
+let joinedTriangles = JoinedShape(top: smallTriangle, bottom: flippedTriangle)\n
 print(joinedTriangles.draw())
 // *
 // **
@@ -102,7 +101,7 @@ func makeTrapezoid() -> some Shape {
     )\n
     return trapezoid
 }\n
-let trapezoid = makeTrapezoid()
+let trapezoid = makeTrapezoid()\n
 print(trapezoid.draw())
 // *
 // **
@@ -125,7 +124,7 @@ You can also combine opaque return types with generics. The functions in the fol
 func join<T: Shape, U: Shape>(_ top: T, _ bottom: U) -> some Shape {
     JoinedShape(top: top, bottom: bottom)
 }\n
-let opaqueJoinedTriangles = join(smallTriangle, flip(smallTriangle))
+let opaqueJoinedTriangles = join(smallTriangle, flip(smallTriangle))\n
 print(opaqueJoinedTriangles.draw())
 // *
 // **
@@ -200,7 +199,7 @@ The revised version of the code returns an instance of `Square` or an instance o
 
 <CodeSnippet>
   {`let protoFlippedTriangle = protoFlip(smallTriangle)
-let sameThing = protoFlip(smallTriangle)
+let sameThing = protoFlip(smallTriangle)\n
 protoFlippedTriangle == sameThing  // Error`}
 </CodeSnippet>
 
@@ -210,12 +209,12 @@ Using a protocol type as the return type for a function gives you the flexibilit
 
 Another problem with this approach is that the shape transformations don't nest. The result of flipping a triangle is a value of type `Shape`, and the `protoFlip(_:)` function takes an argument of some type that conforms to the `Shape` protocol. However, a value of a protocol type doesn't conform to that protocol; the value returned by `protoFlip(_:)` doesn't conform to `Shape`. This means code like `protoFlip(protoFlip(smallTriange))` that applies multiple transformations is invalid because the flipped shape isn't a valid argument to `protoFlip(_:)`.
 
-In contrast, opaque types preserve the identity of the underlying type. Swift can infer associated types, which lets you use an opaque return value in places where a protocol type can't be used as a return value. For example, here's a version of the `Container` protocol from [Generics](./generics):
+In contrast, opaque types preserve the identity of the underlying type. Swift can infer associated types, which lets you use an opaque return value in places where a protocol type can't be used as a return value. For example, here's a version of the `Container` protocol from [Generics](./genericos):
 
 <CodeSnippet>
   {`protocol Container {
-    associatedtype Item
-    var count: Int { get }
+    associatedtype Item\n
+    var count: Int { get }\n
     subscript(i: Int) -> Item { get }
 }\n
 extension Array: Container { }`}
@@ -241,7 +240,7 @@ Using the opaque type `some Container` as a return type expresses the desired AP
     return [item]
 }\n
 let opaqueContainer = makeOpaqueContainer(item: 12)
-let twelve = opaqueContainer[0]
+let twelve = opaqueContainer[0]\n
 print(type(of: twelve))
 // Prints "Int"`}
 </CodeSnippet>

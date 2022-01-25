@@ -41,7 +41,7 @@ print(greet(person: "Brian"))
 
 You call the `greet(person:)` function by passing it a `String` value after the person argument label, such as `greet(person: "Anna")`. Because the function returns a `String` value, `greet(person:)` can be wrapped in a call to the `print(_:separator:terminator:)` function to print that string and see its return value, as shown above.
 
-<Callout type="note">
+<Callout>
   The `print(_:separator:terminator:)` function doesn't have a label for its
   first argument, and its other arguments are optional because they have a
   default value. These variations on function syntax are discussed below in
@@ -116,7 +116,7 @@ greet(person: "Dave")
 
 Because it doesn't need to return a value, the function's definition doesn't include the return arrow (`->`) or a return type.
 
-<Callout type="note">
+<Callout>
   Strictly speaking, this version of the `greet(person:)` function _does_ still
   return a value, even though no return value is defined. Functions without a
   defined return type return a special value of type `Void`. This is simply an
@@ -141,7 +141,7 @@ printWithoutCounting(string: "hello, world")
 
 The first function, `printAndCount(string:)`, prints a string, and then returns its character count as an `Int`. The second function, `printWithoutCounting(string:)`, calls the first function, but ignores its return value. When the second function is called, the message is still printed by the first function, but the returned value isn't used.
 
-<Callout type="note">
+<Callout>
   Return values can be ignored, but a function that says it will return a value
   must always do so. A function with a defined return type can't allow control
   to fall out of the bottom of the function without returning a value, and
@@ -176,7 +176,7 @@ The body of the `minMax(array:)` function starts by setting two working variable
 Because the tuple's member values are named as part of the function's return type, they can be accessed with dot syntax to retrieve the minimum and maximum found values:
 
 <CodeSnippet>
-  {`let bounds = minMax(array: [8, -6, 2, 109, 3, 71])
+  {`let bounds = minMax(array: [8, -6, 2, 109, 3, 71])\n
 print("min is \\(bounds.min) and max is \\(bounds.max)")
 // Prints "min is -6 and max is 109"`}
 </CodeSnippet>
@@ -187,7 +187,7 @@ Note that the tuple's members don't need to be named at the point that the tuple
 
 If the tuple type to be returned from a function has the potential to have “no value” for the entire tuple, you can use an _optional_ tuple return type to reflect the fact that the entire tuple can be `nil`. You write an optional tuple return type by placing a question mark after the tuple type's closing parenthesis, such as `(Int, Int)?` or `(String, Int, Bool)?`.
 
-<Callout type="note">
+<Callout>
   An optional tuple type such as `(Int, Int)?` is different from a tuple that
   contains optional types such as `(Int?, Int?)`. With an optional tuple type,
   the entire tuple is optional, not just each individual value within the tuple.
@@ -241,9 +241,9 @@ print(anotherGreeting(for: "Dave"))
 
 The entire definition of the `greeting(for:)` function is the greeting message that it returns, which means it can use this shorter form. The `anotherGreeting(for:)` function returns the same greeting message, using the `return` keyword like a longer function. Any function that you write as just one `return` line can omit the `return`.
 
-As you'll see in [Shorthand Getter Declaration](./properties#shorthand-getter-declaration), property getters can also use an implicit return.
+As you'll see in [Shorthand Getter Declaration](./propiedades#declaracion-concisa-de-getters), property getters can also use an implicit return.
 
-<Callout type="note">
+<Callout>
   The code you write as an implicit return value needs to return some value. For
   example, you can't use `fatalError("Oh no!")` or `print(13)` as an implicit
   return value.
@@ -279,7 +279,7 @@ Here's a variation of the `greet(person:)` function that takes a person's name a
 <CodeSnippet>
   {`func greet(person: String, from hometown: String) -> String {
     return "Hello \\(person)!  Glad you could visit from \\(hometown)."
-}
+}\n
 print(greet(person: "Bill", from: "Cupertino"))
 // Prints "Hello Bill!  Glad you could visit from Cupertino."`}
 </CodeSnippet>
@@ -343,11 +343,11 @@ A function can have multiple variadic parameters. The first parameter that comes
 
 Function parameters are constants by default. Trying to change the value of a function parameter from within the body of that function results in a compile-time error. This means that you can't change the value of a parameter by mistake. If you want a function to modify a parameter's value, and you want those changes to persist after the function call has ended, define that parameter as an _in-out parameter_ instead.
 
-You write an in-out parameter by placing the `inout` keyword right before a parameter's type. An in-out parameter has a value that's passed _in_ to the function, is modified by the function, and is passed back _out_ of the function to replace the original value. For a detailed discussion of the behavior of in-out parameters and associated compiler optimizations, see [In-Out Parameters](../reference-manual/declarations#in-out-parameters).
+You write an in-out parameter by placing the `inout` keyword right before a parameter's type. An in-out parameter has a value that's passed _in_ to the function, is modified by the function, and is passed back _out_ of the function to replace the original value. For a detailed discussion of the behavior of in-out parameters and associated compiler optimizations, see [In-Out Parameters](../referencia-del-lenguaje/declaraciones#parametros-in-out).
 
 You can only pass a variable as the argument for an in-out parameter. You can't pass a constant or a literal value as the argument, because constants and literals can't be modified. You place an ampersand (`&`) directly before a variable's name when you pass it as an argument to an in-out parameter, to indicate that it can be modified by the function.
 
-<Callout type="note">
+<Callout>
   In-out parameters can't have default values, and variadic parameters can't be
   marked as `inout`.
 </Callout>
@@ -368,15 +368,15 @@ You can call the `swapTwoInts(_:_:)` function with two variables of type `Int` t
 
 <CodeSnippet>
   {`var someInt = 3
-var anotherInt = 107
-swapTwoInts(&someInt, &anotherInt)
+var anotherInt = 107\n
+swapTwoInts(&someInt, &anotherInt)\n
 print("someInt is now \\(someInt), and anotherInt is now \\(anotherInt)")
 // Prints "someInt is now 107, and anotherInt is now 3"`}
 </CodeSnippet>
 
 The example above shows that the original values of `someInt` and `anotherInt` are modified by the `swapTwoInts(_:_:)` function, even though they were originally defined outside of the function.
 
-<Callout type="note">
+<Callout>
   In-out parameters aren't the same as returning a value from a function. The
   `swapTwoInts` example above doesn't define a return type or return a value,
   but it still modifies the values of `someInt` and `anotherInt`. In-out
@@ -437,7 +437,7 @@ You can now call the assigned function with the name `mathFunction`:
 A different function with the same matching type can be assigned to the same variable, in the same way as for nonfunction types:
 
 <CodeSnippet>
-  {`mathFunction = multiplyTwoInts
+  {`mathFunction = multiplyTwoInts\n
 print("Result: \\(mathFunction(2, 3))")
 // Prints "Result: 6"`}
 </CodeSnippet>

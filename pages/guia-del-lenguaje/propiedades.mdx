@@ -19,7 +19,7 @@ You can also use a property wrapper to reuse code in the getter and setter of mu
 
 In its simplest form, a stored property is a constant or variable that's stored as part of an instance of a particular class or structure. Stored properties can be either _variable stored properties_ (introduced by the `var` keyword) or _constant stored properties_ (introduced by the `let` keyword).
 
-You can provide a default value for a stored property as part of its definition, as described in [Default Property Values](./initialization#default-property-values). You can also set and modify the initial value for a stored property during initialization. This is true even for constant stored properties, as described in [Assigning Constant Properties During Initialization](./initialization#assigning-constant-properties-during-initialization).
+You can provide a default value for a stored property as part of its definition, as described in [Default Property Values](./inicializacion#valores-predeterminados-de-propiedades). You can also set and modify the initial value for a stored property during initialization. This is true even for constant stored properties, as described in [Assigning Constant Properties During Initialization](./inicializacion#asignacion-de-propiedades-constantes-durante-la-inicializacion).
 
 The example below defines a structure called `FixedLengthRange`, which describes a range of integers whose range length can't be changed after it's created:
 
@@ -213,7 +213,7 @@ If the entire body of a getter is a single expression, the getter implicitly ret
 }`}
 </CodeSnippet>
 
-Omitting the return from a getter follows the same rules as omitting `return` from a function, as described in [Functions With an Implicit Return](./functions#functions-with-an-implicit-return).
+Omitting the return from a getter follows the same rules as omitting `return` from a function, as described in [Functions With an Implicit Return](./funciones#funciones-con-devolucion-implicita).
 
 ### Read-Only Computed Properties
 
@@ -253,7 +253,7 @@ You can add property observers in the following places:
 - Stored properties that you inherit.
 - Computed properties that you inherit.
 
-For an inherited property, you add a property observer by overriding that property in a subclass. For a computed property that you define, use the property's setter to observe and respond to value changes, instead of trying to create an observer. Overriding properties is described in [Overriding](./inheritance#overriding).
+For an inherited property, you add a property observer by overriding that property in a subclass. For a computed property that you define, use the property's setter to observe and respond to value changes, instead of trying to create an observer. Overriding properties is described in [Overriding](./herencia#sobreescritura).
 
 You have the option to define either or both of these observers on a property:
 
@@ -270,9 +270,9 @@ Similarly, if you implement a `didSet` observer, it's passed a constant paramete
   has been called. They aren't called while a class is setting its own
   properties, before the superclass initializer has been called. For more
   information about initializer delegation, see [Initializer Delegation for
-  Value Types](./initialization#initializer-delegation-for-value-types) and
+  Value Types](./inicializacion#delegacion-del-inicializador-para-tipos-valores) and
   [Initializer Delegation for Class
-  Types](./initialization#initializer-delegation-for-class-types).
+  Types](./inicializacion#delegacion-del-inicializador-para-clases).
 </Callout>
 
 Here's an example of `willSet` and `didSet` in action. The example below defines a new class called `StepCounter`, which tracks the total number of steps that a person takes while walking. This class might be used with input data from a pedometer or other step counter to keep track of a person's exercise during their daily routine.
@@ -310,7 +310,7 @@ This example's `willSet` observer uses a custom parameter name of `newTotalSteps
 
 The `didSet` observer is called after the value of `totalSteps` is updated. It compares the new value of `totalSteps` against the old value. If the total number of steps has increased, a message is printed to indicate how many new steps have been taken. The `didSet` observer doesn't provide a custom parameter name for the old value, and the default name of `oldValue` is used instead.
 
-If you pass a property that has observers to a function as an in-out parameter, the `willSet` and `didSet` observers are always called. This is because of the copy-in copy-out memory model for in-out parameters: The value is always written back to the property at the end of the function. For a detailed discussion of the behavior of in-out parameters, see [In-Out Parameters](../reference-manual/declarations#in-out-parameters).
+If you pass a property that has observers to a function as an in-out parameter, the `willSet` and `didSet` observers are always called. This is because of the copy-in copy-out memory model for in-out parameters: The value is always written back to the property at the end of the function. For a detailed discussion of the behavior of in-out parameters, see [In-Out Parameters](../referencia-del-lenguaje/declaraciones#parametros-in-out).
 
 ## Property Wrappers
 
@@ -336,7 +336,7 @@ The setter ensures that new values are less than `12`, and the getter returns th
   `private`, which ensures `number` is used only in the implementation of
   `TwelveOrLess`. Code that's written anywhere else accesses the value using the
   getter and setter for `wrappedValue`, and can't use `number` directly. For
-  information about `private`, see [Access Control](./access-control).
+  information about `private`, see [Access Control](./control-de-acceso).
 </Callout>
 
 You apply a wrapper to a property by writing the wrapper's name before the property as an attribute. Here's a structure that stores a rectangle that uses the `TwelveOrLess` property wrapper to ensure its dimensions are always `12` or less:
@@ -406,7 +406,7 @@ struct SmallNumber {
 }`}
 </CodeSnippet>
 
-The definition of `SmallNumber` includes three initializers—`init()`, `init(wrappedValue:)`, and `init(wrappedValue:maximum:)`—which the examples below use to set the wrapped value and the maximum value. For information about initialization and initializer syntax, see [Initialization](./initialization).
+The definition of `SmallNumber` includes three initializers—`init()`, `init(wrappedValue:)`, and `init(wrappedValue:maximum:)`—which the examples below use to set the wrapped value and the maximum value. For information about initialization and initializer syntax, see [Initialization](./inicializacion).
 
 When you apply a wrapper to a property and you don't specify an initial value, Swift uses the `init()` initializer to set up the wrapper. For example:
 

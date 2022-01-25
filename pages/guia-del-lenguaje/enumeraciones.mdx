@@ -15,7 +15,7 @@ Alternatively, enumeration cases can specify associated values of _any_ type to 
 
 Enumerations in Swift are first-class types in their own right. They adopt many features traditionally supported only by classes, such as computed properties to provide additional information about the enumeration's current value, and instance methods to provide functionality related to the values the enumeration represents. Enumerations can also define initializers to provide an initial case value; can be extended to expand their functionality beyond their original implementation; and can conform to protocols to provide standard functionality.
 
-For more about these capabilities, see [Properties](./properties), [Methods](./methods), [Initialization](./initialization), [Extensions](./extensions), and [Protocols](./protocols).
+For more about these capabilities, see [Properties](./propiedades), [Methods](./metodos), [Initialization](./inicializacion), [Extensions](./extensiones), and [Protocols](./protocolos).
 
 ## Enumeration Syntax
 
@@ -40,7 +40,7 @@ Here's an example for the four main points of a compass:
 
 The values defined in an enumeration (such as `north`, `south`, `east`, and `west`) are its _enumeration cases_. You use the `case` keyword to introduce new enumeration cases.
 
-<Callout type="note">
+<Callout>
   Swift enumeration cases don't have an integer value set by default, unlike
   languages like C and Objective-C. In the `CompassPoint` example above,
   `north`, `south`, `east`, and `west` don't implicitly equal `0`, `1`, `2`, and
@@ -91,7 +91,7 @@ You can read this code as:
 
 …and so on.
 
-As described in [Control Flow](./control-flow), a `switch` statement must be exhaustive when considering an enumeration's cases. If the case for `.west` is omitted, this code doesn't compile, because it doesn't consider the complete list of `CompassPoint` cases. Requiring exhaustiveness ensures that enumeration cases aren't accidentally omitted.
+As described in [Control Flow](./flujo-de-control), a `switch` statement must be exhaustive when considering an enumeration's cases. If the case for `.west` is omitted, this code doesn't compile, because it doesn't consider the complete list of `CompassPoint` cases. Requiring exhaustiveness ensures that enumeration cases aren't accidentally omitted.
 
 When it isn't appropriate to provide a `case` for every enumeration case, you can provide a `default` case to cover any cases that aren't addressed explicitly:
 
@@ -130,7 +130,7 @@ In the example above, you write `Beverage.allCases` to access a collection that 
 // juice`}
 </CodeSnippet>
 
-The syntax used in the examples above marks the enumeration as conforming to the [CaseIterable](https://developer.apple.com/documentation/swift/caseiterable) protocol. For information about protocols, see [Protocols](./protocols).
+The syntax used in the examples above marks the enumeration as conforming to the [CaseIterable](https://developer.apple.com/documentation/swift/caseiterable) protocol. For information about protocols, see [Protocols](./protocolos).
 
 ## Associated Values
 
@@ -225,11 +225,11 @@ Here's an example that stores raw ASCII values alongside named enumeration cases
 }`}
 </CodeSnippet>
 
-Here, the raw values for an enumeration called `ASCIIControlCharacter` are defined to be of type `Character`, and are set to some of the more common ASCII control characters. `Character` values are described in [Strings and Characters](./strings-and-characters).
+Here, the raw values for an enumeration called `ASCIIControlCharacter` are defined to be of type `Character`, and are set to some of the more common ASCII control characters. `Character` values are described in [Strings and Characters](./cadenas-y-caracteres).
 
 Raw values can be strings, characters, or any of the integer or floating-point number types. Each raw value must be unique within its enumeration declaration.
 
-<Callout type="note">
+<Callout>
   Raw values are _not_ the same as associated values. Raw values are set to
   prepopulated values when you first define the enumeration in your code, like
   the three ASCII codes above. The raw value for a particular enumeration case
@@ -288,10 +288,10 @@ This example identifies Uranus from its raw value of `7`:
 
 Not all possible `Int` values will find a matching planet, however. Because of this, the raw value initializer always returns an _optional_ enumeration case. In the example above, `possiblePlanet` is of type `Planet?`, or “optional `Planet`.”
 
-<Callout type="note">
+<Callout>
   The raw value initializer is a failable initializer, because not every raw
   value will return an enumeration case. For more information, see [Failable
-  Initializers](../language-reference/declarations#failable-initializers).
+  Initializers](../referencia-del-lenguaje/declaraciones#inicializadores-falibles).
 </Callout>
 
 If you try to find a planet with a position of `11`, the optional `Planet` value returned by the raw value initializer will be `nil`:

@@ -9,7 +9,7 @@ import CodeSnippet from '../../components/CodeSnippet.js'
 
 _Optional chaining_ is a process for querying and calling properties, methods, and subscripts on an optional that might currently be `nil`. If the optional contains a value, the property, method, or subscript call succeeds; if the optional is `nil`, the property, method, or subscript call returns `nil`. Multiple queries can be chained together, and the entire chain fails gracefully if any link in the chain is `nil`.
 
-<Callout type="note">
+<Callout>
   Optional chaining in Swift is similar to messaging `nil` in Objective-C, but
   in a way that works for any type, and that can be checked for success or
   failure.
@@ -132,7 +132,7 @@ The `Room` class used for the `rooms` array is a simple class with one property 
 
 <CodeSnippet>
   {`class Room {
-    let name: String
+    let name: String\n
     init(name: String) { self.name = name }
 }`}
 </CodeSnippet>
@@ -179,7 +179,7 @@ Because `john.residence` is `nil`, this optional chaining call fails in the same
 You can also attempt to set a property's value through optional chaining:
 
 <CodeSnippet>
-  {`let someAddress = Address()
+  {`let someAddress = Address()\n
 someAddress.buildingNumber = "29"
 someAddress.street = "Acacia Road"
 john.residence?.address = someAddress`}
@@ -192,7 +192,7 @@ The assignment is part of the optional chaining, which means none of the code on
 <CodeSnippet>
   {`func createAddress() -> Address {
     print("Function was called.")\n
-    let someAddress = Address()
+    let someAddress = Address()\n
     someAddress.buildingNumber = "29"
     someAddress.street = "Acacia Road"\n
     return someAddress
@@ -214,7 +214,7 @@ The `printNumberOfRooms()` method on the `Residence` class prints the current va
 }`}
 </CodeSnippet>
 
-This method doesn't specify a return type. However, functions and methods with no return type have an implicit return type of `Void`, as described in [Functions Without Return Values](./functions#functions-without-return-values). This means that they return a value of `()`, or an empty tuple.
+This method doesn't specify a return type. However, functions and methods with no return type have an implicit return type of `Void`, as described in [Functions Without Return Values](./funciones#funciones-sin-valores-devueltos). This means that they return a value of `()`, or an empty tuple.
 
 If you call this method on an optional value with optional chaining, the method's return type will be `Void?`, not `Void`, because return values are always of an optional type when called through optional chaining. This enables you to use an `if` statement to check whether it was possible to call the `printNumberOfRooms()` method, even though the method doesn't itself define a return value. Compare the return value from the `printNumberOfRooms` call against `nil` to see if the method call was successful:
 
@@ -242,7 +242,7 @@ The same is true if you attempt to set a property through optional chaining. The
 
 You can use optional chaining to try to retrieve and set a value from a subscript on an optional value, and to check whether that subscript call is successful.
 
-<Callout type="note">
+<Callout>
   When you access a subscript on an optional value through optional chaining,
   you place the question mark _before_ the subscript's brackets, not after. The
   optional chaining question mark always follows immediately after the part of
@@ -271,7 +271,7 @@ This subscript setting attempt also fails, because `residence` is currently `nil
 If you create and assign an actual `Residence` instance to `john.residence`, with one or more `Room` instances in its `rooms` array, you can use the `Residence` subscript to access the actual items in the `rooms` array through optional chaining:
 
 <CodeSnippet>
-  {`let johnsHouse = Residence()
+  {`let johnsHouse = Residence()\n
 johnsHouse.rooms.append(Room(name: "Living Room"))
 johnsHouse.rooms.append(Room(name: "Kitchen"))
 john.residence = johnsHouse\n
@@ -288,7 +288,7 @@ if let firstRoomName = john.residence?[0].name {
 If a subscript returns a value of optional type—such as the key subscript of Swift's `Dictionary` type—place a question mark _after_ the subscript's closing bracket to chain on its optional return value:
 
 <CodeSnippet>
-  {`var testScores = ["Dave": [86, 82, 84], "Bev": [79, 94, 81]]
+  {`var testScores = ["Dave": [86, 82, 84], "Bev": [79, 94, 81]]\n
 testScores["Dave"]?[0] = 91
 testScores["Bev"]?[0] += 1
 testScores["Brian"]?[0] = 72
@@ -329,7 +329,7 @@ Note that in the example above, you are trying to retrieve the value of the `str
 If you set an actual `Address` instance as the value for `john.residence.address`, and set an actual value for the address's `street` property, you can access the value of the `street` property through multilevel optional chaining:
 
 <CodeSnippet>
-  {`let johnsAddress = Address()
+  {`let johnsAddress = Address()\n
 johnsAddress.buildingName = "The Larches"
 johnsAddress.street = "Laurel Street"
 john.residence?.address = johnsAddress\n
@@ -370,7 +370,7 @@ If you want to perform further optional chaining on this method's return value, 
 // Prints "John's building identifier begins with "The"."`}
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   In the example above, you place the optional chaining question mark _after_
   the parentheses, because the optional value you are chaining on is the
   `buildingIdentifier()` method's return value, and not the

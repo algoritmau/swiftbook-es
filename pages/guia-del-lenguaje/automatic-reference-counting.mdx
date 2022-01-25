@@ -33,7 +33,7 @@ Here's an example of how Automatic Reference Counting works. This example starts
   {`class Person {
     let name: String\n
     init(name: String) {
-        self.name = name
+        self.name = name\n
         print("\\(name) is being initialized")
     }\n
     deinit {
@@ -489,9 +489,9 @@ class City {
 
 To set up the interdependency between the two classes, the initializer for `City` takes a `Country` instance, and stores this instance in its `country` property.
 
-The initializer for `City` is called from within the initializer for `Country`. However, the initializer for `Country` can't pass `self` to the `City` initializer until a new `Country` instance is fully initialized, as described in [Two-Phase Initialization](./initialization#two-phase-initialization).
+The initializer for `City` is called from within the initializer for `Country`. However, the initializer for `Country` can't pass `self` to the `City` initializer until a new `Country` instance is fully initialized, as described in [Two-Phase Initialization](./inicializacion#inicializacion-de-dos-fases).
 
-To cope with this requirement, you declare the `capitalCity` property of `Country` as an implicitly unwrapped optional property, indicated by the exclamation point at the end of its type annotation (`City!`). This means that the `capitalCity` property has a default value of `nil`, like any other optional, but can be accessed without the need to unwrap its value as described in [Implicitly Unwrapped Optionals](./the-basics#implicitly-unwrapped-optionals).
+To cope with this requirement, you declare the `capitalCity` property of `Country` as an implicitly unwrapped optional property, indicated by the exclamation point at the end of its type annotation (`City!`). This means that the `capitalCity` property has a default value of `nil`, like any other optional, but can be accessed without the need to unwrap its value as described in [Implicitly Unwrapped Optionals](./fundamentos#opcionales-extraidos-de-forma-implicita).
 
 Because `capitalCity` has a default `nil` value, a new `Country` instance is considered fully initialized as soon as the `Country` instance sets its `name` property within its initializer. This means that the `Country` initializer can start to reference and pass around the implicit `self` property as soon as the `name` property is set. The `Country` initializer can therefore pass `self` as one of the parameters for the `City` initializer when the `Country` initializer is setting its own `capitalCity` property.
 
@@ -550,7 +550,7 @@ For example, the `asHTML` property could be set to a closure that defaults to so
 
 <CodeSnippet>
   {`let heading = HTMLElement(name: "h1")
-let defaultText = "some default text"
+let defaultText = "some default text"\n
 heading.asHTML = {
     return "<\\(heading.name)>\\(heading.text ?? defaultText)</\\(heading.name)>"
 }\n
@@ -593,7 +593,7 @@ Unfortunately, the `HTMLElement` class, as written above, creates a strong refer
   className="figure-small"
 />
 
-The instance's `asHTML` property holds a strong reference to its closure. However, because the closure refers to `self` within its body (as a way to reference `self.name` and `self.text`), the closure _captures_ `self`, which means that it holds a strong reference back to the `HTMLElement` instance. A strong reference cycle is created between the two. (For more information about capturing values in a closure, see [Capturing Values](./closures#capturing-values).)
+The instance's `asHTML` property holds a strong reference to its closure. However, because the closure refers to `self` within its body (as a way to reference `self.name` and `self.text`), the closure _captures_ `self`, which means that it holds a strong reference back to the `HTMLElement` instance. A strong reference cycle is created between the two. (For more information about capturing values in a closure, see [Capturing Values](./closures#capturar-valores).)
 
 <Callout>
   Even though the closure refers to `self` multiple times, it only captures one
@@ -680,7 +680,7 @@ This implementation of `HTMLElement` is identical to the previous implementation
 You can create and print an `HTMLElement` instance as before:
 
 <CodeSnippet>
-  {`var paragraph: HTMLElement? = HTMLElement(name: "p", text: "hello, world")
+  {`var paragraph: HTMLElement? = HTMLElement(name: "p", text: "hello, world")\n
 print(paragraph!.asHTML())
 // Prints "<p>hello, world</p>"`}
 </CodeSnippet>
@@ -702,4 +702,4 @@ This time, the capture of `self` by the closure is an unowned reference, and doe
 // Prints "p is being deinitialized"`}
 </CodeSnippet>
 
-For more information about capture lists, see [Capture Lists](../reference-manual/expressions#capture-lists).
+For more information about capture lists, see [Capture Lists](../referencia-del-lenguaje/expresiones#listas-de-captura).

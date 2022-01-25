@@ -13,7 +13,7 @@ The additional scheduling flexibility from parallel or asynchronous code also co
 
 The rest of this chapter uses the term _concurrency_ to refer to this common combination of asynchronous and parallel code.
 
-<Callout type="note">
+<Callout>
   If you've written concurrent code before, you might be used to working with
   threads. The concurrency model in Swift is built on top of threads, but you
   don't interact with them directly. An asynchronous function in Swift can give
@@ -43,7 +43,7 @@ To indicate that a function or method is asynchronous, you write the `async` key
 
 <CodeSnippet>
   {`func listPhotos(inGallery name: String) async -> [String] {
-    let result = // ... some asynchronous networking code ...
+    let result = // ... some asynchronous networking code ...\n
     return result
 }`}
 </CodeSnippet>
@@ -58,7 +58,7 @@ For example, the code below fetches the names of all the pictures in a gallery a
   {`let photoNames = await listPhotos(inGallery: "Summer Vacation")
 let sortedNames = photoNames.sorted()
 let name = sortedNames[0]
-let photo = await downloadPhoto(named: name)
+let photo = await downloadPhoto(named: name)\n
 show(photo)`}
 </CodeSnippet>
 
@@ -84,12 +84,12 @@ The possible suspension points in your code marked with `await` indicate that th
 - Code in the static `main()` method of a structure, class, or enumeration that's marked with `@main`.
 - Code in a detached child task, as shown in [Unstructured Concurrency](#unstructured-concurrency) below.
 
-<Callout type="note">
+<Callout>
   The [`Task.sleep(_:)`](https://developer.apple.com/documentation/swift/task/3814836-sleep) method is useful when writing simple code to learn how concurrency works. This method does nothing, but waits at least the given number of nanoseconds before it returns. Here's a version of the `listPhotos(inGallery:)` function that uses `sleep()` to simulate waiting for a network operation:
 
 <CodeSnippet isCalloutChild={true}>
   {`func listPhotos(inGallery name: String) async -> [String] {
-    await Task.sleep(2 * 1_000_000_000)  // Two seconds
+    await Task.sleep(2 * 1_000_000_000)  // Two seconds\n
     return ["IMG001", "IMG99", "IMG0404"]
 }`}
 </CodeSnippet>
@@ -102,7 +102,7 @@ The `listPhotos(inGallery:)` function in the previous section asynchronously ret
 
 <CodeSnippet>
   {`import Foundation\n
-let handle = FileHandle.standardInput
+let handle = FileHandle.standardInput\n
 for try await line in handle.bytes.lines {
     print(line)
 }`}
@@ -119,8 +119,8 @@ Calling an asynchronous function with `await` runs only one piece of code at a t
 <CodeSnippet>
   {`let firstPhoto = await downloadPhoto(named: photoNames[0])
 let secondPhoto = await downloadPhoto(named: photoNames[1])
-let thirdPhoto = await downloadPhoto(named: photoNames[2])\n
-let photos = [firstPhoto, secondPhoto, thirdPhoto]
+let thirdPhoto = await downloadPhoto(named: photoNames[2])
+let photos = [firstPhoto, secondPhoto, thirdPhoto]\n
 show(photos)`}
 </CodeSnippet>
 
@@ -132,7 +132,7 @@ To call an asynchronous function and let it run in parallel with code around it,
   {`async let firstPhoto = downloadPhoto(named: photoNames[0])
 async let secondPhoto = downloadPhoto(named: photoNames[1])
 async let thirdPhoto = downloadPhoto(named: photoNames[2])\n    
-let photos = await [firstPhoto, secondPhoto, thirdPhoto]
+let photos = await [firstPhoto, secondPhoto, thirdPhoto]\n
 show(photos)`}
 </CodeSnippet>
 
@@ -154,7 +154,7 @@ Tasks are arranged in a hierarchy. Each task in a task group has the same parent
 
 <CodeSnippet>
   {`await withTaskGroup(of: Data.self) { taskGroup in
-    let photoNames = await listPhotos(inGallery: "Summer Vacation")
+    let photoNames = await listPhotos(inGallery: "Summer Vacation")\n
     for name in photoNames {
         taskGroup.addTask { await downloadPhoto(named: name) }
     }
@@ -191,12 +191,12 @@ To propagate cancellation manually, call [`Task.cancel()`](https://developer.app
 
 ## Actors
 
-Like classes, actors are reference types, so the comparison of value types and reference types in [Classes Are Reference Types](./structures-and-classes#classes-are-reference-types) applies to actors as well as classes. Unlike classes, actors allow only one task to access their mutable state at a time, which makes it safe for code in multiple tasks to interact with the same instance of an actor. For example, here's an actor that records temperatures:
+Like classes, actors are reference types, so the comparison of value types and reference types in [Classes Are Reference Types](./estructuras-y-clases#las-clases-son-tipos-referenciados) applies to actors as well as classes. Unlike classes, actors allow only one task to access their mutable state at a time, which makes it safe for code in multiple tasks to interact with the same instance of an actor. For example, here's an actor that records temperatures:
 
 <CodeSnippet>
   {`actor TemperatureLogger {
     let label: String
-    var measurements: [Int]
+    var measurements: [Int]\n
     private(set) var max: Int\n
     init(label: String, measurement: Int) {
         self.label = label
@@ -212,7 +212,7 @@ You create an instance of an actor using the same initializer syntax as structur
 
 <CodeSnippet>
   {`Task {
-    let logger = TemperatureLogger(label: "Outdoors", measurement: 25)
+    let logger = TemperatureLogger(label: "Outdoors", measurement: 25)\n
     print(await logger.max)
 }
 // Prints "25"`}

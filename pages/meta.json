@@ -1,7 +1,7 @@
 {
   "index": "The Swift Programming Language en Español",
-  "welcome-to-swift": "Introducción a Swift",
-  "language-guide": "Guía del Lenguaje",
-  "language-reference": "Referencia del Lenguaje",
-  "revision-history": "Historial de Revisión"
+  "introduccion-a-swift": "Introducción a Swift",
+  "guia-del-lenguaje": "Guía del Lenguaje",
+  "referencia-del-lenguaje": "Referencia del Lenguaje",
+  "historial-de-revision": "Historial de Revisión"
 }

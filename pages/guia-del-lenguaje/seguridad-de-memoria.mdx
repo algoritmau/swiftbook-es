@@ -69,7 +69,7 @@ An access is _instantaneous_ if it's not possible for other code to run after th
   {`func oneMore(than number: Int) -> Int {
     return number + 1
 }\n
-var myNumber = 1
+var myNumber = 1\n
 myNumber = oneMore(than: myNumber)\n
 print(myNumber)
 // Prints "2"`}
@@ -108,7 +108,7 @@ One way to solve this conflict is to make an explicit copy of `stepSize`:
 
 <CodeSnippet>
   {`// Make an explicit copy.
-var copyOfStepSize = stepSize
+var copyOfStepSize = stepSize\n
 increment(&copyOfStepSize)\n
 // Update the original.
 stepSize = copyOfStepSize
@@ -121,7 +121,7 @@ Another consequence of long-term write access to in-out parameters is that passi
 
 <CodeSnippet>
   {`func balance(_ x: inout Int, _ y: inout Int) {
-    let sum = x + y
+    let sum = x + y\n
     x = sum / 2
     y = sum - x
 }\n

@@ -18,10 +18,14 @@ Si has desarollado anteriormente en C u Objective-C, esta sintaxis te resultará
 
 Esta guía te proporciona suficiente información para comenzar a desarrollar código en Swift al enseñarte cómo realizar una variedad de tareas de programación. No te preocupes si hay algo que no entiendes: todo lo presentado en esta guía se explica en detalle en el resto de este libro.
 
-<Callout type="note">
+<Callout>
   Para una mejor experiencia, abre este capítulo como un playground en Xcode.
   Los playgrounds te permiten editar bloques de código y ver el resultado
   inmediatamente.
+  <br />
+  [Descargar
+  Playground](https://docs.swift.org/swift-book/GuidedTour/GuidedTour.playground.zip)
+  (en inglés)
 </Callout>
 
 ## Valores Sencillos
@@ -29,8 +33,8 @@ Esta guía te proporciona suficiente información para comenzar a desarrollar c�
 Usa `let` para crear una constante y `var` para crear una variable. No es necesario que conozcamos el valor de una constante durante la compilación, pero tal valor debe asignarse exactamente una única vez. Esto significa que puedes usar constantes para nombrar un valor que solo se define una vez, pero que se usa muchas veces.
 
 <CodeSnippet>
-  {`var miVariable = 42
-miVariable = 50
+  {`var miVariable = 42\n
+miVariable = 50\n
 let miConstante = 42`}
 </CodeSnippet>
 
@@ -117,7 +121,7 @@ Si es posible inferir información sobre el tipo de datos, podrás declarar un a
 ocupaciones = [:]`}
 </CodeSnippet>
 
-## Control de Flujo
+## Flujo de control
 
 Usa `if` y `switch` para crear condicionales, y usa `for-in`, `while`, y `repeat-while` para crear bucles. Los paréntesis alrededor de la condición o de la variable del bucle son opcionales. Las llaves alrededor del cuerpo son obligatorias.
 
@@ -135,13 +139,13 @@ print(puntajeDelEquipo)
 // Imprime "11"`}
 </CodeSnippet>
 
-En una declaración `if`, el condicional debe ser una expresión de tipo _Boolean_; esto significa, que una declaración de la forma `if puntaje { ... }` es un error, ya que no se compara implícitamente con cero.
+En una instrucción `if`, el condicional debe ser una expresión de tipo booleano; esto significa, que una instrucción de la forma `if puntaje { … }` es un error, ya que no se compara implícitamente con cero.
 
 Puedes usar `if` y `let` en conjunto para lidiar con valores que podrían no existir. Estos valores son representados como opcionales. Un valor opcional puede contener un valor o `nil` –para indicar la ausencia de un valor–. Agrega un signo de interrogación (`?`) después del tipo de un valor para señalar dicho valor como opcional.
 
 <CodeSnippet>
-  {`var stringOpcional: String? = "Hola"
-print(stringOpcional == nil)
+  {`var cadenaOpcional: String? = "Hola"
+print(cadenaOpcional == nil)
 // Imprime "false"\n
 var nombreOpcional: String? = "John Appleseed"
 var saludo = "¡Hola!"\n
@@ -160,9 +164,9 @@ Si el valor opcional es `nil`, el condicional evalúa a `false` y el código en 
 Otra forma de lidiar con valores opcionales es proporcionar un valor por defecto a través del operador `??`. Si el valor opcional no existe, se usa el valor por defecto en su lugar.
 
 <CodeSnippet>
-  {`let nickname: String? = nil
+  {`let alias: String? = nil
 let nombreCompleto: String = "John Appleseed"
-let saludoInformal = "Hola, \\(nickname ?? nombreCompleto)"`}
+let saludoInformal = "Hola, \\(alias ?? nombreCompleto)"`}
 </CodeSnippet>
 
 Los bucles tipo `switch` soportan cualquier tipo de datos así como una gran variedad de operaciones comparativas, por lo que no se limitan a enteros y pruebas de calidad.
@@ -171,9 +175,9 @@ Los bucles tipo `switch` soportan cualquier tipo de datos así como una gran var
   {`let vegetal = "pimiento rojo"\n
 switch vegetal {
 case "apio":
-    print("Add some raisins and make ants on a log.")
-case "pepino", "berro":
-    print("That would make a good tea sandwich.")
+    print("Un par de frutos verdes más y tendrás un buen batido.")
+case "pepino", "cebolla":
+    print("Útiles para un buen sandwich.")
 case let x where x.hasSuffix("pimiento"):
     print("¿Es un \\(x) picante?")
 default:
@@ -268,7 +272,7 @@ Por defecto, las funciones usan los nombres de sus parámetros como etiquetas pa
 saludar("Juan", en: "Miercoles")`}
 </CodeSnippet>
 
-Usa una tupla (del inglés _tuple_) para crear un valor compuesto; por ejemplo, para devolver múltiples valores desde una función. Los elementos de una tupla se pueden referenciar bien sea por nombre o por número.
+Usa una tupla para crear un valor compuesto; por ejemplo, para devolver múltiples valores desde una función. Los elementos de una tupla se pueden referenciar bien sea por nombre o por número.
 
 <CodeSnippet>
   {`func calcularEstadisticas(puntajes: [Int]) -> (min: Int, max: Int, suma: Int) {

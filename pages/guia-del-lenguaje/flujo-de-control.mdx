@@ -42,7 +42,7 @@ for (animalName, legCount) in numberOfLegs {
 // spiders have 8 legs`}
 </CodeSnippet>
 
-The contents of a `Dictionary` are inherently unordered, and iterating over them doesn't guarantee the order in which they will be retrieved. In particular, the order you insert items into a `Dictionary` doesn't define the order they're iterated. For more about arrays and dictionaries, see [Collection Types](./collection-types).
+The contents of a `Dictionary` are inherently unordered, and iterating over them doesn't guarantee the order in which they will be retrieved. In particular, the order you insert items into a `Dictionary` doesn't define the order they're iterated. For more about arrays and dictionaries, see [Collection Types](./tipos-de-colecciones).
 
 You can also use `for-in` loops with numeric ranges. This example prints the first few entries in a five-times table:
 
@@ -76,7 +76,7 @@ print("\\(base) to the power of \\(power) is \\(answer)")
 
 The example above calculates the value of one number to the power of another (in this case, `3` to the power of `10`). It multiplies a starting value of `1` (that is, `3` to the power of `0`) by `3`, ten times, using a closed range that starts with `1` and ends with `10`. For this calculation, the individual counter values each time through the loop are unnecessary—the code simply executes the loop the correct number of times. The underscore character (`_`) used in place of a loop variable causes the individual values to be ignored and doesn't provide access to the current value during each iteration of the loop.
 
-In some situations, you might not want to use closed ranges, which include both endpoints. Consider drawing the tick marks for every minute on a watch face. You want to draw `60` tick marks, starting with the `0` minute. Use the half-open range operator (`..<`) to include the lower bound but not the upper bound. For more about ranges, see [Range Operators](./basic-operators#range-operators).
+In some situations, you might not want to use closed ranges, which include both endpoints. Consider drawing the tick marks for every minute on a watch face. You want to draw `60` tick marks, starting with the `0` minute. Use the half-open range operator (`..<`) to include the lower bound but not the upper bound. For more about ranges, see [Range Operators](./operadores-basicos#operadores-de-rango).
 
 <CodeSnippet>
   {`let minutes = 60\n
@@ -123,7 +123,8 @@ Here's the general form of a `while` loop:
   <span class="pseudocode__keyword">while</span>{' '}
   <span class="pseudocode__highlight">condition</span> &lcub; <br />
   &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span><br />
+  <span class="pseudocode__highlight">statements</span>
+  <br />
   <span>&rcub;</span>
 </p>
 
@@ -182,7 +183,7 @@ The example above uses a very simple approach to dice rolling. Instead of genera
 
 After rolling the dice, the player moves forward by `diceRoll` squares. It's possible that the dice roll may have moved the player beyond square 25, in which case the game is over. To cope with this scenario, the code checks that `square` is less than the board array's `count` property. If `square` is valid, the value stored in `board[square]` is added to the current `square` value to move the player up or down any ladders or snakes.
 
-<Callout type="note">
+<Callout>
   If this check isn't performed, `board[square]` might try to access a value
   outside the bounds of the `board` array, which would trigger a runtime error.
 </Callout>
@@ -195,7 +196,7 @@ A `while` loop is appropriate in this case, because the length of the game isn't
 
 The other variation of the `while` loop, known as the `repeat-while` loop, performs a single pass through the loop block first, _before_ considering the loop's condition. It then continues to repeat the loop until the condition is `false`.
 
-<Callout type="note">
+<Callout>
   The `repeat-while` loop in Swift is analogous to a `do-while` loop in other
   languages.
 </Callout>
@@ -205,8 +206,10 @@ Here's the general form of a `repeat-while` loop:
 <p class="pseudocode">
   <span class="pseudocode__keyword">repeat</span> &lcub; <br />
   &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span><br />
-  <span>&rcub;</span> <span class="pseudocode__keyword">while</span> <span class="pseudocode__highlight">condition</span>
+  <span class="pseudocode__highlight">statements</span>
+  <br />
+  <span>&rcub;</span> <span class="pseudocode__keyword">while</span>{' '}
+  <span class="pseudocode__highlight">condition</span>
 </p>
 
 Here's the _Snakes and Ladders_ example again, written as a `repeat-while` loop rather than a `while` loop. The values of `finalSquare`, `board`, `square`, and `diceRoll` are initialized in exactly the same way as with a `while` loop.
@@ -311,13 +314,23 @@ A `switch` statement considers a value and compares it against several possible 
 In its simplest form, a `switch` statement compares a value against one or more values of the same type.
 
 <p class="pseudocode">
-  <span class="pseudocode__keyword">switch</span> <span class="pseudocode__highlight">some value to consider</span> &lcub; <br />
-  <span class="pseudocode__keyword">case</span> <span class="pseudocode__highlight">value 1</span>: <br />
-  &emsp;&emsp;<span class="pseudocode__highlight">respond to value 1</span><br />
-  <span class="pseudocode__keyword">case</span> <span class="pseudocode__highlight">value 2</span>, <span class="pseudocode__highlight">value 3</span>:<br />
-  &emsp;&emsp;<span class="pseudocode__highlight">respond to value 2 or 3</span><br />
+  <span class="pseudocode__keyword">switch</span>{' '}
+  <span class="pseudocode__highlight">some value to consider</span> &lcub;{' '}
+  <br />
+  <span class="pseudocode__keyword">case</span> <span class="pseudocode__highlight">
+    value 1
+  </span>: <br />
+  &emsp;&emsp;<span class="pseudocode__highlight">respond to value 1</span>
+  <br />
+  <span class="pseudocode__keyword">case</span>{' '}
+  <span class="pseudocode__highlight">value 2</span>,{' '}
+  <span class="pseudocode__highlight">value 3</span>:<br />
+  &emsp;&emsp;<span class="pseudocode__highlight">respond to value 2 or 3</span>
+  <br />
   <span class="pseudocode__keyword">default</span>:<br />
-  &emsp;&emsp;<span class="pseudocode__highlight">otherwise, do something else</span><br />
+  &emsp;&emsp;
+  <span class="pseudocode__highlight">otherwise, do something else</span>
+  <br />
   &rcub;
 </p>
 
@@ -348,7 +361,7 @@ The `switch` statement's first case matches the first letter of the English alph
 
 In contrast with `switch` statements in C and Objective-C, `switch` statements in Swift don't fall through the bottom of each case and into the next one by default. Instead, the entire `switch` statement finishes its execution as soon as the first matching `switch` case is completed, without requiring an explicit `break` statement. This makes the `switch` statement safer and easier to use than the one in C and avoids executing more than one `switch` case by mistake.
 
-<Callout type="note">
+<Callout>
   Although `break` isn't required in Swift, you can use a `break` statement to
   match and ignore a particular case or to break out of a matched case before
   that case has completed its execution. For details, see [Break in a Switch
@@ -386,7 +399,7 @@ default:
 
 For readability, a compound case can also be written over multiple lines. For more information about compound cases, see [Compound Cases](#compound-cases).
 
-<Callout type="note">
+<Callout>
   To explicitly fall through at the end of a particular `switch` case, use the
   `fallthrough` keyword, as described in [Fallthrough](#fallthrough).
 </Callout>
@@ -567,7 +580,7 @@ _Control transfer statements_ change the order in which your code is executed, b
 - `return`
 - `throw`
 
-The `continue`, `break`, and `fallthrough` statements are described below. The `return` statement is described in [Functions](./functions), and the `throw` statement is described in [Propagating Errors Using Throwing Functions](./error-handling/propagating-errors-using-throwing-functions).
+The `continue`, `break`, and `fallthrough` statements are described below. The `return` statement is described in [Functions](./funciones), and the `throw` statement is described in [Propagating Errors Using Throwing Functions](./manejo-de-errores#propagacion-de-errores-mediante-funciones-throwing).
 
 ### `continue`
 
@@ -605,7 +618,7 @@ When used inside a `switch` statement, `break` causes the `switch` statement to 
 
 This behavior can be used to match and ignore one or more cases in a `switch` statement. Because Swift's `switch` statement is exhaustive and doesn't allow empty cases, it's sometimes necessary to deliberately match and ignore a case in order to make your intentions explicit. You do this by writing the `break` statement as the entire body of the case you want to ignore. When that case is matched by the `switch` statement, the `break` statement inside the case ends the `switch` statement's execution immediately.
 
-<Callout type="note">
+<Callout>
   A `switch` case that contains only a comment is reported as a compile-time
   error. Comments aren't statements and don't cause a `switch` case to be
   ignored. Always use a `break` statement to ignore a `switch` case.
@@ -668,7 +681,7 @@ Unless the value of `integerToDescribe` is in the list of known prime numbers, i
 
 After the `switch` statement has finished executing, the number's description is printed using the `print(_:separator:terminator:)` function. In this example, the number `5` is correctly identified as a prime number.
 
-<Callout type="note">
+<Callout>
   The `fallthrough` keyword doesn't check the case conditions for the `switch`
   case that it causes execution to fall into. The `fallthrough` keyword simply
   causes code execution to move directly to the statements inside the next case
@@ -684,9 +697,12 @@ To achieve these aims, you can mark a loop statement or conditional statement wi
 A labeled statement is indicated by placing a label on the same line as the statement's introducer keyword, followed by a colon. Here's an example of this syntax for a `while` loop, although the principle is the same for all loops and `switch` statements:
 
 <p class="pseudocode">
-  <span class="pseudocode__highlight">label name</span>: <span class="pseudocode__keyword">while</span> <span class="pseudocode__highlight">condition</span> <br />
+  <span class="pseudocode__highlight">label name</span>:{' '}
+  <span class="pseudocode__keyword">while</span>{' '}
+  <span class="pseudocode__highlight">condition</span> <br />
   &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span><br />
+  <span class="pseudocode__highlight">statements</span>
+  <br />
   <span>&rcub;</span>
 </p>
 
@@ -747,7 +763,7 @@ The dice is rolled at the start of each loop. Rather than moving the player imme
   If the dice roll will move the player _beyond_ the final square, the move is invalid and the player needs to roll again. The `continue gameLoop` statement ends the current `while` loop iteration and begins the next iteration of the loop.
   In all other cases, the dice roll is a valid move. The player moves forward by `diceRoll` squares, and the game logic checks for any snakes and ladders. The loop then ends, and control returns to the `while` condition to decide whether another turn is required.
 
-<Callout type="note">
+<Callout>
   If the `break` statement above didn't use the `gameLoop` label, it would break
   out of the `switch` statement, not the `while` statement. Using the `gameLoop`
   label makes it clear which control statement should be terminated. It isn't
@@ -808,10 +824,13 @@ You use an _availability condition_ in an `if` or `guard` statement to condition
 
 The availability condition above specifies that in iOS, the body of the `if` statement executes only in iOS 10 and later; in macOS, only in macOS 10.12 and later. The last argument, `*`, is required and specifies that on any other platform, the body of the `if` executes on the minimum deployment target specified by your target.
 
-In its general form, the availability condition takes a list of platform names and versions. You use platform names such as `iOS`, `macOS`, `watchOS`, and `tvOS`—for the full list, see [Declaration Attributes](../language-reference/attributes#declaration-attributes). In addition to specifying major version numbers like iOS 8 or macOS 10.10, you can specify minor versions numbers like iOS 11.2.6 and macOS 10.13.3.
+In its general form, the availability condition takes a list of platform names and versions. You use platform names such as `iOS`, `macOS`, `watchOS`, and `tvOS`—for the full list, see [Declaration Attributes](../referencia-del-lenguaje/atributos#atributos-de-declaracion). In addition to specifying major version numbers like iOS 8 or macOS 10.10, you can specify minor versions numbers like iOS 11.2.6 and macOS 10.13.3.
 
 <p class="pseudocode">
-  <span class="pseudocode__keyword">if #available</span> (<span class="pseudocode__highlight">platform name</span> <span class="pseudocode__highlight">version</span>, <span class="pseudocode__highlight">...</span>, *) &lcub; <br />
+  <span class="pseudocode__keyword">if #available</span> (
+  <span class="pseudocode__highlight">platform name</span>{' '}
+  <span class="pseudocode__highlight">version</span>,{' '}
+  <span class="pseudocode__highlight">...</span>, *) &lcub; <br />
   &emsp;&emsp;
   <span class="pseudocode__highlight">statements to execute if the APIs are available</span><br />
   &rcub; <span class="pseudocode__keyword">else</span> &lcub; <br />

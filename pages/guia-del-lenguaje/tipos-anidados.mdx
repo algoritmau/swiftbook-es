@@ -68,10 +68,10 @@ Rank also defines a computed property, `values`, which returns an instance of th
 
 The `BlackjackCard` structure itself has two properties—`rank` and `suit`. It also defines a computed property called `description`, which uses the values stored in `rank` and `suit` to build a description of the name and value of the card. The `description` property uses optional binding to check whether there's a second value to display, and if so, inserts additional description detail for that second value.
 
-Because `BlackjackCard` is a structure with no custom initializers, it has an implicit memberwise initializer, as described in [Memberwise Initializers for Structure Types](./initialization). You can use this initializer to initialize a new constant called `theAceOfSpades`:
+Because `BlackjackCard` is a structure with no custom initializers, it has an implicit memberwise initializer, as described in [Memberwise Initializers for Structure Types](./inicializacion). You can use this initializer to initialize a new constant called `theAceOfSpades`:
 
 <CodeSnippet>
-  {`let theAceOfSpades = BlackjackCard(rank: .ace, suit: .spades)
+  {`let theAceOfSpades = BlackjackCard(rank: .ace, suit: .spades)\n
 print("theAceOfSpades: \\(theAceOfSpades.description)")
 // Prints "theAceOfSpades: suit is ♠, value is 1 or 11"`}
 </CodeSnippet>
