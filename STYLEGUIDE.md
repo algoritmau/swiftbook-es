@@ -91,21 +91,24 @@ Aquí hay algunas sugerencias para la traducción de términos de uso común en 
 | deinitialization          | desinicialización                     |
 | file                      | archivo                               |
 | framework                 | _framework_                           |
-| issue                     | _issue_                               |
 | key                       | _key_                                 |
 | lazy initialization       | inicialización diferida               |
 | layout                    | _layout_                              |
 | library                   | biblioteca                            |
+| loop                      | ciclo                                 |
 | lowercase                 | minúscula(s)                          |
-| open source               | código abierto                        |
+| optional binding          | vinculación opcional                  |
 | render                    | renderizar (verb), renderizado (noun) |
-| scope (sustantivo)        | ámbito                                |
-| scope (verbo)             | aislar                                |
+| scope (noun)              | ámbito                                |
+| scope (verb)              | aislar                                |
 | script                    | _script_                              |
-| state                     | estado                                |
-| string                    | _string_                              |
+| statement                 | instrucción                           |
+| string                    | cadena                                |
+| stub                      | _stub_                                |
+| substring                 | subcadena                             |
 | template literals         | _template literals_                   |
 | test                      | prueba                                |
 | type annotation           | definición de tipo                    |
-| type inference            | inferencia de tipos                   |
-| type safety               | seguridad de tipos                    |
+| type inference            | inferencia de tipo                    |
+| type safety               | seguridad de tipo                     |
+| unwrap                    | extraer                               |
