@@ -1,65 +1,32 @@
 # The Swift Programming Language en Español
 
-Esta es la traducción al español del libro [_The Swift Programming Language_](https://docs.swift.org/swift-book/).
+Este repositorio contiene el código fuente, al igual que los archivos fuente (`.mdx`) del sitio web [swift-book-es.vercel.app/](https://swift-book-es.vercel.app/).
 
-> ⚠️ Este es un trabajo en progreso. Muchos artículos no están traducidos en este momento.
+El contenido de este repo está basado en el libro [_The Swift Programming Language_](https://docs.swift.org/swift-book/), con algunas algunas sugerencias y correcciones.
+
+Use el icono de la tabla de contenido en la esquina superior izquierda de este documento para llegar a una sección específica de esta guía rápidamente.
 
 <br />
 
-## Tabla de contenidos
-
-- [INTRODUCCIÓN A SWIFT](./pages/welcome-to-swift/about-swift.mdx)
-  - [Acerca de Swift](./pages/welcome-to-swift/about-swift.mdx)
-  - [Compatibilidad de Versiones](./pages/welcome-to-swift/version-compatibility.mdx)
-  - [Un Recorrido Por Swift](./pages/welcome-to-swift/a-swift-tour.mdx)
-- [GUÍA DEL LENGUAJE](./pages/language-guide/the-basics.mdx)
-  - [Fundamentos](./pages/language-guide/the-basics.mdx)
-  - [Operadores Básicos](./pages/language-guide/basic-operators.mdx)
-  - [Strings y Caracteres](./pages/language-guide/strings-and-characters.mdx)
-  - [Tipos de Colecciones](./pages/language-guide/collection-types.mdx)
-  - [Control de Flujo](./pages/language-guide/control-flow.mdx)
-  - [Funciones](./pages/language-guide/functions.mdx)
-  - [Closures](./pages/language-guide/closures.mdx)
-  - [Enumeraciones](./pages/language-guide/enumerations.mdx)
-  - [Estructuras y Clases](./pages/language-guide/structures-and-classes.mdx)
-  - [Propiedades](./pages/language-guide/properties.mdx)
-  - [Métodos](./pages/language-guide/methods.mdx)
-  - [Subscripts](./pages/language-guide/subscripts.mdx)
-  - [Herencia](./pages/language-guide/inheritance.mdx)
-  - [Inicialización](./pages/language-guide/initialization.mdx)
-  - [Desinicialización](./pages/language-guide/deinitialization.mdx)
-  - [Encadenamiento Opcional](./pages/language-guide/optional-chaining.mdx)
-  - [Manejo de Errores](./pages/language-guide/error-handling.mdx)
-  - [Concurrencia](./pages/language-guide/concurrency.mdx)
-  - [Type Casting](./pages/language-guide/type-casting.mdx)
-  - [Tipos Anidados](./pages/language-guide/nested-types.mdx)
-  - [Extensiones](./pages/language-guide/extensions.mdx)
-  - [Protocolos](./pages/language-guide/protocols.mdx)
-  - [Genéricos](./pages/language-guide/generics.mdx)
-  - [Tipos Opacos](./pages/language-guide/opaque-types.mdx)
-  - [Conteo Automático de Referencias](./pages/language-guide/automatic-reference-counting.mdx)
-  - [Seguridad de la Memoria](./pages/language-guide/memory-safety.mdx)
-  - [Control de Accesso](./pages/language-guide/access-control.mdx)
-  - [Operadores Avanzados](./pages/language-guide/advanced-operators.mdx)
-- [REFERENCIA DEL LENGUAJE](./pages/language-reference/about-the-language-reference.mdx)
-  - [Acerca de la Referencia del Lenguaje](./pages/language-reference/about-the-language-reference.mdx)
-  - [Estructura Léxica](./pages/language-reference/lexical-structure.mdx)
-  - [Tipos de Datos](./pages/language-reference/types.mdx)
-  - [Expresiones](./pages/language-reference/expressions.mdx)
-  - [Sentencias](./pages/language-reference/statements.mdx)
-  - [Declaraciones](./pages/language-reference/declarations.mdx)
-  - [Atributos](./pages/language-reference/attributes.mdx)
-  - [Patrones](./pages/language-reference/patterns.mdx)
-  - [Parámetros y Argumentos Genéricos](./pages/language-reference/generic-parameters-and-arguments.mdx)
-  - [Resumen de la Gramática](./pages/language-reference/summary-of-the-grammar.mdx)
-- [HISTORIAL DE REVISIÓN](./pages/revision-history/document-revision-history.mdx)
-  - [Historial del Documento de Revisión](./pages/revision-history/document-revision-history.mdx)
+> ⚠️ Advertencia: Este es un trabajo en progreso. Muchos artículos no están traducidos en este momento.
 
 <br />
 
 ## Cómo contribuir
 
-Si deseas contribuir con las traducciones, visita la [Guía de Contribución](./CONTRIBUTING.md).
+Consulta la [guía de contribución](./CONTRIBUTING.md) para obtener instrucciones detalladas sobre cómo contribuir con el proyecto.
+
+Aceptamos diferentes [tipos de contribuciones](./CONTRIBUTING.md), incluidas algunas que no requieren que escribas una sola línea de código.
+
+En el [sitio web](https://swift-book-es.vercel.app/), puedes hacer clic en el enlace `Editar esta página en GitHub` (al final de cada página) para abrir una _pull request_ para soluciones rápidas, como errores tipográficos, actualizaciones, o correcciones de enlaces.
+
+Para contribuciones más complejas, puedes abrir un _issue_ para describir los cambios que deseas proponer.
+
+Si estás buscando una forma de contribuir, puedes consultar el [progreso de las traducciones](https://github.com/spaceinvadev/swift-book-es/issues/3) o escanear nuestros [_issues existentes_](https://github.com/spaceinvadev/swift-book-es/issues) por algo en lo que puedas trabajar. Cuando estés listo, visita la [guía de contribución](./CONTRIBUTING.md) para obtener instrucciones detalladas.
+
+### Únete a nosotros en discusiones
+
+Utilizamos las discusiones de GitHub para discutir sobre todo tipo de temas relacionados con la traduccion, documentación, y mantenimiento de este sitio. Por ejemplo:, si deseas resolver una _pull request_, tienes una gran idea nueva, o quieres compartir algo asombroso que has aprendido gracias a las traducciones, únete a nosotros en las [discusiones](https://github.com/spaceinvadev/swift-book-es/discussions).
 
 <br />
 
@@ -81,4 +48,4 @@ yarn install && yarn dev
 
 Visita [http://localhost:3000](http://localhost:3000) en el navegador para ver la página.
 
-Los artículos a editar los encontrarás en los folders `pages/language-guide` y `pages/language-reference`. La página se actualizará automáticamente a medida que edites los archivos.
+Los artículos a editar los encontrarás en los folders `pages/guia-del-lenguaje` y `pages/referencia-del-lenguaje`. La página se actualizará automáticamente a medida que edites los archivos.
