@@ -17,20 +17,20 @@ Here's a standard, nongeneric function called `swapTwoInts(_:_:)`, which swaps t
 
 <CodeSnippet>
   {`func swapTwoInts(_ a: inout Int, _ b: inout Int) {
-    let temporaryA = a
+    let temporaryA = a\n
     a = b
     b = temporaryA
 }`}
 </CodeSnippet>
 
-This function makes use of in-out parameters to swap the values of a and b, as described in [In-Out Parameters](./functions#in-out-parameters).
+This function makes use of in-out parameters to swap the values of a and b, as described in [In-Out Parameters](./funciones#parametros-in-out).
 
 The `swapTwoInts(_:_:)` function swaps the original value of `b` into `a`, and the original value of `a` into `b`. You can call this function to swap the values in two `Int` variables:
 
 <CodeSnippet>
   {`var someInt = 3
-var anotherInt = 107
-swapTwoInts(&someInt, &anotherInt)
+var anotherInt = 107\n
+swapTwoInts(&someInt, &anotherInt)\n
 print("someInt is now \\(someInt), and anotherInt is now \\(anotherInt)")
 // Prints "someInt is now 107, and anotherInt is now 3"`}
 </CodeSnippet>
@@ -39,12 +39,12 @@ The `swapTwoInts(_:_:)` function is useful, but it can only be used with `Int` v
 
 <CodeSnippet>
   {`func swapTwoStrings(_ a: inout String, _ b: inout String) {
-    let temporaryA = a
+    let temporaryA = a\n
     a = b
     b = temporaryA
 }\n
 func swapTwoDoubles(_ a: inout Double, _ b: inout Double) {
-    let temporaryA = a
+    let temporaryA = a\n
     a = b
     b = temporaryA
 }`}
@@ -54,7 +54,7 @@ You may have noticed that the bodies of the `swapTwoInts(_:_:)`, `swapTwoStrings
 
 It's more useful, and considerably more flexible, to write a single function that swaps two values of _any_ type. Generic code enables you to write such a function. (A generic version of these functions is defined below.)
 
-<Callout type="note">
+<Callout>
   In all three functions, the types of `a` and `b` must be the same. If `a` and
   `b` aren't of the same type, it isn't possible to swap their values. Swift is
   a type-safe language, and doesn't allow (for example) a variable of type
@@ -68,7 +68,7 @@ Generic functions can work with any type. Here's a generic version of the `swapT
 
 <CodeSnippet>
   {`func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
-    let temporaryA = a
+    let temporaryA = a\n
     a = b
     b = temporaryA
 }`}
@@ -91,17 +91,17 @@ In the two examples below, `T` is inferred to be `Int` and `String` respectively
 
 <CodeSnippet>
   {`var someInt = 3
-var anotherInt = 107
+var anotherInt = 107\n
 swapTwoValues(&someInt, &anotherInt)
 // someInt is now 107, and anotherInt is now 3\n
 var someString = "hello"
-var anotherString = "world"
+var anotherString = "world"\n
 swapTwoValues(&someString, &anotherString)
 // someString is now "world", and anotherString is now "hello"`}
 
 </CodeSnippet>
 
-<Callout type="note">
+<Callout>
   The `swapTwoValues(_:_:)` function defined above is inspired by a generic
   function called `swap`, which is part of the Swift standard library, and is
   automatically made available for you to use in your apps. If you need the
@@ -122,7 +122,7 @@ You can provide more than one type parameter by writing multiple type parameter 
 
 In most cases, type parameters have descriptive names, such as `Key` and `Value` in `Dictionary<Key, Value>` and `Element` in `Array<Element>`, which tells the reader about the relationship between the type parameter and the generic type or function it's used in. However, when there isn't a meaningful relationship between them, it's traditional to name them using single letters such as `T`, `U`, and `V`, such as `T` in the `swapTwoValues(_:_:)` function above.
 
-<Callout type="note">
+<Callout>
   Always give type parameters upper camel case names (such as `T` and
   `MyTypeParameter`) to indicate that they're a placeholder for a _type_, not a
   value.
@@ -134,7 +134,7 @@ In addition to generic functions, Swift enables you to define your own _generic 
 
 This section shows you how to write a generic collection type called `Stack`. A stack is an ordered set of values, similar to an array, but with a more restricted set of operations than Swift's `Array` type. An array allows new items to be inserted and removed at any location in the array. A stack, however, allows new items to be appended only to the end of the collection (known as _pushing_ a new value on to the stack). Similarly, a stack allows items to be removed only from the end of the collection (known as _popping_ a value off the stack).
 
-<Callout type="note">
+<Callout>
   The concept of a stack is used by the `UINavigationController` class to model
   the view controllers in its navigation hierarchy. You call the
   `UINavigationController` class `pushViewController(_:animated:)` method to add
@@ -146,7 +146,13 @@ This section shows you how to write a generic collection type called `Stack`. A 
 
 The illustration below shows the push and pop behavior for a stack:
 
-../\_images/stackPushPop_2x.png
+<img
+  src="/assets/images/stackPushPop_2x.png"
+  alt="Illustration of push and pop behavior on a stack"
+  width={664}
+  height={273}
+  className="figure-small"
+/>
 
 1. There are currently three values on the stack.
 2. A fourth value is pushed onto the top of the stack.
@@ -209,7 +215,13 @@ stackOfStrings.push("cuatro")
 
 Here's how `stackOfStrings` looks after pushing these four values on to the stack:
 
-../\_images/stackPushedFourStrings_2x.png
+<img
+  src="/assets/images/stackPushedFourStrings_2x.png"
+  alt="Illustration of push and pop behavior on a stack"
+  width={664}
+  height={219}
+  className="figure-small"
+/>
 
 Popping a value from the stack removes and returns the top value, `"cuatro"`:
 
@@ -220,7 +232,13 @@ Popping a value from the stack removes and returns the top value, `"cuatro"`:
 
 Here's how the stack looks after popping its top value:
 
-../\_images/stackPoppedOneString_2x.png
+<img
+  src="/assets/images/stackPoppedOneString_2x.png"
+  alt="Illustration of push and pop behavior on a stack"
+  width={405}
+  height={207}
+  className="figure-small"
+/>
 
 ## Extending a Generic Type
 
@@ -255,7 +273,7 @@ Extensions of a generic type can also include requirements that instances of the
 
 The `swapTwoValues(_:_:)` function and the `Stack` type can work with any type. However, it's sometimes useful to enforce certain _type constraints_ on the types that can be used with generic functions and generic types. Type constraints specify that a type parameter must inherit from a specific class, or conform to a particular protocol or protocol composition.
 
-For example, Swift's `Dictionary` type places a limitation on the types that can be used as keys for a dictionary. As described in [Dictionaries](./collection-types#dictionaries), the type of a dictionary's keys must be _hashable_. That is, it must provide a way to make itself uniquely representable. `Dictionary` needs its keys to be hashable so that it can check whether it already contains a value for a particular key. Without this requirement, `Dictionary` couldn't tell whether it should insert or replace a value for a particular key, nor would it be able to find a value for a given key that's already in the dictionary.
+For example, Swift's `Dictionary` type places a limitation on the types that can be used as keys for a dictionary. As described in [Dictionaries](./tipos-de-colecciones#diccionarios), the type of a dictionary's keys must be _hashable_. That is, it must provide a way to make itself uniquely representable. `Dictionary` needs its keys to be hashable so that it can check whether it already contains a value for a particular key. Without this requirement, `Dictionary` couldn't tell whether it should insert or replace a value for a particular key, nor would it be able to find a value for a given key that's already in the dictionary.
 
 This requirement is enforced by a type constraint on the key type for `Dictionary`, which specifies that the key type must conform to the `Hashable` protocol, a special protocol defined in the Swift standard library. All of Swift's basic types (such as `String`, `Int`, `Double`, and `Bool`) are hashable by default. For information about making your own custom types conform to the `Hashable` protocol, see [Conforming to the Hashable Protocol](https://developer.apple.com/documentation/swift/hashable#2849490).
 
@@ -291,7 +309,7 @@ Here's a nongeneric function called `findIndex(ofString:in:)`, which is given a 
 The `findIndex(ofString:in:)` function can be used to find a string value in an array of strings:
 
 <CodeSnippet>
-  {`let strings = ["cat", "dog", "llama", "parakeet", "terrapin"]
+  {`let strings = ["cat", "dog", "llama", "parakeet", "terrapin"]\n
 if let foundIndex = findIndex(ofString: "llama", in: strings) {
     print("The index of llama is \(foundIndex)")
 }
@@ -433,9 +451,9 @@ This time, the type parameter `Element` is used as the type of the `append(_:)` 
 
 ### Extending an Existing Type to Specify an Associated Type
 
-You can extend an existing type to add conformance to a protocol, as described in [Adding Protocol Conformance with an Extension](./protocols#adding-protocol-conformance-with-an-extension). This includes a protocol with an associated type.
+You can extend an existing type to add conformance to a protocol, as described in [Adding Protocol Conformance with an Extension](./protocolos#agregar-conformidad-protocolaria-mediante-una-extension). This includes a protocol with an associated type.
 
-Swift's `Array` type already provides an `append(_:)` method, a `count` property, and a subscript with an `Int` index to retrieve its elements. These three capabilities match the requirements of the `Container` protocol. This means that you can extend `Array` to conform to the `Container` protocol simply by declaring that `Array` adopts the protocol. You do this with an empty extension, as described in [Declaring Protocol Adoption with an Extension](./protocols#declaring-protocol-adoption-with-an-extension):
+Swift's `Array` type already provides an `append(_:)` method, a `count` property, and a subscript with an `Int` index to retrieve its elements. These three capabilities match the requirements of the `Container` protocol. This means that you can extend `Array` to conform to the `Container` protocol simply by declaring that `Array` adopts the protocol. You do this with an empty extension, as described in [Declaring Protocol Adoption with an Extension](./protocolos#declarar-adopcion-protocolaria-mediante-una-extension):
 
 <CodeSnippet>{`extension Array: Container {}`}</CodeSnippet>
 
@@ -462,7 +480,7 @@ A protocol can appear as part of its own requirements. For example, here's a pro
 
 <CodeSnippet>
   {`protocol SuffixableContainer: Container {
-    associatedtype Suffix: SuffixableContainer where Suffix.Item == Item
+    associatedtype Suffix: SuffixableContainer where Suffix.Item == Item\n
     func suffix(_ size: Int) -> Suffix
 }`}
 </CodeSnippet>
@@ -482,10 +500,10 @@ Here's an extension of the `Stack` type from [Generic Types](#generic-types) abo
     }
     // Inferred that Suffix is Stack.
 }\n
-var stackOfInts = Stack<Int>()
+var stackOfInts = Stack<Int>()\n
 stackOfInts.append(10)
 stackOfInts.append(20)
-stackOfInts.append(30)
+stackOfInts.append(30)\n
 let suffix = stackOfInts.suffix(2)
 // suffix contains 20 and 30`}
 </CodeSnippet>
@@ -565,7 +583,7 @@ If the loop finishes without finding a mismatch, the two containers match, and t
 Here's how the `allItemsMatch(_:_:)` function looks in action:
 
 <CodeSnippet>
-  {`var stackOfStrings = Stack<String>()
+  {`var stackOfStrings = Stack<String>()\n
 stackOfStrings.push("uno")
 stackOfStrings.push("dos")
 stackOfStrings.push("tres")\n
@@ -611,9 +629,9 @@ Here's how the `isTop(_:)` method looks in action:
 If you try to call the `isTop(_:)` method on a stack whose elements aren't equatable, you'll get a compile-time error.
 
 <CodeSnippet>
-  {`struct NotEquatable { }
+  {`struct NotEquatable { }\n
 var notEquatableStack = Stack<NotEquatable>()
-let notEquatableValue = NotEquatable()
+let notEquatableValue = NotEquatable()\n
 notEquatableStack.push(notEquatableValue)
 notEquatableStack.isTop(notEquatableValue)  // Error`}
 </CodeSnippet>
@@ -676,7 +694,7 @@ You can write a generic `where` clause as part of a declaration that doesn't hav
         return count >= 1 && self[count-1] == item
     }
 }\n
-let numbers = [1260, 1200, 98, 37]
+let numbers = [1260, 1200, 98, 37]\n
 print(numbers.average())
 // Prints "648.75"
 print(numbers.endsWith(37))
@@ -712,11 +730,11 @@ You can include a generic `where` clause on an associated type. For example, sup
 
 <CodeSnippet>
   {`protocol Container {
-    associatedtype Item
-    mutating func append(_ item: Item)
-    var count: Int { get }
+    associatedtype Item\n
+    mutating func append(_ item: Item)\n
+    var count: Int { get }\n
     subscript(i: Int) -> Item { get }\n
-    associatedtype Iterator: IteratorProtocol where Iterator.Element == Item
+    associatedtype Iterator: IteratorProtocol where Iterator.Element == Item\n
     func makeIterator() -> Iterator
 }`}
 </CodeSnippet>
