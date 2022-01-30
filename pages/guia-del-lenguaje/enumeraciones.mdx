@@ -7,7 +7,7 @@ import Callout from '../../components/Callout.js'
 
 # Enumeraciones
 
-Una _enumeración_ defines un tipo común para un grupo de valores realaciondos y le permite trabajar con esos valores de forma segura utilizando tipos de datos verificados.
+Una _enumeración_ define un tipo común para un grupo de valores realaciondos y le permite trabajar con esos valores de forma segura utilizando tipos de datos verificados.
 
 Si está familiarizado con lenguaje C, sabrá que las enumeraciones de C asignan nombres relacionados a un conjunto de valores enteros. Las enumeraciones en Swift son mucho más flexibles y no tienen que proporcionar un valor para cada caso de la enumeración. Si se proporciona un valor (conocido como _raw o clasificador_ ) para cada caso de enumeración, el valor puede ser una cadena, un carácter o un valor de cualquier tipo entero o de punto flotante.
 
@@ -17,93 +17,94 @@ Las enumeraciones en Swift son tipos de primera clase en su propio derecho. Adop
 
 Para más información de estas características, vea [Propiedades](./propiedades), [Métodos](./metodos), [Inicialización](./inicializacion), [Extensiones](./extensiones), and [Protocolos](./protocolos).
 
-## Enumeration Syntax
+## Enumeración: Sintáxis
 
-You introduce enumerations with the `enum` keyword and place their entire definition within a pair of braces:
+Puede declarar enumeraciones con la palabra reservada `enum` y poner la definición completa entre un par de llaves:
 
 <CodeSnippet>
-  {`enum SomeEnumeration {
-    // enumeration definition goes here
+  {`enum AlgunaEnumeration {
+    // la definición de la enumeración va aquí
 }`}
 </CodeSnippet>
 
-Here's an example for the four main points of a compass:
+Aquí está un ejemplo para los cuatro puntos principales de una brújula:
 
 <CodeSnippet>
-  {`enum CompassPoint {
-    case north
-    case south
-    case east
-    case west
+  {`enum PuntoCardinal {
+    case norte
+    case sur
+    case este
+    case oeste
 }`}
 </CodeSnippet>
 
-The values defined in an enumeration (such as `north`, `south`, `east`, and `west`) are its _enumeration cases_. You use the `case` keyword to introduce new enumeration cases.
+Los valores definidos en una enumeración (tales como `norte`, `sur`, `este`, y `oeste`) son sus _casos de enumeración_. Se usa la palabra reservada  `case` para definir un nuevo caso de la enumeración.
 
 <Callout>
-  Swift enumeration cases don't have an integer value set by default, unlike
-  languages like C and Objective-C. In the `CompassPoint` example above,
-  `north`, `south`, `east`, and `west` don't implicitly equal `0`, `1`, `2`, and
-  `3`. Instead, the different enumeration cases are values in their own right,
-  with an explicitly defined type of `CompassPoint`.
+  En Swift los casos de enumeración no tienen un valor entero asignado por default, a diferencia
+  de lenguajes como C y Objective-C. En el ejemplo anterior de  `PuntoCardinal`,
+  `norte`, `sur`, `este`, y `oeste` no corresponden a los valores `0`, `1`, `2`, y
+  `3`. Por el contrario, los diferentes casos de la enumeración tienen su propio valor,
+  con un explicitamente definido en  `PuntoCardinal`.
 </Callout>
 
-Multiple cases can appear on a single line, separated by commas:
+Se pueden declarar múlltiples casos en una sola línea, separados por comas:
 
 <CodeSnippet>
-  {`enum Planet {
-    case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune
+  {`enum Planeta {
+    case mercurio, venus, tierra, marte, jupiter, saturno, urano, neptuno
 }`}
 </CodeSnippet>
 
-Each enumeration definition defines a new type. Like other types in Swift, their names (such as `CompassPoint` and `Planet`) start with a capital letter. Give enumeration types singular rather than plural names, so that they read as self-evident:
+Cada declaración de una enumeración define un nuevo tipo. Como los otros tipos en Swift, sus nombre (tales como `PuntoCardinal` and `Planeta`) inician con una letra mayúscula. Dé a los tipos de enumeración nombres singulares en lugar de plurales, para que se lean como evidentes:
 
-<CodeSnippet>{`var directionToHead = CompassPoint.west`}</CodeSnippet>
 
-The type of `directionToHead` is inferred when it's initialized with one of the possible values of `CompassPoint`. Once `directionToHead` is declared as a `CompassPoint`, you can set it to a different `CompassPoint` value using a shorter dot syntax:
+<CodeSnippet>{`var avanzarEnDireccion = PuntoCardinal.norte`}</CodeSnippet>
 
-<CodeSnippet>{`directionToHead = .east`}</CodeSnippet>
+El tipo de  `avanzarEnDireccion` se infiere cuando es inicializado con uno de los posibles valores de `PuntoCardinal`. Una vez que  `avanzarEnDireccion` es declarado como un  `PuntoCardinal`, se puede cambiar a un diferente valor de `PuntoCardinal` de forma corte usando un punto la sintaxis es:
 
-The type of `directionToHead` is already known, and so you can drop the type when setting its value. This makes for highly readable code when working with explicitly typed enumeration values.
+<CodeSnippet>{`avanzarEnDireccion = .este`}</CodeSnippet>
 
-## Matching Enumeration Values with a Switch Statement
+El tipo de `avanzarEnDireccion` ya se conoce, por lo tanto se puede asiganar el otro tipo cuando se asigna su valor. Esto hace que el código sea muy legible cuando se trabaja con valores de enumeración escritos explícitamente.
 
-You can match individual enumeration values with a `switch` statement:
+ ## Utilización de loa valores de una Enumeración en una sentencia Switch
+
+Se puede busca la coincidencia de los valores individuales de una enumeración con una sentencia`switch:
 
 <CodeSnippet>
-  {`directionToHead = .south\n
-switch directionToHead {
-case .north:
-    print("Lots of planets have a north")
-case .south:
-    print("Watch out for penguins")
-case .east:
-    print("Where the sun rises")
-case .west:
-    print("Where the skies are blue")
+  {`avanzarEnDireccion = .sur\n
+switch avanzarEnDireccion {
+case .norte:
+    print("Muchos planetas tienen un norte")
+case .sur:
+    print("Mira los pingüinos")
+case .este:
+    print("Donde nace el sol")
+case .oeste:
+    print("donde el cielo es azul")
 }
-// Prints "Watch out for penguins"`}
+// Prints "Mira los pingüinos"`}
 </CodeSnippet>
 
-You can read this code as:
+El código se puede leer como:
 
-“Consider the value of `directionToHead`. In the case where it equals `.north`, print `"Lots of planets have a north"`. In the case where it equals `.south`, print `"Watch out for penguins"`.”
+“Considerando del valor de `avanzarEnDireccion`. En caso de que sea `.norte`, imprime `"Muchos planetas tienen un norte"`. En caso de que sea igula a `.sur`, imprime `"Mira los pingüinos"`.”
 
-…and so on.
+…y así sucesivamente.
 
-As described in [Control Flow](./flujo-de-control), a `switch` statement must be exhaustive when considering an enumeration's cases. If the case for `.west` is omitted, this code doesn't compile, because it doesn't consider the complete list of `CompassPoint` cases. Requiring exhaustiveness ensures that enumeration cases aren't accidentally omitted.
+Como se describe en [Flujos de Control](./flujo-de-control), una sentencia `switch`  debe ser exhaustiva al considerar los casos de una enumeración. Si se omite el caso para `.oeste`,  este código no compila, porque no considera la lista completa de casos de PuntoCardinal. Requerir exhaustividad garantiza que los casos de enumeración no se omitan accidentalmente.
 
-When it isn't appropriate to provide a `case` for every enumeration case, you can provide a `default` case to cover any cases that aren't addressed explicitly:
+Cuando no sea apropiado proporcionar un `case` para cada caso de la enumeración, se puede proporcionar un caso `default` para cubrir cualquier caso que no se use explícitamente:
 
 <CodeSnippet>
-  {`let somePlanet = Planet.earth\n
-switch somePlanet {
-case .earth:
-    print("Mostly harmless")
+  {`let algunPlaneta = Planeta.tierra\n
+switch algunPlaneta {
+case .tierra:
+    print("Mayoritariamente inofensivo")
 default:
-    print("Not a safe place for humans")
+    print("No es un lugar seguro para los humanos")
 }
-// Prints "Mostly harmless"`}
+// Prints "Mayoritariamente inofensivo"`}
 </CodeSnippet>
 
 ## Iterating over Enumeration Cases
@@ -256,22 +257,22 @@ In the example above, `Planet.mercury` has an explicit raw value of `1`, `Planet
 
 When strings are used for raw values, the implicit value for each case is the text of that case's name.
 
-The enumeration below is a refinement of the earlier `CompassPoint` enumeration, with string raw values to represent each direction's name:
+The enumeration below is a refinement of the earlier `PuntoCardinal` enumeration, with string raw values to represent each direction's name:
 
 <CodeSnippet>
-  {`enum CompassPoint: String {
+  {`enum PuntoCardinal: String {
     case north, south, east, west
 }`}
 </CodeSnippet>
 
-In the example above, `CompassPoint.south` has an implicit raw value of `"south"`, and so on.
+In the example above, `PuntoCardinal.south` has an implicit raw value of `"south"`, and so on.
 
 You access the raw value of an enumeration case with its `rawValue` property:
 
 <CodeSnippet>
   {`let earthsOrder = Planet.earth.rawValue
 // earthsOrder is 3\n
-let sunsetDirection = CompassPoint.west.rawValue
+let sunsetDirection = PuntoCardinal.west.rawValue
 // sunsetDirection is "west"`}
 </CodeSnippet>
 
