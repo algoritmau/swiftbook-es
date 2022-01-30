@@ -13,7 +13,7 @@ Si está familiarizado con lenguaje C, sabrá que las enumeraciones de C asignan
 
 Alternativamente, los casos de enumeración pueden especificar valores asociados de cualquier tipo que se almacenarán junto con cada valor de caso diferente, como lo hacen las uniones o variantes en otros idiomas. Usted puede definir un conjunto común de casos relacionados como parte de una enumeración, cada uno de los cuales tiene un conjunto diferente de valores de tipos apropiados asociados.
 
-Las enumeraciones en Swift son tipos de primera clase en su propio derecho. Adopan muchas características tradicionalmente soportadas solamente por clases, talas como propiedades calculadas para proporcionar información adicional acerca de el valor actual de la enumeración e instancias de métodos para proporcionar funcionalidad relacionada a los valores que representa la enumeración.  Las enumeraciones también pueden definir inicializadores para proporcionar un valor de caso inicial; se pueden extender para expandir su funcionalidad más allá de la implementación original; y pueden ajustarse a los protocolos para proporcionar una funcionalidad estándar. 
+Las enumeraciones en Swift son tipos de primera clase en su propio derecho. Adoptan muchas características tradicionalmente soportadas solamente por clases, talas como propiedades calculadas para proporcionar información adicional acerca de el valor actual de la enumeración e instancias de métodos para proporcionar funcionalidad relacionada a los valores que representa la enumeración.  Las enumeraciones también pueden definir inicializadores para proporcionar un valor de caso inicial; se pueden extender para expandir su funcionalidad más allá de la implementación original; y pueden ajustarse a los protocolos para proporcionar una funcionalidad estándar. 
 
 Para más información de estas características, vea [Propiedades](./propiedades), [Métodos](./metodos), [Inicialización](./inicializacion), [Extensiones](./extensiones), and [Protocolos](./protocolos).
 
@@ -193,7 +193,7 @@ Se pueden verificar los diferentes tipos de códigos de barras utilizando una se
 
 <CodeSnippet>
   {`switch productoCodigoDeBarras {
-case .upc(let numberoSistema, let fabricante, let producto, let verificacion):
+case .upc(let numeroSistema, let fabricante, let producto, let verificacion):
     print("UPC: \\(numeroSistema), \\(fabricante), \\(producto), \\(verificacion).")
 case .qrCode(let codigoProducto):
     print("Código QR: \\(codigoProducto).")
