@@ -240,41 +240,41 @@ Los valores predefinidos pueden ser cadenas, caracteres, o cualquier tipo de dat
   cada vez que se hace.
 </Callout>
 
-## Implicitly Assigned Raw Values
+## Valores Asociados de Forma Implícita
 
-When you're working with enumerations that store integer or string raw values, you don't have to explicitly assign a raw value for each case. When you don't, Swift automatically assigns the values for you.
+Cuando se trabaja con enumeraciones que almacenan valores sin formato de cadena o enteros, no tiene que asignarse explícitamente un valor sin formato para cada caso. Cuando no lo hace, Swift asigna automáticamente los valores por usted.
 
-For example, when integers are used for raw values, the implicit value for each case is one more than the previous case. If the first case doesn't have a value set, its value is `0`.
+Por ejemplo, cuando se utilizan números enteros para valores brutos, el valor implícito para cada caso es uno más que el caso anterior. Si el primer caso no tiene un valor establecido, su valor es `0`.
 
-The enumeration below is a refinement of the earlier `Planet` enumeration, with integer raw values to represent each planet's order from the sun:
+La siguiente enumeración es un refinamiento de la enumeración anterior `Planeta`, con valores enteros sin procesar para representar el orden de cada planeta desde el sol:
 
 <CodeSnippet>
-  {`enum Planet: Int {
-    case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
+  {`enum Planeta: Int {
+    case mercurio = 1, venus, tierra, marte, jupiter, saturno, urano, neptuno
 }`}
 </CodeSnippet>
 
-In the example above, `Planet.mercury` has an explicit raw value of `1`, `Planet.venus` has an implicit raw value of `2`, and so on.
+En el ejemplo anterior, `Planeta.mercurio` tiene un valor definido explicitamente de `1`, `Planeta.venus` tiene un valor predefinido explictamentehas de `2`, y así sucesivamente.
 
-When strings are used for raw values, the implicit value for each case is the text of that case's name.
+Cuando se utilizan cadenas para valores predefinidos, el valor implícito predeterminado para cada caso es el texto del nombre de ese caso.
 
-The enumeration below is a refinement of the earlier `PuntoCardinal` enumeration, with string raw values to represent each direction's name:
+La siguiente enumeración es una mejora de la enumeración anterior `PuntoCardinal`, con valores de cadena que representan el nombre de cada dirección:
 
 <CodeSnippet>
   {`enum PuntoCardinal: String {
-    case north, south, east, west
+    case norte, sur, este, oeste
 }`}
 </CodeSnippet>
 
-In the example above, `PuntoCardinal.south` has an implicit raw value of `"south"`, and so on.
+En el ejemplo anterior, `PuntoCardinal.sur` tiene un valor predefinido implicitamente de `"sur"`, y así sucesivamente.
 
-You access the raw value of an enumeration case with its `rawValue` property:
+Se puede acceder a los valores predefinidos de forma implícita de cada caso mediante la propieadad `rawValue`:
 
 <CodeSnippet>
-  {`let earthsOrder = Planet.earth.rawValue
-// earthsOrder is 3\n
-let sunsetDirection = PuntoCardinal.west.rawValue
-// sunsetDirection is "west"`}
+  {`let ordenTierra = Planeta.tierra.rawValue
+// ordenTierra es 3\n
+let  direccionAtardecer = PuntoCardinal.oeste.rawValue
+// direccionAtardecer es "oeste"`}
 </CodeSnippet>
 
 ### Initializing from a Raw Value
