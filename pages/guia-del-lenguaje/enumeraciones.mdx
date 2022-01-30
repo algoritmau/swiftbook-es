@@ -1,21 +1,21 @@
 ---
-title: Enumerations
+title: Enumeraciones
 ---
 
 import CodeSnippet from '../../components/CodeSnippet.js'
 import Callout from '../../components/Callout.js'
 
-# Enumerations
+# Enumeraciones
 
-An _enumeration_ defines a common type for a group of related values and enables you to work with those values in a type-safe way within your code.
+Una _enumeración_ defines un tipo común para un grupo de valores realaciondos y le permite trabajar con esos valores de forma segura utilizando tipos de datos verificados.
 
-If you are familiar with C, you will know that C enumerations assign related names to a set of integer values. Enumerations in Swift are much more flexible, and don't have to provide a value for each case of the enumeration. If a value (known as a _raw_ value) is provided for each enumeration case, the value can be a string, a character, or a value of any integer or floating-point type.
+Si está familiarizado con lenguaje C, sabrá que las enumeraciones de C asignan nombres relacionados a un conjunto de valores enteros. Las enumeraciones en Swift son mucho más flexibles y no tienen que proporcionar un valor para cada caso de la enumeración. Si se proporciona un valor (conocido como _raw o clasificador_ ) para cada caso de enumeración, el valor puede ser una cadena, un carácter o un valor de cualquier tipo entero o de punto flotante.
 
-Alternatively, enumeration cases can specify associated values of _any_ type to be stored along with each different case value, much as unions or variants do in other languages. You can define a common set of related cases as part of one enumeration, each of which has a different set of values of appropriate types associated with it.
+Alternativamente, los casos de enumeración pueden especificar valores asociados de cualquier tipo que se almacenarán junto con cada valor de caso diferente, como lo hacen las uniones o variantes en otros idiomas. Usted puede definir un conjunto común de casos relacionados como parte de una enumeración, cada uno de los cuales tiene un conjunto diferente de valores de tipos apropiados asociados.
 
-Enumerations in Swift are first-class types in their own right. They adopt many features traditionally supported only by classes, such as computed properties to provide additional information about the enumeration's current value, and instance methods to provide functionality related to the values the enumeration represents. Enumerations can also define initializers to provide an initial case value; can be extended to expand their functionality beyond their original implementation; and can conform to protocols to provide standard functionality.
+Las enumeraciones en Swift son tipos de primera clase en su propio derecho. Adopan muchas características tradicionalmente soportadas solamente por clases, talas como propiedades calculadas para proporcionar información adicional acerca de el valor actual de la enumeración e instancias de métodos para proporcionar funcionalidad relacionada a los valores que representa la enumeración.  Las enumeraciones también pueden definir inicializadores para proporcionar un valor de caso inicial; se pueden extender para expandir su funcionalidad más allá de la implementación original; y pueden ajustarse a los protocolos para proporcionar una funcionalidad estándar. 
 
-For more about these capabilities, see [Properties](./propiedades), [Methods](./metodos), [Initialization](./inicializacion), [Extensions](./extensiones), and [Protocols](./protocolos).
+Para más información de estas características, vea [Propiedades](./propiedades), [Métodos](./metodos), [Inicialización](./inicializacion), [Extensiones](./extensiones), and [Protocolos](./protocolos).
 
 ## Enumeration Syntax
 
