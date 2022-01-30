@@ -189,7 +189,7 @@ Se puede asignar al mismo producto un diferente tipo de código de barras:
 
 Hasta ahora, el `CodigoDeBarras.upc` original y sus valores enteros se reemplazan por el nuevo `CodigoDeBarras.codigoQR` y su valor de cadena. Las constantes y variables de tipo `CodigoDeBarras` pueden almacenar un `.upc` o un `.codigoQR` (junto con sus valores asociados), pero solo pueden almacenar uno de ellos en un momento dado.
 
-Se pueden verificar los diferentes tipos de códigos de barras utilizando una sentencia _switch_, similar al ejemplo en [Utilización de los valores de una Enumeración en una sentencia switch](#Utilización-de-los-valores-de-una-enumeración-en-una-sentencia-switch). Esta vez, sin embargo, los valores asociados se extraen como parte de la declaración de cambio. Extrae cada valor asociado como una constante (con el prefijo `let`) o una variable (con el prefijo `var`) para usar dentro del cuerpo del caso de la sentencia `switch`: 
+Se pueden verificar los diferentes tipos de códigos de barras utilizando una sentencia _switch_, similar al ejemplo en [Utilización de los valores de una Enumeración en una sentencia switch](#utilización-de-los-valores-de-una-enumeración-en-una-sentencia-switch). Esta vez, sin embargo, los valores asociados se extraen como parte de la declaración de cambio. Extrae cada valor asociado como una constante (con el prefijo `let`) o una variable (con el prefijo `var`) para usar dentro del cuerpo del caso de la sentencia `switch`: 
 
 <CodeSnippet>
   {`switch productoCodigoDeBarras {
@@ -213,31 +213,31 @@ case let .qrCode(productCode):
 // Imprime "Código QR: ABCDEFGHIJKLMNOP."`}
 </CodeSnippet>
 
-## Raw Values
+## Valores predefinidos (_raw_)
 
-The barcode example in [Associated Values](#associated-values) shows how cases of an enumeration can declare that they store associated values of different types. As an alternative to associated values, enumeration cases can come prepopulated with default values (called _raw values_), which are all of the same type.
+El ejemplo de código de barras en [Valores Asociados](#valores-asociados) muestra cómo los casos de una enumeración pueden declarar que almacenan valores asociados de diferentes tipos. Como alternativa a los valores asociados, los casos de enumeración pueden incluir valores predeterminados (llamados valores _raw_), que son todos del mismo tipo.
 
-Here's an example that stores raw ASCII values alongside named enumeration cases:
+Aquí hay un ejemplo que almacena valores ASCII sin procesar junto con casos de enumeración con nombre:
 
 <CodeSnippet>
-  {`enum ASCIIControlCharacter: Character {
-    case tab = "\\t"
-    case lineFeed = "\\n"
-    case carriageReturn = "\\r"
+  {`enum CaracteresDeControlASCII: Character {
+    case tabulador = "\\t"
+    case avanceDeLinea = "\\n"
+    case retornoDeCarro = "\\r"
 }`}
 </CodeSnippet>
 
-Here, the raw values for an enumeration called `ASCIIControlCharacter` are defined to be of type `Character`, and are set to some of the more common ASCII control characters. `Character` values are described in [Strings and Characters](./cadenas-y-caracteres).
+Aquí, los valores predefinidos (_raw_) para la enumeración `CaracteresDeControlASCII` están definidos para ser de tipo `Character`, y son un conjunto de los caracteres de control ASCII más comunes. Los valores de tipo caracter `Character` están descritos en [Cadenas y caracteres](./cadenas-y-caracteres).
 
-Raw values can be strings, characters, or any of the integer or floating-point number types. Each raw value must be unique within its enumeration declaration.
+Los valores predefinidos pueden ser cadenas, caracteres, o cualquier tipo de dato numérico entero o flotante. Cada valor predeterminado debe ser único dentro de la declaración de la enumeración.
 
 <Callout>
-  Raw values are _not_ the same as associated values. Raw values are set to
-  prepopulated values when you first define the enumeration in your code, like
-  the three ASCII codes above. The raw value for a particular enumeration case
-  is always the same. Associated values are set when you create a new constant
-  or variable based on one of the enumeration's cases, and can be different each
-  time you do so.
+  Los valores predefinidos _no son_ lo mismo que _valores asociados_. Los valores predefinidos son un conjunto
+  de valores prellenados cuando se define la enumeración en el codigo, como
+  los tres caracteres ASCII del ejemplo anterior. El valor predefinido para un caso de  enumeración en particular
+  es siempre el mismo. Los valores asociados se establecen cuando se crea una nueva constante
+  o variable basada en los caso de la enumeración, y puede ser diferente
+  cada vez que se hace.
 </Callout>
 
 ## Implicitly Assigned Raw Values
