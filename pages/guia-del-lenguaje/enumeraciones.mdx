@@ -109,29 +109,30 @@ default:
 
 ## Iterating over Enumeration Cases
 
-For some enumerations, it's useful to have a collection of all of that enumeration's cases. You enable this by writing `: CaseIterable` after the enumeration's name. Swift exposes a collection of all the cases as an `allCases` property of the enumeration type. Here's an example:
+Para algunas enumeraciones, es útil tener una colección de todos los casos de esa enumeración. Para agregar esta funcionalidada se agrega `: CaseIterable` después del nombre de la enumeración. Swift expone una colección de todos los casos de la enumeración en la propiedad `allCases`. Aquí hay un ejemplo:
 
 <CodeSnippet>
-  {`enum Beverage: CaseIterable {
-    case coffee, tea, juice
+  {`enum Bebida: CaseIterable {
+    case cafe, te, jugo
 }\n
-let numberOfChoices = Beverage.allCases.count
-print("\\(numberOfChoices) beverages available")
-// Prints "3 beverages available"`}
+let numeroDeOpciones = Bebida.allCases.count
+print("\\(numeroDeOpciones) bebidas disponibles")
+// Prints "3 bebidas disponibles"`}
 </CodeSnippet>
 
-In the example above, you write `Beverage.allCases` to access a collection that contains all of the cases of the `Beverage` enumeration. You can use `allCases` like any other collection—the collection's elements are instances of the enumeration type, so in this case they're `Beverage` values. The example above counts how many cases there are, and the example below uses a `for-in` loop to iterate over all the cases.
+En el ejemplo anterior, se utiliza `Bebida.allCases` para acceder a una colección que contiene todos los casos de la enumeración `Bebida`. Se puede usar `allCases` como cualquier otra colección: los elementos de la colección son instancias del tipo de enumeración, por lo que en este caso son valores de `Bebida`. El ejemplo anterior cuenta cuántos casos hay, y el siguiente ejemplo usa un ciclo `for-in` para iterar sobre todos los casos.
+
 
 <CodeSnippet>
-  {`for beverage in Beverage.allCases {
-    print(beverage)
+  {`for bebida in Bebida.allCases {
+    print(bebida)
 }
-// coffee
-// tea
-// juice`}
+// cafe
+// te
+// jugo`}
 </CodeSnippet>
 
-The syntax used in the examples above marks the enumeration as conforming to the [CaseIterable](https://developer.apple.com/documentation/swift/caseiterable) protocol. For information about protocols, see [Protocols](./protocolos).
+La sintaxis utilizada en los ejemplos anteriores define la enumeración conforme al protocolo [CaseIterable](https://developer.apple.com/documentation/swift/caseiterable). Para obtener información sobre los protocolos, consulte [Protocolos](./protocolos).
 
 ## Associated Values
 
