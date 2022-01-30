@@ -277,92 +277,92 @@ let  direccionAtardecer = PuntoCardinal.oeste.rawValue
 // direccionAtardecer es "oeste"`}
 </CodeSnippet>
 
-### Initializing from a Raw Value
+### Inicializando de un valor predefinido
 
-If you define an enumeration with a raw-value type, the enumeration automatically receives an initializer that takes a value of the raw value's type (as a parameter called `rawValue`) and returns either an enumeration case or `nil`. You can use this initializer to try to create a new instance of the enumeration.
+Si se define una enumeración con un tipo de predefinido (_raw_), la enumeración recibe automáticamente un inicializador que toma un valor del tipo del valor predefinido (como un parámetro denominado `rawValue`) y devuelve un caso de enumeración o un valor `nil`. Se puede usar este inicializador para intentar crear una nueva instancia de la enumeración.
 
-This example identifies Uranus from its raw value of `7`:
+Este ejemplo identifica a Urano a partir de su valor predeterminado de 7:
 
 <CodeSnippet>
-  {`let possiblePlanet = Planet(rawValue: 7)
-// possiblePlanet is of type Planet? and equals Planet.uranus`}
+  {`let planetaPosible = Planeta(rawValue: 7)
+  // planetaPosible es del tipo Planeta? 
+  // y es igual al planeta Planet.urano`}
 </CodeSnippet>
 
-Not all possible `Int` values will find a matching planet, however. Because of this, the raw value initializer always returns an _optional_ enumeration case. In the example above, `possiblePlanet` is of type `Planet?`, or “optional `Planet`.”
+No todos los valores posibles `Int` encontraan un planeta que coresponda, sin embargo. Debido a esto, las capas de valores predeterminados regresan un caso de enumeración _optional_ . En el ejemplo anterior, `planetaPosible` es del tipo `Planeta?`, o “optional `Planeta`.”
 
 <Callout>
-  The raw value initializer is a failable initializer, because not every raw
-  value will return an enumeration case. For more information, see [Failable
-  Initializers](../referencia-del-lenguaje/declaraciones#inicializadores-falibles).
+  El valor inicial de un tipo predefinido es un inicalizador falible, porque no cada valor predefinido
+  regresará un caso de enumeración. Para mayor información, vea [Declaraciones Inicializadores Falibles](../referencia-del-lenguaje/declaraciones#inicializadores-falibles).
 </Callout>
 
-If you try to find a planet with a position of `11`, the optional `Planet` value returned by the raw value initializer will be `nil`:
+Si se intenta buscar un planeta en la posición `11`, el valor opcional de `Planeta` regresado por el valor predefinido será `nil`:
 
 <CodeSnippet>
-  {`let positionToFind = 11\n
-if let somePlanet = Planet(rawValue: positionToFind) {
-    switch somePlanet {
-    case .earth:
-        print("Mostly harmless")
+  {`let posicionBuscada = 11\n
+if let algunPlaneta = Planeta(rawValue: posicionBuscada) {
+    switch algunPlaneta {
+    case .tierra:
+        print("Mayoritariamente inofensivo")
     default:
-        print("Not a safe place for humans")
+        print("No es un lugar seguro para humanos")
     }
 } else {
-    print("There isn't a planet at position \\(positionToFind)")
+    print("No hay un planeta en la posición \\(posicionBuscada)")
 }
-// Prints "There isn't a planet at position 11"`}
+// Imprime "o hay un planeta en la posición 11"`}
 </CodeSnippet>
 
-This example uses optional binding to try to access a planet with a raw value of `11`. The statement `if let somePlanet = Planet(rawValue: 11)` creates an optional `Planet`, and sets `somePlanet` to the value of that optional `Planet` if it can be retrieved. In this case, it isn't possible to retrieve a planet with a position of `11`, and so the `else` branch is executed instead.
+Este ejuemplo usa el vínculo opcional para intentar acceder al Planeta con un valor predefinido de `11`. La sentencia `if let algunPlaneta = Planeta(rawValue: 11)` crea un planeta opcional `Planeta`, y le asigna a  `algunPlaneta` al valor de ese planeta `Planet` opcional si puede ser recuperado. En este caso, no es posible recuperar un planeta que se encuentre en la posición `11`, y por lo tante la sentencia `else` es ejecutada en su lugar.
 
-## Recursive Enumerations
+## Enumeraciones recursivas
 
-A _recursive enumeration_ is an enumeration that has another instance of the enumeration as the associated value for one or more of the enumeration cases. You indicate that an enumeration case is recursive by writing `indirect` before it, which tells the compiler to insert the necessary layer of indirection.
+Una _enumeración recursiva_ es una enumeración que tiene otra instancia de la enumeración como valor asociado para uno o más de los casos de enumeración. Se indica que un caso de enumeración es recursivo al escribir `indirect` antes _enum_, lo que le dice al compilador que inserte la capa necesaria de direccionamiento indirecto.
 
-For example, here is an enumeration that stores simple arithmetic expressions:
+Por ejemplo, aquí hay una enumeración que almacena expresiones aritméticas simples:
 
 <CodeSnippet>
-  {`enum ArithmeticExpression {
-    case number(Int)
-    indirect case addition(ArithmeticExpression, ArithmeticExpression)
-    indirect case multiplication(ArithmeticExpression, ArithmeticExpression)
+  {`enum ExpresionAritmetica {
+    case numero(Int)
+    indirect case adicion(ExpresionAritmetica, ExpresionAritmetica)
+    indirect case multiplicacion(ExpresionAritmetica, ExpresionAritmetica)
 }`}
 </CodeSnippet>
 
-You can also write `indirect` before the beginning of the enumeration to enable indirection for all of the enumeration's cases that have an associated value:
+También se puede escribir la palabra reservada `indirect` ante del inicio de la enumeración para permitir la indirección de todos los casos de la enumeración que tienen un valor asociado:
 
 <CodeSnippet>
-  {`indirect enum ArithmeticExpression {
-    case number(Int)
-    case addition(ArithmeticExpression, ArithmeticExpression)
-    case multiplication(ArithmeticExpression, ArithmeticExpression)
+  {`indirect enum ExpresionAritmetica {
+    case numero(Int)
+    case adicion(ExpresionAritmetica, ExpresionAritmetica)
+    case multiplicacion(ExpresionAritmetica, ExpresionAritmetica)
 }`}
 </CodeSnippet>
 
-This enumeration can store three kinds of arithmetic expressions: a plain number, the addition of two expressions, and the multiplication of two expressions. The `addition` and `multiplication` cases have associated values that are also arithmetic expressions—these associated values make it possible to nest expressions. For example, the expression `(5 + 4) * 2` has a number on the right-hand side of the multiplication and another expression on the left-hand side of the multiplication. Because the data is nested, the enumeration used to store the data also needs to support nesting—this means the enumeration needs to be recursive. The code below shows the `ArithmeticExpression` recursive enumeration being created for `(5 + 4) * 2`:
+Esta enumeración puede almacenar tres tipos de expresiones aritméticas: un número simple, la suma de dos expresiones y la multiplicación de dos expresiones. Los casos de `suma` y `multiplicacion` tienen valores asociados que también son expresiones aritméticas; estos valores asociados hacen posible anidar expresiones. Por ejemplo, la expresión `(5 + 4) * 2` tiene un número en el lado derecho de la multiplicación y otra expresión en el lado izquierdo de la multiplicación. Debido a que los datos están anidados, la enumeración utilizada para almacenar los datos también debe admitir el anidamiento; esto significa que la enumeración debe ser recursiva. El siguiente código muestra la enumeración recursiva `ExpresionAritmetica` que se crea para `(5 + 4) * 2`:
 
 <CodeSnippet>
-  {`let five = ArithmeticExpression.number(5)
-let four = ArithmeticExpression.number(4)
-let sum = ArithmeticExpression.addition(five, four)
-let product = ArithmeticExpression.multiplication(sum, ArithmeticExpression.number(2))`}
+  {`let cinco = ExpresionAritmetica.numero(5)
+let cuatro = ExpresionAritmetica.numero(4)
+let suma = ExpresionAritmetica.adicion(cinco, cuatro)
+let producto = ExpresionAritmetica.multiplicacion(suma, ExpresionAritmetica.numbero(2))`}
 </CodeSnippet>
 
-A recursive function is a straightforward way to work with data that has a recursive structure. For example, here's a function that evaluates an arithmetic expression:
+Una función recursiva es una forma sencilla de trabajar con datos que tienen una estructura recursiva. Por ejemplo, aquí hay una función que evalúa una expresión aritmética:
 
 <CodeSnippet>
-  {`func evaluate(_ expression: ArithmeticExpression) -> Int {
-    switch expression {
-    case let .number(value):
-        return value
-    case let .addition(left, right):
-        return evaluate(left) + evaluate(right)
-    case let .multiplication(left, right):
-        return evaluate(left) * evaluate(right)
+  {`func evaluar(_ expresion: ExpresionAritmetica) -> Int {
+    switch expresion {
+    case let .numero(valor):
+        return valor
+    case let .adicion(izquierda, derecha):
+        return evaluar(izquierda) + evaluar(derecha)
+    case let .multiplicacion(izquierda, derecha):
+        return evaluar(izquierda) * evaluate(derecha)
     }
 }\n
-print(evaluate(product))
-// Prints "18"`}
+print(evaluar(producto))
+// Imprime "18"`}
 </CodeSnippet>
 
-This function evaluates a plain number by simply returning the associated value. It evaluates an addition or multiplication by evaluating the expression on the left-hand side, evaluating the expression on the right-hand side, and then adding them or multiplying them.
+Esta función evalúa un número simple simplemente devolviendo el valor asociado. Evalúa una adición o multiplicación evaluando la expresión del lado izquierdo, evaluando la expresión del lado derecho y luego sumándolas o multiplicándolas.
