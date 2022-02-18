@@ -1,11 +1,18 @@
 .callout {
-  margin: 32px 0 40px 40px;
+  margin: 32px 0 40px 0;
   border-left: solid 5px #ccc;
   background-color: #f5f5f5;
   color: #242424;
-  padding: 20px;
+  padding: 20px 20px 20px 20px;
   font-size: 10px;
   border-radius: 2px;
+}
+
+@media screen and (min-width: 768px) {
+  .callout {
+    margin: 32px 0 40px 24px;
+    padding: 20px;
+  }
 }
 
 .callout--experiment {

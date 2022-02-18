@@ -184,8 +184,15 @@ article ul {
 
 /* Code Snippets */
 .code-snippet {
-  margin-inline-start: 2rem;
-  padding: 1rem !important;
+  padding: 1rem 1rem 1rem 0 !important;
+  margin-inline-start: 0.1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .code-snippet {
+    padding: 0.4rem !important;
+    margin-inline-start: 0.8rem;
+  }
 }
 
 .code-snippet--callout-child {
