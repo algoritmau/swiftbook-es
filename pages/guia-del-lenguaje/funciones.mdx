@@ -1,252 +1,256 @@
 ---
-title: Functions
+title: Funciones
 ---
 
-import Callout from '../../components/Callout.js'
-import CodeSnippet from '../../components/CodeSnippet.js'
+import Callout from "../../components/Callout.js"
+import CodeSnippet from "../../components/CodeSnippet.js"
 
-# Functions
+# Funciones
 
-_Functions_ are self-contained chunks of code that perform a specific task. You give a function a name that identifies what it does, and this name is used to “call” the function to perform its task when needed.
+Una _función_ es un segmento auto-contenido de código que ejecuta una tarea específica. A una función le asignas un nombre que comunique lo que esta hace, y usas dicho nombre para _llamar_ a la función y que esta ejecute su tarea, cuando sea necesario.
 
-Swift's unified function syntax is flexible enough to express anything from a simple C-style function with no parameter names to a complex Objective-C-style method with names and argument labels for each parameter. Parameters can provide default values to simplify function calls and can be passed as in-out parameters, which modify a passed variable once the function has completed its execution.
+La sintaxis unificada de funciones de Swift es lo suficientemente flexible para expresar cualquier función —desde una sencilla, similar a las de C, sin nombres de parámetros, hasta un método complejo, del estilo de Objective-C, con nombres de argumentos y etiquetas para cada parámetro. Un parámetro puede proveer valores predeterminados que simplifican el llamado a una función, y pueden ser pasados como parámetros _in-out_, los cuales modifican una variable que les haya sido pasada una vez que la función haya completado su ejecución.
 
-Every function in Swift has a type, consisting of the function's parameter types and return type. You can use this type like any other type in Swift, which makes it easy to pass functions as parameters to other functions, and to return functions from functions. Functions can also be written within other functions to encapsulate useful functionality within a nested function scope.
+En Swift, cada función tiene un tipo, el cual se conforma por los tipos de los argumentos de la función y del valor devuelto por la misma. Este tipo, lo puedes usar como cualquier otro tipo en Swift, lo cual facilita pasar funciones como parámetros a otras funciones y devolver funciones desde otras funciones. Las funciones también pueden definirse dentro de otras funciones para encapsular funcionalidad útil dentro del ámbito de una función anidada.
 
-## Defining and Calling Functions
+## Definición y llamado de una función
 
-When you define a function, you can optionally define one or more named, typed values that the function takes as input, known as _parameters_. You can also optionally define a type of value that the function will pass back as output when it's done, known as its _return type_.
+Al definir una función, puedes especificar —de manera opcional— uno o más valores tipados y con nombre que la función recibirá como valores de entrada; a estos valores se les conoce como _parámetros_. También puedes definir —opcionalmente— un tipo de valor que la función devolverá como valor de salida, una vez finalice su ejecución; a dicho valor se le conoce como _valor devuelto_.
 
-Every function has a function name, which describes the task that the function performs. To use a function, you “call” that function with its name and pass it input values (known as _arguments_) that match the types of the function's parameters. A function's arguments must always be provided in the same order as the function's parameter list.
+Cada función tiene un nombre, el cual describe la tarea que la función ejecuta. Para usar una función, debes _llamar_ a la función con su nombre y pasarle valores de entrada (conocidos como _argumentos_) que coincidan con el o los tipos de los parámetros de la función. Los argumentos de una función siempre deben proveerse en el mismo orden de la lista de parámetros de la función.
 
-The function in the example below is called `greet(person:)`, because that's what it does—it takes a person's name as input and returns a greeting for that person. To accomplish this, you define one input parameter—a `String` value called `person`—and a return type of `String`, which will contain a greeting for that person:
+La función del siguiente ejemplo se llama `saludar(persona)`, ya que eso es lo que esta hace, toma el nombre de una persona como entrada y devuelve un saludo para esta persona. Para hacer esto, defines un parámetro de entrada, un valor de tipo `String` llamado `persona`, y un valor a devolver —de tipo `String`— llamado `saludo`, el cual contiene un saludo para la persona:
 
 <CodeSnippet>
-  {`func greet(person: String) -> String {
-    let greeting = "Hello, " + person + "!"\n
-    return greeting
+  {`func saludar(persona: String) -> String {
+    let saludo = "¡Hola, " + persona + "!"\n
+    return saludo
 }`}
 </CodeSnippet>
 
-All of this information is rolled up into the function's _definition_, which is prefixed with the `func` keyword. You indicate the function's return type with the _return arrow_ `->` (a hyphen followed by a right angle bracket), which is followed by the name of the type to return.
+Toda esta información va dentro de la _definición_ de una función, la cual va precedida por la palabra clave `func`. Para indicar el tipo devuelto por la función, utiliza la _flecha de devolución_ (`->`) —un guión seguido de un signo _mayor que_—, seguida por el nombre del tipo a devolver.
 
-The definition describes what the function does, what it expects to receive, and what it returns when it's done. The definition makes it easy for the function to be called unambiguously from elsewhere in your code:
+La definición describe lo que la función hace, lo que espera recibir, y lo que devuelve al ejecutarse. La definición también facilita que la función pueda ser llamada desde cualquier lugar de tu código, evitando ambigüedades.
 
 <CodeSnippet>
-  {`print(greet(person: "Anna"))
-// Prints "Hello, Anna!"
-print(greet(person: "Brian"))
-// Prints "Hello, Brian!"`}
+  {`print(saludar(persona: "Ana"))
+// Imprime "¡Hola, Ana!"
+print(saludar(persona: "Pedro"))
+// Imprime "¡Hola, Pedro!"`}
 </CodeSnippet>
 
-You call the `greet(person:)` function by passing it a `String` value after the person argument label, such as `greet(person: "Anna")`. Because the function returns a `String` value, `greet(person:)` can be wrapped in a call to the `print(_:separator:terminator:)` function to print that string and see its return value, as shown above.
+Para llamar a la función `saludar(persona:)`, le pasas un valor de tipo `String` luego de la etiqueta del argumento `persona`, así: `saludar(persona: "Ana")`. Dado que la función devuelve una cadena, `saludar(persona:)` puede serle pasada a una llamada a la función `print(_:separator:terminator:)` para imprimir dicha cadena y ver su valor devuelto, como se ve en el ejemplo anterior.
 
 <Callout>
-  The `print(_:separator:terminator:)` function doesn't have a label for its
-  first argument, and its other arguments are optional because they have a
-  default value. These variations on function syntax are discussed below in
-  [Function Argument Labels and Parameter
-  Names](#function-argument-labels-and-parameter-names) and [Default Parameter
-  Values](#default-parameter-values).
+  La función `print(_:separator:terminator:)` no tiene una etiqueta para su
+  primer argumento y sus otros argumentos son opcionales, ya que estos cuentan
+  con un valor predeterminado. Estas variantes de la sintaxis de una función se
+  discuten más adelante en [Etiquetas de los argumentos y nombres de parámetros
+  de una
+  función](#etiquetas-de-los-argumentos-y-nombres-de-parámetros-de-una-función)
+  y [Valores predeterminados de
+  parámetros](#valores-predeterminados-de-parámetros).
 </Callout>
 
-The body of the `greet(person:)` function starts by defining a new `String` constant called `greeting` and setting it to a simple greeting message. This greeting is then passed back out of the function using the `return` keyword. In the line of code that says `return greeting`, the function finishes its execution and returns the current value of `greeting`.
+El cuerpo de la función `saludar(persona)` empieza con la definición de una nueva constante —de tipo `String`— llamada `saludo`, a la que le es asignado un saludo de bienvenida sencillo. Luego, este saludo es devuelto por la función mediante la palabra clave `return`. En la línea de código que pone `return saludo`, la función finaliza su ejecución y devuelve el valor que `saludo` tenga en su momento.
 
-You can call the `greet(person:)` function multiple times with different input values. The example above shows what happens if it's called with an input value of `"Anna"`, and an input value of `"Brian"`. The function returns a tailored greeting in each case.
+Puedes llamar a la función `saludar(persona)` múltiples veces con distintos valores de entrada. En el ejemplo anterior, se aprecia lo que ocurre al llamar la función con los valores de entrada `"Ana"` y `"Pedro"`. La función devuelve un saludo personalizado en cada caso.
 
-To make the body of this function shorter, you can combine the message creation and the return statement into one line:
+Para acortar el cuerpo de esta función, puedes combinar la creación del mensaje y la instrucción de devolución en una sola línea:
 
 <CodeSnippet>
-  {`func greetAgain(person: String) -> String {
-    return "Hello again, " + person + "!"
+  {`func saludarOtraVez(persona: String) -> String {
+    return "¡Hola, nuevamente, " + persona + "!"
 }\n
-print(greetAgain(person: "Anna"))
-// Prints "Hello again, Anna!"`}
+print(saludarOtraVez(persona: "Ana"))
+// Imprime "¡Hola, nuevamente, Ana!"`}
 </CodeSnippet>
 
-## Function Parameters and Return Values
+## Parámetros de funciones y valores devueltos
 
-Function parameters and return values are extremely flexible in Swift. You can define anything from a simple utility function with a single unnamed parameter to a complex function with expressive parameter names and different parameter options.
+Los parámetros y los valores devueltos de las funciones son extremadamente flexibles en Swift. Puedes definir cualquier función desde una función utilitaria con un único parámetro anónimo hasta una función compleja con nombres de parámetros expresivos y diferentes opciones para dichos parámetros.
 
-### Functions Without Parameters
+### Funciones sin parámetros
 
-Functions aren't required to define input parameters. Here's a function with no input parameters, which always returns the same `String` message whenever it's called:
+Las funciones no requieren la definición de parámetros de entrada. Acá se tiene una función sin parámetros de entrada, la cual siempre devuelve el mismo mensaje `String` al ser llamada:
 
 <CodeSnippet>
-  {`func sayHelloWorld() -> String {
-    return "hello, world"
+  {`func decirHolaMundo() -> String {
+    return "Hola, mundo."
 }\n
-print(sayHelloWorld())
-// Prints "hello, world"`}
+print(decirHolaMundo())
+// Imprime "Hola, mundo."`}
 </CodeSnippet>
 
-The function definition still needs parentheses after the function's name, even though it doesn't take any parameters. The function name is also followed by an empty pair of parentheses when the function is called.
+La definición de la función requiere de paréntesis aun cuando esta no toma ningún parámetro. El nombre de la función también va seguido de un par de paréntesis al momento de llamar a la función.
 
-### Functions With Multiple Parameters
+### Funciones con múltiples parámetros
 
-Functions can have multiple input parameters, which are written within the function's parentheses, separated by commas.
+Las funciones pueden tener múltiples parámetros de entrada, los cuales se escriben dentro de los paréntesis de la función, separados por coma.
 
-This function takes a person's name and whether they have already been greeted as input, and returns an appropriate greeting for that person:
+Esta función toma como entrada el nombre de una persona y un indicador de que ya se ha saludado o no a dicha persona, y devuelve un saludo apropiado para la persona:
 
 <CodeSnippet>
-  {`func greet(person: String, alreadyGreeted: Bool) -> String {
-    if alreadyGreeted {
-        return greetAgain(person: person)
+  {`func saludar(persona: String, fueSaludada: Bool) -> String {
+    if fueSaludada {
+        return saludarNuevamente(persona: persona)
     } else {
-        return greet(person: person)
+        return saludar(persona: persona)
     }
 }\n
-print(greet(person: "Tim", alreadyGreeted: true))
-// Prints "Hello again, Tim!"`}
+print(saludar(persona: "Cindy", fueSaludada: true))
+// Imprime "¡Hola otra vez, Cindy!"`}
 </CodeSnippet>
 
-You call the `greet(person:alreadyGreeted:)` function by passing it both a `String` argument value labeled `person` and a `Bool` argument value labeled `alreadyGreeted` in parentheses, separated by commas. Note that this function is distinct from the `greet(person:)` function shown in an earlier section. Although both functions have names that begin with `greet`, the `greet(person:alreadyGreeted:)` function takes two arguments but the `greet(person:)` function takes only one.
+Para llamar a la función `saludar(persona:fueSaludada:)`, le pasas un valor argumento de tipo `String`, con la etiqueta `persona` y un valor argumento de tipo `Bool`, con la etiqueta `fueSaludada` — en paréntesis y separados por coma. Observa que esta función es diferente a la función `saludar(persona)` que se mostró en una sección anterior. Aunque el nombre de ambas funciones empieza por `saludar`, la función `saludar(persona:fueSaludada:)` toma dos argumentos, mientras que la función `saludar(persona:)` solo toma uno.
 
-### Functions Without Return Values
+### Funciones sin valores devueltos
 
-Functions aren't required to define a return type. Here's a version of the `greet(person:)` function, which prints its own `String` value rather than returning it:
+Las funciones no requieren definir un tipo a devolver. Aquí tenemos una versión de la función `saludar(persona:)`, la cual imprime su propia cadena en lugar de devolverla:
 
 <CodeSnippet>
-  {`func greet(person: String) {
-    print("Hello, \\(person)!")
+  {`func saludar(persona: String) {
+    print("¡Hola, \\(persona)!")
 }\n
-greet(person: "Dave")
-// Prints "Hello, Dave!"`}
+saludar(persona: "Daniel")
+// Imprime "¡Hola, Daniel!"`}
 </CodeSnippet>
 
-Because it doesn't need to return a value, the function's definition doesn't include the return arrow (`->`) or a return type.
+Dado que no necesita devolver un valor, la definición de la función no incluye la flecha de devolución (`->`) o un tipo a devolver.
 
 <Callout>
-  Strictly speaking, this version of the `greet(person:)` function _does_ still
-  return a value, even though no return value is defined. Functions without a
-  defined return type return a special value of type `Void`. This is simply an
-  empty tuple, which is written as `()`.
+  Estrictamente hablando, esta versión de la función `saludar(persona:)` _sí_
+  devuelve un valor, aun cuando no se definió un valor a devolver. Las funciones
+  que no definen un valor a devolver, devuelven un valor especial de tipo `Void`.
+  Esto es, simplemente, una tupla vacía — la cual se escribe como `()`.
 </Callout>
 
-The return value of a function can be ignored when it's called:
+El valor devuelto por una función puede ignorarse al llamar a la función:
 
 <CodeSnippet>
-  {`func printAndCount(string: String) -> Int {
-    print(string)\n
-    return string.count
+  {`func imprimirYContar(cadena: String) -> Int {
+    print(cadena)\n
+    return cadena.count
 }\n
-func printWithoutCounting(string: String) {
-    let _ = printAndCount(string: string)
+func imprimirSinContar(cadena: String) {
+    let _ = imprimirYContar(cadena: string)
 }\n
-printAndCount(string: "hello, world")
-// prints "hello, world" and returns a value of 12
-printWithoutCounting(string: "hello, world")
-// prints "hello, world" but doesn't return a value`}
+// Imprime «Hola, mundo» y devuelve un valor de 12
+imprimirYContar(cadena: "Hola, mundo")\n
+// Imprime «Hola, mundo», pero no devuelve un valor
+imprimirSinContar(cadena: "Hola, mundo")`}
 </CodeSnippet>
 
-The first function, `printAndCount(string:)`, prints a string, and then returns its character count as an `Int`. The second function, `printWithoutCounting(string:)`, calls the first function, but ignores its return value. When the second function is called, the message is still printed by the first function, but the returned value isn't used.
+La primera función —`imprimirYContar(cadena:)`— imprime una cadena y luego devuelve su número de caracteres como un `Int`. La segunda función — `imprimirSinContar(cadena:)`— llama a la primera función, pero ignora su valor devuelto. Cuando se llama a la segunda función, el mensaje es impreso por la primera función, pero no se utiliza su valor devuelto.
 
 <Callout>
-  Return values can be ignored, but a function that says it will return a value
-  must always do so. A function with a defined return type can't allow control
-  to fall out of the bottom of the function without returning a value, and
-  attempting to do so will result in a compile-time error.
+  Los valores devueltos pueden ignorarse, pero una función que indica que
+  devolverá un valor, siempre debe hacerlo. Una función con un valor devuelto
+  definido no puede permitir que el control vaya más allá del final de la
+  función sin devolver un valor e intentar hacer esto resultará en un error
+  de tiempo de compilación.
 </Callout>
 
-### Functions with Multiple Return Values
+### Funciones con múltiples valores devueltos
 
-You can use a tuple type as the return type for a function to return multiple values as part of one compound return value.
+Es posible usar una tupla como el tipo devuelto por una función para devolver múltiples valores como parte de un solo valor devuelto compuesto.
 
-The example below defines a function called `minMax(array:)`, which finds the smallest and largest numbers in an array of `Int` values:
+El siguiente ejemplo define una función llamada `minMax(array:)`, la cual encuentra los números menor y mayor en un _array_ de valores `Int`:
 
 <CodeSnippet>
   {`func minMax(array: [Int]) -> (min: Int, max: Int) {
-    var currentMin = array[0]
-    var currentMax = array[0]\n
-    for value in array[1..<array.count] {
-        if value < currentMin {
-            currentMin = value
-        } else if value > currentMax {
-            currentMax = value
+    var minimoActual = array[0]
+    var maximoActual = array[0]\n
+    for valor in array[1..<array.count] {
+        if valor < minimoActual {
+            minimoActual = valor
+        } else if valor > maximoActual {
+            maximoActual = valor
         }
     }\n
-    return (currentMin, currentMax)
+    return (minimoActual, maximoActual)
 }`}
 </CodeSnippet>
 
-The `minMax(array:)` function returns a tuple containing two `Int` values. These values are labeled `min` and `max` so that they can be accessed by name when querying the function's return value.
+La función `minMax(array:)` devuelve una tupla que contiene dos valores `Int`. Estos valores se etiquetan `min` y `max` de manera que se puede acceder a ellos por su nombre al llamar al valor devuelto por la función.
 
-The body of the `minMax(array:)` function starts by setting two working variables called `currentMin` and `currentMax` to the value of the first integer in the array. The function then iterates over the remaining values in the array and checks each value to see if it's smaller or larger than the values of `currentMin` and `currentMax` respectively. Finally, the overall minimum and maximum values are returned as a tuple of two `Int` values.
+El cuerpo de la función `minMax(array:)` empieza asignando a dos variables llamadas `minimoActual` y `maximoActual` el valor del primer entero en el _array_. La función luego itera sobre los demás valores del _array_ y verifica cada valor para determinar si es menor o mayor que los valores de `minimoActual` y `maximoActual`, respectivamente. Finalmente, los valores mínimo y máximo son devueltos como una tupla de dos valores `Int`.
 
-Because the tuple's member values are named as part of the function's return type, they can be accessed with dot syntax to retrieve the minimum and maximum found values:
+Dado que a los valores que conforman la tupla se le asignaron nombres como parte del valor devuelto por la función, a estos se puede acceder mediante sintaxis de punto para obtener los valores mínimos y máximo que se hallaron:
 
 <CodeSnippet>
-  {`let bounds = minMax(array: [8, -6, 2, 109, 3, 71])\n
-print("min is \\(bounds.min) and max is \\(bounds.max)")
-// Prints "min is -6 and max is 109"`}
+  {`let limites = minMax(array: [8, -6, 2, 109, 3, 71])\n
+print("min es \\(limites.min) y max es \\(bounds.max)")
+// Imprime «min es -6 y max es 109"`}
 </CodeSnippet>
 
-Note that the tuple's members don't need to be named at the point that the tuple is returned from the function, because their names are already specified as part of the function's return type.
+Observa que no hace falta nombrar a los miembros de la tupla en el momento en que la tupla es devuelta por la función ya que sus nombres han sido previamente especificados como parte del valor devuelto de la función.
 
-#### Optional Tuple Return Types
+#### Tuplas devueltas opcionales
 
-If the tuple type to be returned from a function has the potential to have “no value” for the entire tuple, you can use an _optional_ tuple return type to reflect the fact that the entire tuple can be `nil`. You write an optional tuple return type by placing a question mark after the tuple type's closing parenthesis, such as `(Int, Int)?` or `(String, Int, Bool)?`.
+Si el valor tipo tupla a devolver por una función tiene el potencial de no contener «ningún valor» para toda la tupla, puedes devolver una tupla _opcional_ para reflejar el hecho de que toda la tupla puede ser `nil`. Puedes indicar una tupla devuelta opcional al colocar un signo de interrogación (de cierre) después del paréntesis de cierre de la tupla, así `(Int, Int)?` o `(String, Int, Bool)?`.
 
 <Callout>
-  An optional tuple type such as `(Int, Int)?` is different from a tuple that
-  contains optional types such as `(Int?, Int?)`. With an optional tuple type,
-  the entire tuple is optional, not just each individual value within the tuple.
+  Un valor tipo tupla opcional como `(Int, Int)?` es diferente de una tupla que
+  contiene tipos opcionales como `(Int?, Int?)`. Para un valor tipo tupla
+  opcional, toda la tupla es opcional y no solo cada valor individual dentro
+  de la tupla.
 </Callout>
 
-The `minMax(array:)` function above returns a tuple containing two `Int` values. However, the function doesn't perform any safety checks on the array it's passed. If the `array` argument contains an empty array, the `minMax(array:)` function, as defined above, will trigger a runtime error when attempting to access `array[0]`.
+La función `minMax(array:)` vista anteriormente devuelve una tupla que contiene dos valores `Int`. Sin embargo, la función no realiza ninguna verificación de seguridad sobre el _array_ que recibe. Si el argumento `array` fuese un _array_ vacío, la función `minMax(array:)` —tal como se define arriba— arrojaría un error de tiempo de ejecución al intentar acceder a `array[0]`.
 
-To handle an empty array safely, write the `minMax(array:)` function with an optional tuple return type and return a value of `nil` when the array is empty:
+Para lidiar —de manera segura— con un _array_ vacío, escribe la función `minMax(array:)` con una tupla opcional como valor a devolver y un valor a devolver de `nil` cuando el _array_ esté vacío:
 
 <CodeSnippet>
   {`func minMax(array: [Int]) -> (min: Int, max: Int)? {
     if array.isEmpty { return nil }\n
-    var currentMin = array[0]
-    var currentMax = array[0]\n
-    for value in array[1..<array.count] {
-        if value < currentMin {
-            currentMin = value
-        } else if value > currentMax {
-            currentMax = value
+    var minimoActual = array[0]
+    var maximoActual = array[0]\n
+    for valor in array[1..<array.count] {
+        if valor < minimoActual {
+            minimoActual = valor
+        } else if valor > maximoActual {
+            maximoActual = valor
         }
     }\n
-    return (currentMin, currentMax)
+    return (minimoActual, maximoActual)
 }`}
 </CodeSnippet>
 
-You can use optional binding to check whether this version of the `minMax(array:)` function returns an actual tuple value or `nil`:
+Puedes utilizar encadenamiento opcional para verificar si la versión de la función `minMax(array:)` devuelve una tupla real o `nil`:
 
 <CodeSnippet>
-  {`if let bounds = minMax(array: [8, -6, 2, 109, 3, 71]) {
-    print("min is \\(bounds.min) and max is \\(bounds.max)")
+  {`if let limites = minMax(array: [8, -6, 2, 109, 3, 71]) {
+    print("min es \\(limites.min) y max es \\(limites.max)")
 }
-// Prints "min is -6 and max is 109"`}
+// Imprime «min es -6 y max es 109»`}
 </CodeSnippet>
 
-### Functions With an Implicit Return
+### Funciones con un valor devuelto implícito
 
-If the entire body of the function is a single expression, the function implicitly returns that expression. For example, both functions below have the same behavior:
+Si todo el cuerpo de una función es una sola expresión, la función —implícitamente— devuelve dicha expresión. Por ejemplo, las dos siguientes funciones tienen el mismo comportamiento:
 
 <CodeSnippet>
-  {`func greeting(for person: String) -> String {
-    "Hello, " + person + "!"
-}
-print(greeting(for: "Dave"))
-// Prints "Hello, Dave!"\n
-func anotherGreeting(for person: String) -> String {
-    return "Hello, " + person + "!"
-}
-print(anotherGreeting(for: "Dave"))
-// Prints "Hello, Dave!"`}
+  {`func saludo(para persona: String) -> String {
+    "¡Hola, " + persona + "!"
+}\n
+print(saludo(para: "Andrea"))
+// Imprime «¡Hola, Andrea!»\n
+func otroSaludo(para persona: String) -> String {
+    return "¡Hola, " + persona + "!"
+}\n
+print(otroSaludo(para: "Andrea"))
+// Imprime «¡Hola, Andrea!»`}
 </CodeSnippet>
 
-The entire definition of the `greeting(for:)` function is the greeting message that it returns, which means it can use this shorter form. The `anotherGreeting(for:)` function returns the same greeting message, using the `return` keyword like a longer function. Any function that you write as just one `return` line can omit the `return`.
+Toda la definición de la función `saludo(para:)` es el mensaje de saludo que esta devuelve, lo que le permite usar esta forma abreviada. La función `otroSaludo(para:)` devuelve el mismo mensaje de saludo usando la palabra clave `return` como una función más extensa. Para cualquier función que escribas como una sola línea que devuelve algo, puedes omitir `return`.
 
-As you'll see in [Shorthand Getter Declaration](./propiedades#declaracion-concisa-de-getters), property getters can also use an implicit return.
+Como verás en [Declaración concisa de getters](./propiedades#declaracion-concisa-de-getters), los _getters_ de propiedades también pueden omitir un `return` implícito.
 
 <Callout>
-  The code you write as an implicit return value needs to return some value. For
-  example, you can't use `fatalError("Oh no!")` or `print(13)` as an implicit
-  return value.
+  El código que escribas como un valor devuelto implícito tiene que devolver algún
+  valor. Por ejemplo, no puedes usar `errorFatal("¡Oh, no!")` o `print(13)` como
+  valor devuelto implícito.
 </Callout>
 
 ## Function Argument Labels and Parameter Names
