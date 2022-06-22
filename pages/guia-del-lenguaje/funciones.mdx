@@ -121,8 +121,8 @@ Dado que no necesita devolver un valor, la definición de la función no incluye
 <Callout>
   Estrictamente hablando, esta versión de la función `saludar(persona:)` _sí_
   devuelve un valor, aun cuando no se definió un valor a devolver. Las funciones
-  que no definen un valor a devolver, devuelven un valor especial de tipo `Void`.
-  Esto es, simplemente, una tupla vacía — la cual se escribe como `()`.
+  que no definen un valor a devolver, devuelven un valor especial de tipo
+  `Void`. Esto es, simplemente, una tupla vacía — la cual se escribe como `()`.
 </Callout>
 
 El valor devuelto por una función puede ignorarse al llamar a la función:
@@ -147,8 +147,8 @@ La primera función —`imprimirYContar(cadena:)`— imprime una cadena y luego 
   Los valores devueltos pueden ignorarse, pero una función que indica que
   devolverá un valor, siempre debe hacerlo. Una función con un valor devuelto
   definido no puede permitir que el control vaya más allá del final de la
-  función sin devolver un valor e intentar hacer esto resultará en un error
-  de tiempo de compilación.
+  función sin devolver un valor e intentar hacer esto resultará en un error de
+  tiempo de compilación.
 </Callout>
 
 ### Funciones con múltiples valores devueltos
@@ -193,8 +193,8 @@ Si el valor tipo tupla a devolver por una función tiene el potencial de no cont
 <Callout>
   Un valor tipo tupla opcional como `(Int, Int)?` es diferente de una tupla que
   contiene tipos opcionales como `(Int?, Int?)`. Para un valor tipo tupla
-  opcional, toda la tupla es opcional y no solo cada valor individual dentro
-  de la tupla.
+  opcional, toda la tupla es opcional y no solo cada valor individual dentro de
+  la tupla.
 </Callout>
 
 La función `minMax(array:)` vista anteriormente devuelve una tupla que contiene dos valores `Int`. Sin embargo, la función no realiza ninguna verificación de seguridad sobre el _array_ que recibe. Si el argumento `array` fuese un _array_ vacío, la función `minMax(array:)` —tal como se define arriba— arrojaría un error de tiempo de ejecución al intentar acceder a `array[0]`.
@@ -248,76 +248,77 @@ Toda la definición de la función `saludo(para:)` es el mensaje de saludo que e
 Como verás en [Declaración concisa de getters](./propiedades#declaracion-concisa-de-getters), los _getters_ de propiedades también pueden omitir un `return` implícito.
 
 <Callout>
-  El código que escribas como un valor devuelto implícito tiene que devolver algún
-  valor. Por ejemplo, no puedes usar `errorFatal("¡Oh, no!")` o `print(13)` como
-  valor devuelto implícito.
+  El código que escribas como un valor devuelto implícito tiene que devolver
+  algún valor. Por ejemplo, no puedes usar `errorFatal("¡Oh, no!")` o
+  `print(13)` como valor devuelto implícito.
 </Callout>
 
-## Function Argument Labels and Parameter Names
+## Etiquetas de argumentos y nombres de parámetros de funciones
 
-Each function parameter has both an _argument label_ and a _parameter name_. The argument label is used when calling the function; each argument is written in the function call with its argument label before it. The parameter name is used in the implementation of the function. By default, parameters use their parameter name as their argument label.
+Cada parámetro de una función tiene tanto una _etiqueta de argumento_ como un _nombre de parámetro_. La etiqueta de argumento se usa al invocar una función — cada argumento se escribe en la llamada de la función con su etiqueta de argumento precediéndole. El nombre del parámetro se utiliza en la implementación de la función. Por defecto, los parámetros utilizan su nombre de parámetro como su etiqueta de argumento.
 
 <CodeSnippet>
-  {`func someFunction(firstParameterName: Int, secondParameterName: Int) {
-    // In the function body, firstParameterName and secondParameterName
-    // refer to the argument values for the first and second parameters.
+  {`func algunaFuncion(nombrePrimerParametro: Int, nombreSegundoParametro: Int) {
+    // En el cuerpo de la función, nombrePrimerParametro y nombreSegundoParametro
+    // se refieren a los valores argumento del primer y segundo parámetros.
 }\n
-someFunction(firstParameterName: 1, secondParameterName: 2)`}
+algunaFuncion(nombrePrimerParametro: 1, nombreSegundoParametro: 2)`}
 </CodeSnippet>
 
-All parameters must have unique names. Although it's possible for multiple parameters to have the same argument label, unique argument labels help make your code more readable.
+Todos los parámetros deben tener nombres únicos. Aunque es posible que múltiples parámetros tengan la misma etiqueta de argumento, tener etiquetas de argumentos únicas ayuda a que tu código sea más legible.
 
-### Specifying Argument Labels
+### Especificando etiquetas de argumentos
 
-You write an argument label before the parameter name, separated by a space:
+Debes definir una etiqueta de argumento antes del nombre del parámetro, separados por un espacio:
 
 <CodeSnippet>
-  {`func someFunction(argumentLabel parameterName: Int) {
-    // In the function body, parameterName refers to the argument value
-    // for that parameter.
+  {`func algunaFuncion(etiquetaArgumento nombreParametro: Int) {
+    // En el cuerpo de la función, nombreParametro hace referencia al
+    // valor argumento para dicho parámetro.
 }`}
 </CodeSnippet>
 
-Here's a variation of the `greet(person:)` function that takes a person's name and hometown and returns a greeting:
+Acá vemos una variante de la función `saludar(persona:)`, la cual toma el nombre y lugar de origen de una persona, y devuelve un saludo:
 
 <CodeSnippet>
-  {`func greet(person: String, from hometown: String) -> String {
-    return "Hello \\(person)!  Glad you could visit from \\(hometown)."
+  {`func saludar(persona: String, de lugarOrigen: String) -> String {
+    return "¡Hola, \\(persona)!  Es un placer que puedas visitarnos desde \\(lugarOrigen)."
 }\n
-print(greet(person: "Bill", from: "Cupertino"))
-// Prints "Hello Bill!  Glad you could visit from Cupertino."`}
+print(saludar(persona: "Luisa", from: "Cupertino"))
+// Prints «¡Hola, Luisa! Es un placer que puedas visitarnos desde Cupertino.»`}
 </CodeSnippet>
 
-The use of argument labels can allow a function to be called in an expressive, sentence-like manner, while still providing a function body that's readable and clear in intent.
+El uso de etiquetas de argumento permiten que una función pueda ser llamada de manera expresiva, como una instrucción, mientras provee un cuerpo legible y de clara intención.
 
-### Omitting Argument Labels
+### Omitiendo etiquetas de argumentos
 
-If you don't want an argument label for a parameter, write an underscore (`_`) instead of an explicit argument label for that parameter.
+Si no quieres una etiqueta de argumento para un parámetro, agrega un guión bajo (`_`) en lugar de una etiqueta de argumento explícita para dicho parámetro.
 
 <CodeSnippet>
-  {`func someFunction(_ firstParameterName: Int, secondParameterName: Int) {
-    // In the function body, firstParameterName and secondParameterName
-    // refer to the argument values for the first and second parameters.
+  {`func algunaFuncion(_ primerNombreParametro: Int, segundoNombreParametro: Int) {
+    // En el cuerpo de la función, primerNombreParametro y segundoNombreParametro
+    // se refieren a los valores argumento para el primer y segundo parámetros.
 }\n
-someFunction(1, secondParameterName: 2)`}
+algunaFuncion(1, segundoNombreParametro: 2)`}
 </CodeSnippet>
 
-If a parameter has an argument label, the argument _must_ be labeled when you call the function.
+Si un parámetro tiene una etiqueta de argumento, el argumento _debe_ ir acompañado de la etiqueta al momento de llamar la función.
 
-### Default Parameter Values
+### Valores parámetro predeterminados
 
-You can define a _default value_ for any parameter in a function by assigning a value to the parameter after that parameter's type. If a default value is defined, you can omit that parameter when calling the function.
+Puedes definir un _valor predeterminado_ para cualquier parámetro de una función, asignando un valor al parámetro después del tipo del parámetro. Si un valor predeterminado ya se ha definido, puedes omitir el parámetro al invocar la función.
 
 <CodeSnippet>
-  {`func someFunction(parameterWithoutDefault: Int, parameterWithDefault: Int = 12) {
-    // If you omit the second argument when calling this function, then
-    // the value of parameterWithDefault is 12 inside the function body.
+  {`func algunaFuncion(parametroSinValorPredeterminado: Int, parametroConValorPredeterminado: Int = 12) {
+    // Si omites el segundo argumento al invocar la función, entonces
+    // el valor de parametroConValorPredeterminado será 12 dentro del
+    // cuerpo de la función.
 }\n
-someFunction(parameterWithoutDefault: 3, parameterWithDefault: 6) // parameterWithDefault is 6
-someFunction(parameterWithoutDefault: 4) // parameterWithDefault is 12`}
+algunaFuncion(parametroSinValorPredeterminado: 3, parametroConValorPredeterminado: 6) // parametroConValorPredeterminado es 6
+algunaFuncion(parametroSinValorPredeterminado: 4) // parametroConValorPredeterminado es 12`}
 </CodeSnippet>
 
-Place parameters that don't have default values at the beginning of a function's parameter list, before the parameters that have default values. Parameters that don't have default values are usually more important to the function's meaning—writing them first makes it easier to recognize that the same function is being called, regardless of whether any default parameters are omitted.
+Coloca los parámetros que no tienen valor predeterminado al inicio de la lista de parámetros de una función, antes de los parámetros que sí tienen valores predeterminados. Los parámetros que no tienen valores predeterminados suelen ser más importantes para el significado de la función, por lo que al escribirlos primero, resulta más fácil identificar cuando la misma función está siendo llamada, independientemente de que se omita o no algún parámetro predeterminado.
 
 ### Variadic Parameters
 
