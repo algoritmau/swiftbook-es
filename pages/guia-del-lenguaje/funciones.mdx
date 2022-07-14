@@ -2,12 +2,12 @@
 title: Funciones
 ---
 
-import Callout from "../../components/Callout.js"
-import CodeSnippet from "../../components/CodeSnippet.js"
+import Callout from '../../components/Callout.js'
+import CodeSnippet from '../../components/CodeSnippet.js'
 
 # Funciones
 
-Una _función_ es un segmento auto-contenido de código que ejecuta una tarea específica. A una función le asignas un nombre que comunique lo que esta hace, y usas dicho nombre para _llamar_ a la función y que esta ejecute su tarea, cuando sea necesario.
+Una _función_ es un segmento auto-contenido de código que ejecuta una tarea específica. A una función le das un nombre que comunica lo que esta hace, y usas dicho nombre para _llamar_ a la función y que esta ejecute su tarea, cuando sea necesario.
 
 La sintaxis unificada de funciones de Swift es lo suficientemente flexible para expresar cualquier función —desde una sencilla, similar a las de C, sin nombres de parámetros, hasta un método complejo, del estilo de Objective-C, con nombres de argumentos y etiquetas para cada parámetro. Un parámetro puede proveer valores predeterminados que simplifican el llamado a una función, y pueden ser pasados como parámetros _in-out_, los cuales modifican una variable que les haya sido pasada una vez que la función haya completado su ejecución.
 
@@ -320,73 +320,74 @@ algunaFuncion(parametroSinValorPredeterminado: 4) // parametroConValorPredetermi
 
 Coloca los parámetros que no tienen valor predeterminado al inicio de la lista de parámetros de una función, antes de los parámetros que sí tienen valores predeterminados. Los parámetros que no tienen valores predeterminados suelen ser más importantes para el significado de la función, por lo que al escribirlos primero, resulta más fácil identificar cuando la misma función está siendo llamada, independientemente de que se omita o no algún parámetro predeterminado.
 
-### Variadic Parameters
+### Parámetros variadic
 
-A _variadic parameter_ accepts zero or more values of a specified type. You use a variadic parameter to specify that the parameter can be passed a varying number of input values when the function is called. Write variadic parameters by inserting three period characters (`...`) after the parameter's type name.
+Un parámetro _variadic_ acepta cero o más valores de un tipo específico. Puedes usar parámetros _variadic_ para especificar que al parámetro se le puede pasar un número variable de valores de entrada al momento de llamar la función. Escribe parámetros _variadic_ insertando tres puntos (`...`) después del tipo del parámetro:
 
-The values passed to a variadic parameter are made available within the function's body as an array of the appropriate type. For example, a variadic parameter with a name of `numbers` and a type of `Double...` is made available within the function's body as a constant array called `numbers` of type `[Double]`.
+Los valores que se le pasan a un parámetro _variadic_ estarán disponibles dentro del cuerpo de la función como un _array_ del tipo apropiado. Por ejemplo, un parámetro _variadic_ con el nombre de `numeros` y de tipo `Double...`, estará disponible dentro del cuerpo de la función como un _array_ constante, llamado `numeros`, de tipo `[Double]`.
 
-The example below calculates the _arithmetic mean_ (also known as the _average_) for a list of numbers of any length:
+En el siguiente ejemplo, se calcula la _media aritmética_ (también conocida como _promedio_) de una lista de números de cualquier tamaño:
 
 <CodeSnippet>
-  {`func arithmeticMean(_ numbers: Double...) -> Double {
+  {`func mediaAritmetica(_ numeros: Double...) -> Double {
     var total: Double = 0\n
-    for number in numbers {
-        total += number
+    for numero in numeros {
+        total += numero
     }\n
-    return total / Double(numbers.count)
+    return total / Double(numeros.count)
 }\n
-arithmeticMean(1, 2, 3, 4, 5)
-// returns 3.0, which is the arithmetic mean of these five numbers
-arithmeticMean(3, 8.25, 18.75)
-// returns 10.0, which is the arithmetic mean of these three numbers`}
+mediaAritmetica(1, 2, 3, 4, 5)
+// Devuelve 3.0, que es la media aritmética de esos cinco números.\n
+mediaAritmetica(3, 8.25, 18.75)
+// Devuelve 10.0, que es la media aritmética de esos tres números.`}
 </CodeSnippet>
 
-A function can have multiple variadic parameters. The first parameter that comes after a variadic parameter must have an argument label. The argument label makes it unambiguous which arguments are passed to the variadic parameter and which arguments are passed to the parameters that come after the variadic parameter.
+Una función puede tener múltiples parámetros _variadic_. El primer parámetro que le siga a un parámetro _variadic_ deberá tener una etiqueta de argumento. Una etiqueta de argumento elimina la ambigüedad sobre cuáles argumentos le son pasados al parámetro _variadic_ y cuáles le son pasados a los parámetros que le siguen al _variadic_.
 
-### In-Out Parameters
+### Parámetros in-out
 
-Function parameters are constants by default. Trying to change the value of a function parameter from within the body of that function results in a compile-time error. This means that you can't change the value of a parameter by mistake. If you want a function to modify a parameter's value, and you want those changes to persist after the function call has ended, define that parameter as an _in-out parameter_ instead.
+Los parámetros de las funciones son, por defecto, constantes. Intentar cambiar el valor del parámetro de una función dentro del cuerpo de la función resultará en un error de tiempo de compilación. Esto significa que no puedes cambiar el valor de un parámetro por accidente. Si quieres que una función modifique el valor de un parámetro y que los cambios persistan después de finalizada la ejecución de la función, define dicho parámetro como un parámetro _in-out_.
 
-You write an in-out parameter by placing the `inout` keyword right before a parameter's type. An in-out parameter has a value that's passed _in_ to the function, is modified by the function, and is passed back _out_ of the function to replace the original value. For a detailed discussion of the behavior of in-out parameters and associated compiler optimizations, see [In-Out Parameters](../referencia-del-lenguaje/declaraciones#parametros-in-out).
+Para definir un parámetro _in-out_, agrega la palabra clave `inout` justo antes del tipo del parámetro. Un parámetro _in-out_ tiene un valor que pasa a estar _dentro_ de la función, es modificado por dicha función, y pasa a estar _afuera_ de la función, para reemplazar al valor original. Para una discusión detallada sobre el comportamiento de los parámetros _in-out_ y sobre las optimizaciones de compilador asociadas, consulta [Parámetros in-out](../referencia-del-lenguaje/declaraciones#parámetros-in-out).
 
-You can only pass a variable as the argument for an in-out parameter. You can't pass a constant or a literal value as the argument, because constants and literals can't be modified. You place an ampersand (`&`) directly before a variable's name when you pass it as an argument to an in-out parameter, to indicate that it can be modified by the function.
+Solamente puedes pasar una variable como el argumento para un parámetro _in-out_. No es posible pasar una constante o un valor literal como argumento, ya que las constantes y los valores literales no pueden ser modificados. Al pasar una variable como argumento para un parámetro _in-out_, agrega el símbolo _ampersand_ (`&`) justo antes del nombre de la variable, para indicar que esta puede ser modificada por la función.
 
 <Callout>
-  In-out parameters can't have default values, and variadic parameters can't be
-  marked as `inout`.
+  Los parámetros _in-out_ no pueden tener valores predeterminados y los
+  parámetros _variadic_ no pueden ser usados como parámetros _in-out_.
 </Callout>
 
-Here's an example of a function called `swapTwoInts(_:_:)`, which has two in-out integer parameters called `a` and `b`:
+Acá tenemos un ejemplo con una función llamada `intercambiarDosInts(_:_:)`, la cual tiene dos parámetros _in-out_, enteros con nombres `a` y `b`.
 
 <CodeSnippet>
-  {`func swapTwoInts(_ a: inout Int, _ b: inout Int) {
-    let temporaryA = a
+  {`func intercambiarDosInts(_ a: inout Int, _ b: inout Int) {
+    let aTemporal = a\n
     a = b
-    b = temporaryA
+    b = aTemporal
 }`}
 </CodeSnippet>
 
-The `swapTwoInts(_:_:)` function simply swaps the value of `b` into `a`, and the value of `a` into `b`. The function performs this swap by storing the value of `a` in a temporary constant called `temporaryA`, assigning the value of `b` to `a`, and then assigning `temporaryA` to `b`.
+La función `intercambiarDosInts(:_:_)` simplemente intercambia los valores de `a` y `b` entre sí. La función ejecuta este cambio slmscenando el valor de `a` en una constante temporal llamada `aTemporal`, y luego asigna el valor de `b` a `a`, y asigna el valor de `aTemporal` a `b`.
 
-You can call the `swapTwoInts(_:_:)` function with two variables of type `Int` to swap their values. Note that the names of `someInt` and `anotherInt` are prefixed with an ampersand when they're passed to the `swapTwoInts(_:_:)` function:
+Puedes invocar a la función `intercambiarDosInts(_:_:)` con dos valores de tipo `Int` para intercambiar sus valores. Nota que los nombres de `algunInt` y `otroInt` van precedidos de un _ampersand_ al ser pasados como argumentos para la función `intercambiarDosInts(_:_:)`:
 
 <CodeSnippet>
-  {`var someInt = 3
-var anotherInt = 107\n
-swapTwoInts(&someInt, &anotherInt)\n
-print("someInt is now \\(someInt), and anotherInt is now \\(anotherInt)")
-// Prints "someInt is now 107, and anotherInt is now 3"`}
+  {`var algunInt = 3
+var otroInt = 107\n
+intercambiarDosInts(&algunInt, &otroInt)\n
+print("algunInt es ahora \\(algunInt), y otroInt es ahora \\(otroInt)")
+// Imprime «algunInt es ahora 107, y otro Int es ahora 3»`}
 </CodeSnippet>
 
-The example above shows that the original values of `someInt` and `anotherInt` are modified by the `swapTwoInts(_:_:)` function, even though they were originally defined outside of the function.
+El ejemplo anterior muestra que los valores originales de `algunInt` y `otroInt` fueron modificados por la función `intercambiarDosInts(_:_:)`, aun cuando estas variables se definieron fuera de la función.
 
 <Callout>
-  In-out parameters aren't the same as returning a value from a function. The
-  `swapTwoInts` example above doesn't define a return type or return a value,
-  but it still modifies the values of `someInt` and `anotherInt`. In-out
-  parameters are an alternative way for a function to have an effect outside of
-  the scope of its function body.
+  Los parámetros _in-out_ no son lo mismo que devolver valores desde una
+  función. En el ejemplo anterior, la función `intercambiarDosInts(_:_:)` no
+  define ningún valor o tipo a devolver, pero aun así, modifica los valores de
+  `algunInt` y `otroInt`. Los parámetros _in-out_ son una forma alternativa de
+  que una función tenga efectos fuera del ambiente definido por el cuerpo de la
+  función.
 </Callout>
 
 ## Function Types
