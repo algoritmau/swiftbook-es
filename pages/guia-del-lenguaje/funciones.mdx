@@ -19,7 +19,7 @@ Al definir una función, puedes especificar —de manera opcional— uno o más 
 
 Cada función tiene un nombre, el cual describe la tarea que la función ejecuta. Para usar una función, debes _llamar_ a la función con su nombre y pasarle valores de entrada (conocidos como _argumentos_) que coincidan con el o los tipos de los parámetros de la función. Los argumentos de una función siempre deben proveerse en el mismo orden de la lista de parámetros de la función.
 
-La función del siguiente ejemplo se llama `saludar(persona)`, ya que eso es lo que esta hace, toma el nombre de una persona como entrada y devuelve un saludo para esta persona. Para hacer esto, defines un parámetro de entrada, un valor de tipo `String` llamado `persona`, y un valor a devolver —de tipo `String`— llamado `saludo`, el cual contiene un saludo para la persona:
+La función del siguiente ejemplo se llama `saludar(persona)`, ya que eso es lo que esta hace, toma el nombre de una persona como entrada y devuelve un saludo para esta persona. Para hacer esto, defines un parámetro de entrada, un valor de tipo `String` llamado `persona`, y un valor de devolución —de tipo `String`— llamado `saludo`, el cual contiene un saludo para la persona:
 
 <CodeSnippet>
   {`func saludar(persona: String) -> String {
@@ -28,7 +28,7 @@ La función del siguiente ejemplo se llama `saludar(persona)`, ya que eso es lo 
 }`}
 </CodeSnippet>
 
-Toda esta información va dentro de la _definición_ de una función, la cual va precedida por la palabra clave `func`. Para indicar el tipo de devolución de una función, utiliza la _flecha de devolución_ (`->`) —un guión seguido de un signo _mayor que_—, seguida por el nombre del tipo a devolver.
+Toda esta información va dentro de la _definición_ de una función, la cual va precedida por la palabra clave `func`. Para indicar el tipo de devolución de una función, utiliza la _flecha de devolución_ (`->`) —un guión seguido de un signo _mayor que_—, seguida por el nombre del tipo de devolución.
 
 La definición describe lo que la función hace, lo que espera recibir, y lo que devuelve al ejecutarse. La definición también facilita que la función pueda ser llamada desde cualquier lugar de tu código, evitando ambigüedades.
 
@@ -60,15 +60,15 @@ Para acortar el cuerpo de esta función, puedes combinar la creación del mensaj
 
 <CodeSnippet>
   {`func saludarOtraVez(persona: String) -> String {
-    return "¡Hola, nuevamente, " + persona + "!"
+    return "¡Hola nuevamente, " + persona + "!"
 }\n
 print(saludarOtraVez(persona: "Ana"))
-// Imprime «¡Hola, nuevamente, Ana!»`}
+// Imprime «¡Hola nuevamente, Ana!»`}
 </CodeSnippet>
 
 ## Parámetros de funciones y valores de devolución
 
-Los parámetros y los valores de devolución de las funciones son extremadamente flexibles en Swift. Puedes definir cualquier función desde una función utilitaria con un único parámetro anónimo hasta una función compleja con nombres de parámetros expresivos y diferentes opciones para dichos parámetros.
+Los parámetros y los valores de devolución de las funciones son extremadamente flexibles en Swift. Puedes definir cualquier función, desde una función utilitaria con un único parámetro anónimo hasta una función compleja con nombres de parámetros expresivos y diferentes opciones para dichos parámetros.
 
 ### Funciones sin parámetros
 
@@ -120,9 +120,10 @@ Dado que no necesita devolver un valor, la definición de la función no incluye
 
 <Callout>
   Estrictamente hablando, esta versión de la función `saludar(persona:)` _sí_
-  devuelve un valor, aun cuando no se definió un valor a devolver. Las funciones
-  que no definen un valor a devolver, devuelven un valor especial de tipo
-  `Void`. Esto es, simplemente, una tupla vacía — la cual se escribe como `()`.
+  devuelve un valor, aun cuando no se definió un valor de devolución. Las
+  funciones que no definen un valor de devolución, devuelven un valor especial
+  de tipo `Void`. Esto es, simplemente, una tupla vacía — la cual se escribe
+  como `()`.
 </Callout>
 
 El valor de devolución de una función puede ignorarse al llamar a la función:
@@ -357,198 +358,198 @@ Solamente puedes pasar una variable como el argumento para un parámetro _in-out
   parámetros _variadic_ no pueden ser usados como parámetros _in-out_.
 </Callout>
 
-Acá tenemos un ejemplo con una función llamada `intercambiarDosInts(_:_:)`, la cual tiene dos parámetros _in-out_, enteros con nombres `a` y `b`.
+Acá tenemos un ejemplo con una función llamada `intercambiarDosEnteros(_:_:)`, la cual tiene dos parámetros _in-out_, enteros con nombres `a` y `b`.
 
 <CodeSnippet>
-  {`func intercambiarDosInts(_ a: inout Int, _ b: inout Int) {
+  {`func intercambiarDosEnteros(_ a: inout Int, _ b: inout Int) {
     let aTemporal = a\n
     a = b
     b = aTemporal
 }`}
 </CodeSnippet>
 
-La función `intercambiarDosInts(:_:_)` simplemente intercambia los valores de `a` y `b` entre sí. La función ejecuta este cambio slmscenando el valor de `a` en una constante temporal llamada `aTemporal`, y luego asigna el valor de `b` a `a`, y asigna el valor de `aTemporal` a `b`.
+La función `intercambiarDosEnteros(:_:_)` simplemente intercambia los valores de `a` y `b` entre sí. La función ejecuta este cambio slmscenando el valor de `a` en una constante temporal llamada `aTemporal`, y luego asigna el valor de `b` a `a`, y asigna el valor de `aTemporal` a `b`.
 
-Puedes invocar a la función `intercambiarDosInts(_:_:)` con dos valores de tipo `Int` para intercambiar sus valores. Nota que los nombres de `algunInt` y `otroInt` van precedidos de un _ampersand_ al ser pasados como argumentos para la función `intercambiarDosInts(_:_:)`:
+Puedes invocar a la función `intercambiarDosEnteros(_:_:)` con dos valores de tipo `Int` para intercambiar sus valores. Nota que los nombres de `algunEntero` y `otroEntero` van precedidos de un _ampersand_ al ser pasados como argumentos para la función `intercambiarDosEnteros(_:_:)`:
 
 <CodeSnippet>
-  {`var algunInt = 3
-var otroInt = 107\n
-intercambiarDosInts(&algunInt, &otroInt)\n
-print("algunInt es ahora \\(algunInt), y otroInt es ahora \\(otroInt)")
-// Imprime «algunInt es ahora 107, y otro Int es ahora 3»`}
+  {`var algunEntero = 3
+var otroEntero = 107\n
+intercambiarDosEnteros(&algunEntero, &otroEntero)\n
+print("algunEntero es ahora \\(algunEntero), y otroEntero es ahora \\(otroEntero)")
+// Imprime «algunEntero es ahora 107, y otroEntero es ahora 3»`}
 </CodeSnippet>
 
-El ejemplo anterior muestra que los valores originales de `algunInt` y `otroInt` fueron modificados por la función `intercambiarDosInts(_:_:)`, aun cuando estas variables se definieron fuera de la función.
+El ejemplo anterior muestra que los valores originales de `algunEntero` y `otroEntero` fueron modificados por la función `intercambiarDosEnteros(_:_:)`, aun cuando estas variables se definieron fuera de la función.
 
 <Callout>
   Los parámetros _in-out_ no son lo mismo que devolver valores desde una
-  función. En el ejemplo anterior, la función `intercambiarDosInts(_:_:)` no
+  función. En el ejemplo anterior, la función `intercambiarDosEnteros(_:_:)` no
   define ningún valor o tipo a devolver, pero aun así, modifica los valores de
-  `algunInt` y `otroInt`. Los parámetros _in-out_ son una forma alternativa de
-  que una función tenga efectos fuera del ambiente definido por el cuerpo de la
-  función.
+  `algunEntero` y `otroEntero`. Los parámetros _in-out_ son una forma
+  alternativa de que una función tenga efectos fuera del ambiente definido por
+  el cuerpo de la función.
 </Callout>
 
-## Function Types
+## Tipos de funciones
 
-Every function has a specific _function type_, made up of the parameter types and the return type of the function.
+Cada función tiene un _tipo de función_ específico, el cual se compone del tipo de los parámetros y del tipo de devolución de la función.
 
-For example:
+Por ejemplo:
 
 <CodeSnippet>
-  {`func addTwoInts(_ a: Int, _ b: Int) -> Int {
+  {`func sumarDosEnteros(_ a: Int, _ b: Int) -> Int {
     return a + b
 }\n
-func multiplyTwoInts(_ a: Int, _ b: Int) -> Int {
+func multiplicarDosEnteros(_ a: Int, _ b: Int) -> Int {
     return a * b
 }`}
 </CodeSnippet>
 
-This example defines two simple mathematical functions called `addTwoInts` and `multiplyTwoInts`. These functions each take two `Int` values, and return an `Int` value, which is the result of performing an appropriate mathematical operation.
+Este ejemplo define dos funciones matemáticas simples, llamadas `sumarDosEnteros` y `multiplicarDosEnteros`. Cada una de estas funciones toma dos valores `Int` y devuelve un valor `Int`, el cual es el resultado de llevar a cabo la operación matemática apropiada.
 
-The type of both of these functions is `(Int, Int) -> Int`. This can be read as:
+El tipo de estas dos funciones es `(Int, Int) -> Int`. Esto puede leerse como:
 
-“A function that has two parameters, both of type `Int`, and that returns a value of type `Int`.”
+> «Una función que tiene dos parámetros, ambos de tipo `Int`, y que devuelve un valor de tipo `Int`.»
 
-Here's another example, for a function with no parameters or return value:
+Acá se tiene otro ejemplo, de una función sin parámetros ni valor de devolución:
 
 <CodeSnippet>
-  {`func printHelloWorld() {
-    print("hello, world")
+  {`func imprimirHolaMundo() {
+    print("Hola, mundo")
 }`}
 </CodeSnippet>
 
-The type of this function is `() -> Void`, or “a function that has no parameters, and returns `Void`.”
+El tipo de esta función es `() -> Void`, o _una función que no tiene parámetros y que devuelve `Void`._
 
-### Using Function Types
+### Usando tipos de funciones
 
-You use function types just like any other types in Swift. For example, you can define a constant or variable to be of a function type and assign an appropriate function to that variable:
+Puedes usar tipos de funciones al igual que cualquier otro tipo en Swift. Por ejemplo, puedes definer una constante o una variable para que sea del tipo de una función y asignar una función apropiada para esa variable:
 
-<CodeSnippet>{`var mathFunction: (Int, Int) -> Int = addTwoInts`}</CodeSnippet>
+<CodeSnippet>{`var funcionMatematica: (Int, Int) -> Int = sumarDosEnteros`}</CodeSnippet>
 
-This can be read as:
+Esto puede leerse como:
 
-“Define a variable called `mathFunction`, which has a type of 'a function that takes two `Int` values, and returns an `Int` value.' Set this new variable to refer to the function called `addTwoInts`.”
+> «Define una variable llamada `funcionMatematica`, la cual tiene un tipo de "una función que recibe dos valores de tipo `Int` y que devuelve un valor de tipo `Int`". Asigna a esta variable la función llamada `sumarDosEnteros`.»
 
-The `addTwoInts(_:_:)` function has the same type as the `mathFunction` variable, and so this assignment is allowed by Swift's type-checker.
+La función `sumarDosEnteros(_:_:)` tiene el mismo tipo que la variable `funcionMatematica`, por lo que el verificador de tipos de Swift permite esta asignación.
 
-You can now call the assigned function with the name `mathFunction`:
+Ahora puedes invocar a la función asignada mediante el nombre de `funcionMatematica`:
 
 <CodeSnippet>
-  {`print("Result: \\(mathFunction(2, 3))")
-// Prints "Result: 5"`}
+  {`print("Resultado: \\(funcionMatematica(2, 3))")
+// Imprime «Resultado: 5»`}
 </CodeSnippet>
 
-A different function with the same matching type can be assigned to the same variable, in the same way as for nonfunction types:
+Una función diferente con el mismo tipo le puede ser asignada a la misma variable, de la misma forma en que se hace con otros tipos:
 
 <CodeSnippet>
-  {`mathFunction = multiplyTwoInts\n
-print("Result: \\(mathFunction(2, 3))")
-// Prints "Result: 6"`}
+  {`funcionMatematica = multiplicarDosEnteros\n
+print("Resultado: \\(funcionMatematica(2, 3))")
+// Imprime «Resultado: 6»`}
 </CodeSnippet>
 
-As with any other type, you can leave it to Swift to infer the function type when you assign a function to a constant or variable:
+Al igual que con cualquier otro tipo, puedes dejar que Swift se encargue de inferir el tipo de una función cuando esta se asigna a una constante o variable:
 
 <CodeSnippet>
-  {`let anotherMathFunction = addTwoInts
-// anotherMathFunction is inferred to be of type (Int, Int) -> Int`}
+  {`let otraFuncionMatematica = sumarDosEnteros
+// Se infiere que el tipo de otraFuncionMatematica es (Int, Int) -> Int`}
 </CodeSnippet>
 
-### Function Types as Parameter Types
+### Tipos de funciones como tipos de parámetros
 
-You can use a function type such as `(Int, Int) -> Int` as a parameter type for another function. This enables you to leave some aspects of a function's implementation for the function's caller to provide when the function is called.
+Puedes usar el tipo de una función —como `(Int, Int) -> Int`— como el tipo de parámetro para otra función. Esto te permitirá dejar algunos aspectos de la implementación de una función para que sean proporcionados por el llamador de la función al momento de invocarla.
 
-Here's an example to print the results of the math functions from above:
+Acá hay un ejemplo para imprimir los resultados de las funciones matemáticas previamente definidas:
 
 <CodeSnippet>
-  {`func printMathResult(_ mathFunction: (Int, Int) -> Int, _ a: Int, _ b: Int) {
-    print("Result: \\(mathFunction(a, b))")
+  {`func imprimirResultadoMatematico(_ funcionMatematica: (Int, Int) -> Int, _ a: Int, _ b: Int) {
+    print("Resultado: \\(funcionMatematica(a, b))")
 }\n
-printMathResult(addTwoInts, 3, 5)
-// Prints "Result: 8"`}
+imprimirResultadoMatematico(sumarDosEnteros, 3, 5)
+// Imprime «Resultado: 8»`}
 </CodeSnippet>
 
-This example defines a function called `printMathResult(_:_:_:)`, which has three parameters. The first parameter is called mathFunction, and is of type (Int, Int) -> Int. You can pass any function of that type as the argument for this first parameter. The second and third parameters are called a and b, and are both of type Int. These are used as the two input values for the provided math function.
+Este ejemplo define una función llamada `imprimirResultadoMatematico(_:_:_:)`, la cual tiene tres parámetros. El primer parámetro se llama `funcionMatematica` y es de tipo `(Int, Int) -> Int`. Puedes pasar cualquier función de ese tipo como el argumento para este primer parámetro. Los segundo y tercer parámetros se llaman `a` y `b`, y son ambos de tipo `Int`. Estos son usados como los valores de entrada para la función matemática que se provea.
 
-When `printMathResult(_:_:_:)` is called, it's passed the `addTwoInts(_:_:)` function, and the integer values `3` and `5`. It calls the provided function with the values `3` and `5`, and prints the result of `8`.
+Al invocar `imprimirResultadoMatematico(_:_:_:)`, se le pasa la función `sumarDosEnteros(_:_:)`, y los valores enteros `3` y `5`. Esta llama a la función proporcionada con los valores `3` y `5`, e imprime el resultado: `8`.
 
-The role of `printMathResult(_:_:_:)` is to print the result of a call to a math function of an appropriate type. It doesn't matter what that function's implementation actually does—it matters only that the function is of the correct type. This enables `printMathResult(_:_:_:)` to hand off some of its functionality to the caller of the function in a type-safe way.
+El rol de `imprimirResultadoMatematico(_:_:_:)` es el de imprimir el resultado de llamar a una función matemática del tipo apropiado. Lo que la implementación de esa función haga en realidad no es relevante; lo único que importa es que la función sea del tipo correcto. Esto le permite a `imprimirResultadoMatematico(_:_:_:)` delegar parte de su funcionalidad al llamador de la función de manera que conlleve seguridad de tipo.
 
-### Function Types as Return Types
+### Tipos de funciones como valores de devolución
 
-You can use a function type as the return type of another function. You do this by writing a complete function type immediately after the return arrow (`->`) of the returning function.
+Puedes utilizar el tipo de una función como el valor de devolución de otra función. Para esto, escribes el tipo de una función completo inmediatamente después de la flecha de devolución (`->`) de la función que devuelve.
 
-The next example defines two simple functions called `stepForward(_:)` and `stepBackward(_:)`. The `stepForward(_:)` function returns a value one more than its input value, and the `stepBackward(_:)` function returns a value one less than its input value. Both functions have a type of `(Int) -> Int`:
+El siguiente ejemplo define dos funciones simples, llamadas `avanzar(_:)` y `regresar(_:)`. La función `avanzar(_:)` devuelve su valor de entrada incrementado en una unidad, y la función `regresar(_:)` devuelve su valor de entrada disminuido en una unidad. Ambas funciones tienen un tipo de `(Int) -> Int`:
 
 <CodeSnippet>
-  {`func stepForward(_ input: Int) -> Int {
+  {`func avanzar(_ input: Int) -> Int {
     return input + 1
 }\n
-func stepBackward(_ input: Int) -> Int {
+func regresar(_ input: Int) -> Int {
     return input - 1
 }`}
 </CodeSnippet>
 
-Here's a function called `chooseStepFunction(backward:)`, whose return type is `(Int) -> Int`. The `chooseStepFunction(backward:)` function returns the `stepForward(_:)` function or the `stepBackward(_:)` function based on a Boolean parameter called `backward`:
+Acá tenemos una función llamada `elegirFuncionDeMovimiento(debeRegresar:)`, cuyo tipo de devolución es `(Int) -> Int`. La función `elegirFuncionDeMovimiento(debeRegresar:)` devuelve la función `avanzar(_:)` o la función `regresar(_:)` basándose en un parámetro _booleano_ llamado `debeRegresar`:
 
 <CodeSnippet>
-  {`func chooseStepFunction(backward: Bool) -> (Int) -> Int {
-    return backward ? stepBackward : stepForward
+  {`func elegirFuncionDeMovimiento(debeRegresar: Bool) -> (Int) -> Int {
+    return debeRegresar ? regresar : avanzar
 }`}
 </CodeSnippet>
 
-You can now use `chooseStepFunction(backward:)` to obtain a function that will step in one direction or the other:
+Ahora puedes usar la función `elegirFuncionDeMovimiento(debeRegresar:)` para obtener una función que se moverá en una dirección o la otra:
 
 <CodeSnippet>
-  {`var currentValue = 3
-let moveNearerToZero = chooseStepFunction(backward: currentValue > 0)
-// moveNearerToZero now refers to the stepBackward() function`}
+  {`var valorActual = 3
+let moverseHaciaCero = elegirFuncionDeMovimiento(debeRegresar: valorActual > 0)
+// moverseHaciaCero ahora se refiere a la función regresar()`}
 </CodeSnippet>
 
-The example above determines whether a positive or negative step is needed to move a variable called `currentValue` progressively closer to zero. `currentValue` has an initial value of `3`, which means that `currentValue > 0` returns `true`, causing `chooseStepFunction(backward:)` to return the `stepBackward(_:)` function. A reference to the returned function is stored in a constant called `moveNearerToZero`.
+El ejemplo anterior determina si un movimiento positivo o negativo se necesita para mover una variable llamada `valorActual` progresivamente hacia cero. `valorActual` tiene un valor inicial de `3`, por lo que `valorActual > 0` devuelve `true`, haciendo que `elegirFuncionDeMovimiento(debeRegresar:)` devuelva la función `regresar(_:)`. Una referencia a la función devuelta se almacena en una constante llamada `moverseHaciaCero`.
 
-Now that `moveNearerToZero` refers to the correct function, it can be used to count to zero:
+Ahora que `moverseHaciaCero` referencia la función correcta, puede usarse par contar hasta cero:
 
 <CodeSnippet>
-  {`print("Counting to zero:")
-// Counting to zero:\n
-while currentValue != 0 {
-    print("\\(currentValue)... ")
-    currentValue = moveNearerToZero(currentValue)
+  {`print("Contando hasta cero:")
+// Contando hasta cero:\n
+while valorActual != 0 {
+    print("\\(valorActual)...")
+    valorActual = moverseHaciaCero(valorActual)
 }\n
-print("zero!")
+print("¡Cero!")
 // 3...
 // 2...
 // 1...
-// zero!`}
+// ¡Cero!`}
 </CodeSnippet>
 
-## Nested Functions
+## Funciones anidadas
 
-All of the functions you have encountered so far in this chapter have been examples of _global functions_, which are defined at a global scope. You can also define functions inside the bodies of other functions, known as _nested functions_.
+Todas la funciones vistas hasta ahora en este capítulo han sido ejemplos de _funciones globales_, las cuales están definidas en un ambiente global. Sin embargo, también es posible definir funciones dentro del cuerpo de otras funciones, lo que se conoce como _funciones anidadas_.
 
-Nested functions are hidden from the outside world by default, but can still be called and used by their enclosing function. An enclosing function can also return one of its nested functions to allow the nested function to be used in another scope.
+Las funciones anidadas están ocultas del mundo exterior por defecto, pero aún pueden ser llamadas y usadas por las funciones que las contienen. Una función que contiene una o más funciones anidadas también puede devolver una de sus funciones anidadas para permitirle ser usada en otro ambiente.
 
-You can rewrite the `chooseStepFunction(backward:)` example above to use and return nested functions:
+Puedes reescribir la función `elegirFuncionDeMovimiento(debeRegresar:)` del ejemplo anterior para usar y devolver funciones anidadas:
 
 <CodeSnippet>
-  {`func chooseStepFunction(backward: Bool) -> (Int) -> Int {
-    func stepForward(input: Int) -> Int { return input + 1 }
-    func stepBackward(input: Int) -> Int { return input - 1 }\n
-    return backward ? stepBackward : stepForward
+  {`func elegirFuncionDeMovimiento(debeRegresar: Bool) -> (Int) -> Int {
+    func avanzar(input: Int) -> Int { return input + 1 }
+    func regresar(input: Int) -> Int { return input - 1 }\n
+    return debeRegresar ? regresar : avanzar
 }\n
-var currentValue = -4
-let moveNearerToZero = chooseStepFunction(backward: currentValue > 0)
-// moveNearerToZero now refers to the nested stepForward() function\n
-while currentValue != 0 {
-    print("\\(currentValue)... ")
-    currentValue = moveNearerToZero(currentValue)
+var valorActual = -4
+let moverseHaciaCero = elegirFuncionDeMovimiento(debeRegresar: valorActual > 0)
+// moverseHaciaCero ahora se refiere a la función anidada avanzar()\n
+while valorActual != 0 {
+    print("\\(valorActual)... ")
+    valorActual = moverseHaciaCero(valorActual)
 }\n
-print("zero!")
+print("!Cero!")
 // -4...
 // -3...
 // -2...
 // -1...
-// zero!`}
+// !Cero!`}
 </CodeSnippet>
