@@ -11,11 +11,11 @@ Una _función_ es un segmento auto-contenido de código que ejecuta una tarea es
 
 La sintaxis unificada de funciones de Swift es lo suficientemente flexible para expresar cualquier función —desde una sencilla, similar a las de C, sin nombres de parámetros, hasta un método complejo, del estilo de Objective-C, con nombres de argumentos y etiquetas para cada parámetro. Un parámetro puede proveer valores predeterminados que simplifican el llamado a una función, y pueden ser pasados como parámetros _in-out_, los cuales modifican una variable que les haya sido pasada una vez que la función haya completado su ejecución.
 
-En Swift, cada función tiene un tipo, el cual se conforma por los tipos de los argumentos de la función y del valor devuelto por la misma. Este tipo, lo puedes usar como cualquier otro tipo en Swift, lo cual facilita pasar funciones como parámetros a otras funciones y devolver funciones desde otras funciones. Las funciones también pueden definirse dentro de otras funciones para encapsular funcionalidad útil dentro del ámbito de una función anidada.
+En Swift, cada función tiene un tipo, el cual se conforma por los tipos de los argumentos de la función y del valor de devolución de la misma. Este tipo, lo puedes usar como cualquier otro tipo en Swift, lo cual facilita pasar funciones como parámetros a otras funciones y devolver funciones desde otras funciones. Las funciones también pueden definirse dentro de otras funciones para encapsular funcionalidad útil dentro del ámbito de una función anidada.
 
 ## Definición y llamado de una función
 
-Al definir una función, puedes especificar —de manera opcional— uno o más valores tipados y con nombre que la función recibirá como valores de entrada; a estos valores se les conoce como _parámetros_. También puedes definir —opcionalmente— un tipo de valor que la función devolverá como valor de salida, una vez finalice su ejecución; a dicho valor se le conoce como _valor devuelto_.
+Al definir una función, puedes especificar —de manera opcional— uno o más valores tipados y con nombre que la función recibirá como valores de entrada; a estos valores se les conoce como _parámetros_. También puedes definir —opcionalmente— un tipo de valor que la función devolverá como valor de salida, una vez finalice su ejecución; a dicho valor se le conoce como _valor de devolución_.
 
 Cada función tiene un nombre, el cual describe la tarea que la función ejecuta. Para usar una función, debes _llamar_ a la función con su nombre y pasarle valores de entrada (conocidos como _argumentos_) que coincidan con el o los tipos de los parámetros de la función. Los argumentos de una función siempre deben proveerse en el mismo orden de la lista de parámetros de la función.
 
@@ -28,18 +28,18 @@ La función del siguiente ejemplo se llama `saludar(persona)`, ya que eso es lo 
 }`}
 </CodeSnippet>
 
-Toda esta información va dentro de la _definición_ de una función, la cual va precedida por la palabra clave `func`. Para indicar el tipo devuelto por la función, utiliza la _flecha de devolución_ (`->`) —un guión seguido de un signo _mayor que_—, seguida por el nombre del tipo a devolver.
+Toda esta información va dentro de la _definición_ de una función, la cual va precedida por la palabra clave `func`. Para indicar el tipo de devolución de una función, utiliza la _flecha de devolución_ (`->`) —un guión seguido de un signo _mayor que_—, seguida por el nombre del tipo a devolver.
 
 La definición describe lo que la función hace, lo que espera recibir, y lo que devuelve al ejecutarse. La definición también facilita que la función pueda ser llamada desde cualquier lugar de tu código, evitando ambigüedades.
 
 <CodeSnippet>
   {`print(saludar(persona: "Ana"))
-// Imprime "¡Hola, Ana!"
+// Imprime «¡Hola, Ana!»
 print(saludar(persona: "Pedro"))
-// Imprime "¡Hola, Pedro!"`}
+// Imprime «¡Hola, Pedro!»`}
 </CodeSnippet>
 
-Para llamar a la función `saludar(persona:)`, le pasas un valor de tipo `String` luego de la etiqueta del argumento `persona`, así: `saludar(persona: "Ana")`. Dado que la función devuelve una cadena, `saludar(persona:)` puede serle pasada a una llamada a la función `print(_:separator:terminator:)` para imprimir dicha cadena y ver su valor devuelto, como se ve en el ejemplo anterior.
+Para llamar a la función `saludar(persona:)`, le pasas un valor de tipo `String` luego de la etiqueta del argumento `persona`, así: `saludar(persona: "Ana")`. Dado que la función devuelve una cadena, `saludar(persona:)` puede serle pasada a una llamada a la función `print(_:separator:terminator:)` para imprimir dicha cadena y ver su valor de devolución, como se ve en el ejemplo anterior.
 
 <Callout>
   La función `print(_:separator:terminator:)` no tiene una etiqueta para su
@@ -48,8 +48,8 @@ Para llamar a la función `saludar(persona:)`, le pasas un valor de tipo `String
   discuten más adelante en [Etiquetas de los argumentos y nombres de parámetros
   de una
   función](#etiquetas-de-los-argumentos-y-nombres-de-parámetros-de-una-función)
-  y [Valores predeterminados de
-  parámetros](#valores-predeterminados-de-parámetros).
+  y [Valores de parámetros
+  predeterminados](#valores-de-parámetros-predeterminados).
 </Callout>
 
 El cuerpo de la función `saludar(persona)` empieza con la definición de una nueva constante —de tipo `String`— llamada `saludo`, a la que le es asignado un saludo de bienvenida sencillo. Luego, este saludo es devuelto por la función mediante la palabra clave `return`. En la línea de código que pone `return saludo`, la función finaliza su ejecución y devuelve el valor que `saludo` tenga en su momento.
@@ -63,12 +63,12 @@ Para acortar el cuerpo de esta función, puedes combinar la creación del mensaj
     return "¡Hola, nuevamente, " + persona + "!"
 }\n
 print(saludarOtraVez(persona: "Ana"))
-// Imprime "¡Hola, nuevamente, Ana!"`}
+// Imprime «¡Hola, nuevamente, Ana!»`}
 </CodeSnippet>
 
-## Parámetros de funciones y valores devueltos
+## Parámetros de funciones y valores de devolución
 
-Los parámetros y los valores devueltos de las funciones son extremadamente flexibles en Swift. Puedes definir cualquier función desde una función utilitaria con un único parámetro anónimo hasta una función compleja con nombres de parámetros expresivos y diferentes opciones para dichos parámetros.
+Los parámetros y los valores de devolución de las funciones son extremadamente flexibles en Swift. Puedes definir cualquier función desde una función utilitaria con un único parámetro anónimo hasta una función compleja con nombres de parámetros expresivos y diferentes opciones para dichos parámetros.
 
 ### Funciones sin parámetros
 
@@ -79,7 +79,7 @@ Las funciones no requieren la definición de parámetros de entrada. Acá se tie
     return "Hola, mundo."
 }\n
 print(decirHolaMundo())
-// Imprime "Hola, mundo."`}
+// Imprime «Hola, mundo.»`}
 </CodeSnippet>
 
 La definición de la función requiere de paréntesis aun cuando esta no toma ningún parámetro. El nombre de la función también va seguido de un par de paréntesis al momento de llamar a la función.
@@ -99,24 +99,24 @@ Esta función toma como entrada el nombre de una persona y un indicador de que y
     }
 }\n
 print(saludar(persona: "Cindy", fueSaludada: true))
-// Imprime "¡Hola otra vez, Cindy!"`}
+// Imprime «¡Hola otra vez, Cindy!»`}
 </CodeSnippet>
 
 Para llamar a la función `saludar(persona:fueSaludada:)`, le pasas un valor argumento de tipo `String`, con la etiqueta `persona` y un valor argumento de tipo `Bool`, con la etiqueta `fueSaludada` — en paréntesis y separados por coma. Observa que esta función es diferente a la función `saludar(persona)` que se mostró en una sección anterior. Aunque el nombre de ambas funciones empieza por `saludar`, la función `saludar(persona:fueSaludada:)` toma dos argumentos, mientras que la función `saludar(persona:)` solo toma uno.
 
-### Funciones sin valores devueltos
+### Funciones sin valores de devolución
 
-Las funciones no requieren definir un tipo a devolver. Aquí tenemos una versión de la función `saludar(persona:)`, la cual imprime su propia cadena en lugar de devolverla:
+Las funciones no requieren definir un tipo de devolución. Aquí tenemos una versión de la función `saludar(persona:)`, la cual imprime su propia cadena en lugar de devolverla:
 
 <CodeSnippet>
   {`func saludar(persona: String) {
     print("¡Hola, \\(persona)!")
 }\n
-saludar(persona: "Daniel")
-// Imprime "¡Hola, Daniel!"`}
+saludar(persona: "Jorge")
+// Imprime «¡Hola, Jorge!»`}
 </CodeSnippet>
 
-Dado que no necesita devolver un valor, la definición de la función no incluye la flecha de devolución (`->`) o un tipo a devolver.
+Dado que no necesita devolver un valor, la definición de la función no incluye la flecha de devolución (`->`) o un tipo de devolución.
 
 <Callout>
   Estrictamente hablando, esta versión de la función `saludar(persona:)` _sí_
@@ -125,7 +125,7 @@ Dado que no necesita devolver un valor, la definición de la función no incluye
   `Void`. Esto es, simplemente, una tupla vacía — la cual se escribe como `()`.
 </Callout>
 
-El valor devuelto por una función puede ignorarse al llamar a la función:
+El valor de devolución de una función puede ignorarse al llamar a la función:
 
 <CodeSnippet>
   {`func imprimirYContar(cadena: String) -> Int {
@@ -135,25 +135,25 @@ El valor devuelto por una función puede ignorarse al llamar a la función:
 func imprimirSinContar(cadena: String) {
     let _ = imprimirYContar(cadena: string)
 }\n
-// Imprime «Hola, mundo» y devuelve un valor de 12
-imprimirYContar(cadena: "Hola, mundo")\n
-// Imprime «Hola, mundo», pero no devuelve un valor
-imprimirSinContar(cadena: "Hola, mundo")`}
+imprimirYContar(cadena: "Hola, mundo")
+// Imprime «Hola, mundo» y devuelve un valor de 12\n
+imprimirSinContar(cadena: "Hola, mundo")
+// Imprime «Hola, mundo», pero no devuelve un valor`}
 </CodeSnippet>
 
-La primera función —`imprimirYContar(cadena:)`— imprime una cadena y luego devuelve su número de caracteres como un `Int`. La segunda función — `imprimirSinContar(cadena:)`— llama a la primera función, pero ignora su valor devuelto. Cuando se llama a la segunda función, el mensaje es impreso por la primera función, pero no se utiliza su valor devuelto.
+La primera función —`imprimirYContar(cadena:)`— imprime una cadena y luego devuelve su número de caracteres como un `Int`. La segunda función — `imprimirSinContar(cadena:)`— llama a la primera función, pero ignora su valor de devolución. Cuando se llama a la segunda función, el mensaje es impreso por la primera función, pero no se utiliza su valor de devolución.
 
 <Callout>
-  Los valores devueltos pueden ignorarse, pero una función que indica que
-  devolverá un valor, siempre debe hacerlo. Una función con un valor devuelto
-  definido no puede permitir que el control vaya más allá del final de la
-  función sin devolver un valor e intentar hacer esto resultará en un error de
-  tiempo de compilación.
+  Los valores de devolución pueden ignorarse, pero una función que indica que
+  devolverá un valor, siempre debe hacerlo. Una función con un valor de
+  devolución definido no puede permitir que el control vaya más allá del final
+  de la función sin devolver un valor e intentar hacer esto resultará en un
+  error de tiempo de compilación.
 </Callout>
 
-### Funciones con múltiples valores devueltos
+### Funciones con múltiples valores de devolución
 
-Es posible usar una tupla como el tipo devuelto por una función para devolver múltiples valores como parte de un solo valor devuelto compuesto.
+Es posible usar una tupla como el tipo de devolución de una función para devolver múltiples valores como parte de un solo valor de devolución compuesto.
 
 El siguiente ejemplo define una función llamada `minMax(array:)`, la cual encuentra los números menor y mayor en un _array_ de valores `Int`:
 
@@ -172,11 +172,11 @@ El siguiente ejemplo define una función llamada `minMax(array:)`, la cual encue
 }`}
 </CodeSnippet>
 
-La función `minMax(array:)` devuelve una tupla que contiene dos valores `Int`. Estos valores se etiquetan `min` y `max` de manera que se puede acceder a ellos por su nombre al llamar al valor devuelto por la función.
+La función `minMax(array:)` devuelve una tupla que contiene dos valores `Int`. Estos valores se etiquetan `min` y `max` de manera que se puede acceder a ellos por su nombre al referenciar al valor de devolución de la función.
 
 El cuerpo de la función `minMax(array:)` empieza asignando a dos variables llamadas `minimoActual` y `maximoActual` el valor del primer entero en el _array_. La función luego itera sobre los demás valores del _array_ y verifica cada valor para determinar si es menor o mayor que los valores de `minimoActual` y `maximoActual`, respectivamente. Finalmente, los valores mínimo y máximo son devueltos como una tupla de dos valores `Int`.
 
-Dado que a los valores que conforman la tupla se le asignaron nombres como parte del valor devuelto por la función, a estos se puede acceder mediante sintaxis de punto para obtener los valores mínimos y máximo que se hallaron:
+Dado que a los valores que conforman la tupla se le asignaron nombres como parte del valor de devolución de la función, a estos se puede acceder mediante sintaxis de punto para obtener los valores mínimos y máximo que se hallaron:
 
 <CodeSnippet>
   {`let limites = minMax(array: [8, -6, 2, 109, 3, 71])\n
@@ -184,11 +184,11 @@ print("min es \\(limites.min) y max es \\(bounds.max)")
 // Imprime «min es -6 y max es 109"`}
 </CodeSnippet>
 
-Observa que no hace falta nombrar a los miembros de la tupla en el momento en que la tupla es devuelta por la función ya que sus nombres han sido previamente especificados como parte del valor devuelto de la función.
+Observa que no hace falta nombrar a los miembros de la tupla en el momento en que la tupla es devuelta por la función ya que sus nombres han sido previamente especificados como parte del valor de devolución de la función.
 
-#### Tuplas devueltas opcionales
+#### Tuplas de devolución opcionales
 
-Si el valor tipo tupla a devolver por una función tiene el potencial de no contener «ningún valor» para toda la tupla, puedes devolver una tupla _opcional_ para reflejar el hecho de que toda la tupla puede ser `nil`. Puedes indicar una tupla devuelta opcional al colocar un signo de interrogación (de cierre) después del paréntesis de cierre de la tupla, así `(Int, Int)?` o `(String, Int, Bool)?`.
+Si el valor del tipo tupla de devolución de una función tiene el potencial de no contener _ningún valor_ para toda la tupla, puedes devolver una tupla _opcional_ para reflejar el hecho de que toda la tupla puede ser `nil`. Puedes indicar una tupla devuelta opcional al colocar un signo de interrogación (de cierre) después del paréntesis de cierre de la tupla, así `(Int, Int)?` o `(String, Int, Bool)?`.
 
 <Callout>
   Un valor tipo tupla opcional como `(Int, Int)?` es diferente de una tupla que
@@ -226,7 +226,7 @@ Puedes utilizar encadenamiento opcional para verificar si la versión de la func
 // Imprime «min es -6 y max es 109»`}
 </CodeSnippet>
 
-### Funciones con un valor devuelto implícito
+### Funciones con un valor de devolución implícito
 
 Si todo el cuerpo de una función es una sola expresión, la función —implícitamente— devuelve dicha expresión. Por ejemplo, las dos siguientes funciones tienen el mismo comportamiento:
 
@@ -248,9 +248,9 @@ Toda la definición de la función `saludo(para:)` es el mensaje de saludo que e
 Como verás en [Declaración concisa de getters](./propiedades#declaracion-concisa-de-getters), los _getters_ de propiedades también pueden omitir un `return` implícito.
 
 <Callout>
-  El código que escribas como un valor devuelto implícito tiene que devolver
-  algún valor. Por ejemplo, no puedes usar `errorFatal("¡Oh, no!")` o
-  `print(13)` como valor devuelto implícito.
+  El código que escribas como un valor de devolución implícito tiene que
+  devolver algún valor. Por ejemplo, no puedes usar `errorFatal("¡Oh, no!")` o
+  `print(13)` como valor valor de devolución implícito.
 </Callout>
 
 ## Etiquetas de argumentos y nombres de parámetros de funciones
@@ -304,7 +304,7 @@ algunaFuncion(1, segundoNombreParametro: 2)`}
 
 Si un parámetro tiene una etiqueta de argumento, el argumento _debe_ ir acompañado de la etiqueta al momento de llamar la función.
 
-### Valores parámetro predeterminados
+### Valores de parámetros predeterminados
 
 Puedes definir un _valor predeterminado_ para cualquier parámetro de una función, asignando un valor al parámetro después del tipo del parámetro. Si un valor predeterminado ya se ha definido, puedes omitir el parámetro al invocar la función.
 
@@ -320,7 +320,7 @@ algunaFuncion(parametroSinValorPredeterminado: 4) // parametroConValorPredetermi
 
 Coloca los parámetros que no tienen valor predeterminado al inicio de la lista de parámetros de una función, antes de los parámetros que sí tienen valores predeterminados. Los parámetros que no tienen valores predeterminados suelen ser más importantes para el significado de la función, por lo que al escribirlos primero, resulta más fácil identificar cuando la misma función está siendo llamada, independientemente de que se omita o no algún parámetro predeterminado.
 
-### Parámetros variadic
+### Parámetros _variadic_
 
 Un parámetro _variadic_ acepta cero o más valores de un tipo específico. Puedes usar parámetros _variadic_ para especificar que al parámetro se le puede pasar un número variable de valores de entrada al momento de llamar la función. Escribe parámetros _variadic_ insertando tres puntos (`...`) después del tipo del parámetro:
 
@@ -344,7 +344,7 @@ mediaAritmetica(3, 8.25, 18.75)
 
 Una función puede tener múltiples parámetros _variadic_. El primer parámetro que le siga a un parámetro _variadic_ deberá tener una etiqueta de argumento. Una etiqueta de argumento elimina la ambigüedad sobre cuáles argumentos le son pasados al parámetro _variadic_ y cuáles le son pasados a los parámetros que le siguen al _variadic_.
 
-### Parámetros in-out
+### Parámetros _in-out_
 
 Los parámetros de las funciones son, por defecto, constantes. Intentar cambiar el valor del parámetro de una función dentro del cuerpo de la función resultará en un error de tiempo de compilación. Esto significa que no puedes cambiar el valor de un parámetro por accidente. Si quieres que una función modifique el valor de un parámetro y que los cambios persistan después de finalizada la ejecución de la función, define dicho parámetro como un parámetro _in-out_.
 
