@@ -4,25 +4,25 @@
 }
 
 @font-face {
-  font-family: "MD IO";
-  src: url("/assets/fonts/MDIO0.4-Regular.woff2") format("woff2"),
-    url("/assets/fonts/MDIO0.4-Regular.woff") format("woff");
+  font-family: 'MD IO';
+  src: url('/assets/fonts/MDIO0.4-Regular.woff2') format('woff2'),
+    url('/assets/fonts/MDIO0.4-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MD IO";
-  src: url("/assets/fonts/MDIO0.4-Italic.woff2") format("woff2"),
-    url("/assets/fonts/MDIO0.4-Italic.woff") format("woff");
+  font-family: 'MD IO';
+  src: url('/assets/fonts/MDIO0.4-Italic.woff2') format('woff2'),
+    url('/assets/fonts/MDIO0.4-Italic.woff') format('woff');
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "MD IO";
-  src: url("/assets/fonts/MDIO0.4-Bold.woff2") format("woff2"),
-    url("/assets/fonts/MDIO0.4-Bold.woff") format("woff");
+  font-family: 'MD IO';
+  src: url('/assets/fonts/MDIO0.4-Bold.woff2') format('woff2'),
+    url('/assets/fonts/MDIO0.4-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
 }
@@ -30,7 +30,7 @@
 :root {
   --font-body: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
-  --font-monospace: "MD IO", monospace;
+  --font-monospace: 'MD IO', monospace;
   --color-gray: #767676;
 }
 
@@ -262,12 +262,12 @@ code .line::before {
 
 /* TODO: Fix styles switch for dark theme on Callout */
 
-html.dark [class^="Callout__callout"] {
+html.dark [class^='Callout__callout'] {
   color: #d9d9d9;
   background-color: #242424;
 }
 
-.dark p[class^="Callout__callout__title"] {
+.dark p[class^='Callout__callout__title'] {
   color: #878b9f;
 }
 
@@ -397,11 +397,11 @@ html.dark [class^="Callout__callout"] {
   font-style: italic;
 }
 
-.dark [class^="Callout_callout"] {
+.dark [class^='Callout_callout'] {
   background-color: #181818;
   color: #bebebe;
 }
 
-.dark [class^="Callout_callout__title"] {
+.dark [class^='Callout_callout__title'] {
   color: #818181;
 }
