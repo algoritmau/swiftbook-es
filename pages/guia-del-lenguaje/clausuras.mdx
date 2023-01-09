@@ -1,0 +1,475 @@
+---
+title: Clausuras
+---
+
+import Callout from '../../components/Callout.js'
+import CodeSnippet from '../../components/CodeSnippet.js'
+
+# Clausuras
+
+Las _clausuras_ (del inglés _closures_) son bloques auto-contenidos de funcionalidad que pueden ser pasados y usados en todo tu código. Las clausuras en Swift son similares a los bloques en C y Objective-C, y a las _lambdas_ en otros lenguajes de programación.
+
+Las clausuras pueden capturar y almacenar referencias a cualquier constante y variable del contexto en el cual se definen. Esto se conoce como _cerrar sobre_ (del inglés _close over_) dichas constantes y variables. Swift se encarga de gestionar la memoria que se utilice durante la captura.
+
+<Callout>
+  No te preocupes si no estás familiarizado con el concepto de capturar. Este se
+  explica detalladamente en la sección [Capturando
+  valores](#capturando-valores).
+</Callout>
+
+Las funciones globales y anidadas —como se vio en [Funciones](./funciones)— son, en realidad, casos especiales de clausuras. Las clausuras toman una de estas tres formas:
+
+- Las funciones globales son clausuras que tienen un nombre y no capturan ningún valor.
+- Las funciones anidadas son clausuras que tienen un nombre y pueden capturar valores de la función que las contiene.
+- Las expresiones clausura son clausuras sin nombre, escritas con una sintaxis ligera, que pueden capturar valores del contexto en el cual se definen.
+
+Las expresiones clausura de Swift tienen un estilo limpio y claro, con optimizaciones que promueven una sintaxis concisa y libre de enredos en escenarios comunes. Estas optimizaciones incluyen:
+
+- Inferencia del tipo de los parámetros y valores de devolución a partir del contexto
+- Devolución implícita desde clausuras de única expresión
+- Abreviaciones para nombres de argumentos
+- Sintaxis de clausura colgante (del inglés _trailing closure_)
+
+## Expresiones clausura
+
+Las funciones anidadas, como se vio en [Funciones anidadas](./funciones#funciones-anidadas), son una forma conveniente de nombrar y definir bloques auto-contenidos de código como parte de una función más compleja. Sin embargo, algunas veces resulta más conveniente escribir versiones más concisas de conceptos similares a funciones, sin establecer una definición completa y un nombre. Esto es particularmente cierto al trabajar con funciones o métodos que toman funciones como uno o más de sus argumentos.
+
+Las _expresiones clausura_ son una forma de escribir clausuras internas mediante una sintaxis concisa y enfocada. Las expresiones clausura ofrecen muchas optimizaciones sintácticas para escribir clausuras en una forma concisa sin que haya pérdida de claridad o intención. Los ejemplos de expresiones clausura que se muestran a continuación, ilustran estas optimizaciones al refinar un solo ejemplo del método `sorted(by:)` mediante múltiples iteraciones. En cada de una de estas iteraciones, se expresa la misma funcionalidad en una manera más sucinta.
+
+### El método `sorted`
+
+La librería estándar de Swift proporciona un método llamado `sorted(by:)`, el cual ordena un _array_ de valores de un tipo conocido, en función de lo devuelto por una clausura que le pasas al método. Una vez completa el proceso de ordenamiento, el método `sorted(by:)` devuelve un nuevo _array_ del mismo tipo y tamaño que el anterior, con sus elementos ordenados de manera correcta. El _array_ original no es modificado por el método `sorted(by:)`.
+
+Los ejemplos de expresiones clausura a continuación, usan el método `sorted(by:)` para ordenar un _array_ de valores de tipo `String` en orden alfabético invertido. Acá tenemos el _array_ inicial a ordenar:
+
+<CodeSnippet>{`let nombres = ["Cindy", "Mauricio", "Sandy", "Luisa", "Jorge"]`}</CodeSnippet>
+
+El método `sorted(by:)` acepta una clausura que toma dos argumentos del mismo tipo que los valores del _array_ y devuelve un valor de tipo `Bool` para indicar si el primer valor debe aparecer antes o después del segundo una vez los valores son ordenados. La clausura para ordenar debe devolver `true` si el primer valor debe aparecer _primero_ que el segundo, y `false` en caso contrario.
+
+El siguiente ejemplo ordena un _array_ de valores de tipo `String`, por lo que la clausura de ordenamiento debe ser una función de tipo `(String, String) -> Bool`.
+
+Una forma de proporcionar la clausura de ordenamiento es escribir una función normal del tipo correcto, y pasarla como argumento al método `sorted(by:)`:
+
+<CodeSnippet>
+  {`func invertir(_ s1: String, _ s2: String) -> Bool {
+    return s1 > s2
+}\n
+var nombresInvertidos = nombres.sorted(by: invertir)
+// nombresInvertidos es igual a ["Sandy", "Mauricio", "Luisa", "Jorge", "Cindy"]`}
+</CodeSnippet>
+
+Si la primera cadena (`s1`) es mayor que la segunda (`s2`), la función `invertir(_:_:)` devolverá `true`, indicando que `s1` debería aparecer antes que `s2` en el _array_ ordenado. Para los caracteres de una cadena, «mayor que» significa «aparecer en el alfabeto después que». Esto quiere decir que la letra `«B»` es «mayor que» la letra `«A»`, y que la cadena `«Maura»` es mayor que la cadena `«Maira»`. Esto brinda un ordenamiento alfabético invertido, con la cadena `«Sandy»` ocupando un lugar antes que `«Mauricio»`, y así sucesivamente.
+
+Sin embargo, esta es una forma más bien tediosa y larga de escribir lo que es, en esencia, una función de una sola expresión (`a > b`), por lo que, —para este ejemplo— es preferible escribir la clausura de ordenamiento en la misma línea, usando sintaxis de expresiones clausura.
+
+### Sintaxis de expresiones clausura
+
+La sintaxis de expresiones clausura tiene la siguiente forma general:
+
+<div class="pseudocode">
+  <p>
+    &lcub; (<span class="pseudocode__highlight">parámetros</span>) ->{' '}
+    <span class="pseudocode__highlight">tipo a devolver</span>{' '}
+    <span class="pseudocode__keyword">in</span>
+  </p>
+  <p>
+    &emsp;&emsp;<span class="pseudocode__highlight">instrucciones</span>
+  </p>
+  <p>
+    <span>&rcub;</span>
+  </p>
+</div>
+
+Los _parámetros_ en la sintaxis de expresiones clausura pueden ser parámetros _in-out_, pero no pueden tener un valor predeterminado. Los parámetros _variádicos_ pueden usarse si se les asigna un nombre. También pueden usarse las tuplas como tipos de parámetro y como tipos a devolver.
+
+El ejemplo a continuación muestra la versión en expresión clausura de la función `invertir(_:_:)` definida anteriormente:
+
+<CodeSnippet>
+  {`nombresInvertidos = nombres.sorted(by: { (s1: String, s2: String) -> Bool in
+    return s1 > s2
+})`}
+</CodeSnippet>
+
+Observa que la declaración del tipo de parámetros y a devolver para esta clausura interna es idéntico a la declaración de la función `invertir(_:_:)`. En ambos casos, se escribe como `(s1: String, s2: String) -> Bool`. Sin embargo, para la expresión clausura interna, el tipo de los parámetros y a devolver se escribe _dentro_ de los paréntesis, y no fuera de estos.
+
+El inicio del cuerpo de la clausura lo determina la palabra clave `in`. Esta palabra indica que la definición del tipo de los parámetros y a devolver de la clausura ha terminado, y que el cuerpo de la clausura está por comenzar.
+
+Ya que el cuerpo de la clausura es tan conciso, puede incluso escribirse en una sola línea:
+
+<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: { (s1: String, s2: String) -> Bool in return s1 > s2 } )`}</CodeSnippet>
+
+Esto refleja el hecho de que la invocación misma al método `sorted(by:)` se mantiene igual. Un par de paréntesis siguen conteniendo todo el argumento para el método. Sin embargo, ese argumento es ahora una clausura interna.
+
+### Inferencia de tipos a partir del contexto
+
+Dado que la clausura de ordenamiento le es pasada como un argumento a un método, Swift puede inferir los tipos de sus parámetros y el tipo del valor que devuelve. El método `sorted(by:)` es invocado sobre un _array_ de cadenas, por lo que su argumento debe ser una función de tipo `(String, String) -> Bool`. Esto, quiere decir que no hace falta escribir los tipos `(String, String)` y `Bool` como parte de la definición de la expresión clausura. Como todos los tipos pueden inferirse, también es posible omitir la flecha de devolución (`->`) y los paréntesis alrededor de los nombres de los parámetros:
+
+<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: { s1, s2 in return s1 > s2 } )`}</CodeSnippet>
+
+Siempre que se pasa una clausura —a manera de expresión clausura interna— a una función o método, resulta posible inferir el tipo de los parámetros y el tipo a devolver. Como resultado, nuncá tendrás que escribir una clausura interna en su forma completa cuando tengas que usar dicha clausura como el argumento para una función o método.
+
+En todo caso, es posible ser explícito con los tipos, si así se quiere, y se aconseja serlo si esto elimina cualquier ambigüedad para quien lea tu código. En el caso del método `sorted(by:)`, el propósito de la clausura es claro, a partir del hecho que se lleva a cabo un ordenamiento, y es más seguro para quien lea tu código, asumir que la clausura probablemente trabaja con valores de tipo `String`, porque asiste con el ordenamiento de un _array_ de cadenas.
+
+### Devolución implícita desde clausuras de una sola expresión
+
+Las clausuras de una sola expresión pueden devolver, de manera implícita, el resultado de su única expresión al omitir la palabra clave `return` en su declaración, como en esta versión del ejemplo anterior:
+
+<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: { s1, s2 in s1 > s2 } )`}</CodeSnippet>
+
+Aquí, el tipo de la función del argumento del método `sorted(by:)` deja claro que un valor de tipo `Bool` debe ser devuelto por la clausura. Como el cuerpo de la clausura contiene una única expresión (`s1 > s2`) —la cual devuelve un valor de tipo `Bool`—, no existe ambigüedad, por lo que la palabra `return` puede omitirse.
+
+### Nombres de argumentos concisos
+
+De manera automática, Swift provee nombres de argumentos concisos para las clausuras internas, los cuales pueden ser usados para referirse a los valores de los argumentos de la clausura, mediante los nombres `$0`, `$1`, `$2`, y así sucesivamente.
+
+Si utilizas estos nombres de argumentos concisos dentro de tu expresión clausura, podrás omitir la lista de argumentos de la clausura en su definición. El tipo de los nombres de argumentos concisos se infiere del tipo de la función esperada, y el argumento conciso con el número mayor que utilices, determina el número de argumentos que la función toma. También puede omitirse la palabra clave `in`, ya que la expresión clausura solo se compone de su cuerpo:
+
+<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: { $0 > $1 } )`}</CodeSnippet>
+
+Aquí, `$0` y `$1` hacen referencia al primer y segundo argumentos de la clausura. Como `$1` es el argumento conciso con el número mayor, se entiende que la clausura toma dos argumentos. Ya que la función `sorted(by:)` espera recibir una cláusura cuyos ambos argumentos son de tipo `String`, los argumentos concisos `$0` y `$1` son ambos de tipo `String`.
+
+### Métodos operadores
+
+Existe una forma incluso _más corta_ de escribir la expresión clausura anterior. El tipo `String` de Swift define una implementación específica para las cadenas del operador «mayor que» (`>`), como un método que tiene dos parámetros de tipo `String` y que devuelve un valor de tipo `Bool`. Esto concuerda, exactamente, con el tipo de función que requiere el método `sorted(by:)`. Por lo tanto, puedes simplemente pasar el operador «mayor que» y Swift inferirá que quieres usar su implementación específica para las cadenas:
+
+<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: >)`}</CodeSnippet>
+
+Para mayor información sobre los métodos operadores, visita [Métodos operadores](./operadores-avanzados#metodos-operadores).
+
+## Clausuras colgantes
+
+Si necesitas pasarle una expresión clausura a una función como el argumento final de la función, y dicha expresión clausura es larga, puede ser útil escribirla como una _clausura colgante_ (del inglés _trailing closure_) en lugar de la manera regular. Para escribir una clausura colgante, defínela después de los paréntesis de invocación, aun cuando dicha clausura colgante es un argumento mismo de la función. Al usar la sintaxis para clausuras colgantes, no se escribe la etiqueta de argumento para la primera clausura como parte de la invocación de la función. Al llamar una función, es posible incluir múltiples clausuras colgantes; sin embargo, los primeros ejemplos a continuación solo usan una sola clausura colgante.
+
+<CodeSnippet>
+  {`func UnaFuncionCualquieraQueTomaUnaClausura(clausura: () -> Void) {
+    // El cuerpo de la función va aquí
+}\n
+// Así es como llamarías a esta función sin usar una clausura colgante:
+UnaFuncionCualquieraQueTomaUnaClausura(clausura: {
+    // El cuerpo de la clausura va aquí
+})\n
+// Así es como llamarías a esta función usando una clausura colgante:
+UnaFuncionCualquieraQueTomaUnaClausura() {
+    // El cuerpo de la clausura colgante va aquí
+}`}
+</CodeSnippet>
+
+La clausura para ordenar cadenas de la sección anterior —[Sintaxis de expresiones clausura](#sintaxis-de-expresiones-clausura)—, puede escribirse por fuera de los paréntesis del método `sorted(by:)`, como una clausura colgante:
+
+<CodeSnippet>{`nombresInvertidos = nombres.sorted() { $0 > $1 }`}</CodeSnippet>
+
+Si se proporciona una expresión clausura como el único argumento de una función o método y dicha expresión se provee como una clausura colgante, no hará falta escribir un par de paréntesis —`()`— después del nombre de la función o método al invocar la función:
+
+<CodeSnippet>{`nombresInvertidos = nombres.sorted { $0 > $1 }`}</CodeSnippet>
+
+Las clausuras colgantes son más útiles cuando una clausura es lo suficientemente larga como para escribirla en una sola línea. Por ejemplo, el tipo `Array` de Swift tiene un método `map(_:)`, el cual toma una expressión clausura como su único argumento. La clausura es invocada una vez para cada elemento del _array_ y devuelve un valor alternativo mapeado (posiblemente de algún otro tipo) para cada elemento. Las reglas del mapeo y el tipo del valor a devolver, los especificas al escribir código en la clausura que le pasas al método `map(_:)`.
+
+Luego de aplicar a cada elemento del _array_ la clausura proporcionada, el método `map(_:)` devuelve un nuevo _array_ que contiene todos los nuevos valores mapeados, en el mismo orden de sus correspondientes valores en el _array_ original.
+
+Así es como puedes usar el método `map(_:)` con una clausura colgante para convertir un _array_ de valores tipo `Int` en un _array_ de valores tipo `String`. Usaremos el _array_ `[16, 58, 510]` para crear el nuevo _array_ `["UnoSeis", "CincoOcho", "CincoUnoCero"]`:
+
+<CodeSnippet>
+  {`let nombresDigitos = [
+    0: "Cero",  1: "Uno",  2: "Dos",   3: "Tres", 4: "Cuatro",
+    5: "Cinco", 6: "Seis", 7: "Siete", 8: "Ocho", 9: "Nueve"
+]
+let numeros = [16, 58, 510]`}
+</CodeSnippet>
+
+El código arriba crea un diccionario de mapeo entre los dígitos enteros y el nombre en español de cada uno. También define un _array_ de enteros, listo para ser convertido en cadenas.
+
+Ahora podemos usar el _array_ `numeros` para crear un _array_ de valores de tipo `String`, al pasarle una expresión clausura al método `map(_:)` del _array_ como una clausura colgante:
+
+<CodeSnippet>
+  {`let cadenas = numeros.map { (numero) -> String in
+    var numero = numero
+    var conversion = ""\n
+    repeat {
+        conversion = nombresDigitos[numero % 10]! + conversion
+        numero /= 10
+    } while numero > 0\n
+    return conversion
+}
+// cadenas se infiere a ser de tipo [String]
+// su valor es ["UnoSeis", "CincoOcho", "CincoUnoCero"]`}
+</CodeSnippet>
+
+El método `map(_:)` llama a la expresión clausura una vez para cada elemento del _array_. No hace falta que especifiques el tipo del parámetro de entrada de la clausura —`numero`—, ya que este puede inferirse a partir de los valores en el _array_ a ser mapeado.
+
+En este ejemplo, la variable `numero` es inicializada con el valor del parámetro `numero` de la clausura, por lo que este valor puede ser modificado dentro del cuerpo de la clausura (los parámetros de las funciones y las clausuras son siempre constantes). La expresión clausura también especifica un tipo `String` a devolver, para indicar el tipo a almacenar en el _array_ mapeado.
+
+La expresión clausura construye una cadena llamada `conversion` cada vez que es invocada. Esta calcula el último dígito de `numero` mediante el operador de residuo (`numero % 10`) y usa este dígito para buscar una cadena correspondiente en el diccionario `nombresDigitos`. La clausura puede ser usada para crear una representación textual de cualquier entero mayor que cero.
+
+<Callout>
+  La invocación al _subscript_ del diccionario `nombresDigitos` va seguida de un
+  signo de exclamación (`!`) ya que los _subscripts_ de los diccionarios
+  devuelven un valor opcional para indicar que la búsqueda en el diccionario
+  puede fallar si la llave no existe. En el ejemplo anterior, está garantizado
+  que `numero % 10` siempre será una llave _subscript_ válida para el
+  diccionario `nombresDigitos`, y por ello, se usa un signo de exclamación para
+  extraer de manera forzada el valor `String` almacenado en el valor opcional
+  devuelto por el _subscript_.
+</Callout>
+
+La cadena obtenida del diccionario `nombresDigitos` es agregada al frente de `conversion`, construyendo —efectivamente— una versión textual del número, de manera invertida. (La expresión `numero % 10` arroja un valor de `6` para `16`, `8` para `58`, y `0` para `510`).
+
+Luego, la variable `numero` es dividida por `10`. Como se trata de un entero, termina siendo redondeada hacia abajo durante la división, por lo que `16` se convierte en `1`, `58` se convierte en `5`, y `510` se convierte en `51`.
+
+El proceso se repite hasta que `numero` es igual a `0`, punto en el cual la cadena`conversion` es devuelta por la clausura, para luego ser agregada al _array_ final por el método `map(_:)`.
+
+El uso de una clausura colgante en el ejemplo anterior encapsula, de manera perfecta, la funcionalidad de la clausura inmediatamente después de la función que dicha clausura asiste, sin necesidad de envolver toda la clausura dentro de los parámetros externos del método `map(_:)`.
+
+Si una función toma múltiples clausuras, omite la etiqueta de argumento para la primera clausura colgante y etiqueta a las demás clausuras colgantes. Por ejemplo, la función a continuación carga una imagen para una galería de fotos:
+
+<CodeSnippet>
+  {`func cargarFoto(desde servidor: Servidor, finalizacion: (Foto) -> Void, alFallar: () -> Void) {\n
+    if let foto = descargar("foto.jpg", desde: servidor) {
+        finalizacion(foto)
+    } else {
+        alFallar()
+    }\n
+}`}
+</CodeSnippet>
+
+Al invocar esta función para cargar una foto, le pasas dos clausuras. La primera clausura es un manejador de finalización, el cual muestra una foto luego de una descarga exitosa. La segunda clausura es un manejador de error que muestra un error al usuario.
+
+<CodeSnippet>
+  {`cargarFoto(desde: algunServidor) { foto in
+    algunaVista.fotoActual = foto
+} alFallar: {
+    print("No fue posible descargar la siguiente foto.")
+}`}
+</CodeSnippet>
+
+En este ejemplo, la función `cargarFoto(desde:finalizacion:alFallar:)` envía su tarea de red al fondo y llama uno de los dos manejadores de finalización cuando la tarea de red finaliza. Al escribir la función de esta manera, te permites separar, de manera limpia, el código encargado de manejar un fallo en la red de aquel código que actualiza la interfaz de usuario después de una descarga exitosa —en lugar de usar solo una clausura que se encargue de ambas circunstancias—.
+
+## Capturando valores
+
+Una clausura puede _capturar_ constantes y variables del contexto contenedor donde fue definida. La clausura podrá, después, referenciar y modificar los valores de dichas constantes y variables desde dentro de su cuerpo, incluso cuando el ámbito original donde se definieron estas constantes y variables ya no exista.
+
+En Swift, la forma más simple de una clausura que puede capturar valores es una función anidada, escrita dentro del cuerpo de otra función. Una función anidada puede capturar cualquiera de los argumentos de su función externa y también puede capturar cualquier constante y variable definidas dentro de la función exterior.
+
+Acá se tiene un ejemplo de una función llamada `crearIncrementador`, la cual contiene una función anidada llamada `incrementador`. La función anidada `incrementador()` captura dos valores —`totalActual` y `cantidad`— de su contexto contenedor. Luego de capturar estos valores, `crearIncrementador` devuelve `incrementar` como una clausura que incrementa `totalActual` por `cantidad` cada vez que se le invoca.
+
+<CodeSnippet>
+  {`func crearIncrementador(paraIncremento cantidad: Int) -> () -> Int {
+    var totalActual = 0\n
+    func incrementador() -> Int {
+        totalActual += cantidad\n
+        return totalActual
+    }\n
+    return incrementador
+}`}
+</CodeSnippet>
+
+El tipo devuelto por `crearIncrementador` es `() -> Int`. Esto, quiere decir que devuelve una _función_ en vez de un simple valor. La función devuelta no tiene parámetros y devuelve, a su vez, un valor de tipo `Int` cada vez que se le llama. Para aprender sobre cómo las funciones pueden devolver otras funciones, visita [Tipos función como tipos de devolución](./funciones#tipos-funcion-como-tipos-de-devolucion).
+
+La función `crearIncrementador(paraIncremento:)` define una variable entera llamada `totalActual`, para almacenar el valor total del incrementador que será devuelto. Esta variable es inicializada con un valor de `0`.
+
+La función `crearIncrementador(paraIncremento:)` tiene un único parámetro de tipo `Int` con una etiqueta de argumento de `paraIncremento` y un nombre de parámetro de `cantidad`. El valor argumento que se le pasa a este parámetro especifica por cuánto debe incrementarse `totalActual` cada vez que la función devuelta —`incrementador`— es invocada. La función `crearIncrementador` define una función anidada llamada `incrementador`, la cual lleva a cabo el incremento como tal. Esta función simplemente agrega `cantidad` a `totalActual` y devuelve el resultado.
+
+Al considerarla de manera aislada, la función anidada `incrementador` puede parecer inusual:
+
+<CodeSnippet>
+  {`func incrementador() -> Int {
+    totalActual += cantidad\n
+    return totalActual
+}`}
+</CodeSnippet>
+
+La función `incrementador()` no tiene ningún parámetro y, aún así, se refiere a `totalActual` y `cantidad` desde adentro de su cuerpo. Esto lo consigue al capturar una referencia a `totalActual` y `cantidad` desde su función contenedora y usándola dentro de su propio cuerpo de función. Capturar por referencia garantiza que `totalActual` y `cantidad` no desaparezcan cuando la llamada a `crearIncrementador` finalice, y garantiza también que `totalActual` esté disponible la próxima vez que la función `incrementador` sea invocada.
+
+<Callout>
+  A manera de optimización, Swift puede, en realidad, capturar y almacenar una
+  _copia_ de un valor si dicho valor no ha sido modificado por una clausura y si
+  el valor no es modificado después de que la clausura es creada. Swift también
+  se encarga de toda la gestión de memoria que conlleva la eliminación de
+  variables cuando estas no se necesitan más.
+</Callout>
+
+Acá tenemos un ejemplo de `crearIncrementador` en acción:
+
+<CodeSnippet>{`let incrementarPorDiez = crearIncrementador(paraIncremento: 10)`}</CodeSnippet>
+
+Este ejemplo estipula que una constante llamada `incrementarPorDiez` referencie a una función `incrementador` que agrega `10` a su variable `totalActual` cada vez que es invocada. Al llamar la función múltiples veces, podemos ver este comportamiento en acción:
+
+<CodeSnippet>
+  {`incrementarPorDiez()
+// Devuelve un valor de 10
+incrementarPorDiez()
+// Devuelve un valor de 20
+incrementarPorDiez()
+// Devuelve un valor de 30`}
+</CodeSnippet>
+
+Si creas un segundo incrementador, este tendrá su propia referencia almacenada a una nueva variable `totalActual`, por separado:
+
+<CodeSnippet>
+  {`let incrementarPorSiete = crearIncrementador(paraIncremento: 7)\n
+incrementarPorSiete()
+// Devuelve un valor de 7`}
+</CodeSnippet>
+
+Al invocar el incrementador original —`incrementarPorDiez`— de nuevo, este continúa incrementando su propia variable `totalActual` y no afecta la variable capturada por `incrementarPorSiete`:
+
+<CodeSnippet>
+  {`incrementarPorDiez()
+// Devuelve un valor de 40`}
+</CodeSnippet>
+
+Si asignas una clausura a una propiedad de la instancia de una clase, y la clausura captura dicha instancia al referenciar a la instancia o a sus miemebros, habrás creado un ciclo de referencia fuerte entre la clausura y la instancia. Swift hace uso de las _listas de captura_ para romper ciclos de referencia fuerte. Para más información, revisa [Ciclos de referencia fuerte para clausuras](./conteo-automatico-de-referencias#ciclos-de-referencia-fuerte-para-clausuras).
+
+## Las clausuras son tipos de referencia
+
+En el ejemplo anterior, `incrementarPorSiete` e `incrementarPorDiez` son constantes, pero las clausuras a la que estas constantes se refieren, siguen siendo capaces de incrementar las variables `totalActual` que han capturado. Esto ocurre porque las funciones y las clausuras son _tipos de referencia_.
+
+Cada que asignas una función o una clausura a una constante o variable, estás —en realidad— fijando que dicha constante o variable sea una _referencia_ a la función o clausura. En el ejemplo anterior, es la elección de la clausura que `incrementarPorDiez` _referencie_ a esa constante y no al contenido de la clausura misma.
+
+Esto también significa que si tú asignas una clausura a dos variables o constantes diferentes, ambas constantes o variables referenciarán a la misma clausura.
+
+<CodeSnippet>
+  {`let incrementarPorDiezTambien = incrementarPorDiez\n
+incrementarPorDiezTambien()
+// Devuelve un valor de 50\n
+incrementarPorDiez()
+// Devuelve un valor de 60`}
+</CodeSnippet>
+
+El ejemplo anterior muestra que invocar `incrementarPorDiezTambien` es lo mismo que invocar `incrementarPorDiez`. Dado que ambas referencian a la misma clausura, ambas incrementan y devuelven el mismo valor actual.
+
+## Clausuras que escapan
+
+Se dice que una clausura _escapa_ de una función cuando dicha clausura le es pasada como argumento a una función, pero es invocada luego de que el llamado de la función termina. Cuando declaras una función que toma una clausura como uno de sus parámetros, puedes agregar `@escaping` antes del tipo del parámetro para indicar que a la clausura se le permite escapar.
+
+Una manera en que una clausura puede escapar es almacenándola en una variable que esté definida por fuera de la función. Como ejemplo, muchas de las funciones que inician una operación asíncrona, toman una clausura (como argumento) a manera de gestionador de finalización. La invocación de la función termina luego de iniciar la operación, pero no se invoca la clausura hasta que la operación es completada, es decir, la clausura debe escapar para ser invocada más adelante. Por ejemplo:
+
+<CodeSnippet>
+  {`var gestionadoresDeFinalizacion: [() -> Void] = []\n
+func algunaFuncionConUnaClausuraQueEscapa(gestionadorDeFinalizacion: @escaping () -> Void) {
+  gestionadoresDeFinalizacion.append(gestionadorDeFinalizacion)
+}`}
+</CodeSnippet>
+
+La función `algunaFuncionConUnaClausuraQueEscapa(_:)` recibe una clausura como su argumento y la agrega a un _array_ declarado fuera de la función. De no haber marcado el parámetro de esta función con `@escaping`, habría ocurrido un error de tiempo de compilación.
+
+Una clausura que escapa y que, a su vez, referencia a `self`, requiere de especial consideración si `self` se refiere a la instancia de una clase. Capturar `self` en una clausura que escapa puede facilitar la creación accidental de un ciclo de referencia fuerte. Para más información, revisa [Conteo automático de referencias](./conteo-automatico-de-referencias).
+
+Por lo general, una clausura captura variables implícitamente al usarlas en el cuerpo de la clausura, pero en este caso hace falta ser explícito. Si deseas capturar `self`, agrega `self`, explícitamente, al usarla, o incluye `self` en la lista de captura de la clausura. Agregar `self` de manera explícita te permite expresar tu intención y te recuerda confirmar que no existe un ciclo de referencia. Por ejemplo, en el código a continuación, la clausura que se le pasa a `algunaFuncionConUnaClausuraQueEscapa(_:)` referencia a `self` explícitamente. Contrario a esto, la clausura que se le pasa a `algunaFuncionSinUnaClausuraQueEscapa(_:)` es una clausura que no escapa, lo que quiere decir que esta puede referenciar `self` implícitamente.
+
+<CodeSnippet>
+  {`func algunaFuncionSinUnaClausuraQueEscapa(clausura: () -> Void) {
+    clausura()
+}\n
+class AlgunaClase {
+    var x = 10\n
+    func hacerAlgo() {
+        algunaFuncionConUnaClausuraQueEscapa { self.x = 100 }
+        algunaFuncionSinUnaClausuraQueEscapa { x = 200 }
+    }
+}\n
+let instancia = AlgunaClase()\n
+instancia.hacerAlgo()\n
+print(instancia.x)
+// Imprime "200"\n
+gestionadoresDeFinalizacion.first?()\n
+print(instancia.x)
+// Imprime "100"`}
+</CodeSnippet>
+
+Acá tenemos una versión de `hacerAlgo()` que captura `self` al incluirlo en la lista de captura de la clausura, para luego referenciar `self` implícitamente:
+
+<CodeSnippet>
+  {`class AlgunaOtraClase {
+    var x = 10\n
+    func hacerAlgo() {
+        algunaFuncionConUnaClausuraQueEscapa { [self] in x = 100 }
+        algunaFuncionSinUnaClausuraQueEscapa { x = 200 }
+    }
+}`}
+</CodeSnippet>
+
+Si `self` es una instancia de una estructura o enumeración, siempre podrás referenciar `self` de manera implícita. Sin embargo, una clausura que escapa no puede capturar una referencia mutable a `self` cuando `self` es una instancia de una estructura o de una enumeración. Las estructuras y enumeraciones no permiten mutabilidad compartida, como se vio en [Las estructuras y enumeraciones son tipos de valores](./estructuras-y-clases#las-estructuras-y-enumeraciones-son-tipos-de-valores).
+
+<CodeSnippet>
+  {`struct AlgunaEstructura {
+    var x = 10\n
+    mutating func hacerAlgo() {
+        algunaFuncionSinUnaClausuraQueEscapa { x = 200 }  // OK
+        algunaFuncionConUnaClausuraQueEscapa { x = 100 }  // Error
+    }
+}`}
+</CodeSnippet>
+
+La invocación a la función `algunaFuncionConUnaClausuraQueEscapa` del ejemplo arriba, es un error porque está dentro de un método mutable, por lo que `self` es mutable. Esto viola la regla que señala que las clausuras que escapan no pueden capturar una referencia mutable a `self` para las estructuras.
+
+## Autoclausuras
+
+Una _autoclausura_ es una clausura que sea crea automáticamente para envolver una expresión que le está siendo pasada como argumento a una función. Esta no toma ningún argumento y, al invocarla, devuelve el valor de la expresión que envuelve. Esta conveniencia sintáctica te permite omitir los paréntesis alrededor del parámetro de una función al escribir una expresión ordinaria en lugar de una clausura explícita.
+
+Es común _llamar_ funciones que toman autoclausuras, pero no es común _implementar_ ese tipo de funciones. Por ejemplo, la función `assert(condition:message:file:line:)` recibe una autoclausura para sus parámetros `condition` y `message`; el parámetro `condition` solo es evaluado durante depuraciones mientras que el parámetro `message` solo es evaluado si `condition` es `false`.
+
+Una autoclausura te permite retrasar la evaluación, ya que el código dentro de esta no es ejecutado hasta que no se invoca la clausura. Retrasar la evaluación es útil para aquel código que conlleva efectos secundarios o que resulta computacionalmente costoso, ya que te permite controlar el momento en que dicho código es evaluado. El siguiente código muestra cómo una clausura retrasa la evaluación.
+
+<CodeSnippet>
+  {`var clientesEnEspera = ["Cindy", "Mauricio", "Sandy", "Luisa", "Jorge"]\n
+print(clientesEnEspera.count)
+// Imprime "5"\n
+let proveedorDeClientes = { clientesEnEspera.remove(at: 0) }\n
+print(clientesEnEspera.count)
+// Imprime "5"
+print("¡Atendiendo ahora a \\(proveedorDeClientes())!")
+// Imprime "¡Atendiendo ahora a Cindy!"
+print(clientesEnEspera.count)
+// Imprime "4"`}
+</CodeSnippet>
+
+Aun cuando el primer elemento del _array_ `clientesEnEspera` es removido por el código dentro de la clausura, el elemento como tal no es removido hasta que la clausura no es realmente invocada. Si nunca se invoca la clausura, la expresión dentro de esta nunca es evaluada, por lo que el elemento del _array_ nunca sería eliminado. Observa que el tipo de `proveedorDeClientes` no es `String` sino `() -> String`, es decir, una función sin parámetros que devuelve una cadena.
+
+Puedes conseguir la misma dinámica de evaluación retrasada al pasar una clausura como argumento para una función.
+
+<CodeSnippet>
+  {`// clientesEnEspera es ["Mauricio", "Sandy", "Luisa", "Jorge"]
+func atender(cliente proveedorDeClientes: () -> String) {
+  print("Atendiendo ahora a \\(proveedorDeClientes())!")
+}\n
+atender(cliente: { clientesEnEspera.remove(at: 0) } )
+// Imprime "¡Atendiendo ahora a Mauricio!"`}
+</CodeSnippet>
+
+La función `atender(cliente:)`, en el ejemplo anterior, toma una clausura explícita que devuelve el nombre de un cliente. La siguiente versión de `atender(cliente:)` ejecuta la misma operación, pero en lugar de tomar una clausura explícita, toma una autoclausura al marcar el tipo de su parámetro con el atributo `@autoclosure`. Ahora es posible invocar la función como si tomara un `String` como argumento en vez de una clausura. El argumento se convierte automáticamente en una clausura, porque el tipo del parámetro de `proveedorDeClientes` ha sido marcado con el atributo `@autoclosure`.
+
+<CodeSnippet>
+  {`// clientesEnEspera es ["Sandy", "Luisa", "Jorge"]
+func atender(cliente proveedorDeClientes: @autoclosure () -> String) {
+  print("¡Atendiendo ahora a \\(proveedorDeClientes())!")
+}\n
+atender(cliente: clientesEnEspera.remove(at: 0))
+// Imprime "¡Atendiendo ahora a Sandy!"`}
+</CodeSnippet>
+
+<Callout>
+  Abusar del uso de autoclausuras puede hacer que tu código resulte díficil de
+  entender. El contexto y el nombre de la función deben dejar claro que la
+  evaluación está siendo diferida.
+</Callout>
+
+Si deseas una autoclausura a la que se le permita escapar, utiliza ambos atributos: `@autoclosure` y `@escaping`. El atributo `@escaping` es descrito arriba en [Clausuras que escapan](#clausuras-que-escapan).
+
+<CodeSnippet>
+  {`// clientesEnEspera es ["Luisa", "Jorge"]
+var proveedoresDeClientes: [() -> String] = []\n
+func recopilarProveedoresDeClientes(_ proveedorDeClientes: @autoclosure @escaping () -> String) {
+    proveedoresDeClientes.append(proveedorDeClientes)
+}\n
+recopilarProveedoresDeClientes(clientesEnEspera.remove(at: 0))
+recopilarProveedoresDeClientes(clientesEnEspera.remove(at: 0))\n
+print("Se recopilaron \\(proveedoresDeClientes.count) clausuras.")
+// Prints "Se recoliparon 2 clausuras."\n
+for proveedorDeClientes in proveedoresDeClientes {
+    print("¡Atendiendo ahora a \\(proveedorDeClientes())!")
+}
+// Imprime "¡Atendiendo ahora a Luisa!"
+// Prints "¡Atendiendo ahora a Jorge!"`}
+</CodeSnippet>
+
+En el código anterior, en lugar de invocar la clausura que le fue pasada como su argumento `proveedorDeClientes`, ls función `recopilarProveedoresDeClientes(_:)` agrega la clausura al _array_ `proveedoresDeClientes`. El _array_ es declarado por fuera del ámbito de la función, lo que siginifica que las clausuras en el _array_ pueden ejecutarse una vez la invocación de la función termine. Como resultado, al valor del argumento `proveedorDeClientes` debe permitírsele escapar del ámbito de la función.

@@ -83,10 +83,12 @@ Aquí hay algunas sugerencias para la traducción de términos de uso común en 
 | ------------------------- | ------------------------------------- |
 | array                     | _array_                               |
 | assert                    | comprobar                             |
+| autoclosure               | autoclausura                          |
 | boolean                   | booleano                              |
 | bug                       | error                                 |
 | callback                  | _callback_                            |
 | camelCase                 | _camelCase_                           |
+| closure                   | clausura                              |
 | debugging                 | depuración                            |
 | deinitialization          | desinicialización                     |
 | file                      | archivo                               |
@@ -105,10 +107,13 @@ Aquí hay algunas sugerencias para la traducción de términos de uso común en 
 | statement                 | instrucción                           |
 | string                    | cadena                                |
 | stub                      | _stub_                                |
+| subscript                 | _subscript_                           |
 | substring                 | subcadena                             |
 | template literals         | _template literals_                   |
 | test                      | prueba                                |
+| trailing closure          | clausura colgante                     |
 | type annotation           | definición de tipo                    |
 | type inference            | inferencia de tipo                    |
 | type safety               | seguridad de tipo                     |
 | unwrap                    | extraer                               |
+| variadic                  | _variádico_                           |
