@@ -1,280 +1,268 @@
 ---
-title: Structures and Classes
+title: Estructuras y Clases 
 ---
 
 import CodeSnippet from '../../components/CodeSnippet.js'
 import Callout from '../../components/Callout.js'
 
-# Structures and Classes
+# Estructuras y Clases
 
-_Structures_ and _classes_ are general-purpose, flexible constructs that become the building blocks of your program's code. You define properties and methods to add functionality to your structures and classes using the same syntax you use to define constants, variables, and functions.
+Las _estructuras_ y las _clases_ son construcciones flexibles de propósito general que se convierten en los bloques de construcción del código de tu programa. Defines propiedades y métodos para agregar funcionalidades a tus estructuras y clases utilizando la misma sintaxis que utilizas para definir constantes, variables y funciones.
 
-Unlike other programming languages, Swift doesn't require you to create separate interface and implementation files for custom structures and classes. In Swift, you define a structure or class in a single file, and the external interface to that class or structure is automatically made available for other code to use.
+A diferencia de otros lenguajes de programación, Swift no requiere que crees archivos separados de interfaz e implementación para estructuras y clases personalizadas. En Swift, se define una estructura o clase en un solo archivo, y la interfaz externa de esa clase o estructura se pone automáticamente a disposición del resto de código.
 
 <Callout>
-  An instance of a class is traditionally known as an *object*. However, Swift
-  structures and classes are much closer in functionality than in other
-  languages, and much of this chapter describes functionality that applies to
-  instances of *either* a class or a structure type. Because of this, the more
-  general term *instance* is used.
+  Una instancia de una clase se conoce tradicionalmente como *objeto*. Sin embargo, las estructuras y clases de Swift están mucho más cerca en funcionalidad que en otros lenguajes, y gran parte de este capítulo describe funcionalidades que se aplica *tanto* a una clase como a una estructura. Debido a esto, se utiliza el término *instancia* al ser más general.
 </Callout>
 
-## Comparing Structures and Classes
+## Comparando Estructuras y Clases
 
-Structures and classes in Swift have many things in common. Both can:
+Estructuras y clases tienen muchas cosas en común en Swift. Ambas pueden: 
 
-- Define properties to store values
-- Define methods to provide functionality
-- Define subscripts to provide access to their values using subscript syntax
-- Define initializers to set up their initial state
-- Be extended to expand their functionality beyond a default implementation
-- Conform to protocols to provide standard functionality of a certain kind
+- Definir propiedades para almacenar valores
+- Definir métodos para proporcionar funcionalidad
+- Definir subscripts para proporcionar acceso a sus valores utilizando la sintaxis del subscript
+- Definir *initializers* (iniciadores) para configurar su estado inicial 
+- Ampliarse para expandir su funcionalidad más allá de una implementación predeterminada
+- Conformar protocolos para proporcionar una funcionalidad estándar de cierto tipo
 
-For more information, see [Properties](./propiedades), [Methods](./metodos), [Subscripts](./subscripts), [Initialization](./inicializacion), [Extensions](./extensiones), and [Protocols](./protocolos).
+Para más información, mira [Propiedades](./propiedades), [Métodos](./metodos), [Subscripts](./subscripts), [Inicialización](./inicializacion), [Extensiones](./extensiones), y [Protocolos](./protocolos).
 
-Classes have additional capabilities that structures don't have:
+Las clases tienen capacidades adicionales que las estructuras no tienen:
 
-- Inheritance enables one class to inherit the characteristics of another.
-- Type casting enables you to check and interpret the type of a class instance at runtime.
-- Deinitializers enable an instance of a class to free up any resources it has assigned.
-- Reference counting allows more than one reference to a class instance.
+- Heredar características que otras clases no tienen.
+- La conversión de tipos te permite verificar e interpretar el tipo de una instancia de clase en tiempo de ejecución.
+- Los desinicializadores (*desinitializers*) permiten que una instancia de una clase libere cualquier recurso que tenga asignado.
+- El conteo de referencias permite más de una referencia a una instancia de clase.
 
-For more information, see [Inheritance](./herencia), [Type Casting](./type-casting), [Deinitialization](./desinicializacion), and [Automatic Reference Counting](./automatic-reference-counting).
+Para más información, mira [Herencia](./herencia), [Type Casting](./type-casting), [Desinicialización](./desinicializacion), and [Automatic Reference Counting](./automatic-reference-counting).
 
-The additional capabilities that classes support come at the cost of increased complexity. As a general guideline, prefer structures because they're easier to reason about, and use classes when they're appropriate or necessary. In practice, this means most of the custom data types you define will be structures and enumerations. For a more detailed comparison, see [Choosing Between Structures and Classes](https://developer.apple.com/documentation/swift/choosing_between_structures_and_classes).
+Las capacidades adicionales que admiten las clases tienen el costo de una mayor complejidad. Como pauta general, utiliza estructuras porque son más fáciles de razonar y usa clases cuando sean apropiadas o necesarias. En la práctica, esto significa que la mayoría de los tipos de datos personalizados que definas serán estructuras y enumeraciones. Para una comparación más detallada, mira [Elegir Entre Estructuras y Clases](https://developer.apple.com/documentation/swift/choosing_between_structures_and_classes).
 
-Classes and actors share many of the same characteristics and behaviors. For information about actors, see [Concurrency](./concurrencia).
+Clases y actores comparte muchas de sus características y comportamientos. Para más información sobre actores, mira [Concurrencia](./concurrencia).
 
-### Definition Syntax
+### Definición de sintaxis
 
-Structures and classes have a similar definition syntax. You introduce structures with the `struct` keyword and classes with the `class` keyword. Both place their entire definition within a pair of braces:
+Las estructuras y clases tienen una definición de sintaxis muy similar. Defines una estructura con la palabra `struct` y una clase con la palabra `class`. Ambas colocan su definición completa dentro de un par de llaves:
 
 <CodeSnippet>
-  {`struct SomeStructure {
-    // structure definition goes here
+  {`struct UnaEstructura {
+    // la definición de la estructura va aquí
 }\n
-class SomeClass {
-    // class definition goes here
+class UnaClase {
+    // la definición de la clase va aquí
 }`}
 </CodeSnippet>
 
 <Callout>
-  Whenever you define a new structure or class, you define a new Swift type.
-  Give types `UpperCamelCase` names (such as `SomeStructure` and `SomeClass`
-  here) to match the capitalization of standard Swift types (such as `String`,
-  `Int`, and `Bool`). Give properties and methods `lowerCamelCase` names (such
-  as `frameRate` and `incrementCount`) to differentiate them from type names.
+  Cada vez que defines una nueva estructura o clase, defines un nuevo tipo en Swift.
+  Asigna nombres `UpperCamelCase` a los tipos (como el ejemplo `UnaEstructura` and `UnaClase`) para que coincida con el uso de mayúsculas de los tipos estándar de Swift (como `String`,`Int`, y `Bool`). Asigna nombres `lowerCamelCase` a propiedades y métodos (como `frameRate` e `incrementarContador`) para diferenciarlos de los nombres de tipos.
 </Callout>
 
-Here's an example of a structure definition and a class definition:
+Aquí hay un ejemplo de una definición de estructura y otra de clase:
 
 <CodeSnippet>
-  {`struct Resolution {
-    var width = 0
-    var height = 0
+  {`struct Resolucion {
+    var ancho = 0
+    var alto = 0
 }\n
-class VideoMode {
-    var resolution = Resolution()
-    var interlaced = false
+class ModoDeVideo {
+    var resolucion = Resolucion()
+    var entrelazada = false
     var frameRate = 0.0
-    var name: String?
+    var nombre: String?
 }`}
 </CodeSnippet>
 
-The example above defines a new structure called `Resolution`, to describe a pixel-based display resolution. This structure has two stored properties called `width` and `height`. Stored properties are constants or variables that are bundled up and stored as part of the structure or class. These two properties are inferred to be of type `Int` by setting them to an initial integer value of `0`.
+El ejemplo de arriba define una estructura llamada `Resolucion`, para describir una resolución de pantalla basada en píxeles. Esta estructura tiene dos propiedades almacenadas llamadas `ancho` y `alto`. Las propiedades almacenadas son constantes o variables que se agrupan y almacenan como parte de la estructura o clase. De estas dos propiedades se infieren que el tipo es `Int` al asignarles un valor inicial de `0`.
 
-The example above also defines a new class called `VideoMode`, to describe a specific video mode for video display. This class has four variable stored properties. The first, `resolution`, is initialized with a new `Resolution` structure instance, which infers a property type of `Resolution`. For the other three properties, new `VideoMode` instances will be initialized with an `interlaced` setting of `false` (meaning “noninterlaced video”), a playback frame rate of `0.0`, and an optional `String` value called `name`. The `name` property is automatically given a default value of `nil`, or “no `name` value”, because it's of an optional type.
+El ejemplo de arriba también define una nueva clase llamada `ModoDeVideo`, para describir un modo de vídeo específico para la visualización de vídeo. Esta clase tiene almacenada cuatro variables. La primera, `resolucion`, es inicializada con una nueva instancia de la estructura `Resolucion`, que infiere un tipo de propiedad de `Resolución`. Para las otras tres variables, las nuevas instancias de `ModoDeVideo` se inicializarán con una configuración `entrelazada` en `false` (que significa “video no entrelazado”), una velocidad de reproducción de fotogramas  de `0.0`, y un valor `String` opcional llamado `nombre`. A la propiedad `nombre` se le asigna automáticamente un valor predeterminado `nil`, o "sin valor", porque es de un tipo opcional.
 
-### Structure and Class Instances
+### Instancias de Estructura y Clase
 
-The `Resolution` structure definition and the `VideoMode` class definition only describe what a `Resolution` or `VideoMode` will look like. They themselves don't describe a specific resolution or video mode. To do that, you need to create an instance of the structure or class.
+La definición de la estructura `Resolucion` y de la clase `ModoDeVideo` solo describen cómo se verá una `Resolucion` o `ModoDeVideo`. Por ellas mismas, no describen una resolución o un modo de vídeo específico. Para hacer eso, debes crear una instancia de la estructura o clase.
 
-The syntax for creating instances is very similar for both structures and classes:
-
-<CodeSnippet>
-  {`let someResolution = Resolution()
-let someVideoMode = VideoMode()`}
-</CodeSnippet>
-
-Structures and classes both use initializer syntax for new instances. The simplest form of initializer syntax uses the type name of the class or structure followed by empty parentheses, such as `Resolution()` or `VideoMode()`. This creates a new instance of the class or structure, with any properties initialized to their default values. Class and structure initialization is described in more detail in [Initialization](./inicializacion).
-
-### Accessing Properties
-
-You can access the properties of an instance using _dot syntax_. In dot syntax, you write the property name immediately after the instance name, separated by a period (`.`), without any spaces:
+La sintaxis para crear una instancia de estructura o clases es muy similar en ambos casos:
 
 <CodeSnippet>
-  {`print("The width of someResolution is \\(someResolution.width)")
-// Prints "The width of someResolution is 0"`}
+  {`let algunaResolucion = Resolucion()
+let algunModoDeVideo = ModoDeVideo()`}
 </CodeSnippet>
 
-In this example, `someResolution.width` refers to the `width` property of `someResolution`, and returns its default initial value of `0`.
+Tanto las estructuras como las clases usan sintaxis de inicializador para nuevas instancias. La sintaxis de inicialización más simple utiliza el nombre del tipo de la clase o estructura seguido de paréntesis vacíos, como `Resolucion()` o `ModoDeVideo()`. Esto crea una nueva instancia de la clase o estructura, con cualquier propiedad inicializada a sus valores predeterminados. La inicialización de clases y estructuras esta descrita con más detalle en [Inicialización](./inicializacion).
 
-You can drill down into subproperties, such as the `width` property in the `resolution` property of a `VideoMode`:
+### Acceso a Propiedades
+
+Puede acceder a las propiedades de una instancia se utiliza _sintaxis de puntos_. En la sintaxis de puntos, escribes el nombre de la propiedad inmediatamente después del nombre de la instancia, separado por un punto (`.`), sin espacios:
 
 <CodeSnippet>
-  {`print("The width of someVideoMode is \\(someVideoMode.resolution.width)")
-// Prints "The width of someVideoMode is 0"`}
+  {`print("El ancho de algunaResolucion es \\(algunaResolucion.ancho)")
+// Imprime "El ancho de algunaResolucion es 0"`}
 </CodeSnippet>
 
-You can also use dot syntax to assign a new value to a variable property:
+En este ejemplo, `algunaResolucion.ancho` refiere a la propiedad `ancho` de `algunaResolucion`, y devuelve su valor inicial por defecto `0`.
+
+Puedes profundizar en las subpropiedades, como la propiedad `ancho` en la propiedad `resolucion` de un `ModoDeVideo`:
 
 <CodeSnippet>
-  {`someVideoMode.resolution.width = 1280\n
-print("The width of someVideoMode is now \\(someVideoMode.resolution.width)")
-// Prints "The width of someVideoMode is now 1280"`}
+  {`print("El ancho de algunaResolucion es \\(algunModoDeVideo.resolucion.ancho)")
+// Imprime "El ancho de algunaResolucion es 0"`}
 </CodeSnippet>
 
-### Memberwise Initializers for Structure Types
+También puede usar la sintaxis de puntos para asignar un nuevo valor a una variable:
 
-All structures have an automatically generated _memberwise initializer_, which you can use to initialize the member properties of new structure instances. Initial values for the properties of the new instance can be passed to the memberwise initializer by name:
+<CodeSnippet>
+  {`algunModoDeVideo.resolucion.ancho = 1280\n
+print("El ancho de algunModoDeVideo es ahora \\(algunModoDeVideo.resolucion.ancho)")
+// Imprime "El ancho de algunModoDeVideo es ahora 1280"`}
+</CodeSnippet>
 
-<CodeSnippet>{`let vga = Resolution(width: 640, height: 480)`}</CodeSnippet>
+### Memberwise Initializers para los Tipos de Estructura
 
-Unlike structures, class instances don't receive a default memberwise initializer. Initializers are described in more detail in [Initialization](./inicializacion).
+Todas las estructuras tienen un _memberwise initializer_ generado automáticamente, que puedes usar para inicializar las propiedades de nuevas instancias de la estructura. Los valores iniciales para las propiedades de la nueva instancia se pueden pasar al inicializador por nombre: 
 
-## Structures and Enumerations Are Value Types
+<CodeSnippet>{`let vga = Resolucion(ancho: 640, alto: 480)`}</CodeSnippet>
 
-A _value type_ is a type whose value is _copied_ when it's assigned to a variable or constant, or when it's passed to a function.
+A diferencia de las estructuras, las instancias de las clases no reciben inicializador por defecto. Los inicializadores se describen con más detalle en [Inicialización](./inicializacion).
 
-You've actually been using value types extensively throughout the previous chapters. In fact, all of the basic types in Swift—integers, floating-point numbers, Booleans, strings, arrays and dictionaries—are value types, and are implemented as structures behind the scenes.
+## Las Estructuras y las Enumeraciones son Tipos de Valor
 
-All structures and enumerations are value types in Swift. This means that any structure and enumeration instances you create—and any value types they have as properties—are always copied when they're passed around in your code.
+Un _tipo de valor_ se _copia_ cuando es asignado a una variable o constante, o cuando es pasado a una función.
+
+De hecho, has estado utilizando tipos de valor extensamente a lo largo de los capítulos anteriores. Todos los tipos básicos en Swift (enteros, números de coma flotante, booleanos, cadenas, arrays y diccionarios) son tipos de valor, y en el fondo se implementan como estructuras.
+
+Todas las estructuras y enumeraciones son tipos de valor en Swift. Esto significa que cualquier instancia de estructura y enumeración que crees, y cualquier tipo de valor que tengas como propiedades, siempre se copian cuando se utilizan en tu código.
 
 <Callout>
-  Collections defined by the standard library like arrays, dictionaries, and
-  strings use an optimization to reduce the performance cost of copying. Instead
-  of making a copy immediately, these collections share the memory where the
-  elements are stored between the original instance and any copies. If one of
-  the copies of the collection is modified, the elements are copied just before
-  the modification. The behavior you see in your code is always as if a copy
-  took place immediately.
+  Las colecciones definidas por la biblioteca estándar como arrays, diccionarios y
+  las cadenas utilizan una optimización para reducir el costo de rendimiento al copiar. En lugar de hacer una copia inmediatamente, estas colecciones comparten la memoria donde se almacenan los elementos entre la instancia original y cualquier copia. Si se modifica una de las copias de la colección, los elementos se copian justo antes de la modificación. El comportamiento que se ve en tu código siempre es como si se realizara inmediatamente una copia.
 </Callout>
 
-Consider this example, which uses the `Resolution` structure from the previous example:
+Considera este ejemplo, que utiliza la estructura `Resolucion` del ejemplo anterior:
 
 <CodeSnippet>
-  {`let hd = Resolution(width: 1920, height: 1080)
+  {`let hd = Resolucion(ancho: 1920, alto: 1080)
 var cinema = hd`}
 </CodeSnippet>
 
-This example declares a constant called `hd` and sets it to a `Resolution` instance initialized with the width and height of full HD video (1920 pixels wide by 1080 pixels high).
+Este ejemplo declara una constante llamada `hd` y la establece en una instancia de `Resolucion` inicializada con el ancho y el alto del video Full HD (1920 píxeles de ancho por 1080 píxeles de alto).
 
-It then declares a variable called `cinema` and sets it to the current value of `hd`. Because `Resolution` is a structure, a _copy_ of the existing instance is made, and this new copy is assigned to `cinema`. Even though `hd` and `cinema` now have the same `width` and `height`, they're two completely different instances behind the scenes.
+Luego declara una variable llamada `cinema` y la establece en el valor actual de `hd`. Debido a que `Resolucion` es una estructura, se realiza una _copia_ de la instancia existente, y esta nueva copia se asigna a `cinema`. Aunque `hd` y `cinema` ahora tienen el mismo `ancho` y `alto`, son dos instancias completamente diferentes.
 
-Next, the `width` property of `cinema` is amended to be the width of the slightly wider 2K standard used for digital cinema projection (2048 pixels wide and 1080 pixels high):
+A continuación, la propiedad `ancho` de `cinema` se modifica para que sea el ancho del estándar 2K que se utiliza para la proyección de cine digital. (2048 píxeles de ancho y 1080 píxeles de alto):
 
-<CodeSnippet>{`cinema.width = 2048`}</CodeSnippet>
+<CodeSnippet>{`cinema.ancho = 2048`}</CodeSnippet>
 
-Checking the `width` property of `cinema` shows that it has indeed changed to be `2048`:
-
-<CodeSnippet>
-  {`print("cinema is now \\(cinema.width) pixels wide")
-// Prints "cinema is now 2048 pixels wide"`}
-</CodeSnippet>
-
-However, the `width` property of the original `hd` instance still has the old value of `1920`:
+Verificando la propiedad `ancho` de `cinema` muestra que efectivamente ha cambiado para ser `2048`:
 
 <CodeSnippet>
-  {`print("hd is still \\(hd.width) pixels wide")
-// Prints "hd is still 1920 pixels wide"`}
+  {`print("cinema es ahora \\(cinema.ancho) píxeles de ancho")
+// Imprime "cinema es ahora 2048 píxeles de ancho"`}
 </CodeSnippet>
 
-When `cinema` was given the current value of `hd`, the _values_ stored in `hd` were copied into the new `cinema` instance. The end result was two completely separate instances that contained the same numeric values. However, because they're separate instances, setting the width of `cinema` to `2048` doesn't affect the width stored in `hd`, as shown in the figure below:
+Sin embargo, la propiedad `ancho` de la instancia `hd` original todavía tiene el valor antiguo de `1920`:
+
+<CodeSnippet>
+  {`print("hd es aún \\(hd.ancho) píxeles de ancho")
+// Prints "hd es aún 1920 píxeles de ancho"`}
+</CodeSnippet>
+
+Cuando a `cinema` se le dió el valor actual de `hd`, los _valores_ almacenados en `hd` se copiaron en la nueva instancia de `cinema`. El resultado final fueron dos instancias completamente separadas que contenían los mismos valores numéricos. Sin embargo, debido a que son instancias separadas, establecer el ancho de `cinema` en `2048` no afecta el ancho almacenado en `hd`, como se muestra en la siguiente figura:
 
 <img
   src="/assets/images/sharedStateStruct_2x.png"
-  alt="Illustration of shared state between two instances of a structure"
+  alt="Ilustración del estado compartido entre dos instancias de una estructura"
   width={650}
   height={187}
   className="figure-small"
 />
 
-The same behavior applies to enumerations:
+El mismo comportamiento se aplica a las enumeraciones:
 
 <CodeSnippet>
-  {`enum CompassPoint {
-    case north, south, east, west\n
-    mutating func turnNorth() {
-        self = .north
+  {`enum PuntoBrujula {
+    case norte, sur, este, oeste\n
+    mutating func girarAlNorte() {
+        self = .norte
     }
 }\n
-var currentDirection = CompassPoint.west
-let rememberedDirection = currentDirection\n
-currentDirection.turnNorth()\n
-print("The current direction is \\(currentDirection)")
-print("The remembered direction is \\(rememberedDirection)")
-// Prints "The current direction is north"
-// Prints "The remembered direction is west"`}
+var direccionActual = PuntoBrujula.oeste
+let direccionRecordada = direccionActual\n
+direccionActual.girarAlNorte()\n
+print("La dirección actual es \\(direccionActual)")
+print("La dirección recordada es \\(direccionRecordada)")
+// Prints "La dirección actual es norte"
+// Prints "La dirección recordad es oeste"`}
 </CodeSnippet>
 
-When `rememberedDirection` is assigned the value of `currentDirection`, it's actually set to a copy of that value. Changing the value of `currentDirection` thereafter doesn't affect the copy of the original value that was stored in `rememberedDirection`.
+Cuando a `direccionRecordada` se le asigna el valor de `direccionActual`, en realidad se establece en una copia. Cambiar el valor de `direccionActual` a partir de entonces no afecta a la copia del valor original que se almacenó en `direccionRecordada`.
 
-## Classes Are Reference Types
+## Las Clases son Tipos de Referencia
 
-Unlike value types, _reference types_ are _not_ copied when they're assigned to a variable or constant, or when they're passed to a function. Rather than a copy, a reference to the same existing instance is used.
+A diferencia de los tipos de valor, los _tipos de referencia_ _no_ se copian cuando se asignan a una variable o constante, o cuando se pasan a una función. En lugar de una copia, se utiliza una referencia a la misma instancia existente.
 
-Here's an example, using the `VideoMode` class defined above:
+Aquí hay un ejemplo, usando la clase `ModoDeVideo` definida anteriormente:
 
 <CodeSnippet>
-  {`let tenEighty = VideoMode()\n
-tenEighty.resolution = hd
-tenEighty.interlaced = true
-tenEighty.name = "1080i"
-tenEighty.frameRate = 25.0`}
+  {`let diezOchenta = ModoDeVideo()\n
+diezOchenta.resolucion = hd
+diezOchenta.entrelazado = true
+diezOchenta.nombre = "1080i"
+diezOchenta.frameRate = 25.0`}
 </CodeSnippet>
 
-This example declares a new constant called `tenEighty` and sets it to refer to a new instance of the `VideoMode` class. The video mode is assigned a copy of the HD resolution of `1920` by `1080` from before. It's set to be interlaced, its name is set to `"1080i"`, and its frame rate is set to `25.0` frames per second.
+Este ejemplo se declara una nueva constante llamada `diezOchenta` y se configura para referirse a una nueva instancia de la clase `ModoDeVideo`. Al modo de video se le asigna una copia de la resolución HD de `1920` por `1080` de antes. Está configurado para ser entrelazado, su nombre está configurado en `"1080i"` y su velocidad de fotogramas está configurada en `25.0` fotogramas por segundo.
 
-Next, `tenEighty` is assigned to a new constant, called `alsoTenEighty`, and the frame rate of `alsoTenEighty` is modified:
+A continuación, `diezOchenta` es asignada a una nueva constante llamada `tambienDiezOchenta`, y su velocidad de fotogramas es modificado:
 
 <CodeSnippet>
-  {`let alsoTenEighty = tenEighty\n
-alsoTenEighty.frameRate = 30.0`}
+  {`let tambienDiezOchenta = diezOchenta\n
+tambienDiezOchenta.frameRate = 30.0`}
 </CodeSnippet>
 
-Because classes are reference types, `tenEighty` and `alsoTenEighty` actually both refer to the _same_ `VideoMode` instance. Effectively, they're just two different names for the same single instance, as shown in the figure below:
+Debido a que las clases son tipos de referencia, `diezOchenta` y `tambienDiezOchenta` se refieren en realidad a la _misma_ instancia de `ModoDeVideo`. Es decir, son solo dos nombres diferentes para una misma instancia, como se muestra en la siguiente figura:
 
 <img
   src="/assets/images/sharedStateClass_2x.png"
-  alt="Illustration of shared state between two instances of a class"
+  alt="Ilustración del estado compartido entre dos instancias de una clase"
   width={670}
   height={158}
   className="figure-small"
 />
 
-Checking the `frameRate` property of `tenEighty` shows that it correctly reports the new frame rate of `30.0` from the underlying `VideoMode` instance:
+Verificar la propiedad `frameRate` de `diezOchenta` muestra correctamente la nueva velocidad de fotogramas de `30.0` desde la instancia `ModoDeVideo` subyacente:
 
 <CodeSnippet>
-  {`print("The frameRate property of tenEighty is now \\(tenEighty.frameRate)")
-// Prints "The frameRate property of tenEighty is now 30.0"`}
+  {`print("La propiedad frameRate de diezOchenta ahora es \\(diezOchenta.frameRate)")
+// Imprime "La propiedad frameRate de diezOchenta ahora es 30.0"`}
 </CodeSnippet>
 
-This example also shows how reference types can be harder to reason about. If `tenEighty` and `alsoTenEighty` were far apart in your program's code, it could be difficult to find all the ways that the video mode is changed. Wherever you use `tenEighty`, you also have to think about the code that uses `alsoTenEighty`, and vice versa. In contrast, value types are easier to reason about because all of the code that interacts with the same value is close together in your source files.
+Este ejemplo muestra cómo los tipos de referencia pueden ser más difíciles de razonar. Si `diezOchenta` y `tambienDiezOchenta` estuvieran muy separados en el código de tu programa, podría ser difícil encontrar todas las veces en la que el modo de video ha sido cambiado. Siempre que uses `diezOchenta`, también tienes que pensar en el código que usa `tambienDiezOchenta`, y viceversa. Por el contrario, es más fácil razonar sobre los tipos de valor porque todo el código que interactúa con el mismo valor está muy cerca en los archivos de origen.
 
-Note that `tenEighty` and `alsoTenEighty` are declared as _constants_, rather than variables. However, you can still change `tenEighty.frameRate` and `alsoTenEighty.frameRate` because the values of the `tenEighty` and `alsoTenEighty` are constants themselves and don't actually change. `tenEighty` and `alsoTenEighty` themselves don't “store” the `VideoMode` instance—instead, they both _refer_ to a `VideoMode` instance behind the scenes. It's the `frameRate` property of the underlying `VideoMode` that's changed, not the values of the constant references to that `VideoMode`.
+Ten en cuenta que `diezOchenta` y `tambienDiezOchenta` se declaran como _constantes_, en lugar de variables. Sin embargo, aún puedes cambiar `diezOchenta.frameRate` y `tambienDiezOchenta.frameRate` porque los valores de `diezOchenta` y `tambienDiezOchenta` son constantes en sí mismos y en realidad no cambian. `diezOchenta` y `tambienDiezOchenta` no "almacenan" la instancia de `ModoDeVideo`; en cambio, ambos se _refieren_ a una instancia de `ModoDeVideo`. Lo que ha cambiado es la propiedad `frameRate` de `ModoDeVideo` subyacente, no los valores de las referencias constantes a ese `ModoDeVideo`.
 
-### Identity Operators
+### Operadores de Identidad
 
-Because classes are reference types, it's possible for multiple constants and variables to refer to the same single instance of a class behind the scenes. (The same isn't true for structures and enumerations, because they're always copied when they're assigned to a constant or variable, or passed to a function.)
+Debido a que las clases son tipos de referencia, es posible que varias constantes y variables se refieran a la misma instancia única de una clase en segundo plano. (No ocurre lo mismo con las estructuras y las enumeraciones, porque siempre se copian cuando se asignan a una constante o variable, o se pasan a una función).
 
-It can sometimes be useful to find out whether two constants or variables refer to exactly the same instance of a class. To enable this, Swift provides two identity operators:
+A veces puede ser útil averiguar si dos constantes o variables se refieren exactamente a la misma instancia de una clase. Para hacer esto, Swift proporciona dos operadores de identidad:
 
-- Identical to (`===`)
-- Not identical to (`!==`)
+- Idéntica a (`===`)
+- No idéntica a (`!==`)
 
-Use these operators to check whether two constants or variables refer to the same single instance:
+Utiliza estos operadores para verificar si dos constantes o variables se refieren a la misma instancia única:
 
 <CodeSnippet>
-  {`if tenEighty === alsoTenEighty {
-    print("tenEighty and alsoTenEighty refer to the same VideoMode instance.")
+  {`if diezOchenta === tambienDiezOchenta {
+    print("diezOchenta y tambienDiezOchenta se refieren a la misma instancia de ModoDeVideo.")
 }
-// Prints "tenEighty and alsoTenEighty refer to the same VideoMode instance."`}
+// Imprime "diezOchenta y tambienDiezOchenta se refieren a la misma instancia de ModoDeVideo."`}
 </CodeSnippet>
 
-Note that _identical to_ (represented by three equals signs, or `===`) doesn't mean the same thing as _equal to_ (represented by two equals signs, or `==`). _Identical to_ means that two constants or variables of class type refer to exactly the same class instance. _Equal to_ means that two instances are considered equal or equivalent in value, for some appropriate meaning of _equal_, as defined by the type's designer.
+Ten en cuenta que _idéntico a_ (representado por tres signos de igual, o `===`) no significa lo mismo que _igual a_ (representado por dos signos de igual, o `==`). _Idéntico a_ significa que dos constantes o variables de tipo de clase se refieren exactamente a la misma instancia de clase. _Igual a_ significa que dos instancias se consideran iguales o equivalentes en valor, para algún significado apropiado de _igual_, definido por el diseñador de tipo.
 
-When you define your own custom structures and classes, it's your responsibility to decide what qualifies as two instances being equal. The process of defining your own implementations of the `==` and `!=` operators is described in [Equivalence Operators](./operadores-avanzados#operadores-de-equivalencia).
+Cuando defines tus propias estructuras y clases personalizadas, es tu responsabilidad decidir qué califica como dos instancias iguales. El proceso de definición de tus propias implementaciones de los operadores `==` y `!=` se describe en [Operadores de equivalencia](./operadores-avanzados#operadores-de-equivalencia).
 
-### Pointers
+### Punteros
 
-If you have experience with C, C++, or Objective-C, you may know that these languages use _pointers_ to refer to addresses in memory. A Swift constant or variable that refers to an instance of some reference type is similar to a pointer in C, but isn't a direct pointer to an address in memory, and doesn't require you to write an asterisk (`*`) to indicate that you are creating a reference. Instead, these references are defined like any other constant or variable in Swift. The standard library provides pointer and buffer types that you can use if you need to interact with pointers directly—see [Manual Memory Management](https://developer.apple.com/documentation/swift/swift_standard_library/manual_memory_management).
+Si tiene experiencia con C, C++ u Objective-C, puede saber que estos lenguajes usan _punteros_ para referirse a direcciones en la memoria. Una constante o variable de Swift que se refiere a una instancia de algún tipo de referencia es similar a un puntero en C, pero no es un puntero directo a una dirección en la memoria y no requiere que se escriba un asterisco (`*`) para indicar que se está creando una referencia. En cambio, estas referencias se definen como cualquier otra constante o variable en Swift. La biblioteca estándar proporciona tipos de punteros y búferes que puedes usar si necesitas interactuar con los punteros directamente; consulta [Administración manual de memoria](https://developer.apple.com/documentation/swift/swift_standard_library/manual_memory_management).
