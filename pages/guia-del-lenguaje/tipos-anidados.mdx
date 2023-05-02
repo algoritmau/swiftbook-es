@@ -2,9 +2,13 @@
 title: Nested Types
 ---
 
-import CodeSnippet from '../../components/CodeSnippet.js'
+import Hero from '@components/Hero'
 
-# Nested Types
+<Hero>
+  # Nested Types
+
+  Define types inside the scope of another type.
+</Hero>
 
 Enumerations are often created to support a specific class or structure's functionality. Similarly, it can be convenient to define utility classes and structures purely for use within the context of a more complex type. To accomplish this, Swift enables you to define _nested types_, whereby you nest supporting enumerations, classes, and structures within the definition of the type they support.
 
@@ -16,20 +20,24 @@ The example below defines a structure called `BlackjackCard`, which models a pla
 
 In Blackjack, the Ace cards have a value of either one or eleven. This feature is represented by a structure called Values, which is nested within the `Rank` enumeration:
 
-<CodeSnippet>
-  {`struct BlackjackCard {\n
+```swift showLineNumbers
+struct BlackjackCard {
+
     // nested Suit enumeration
     enum Suit: Character {
         case spades = "♠", hearts = "♡", diamonds = "♢", clubs = "♣"
-    }\n
+    }
+
     // nested Rank enumeration
     enum Rank: Int {
         case two = 2, three, four, five, six, seven, eight, nine, ten
-        case jack, queen, king, ace\n
+        case jack, queen, king, ace
+
         // nested Values structure
         struct Values {
             let first: Int, second: Int?
-        }\n
+        }
+
         var values: Values {
             switch self {
             case .ace:
@@ -40,19 +48,23 @@ In Blackjack, the Ace cards have a value of either one or eleven. This feature i
                 return Values(first: self.rawValue, second: nil)
             }
         }
-    }\n
+    }
+
     // BlackjackCard properties and methods
     let rank: Rank, suit: Suit
+
     var description: String {
-        var output = "suit is \\(suit.rawValue),"
-        output += " value is \\(rank.values.first)"\n
+        var output = "suit is \(suit.rawValue),"
+        output += " value is \(rank.values.first)"
+
         if let second = rank.values.second {
-            output += " or \\(second)"
-        }\n
+            output += " or \(second)"
+        }
+
         return output
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The `Suit` enumeration describes the four common playing card suits, together with
 a raw `Character` value to represent their symbol.
@@ -70,11 +82,12 @@ The `BlackjackCard` structure itself has two properties—`rank` and `suit`. It 
 
 Because `BlackjackCard` is a structure with no custom initializers, it has an implicit memberwise initializer, as described in [Memberwise Initializers for Structure Types](./inicializacion). You can use this initializer to initialize a new constant called `theAceOfSpades`:
 
-<CodeSnippet>
-  {`let theAceOfSpades = BlackjackCard(rank: .ace, suit: .spades)\n
-print("theAceOfSpades: \\(theAceOfSpades.description)")
-// Prints "theAceOfSpades: suit is ♠, value is 1 or 11"`}
-</CodeSnippet>
+```swift showLineNumbers
+let theAceOfSpades = BlackjackCard(rank: .ace, suit: .spades)
+
+print("theAceOfSpades: \(theAceOfSpades.description)")
+// Prints "theAceOfSpades: suit is ♠, value is 1 or 11"
+```
 
 Even though `Rank` and `Suit` are nested within `BlackjackCard`, their type can be inferred from context, and so the initialization of this instance is able to refer to the enumeration cases by their case names (`.ace` and `.spades`) alone. In the example above, the `description` property correctly reports that the Ace of Spades has a value of `1` or `11`.
 
@@ -82,9 +95,9 @@ Even though `Rank` and `Suit` are nested within `BlackjackCard`, their type can 
 
 To use a nested type outside of its definition context, prefix its name with the name of the type it's nested within:
 
-<CodeSnippet>
-  {`let heartsSymbol = BlackjackCard.Suit.hearts.rawValue
-// heartsSymbol is "♡"`}
-</CodeSnippet>
+```swift showLineNumbers
+let heartsSymbol = BlackjackCard.Suit.hearts.rawValue
+// heartsSymbol is "♡"
+```
 
 For the example above, this enables the names of `Suit`, `Rank`, and `Values` to be kept deliberately short, because their names are naturally qualified by the context in which they're defined.

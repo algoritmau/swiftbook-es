@@ -2,16 +2,23 @@
 title: Compatibilidad de Versiones
 ---
 
-# Compatibilidad de Versiones
+import Hero from '@components/Hero'
 
-Este libro describe Swift 5.5, la versión predeterminada de Swift que se incluye en Xcode 13. Puedes usar Xcode 13 para compilar _targets_ desarrollados en Swift 5.5, Swift 4.2, o Swift 4.
+<Hero>
+  # Compatibilidad de Versiones
 
-Al usar Xcode 13 para compilar código Swift 4 y Swift 4.2, la mayoría de las funciones de Swift 5.5 están disponibles. Dicho esto, los siguientes cambios están disponibles sólo para código desarrollado en Swift 5.5 o posterior:
+  Aprende cuáles funcionalidades están disponibles en versiones anteriores del lenguaje.
+</Hero>
+
+
+Este libro describe Swift 5.8, la versión predeterminada de Swift que se incluye en Xcode 14. Puedes usar Xcode 14 para compilar _targets_ desarrollados en Swift 5.8, Swift 4.2, o Swift 4.
+
+Al usar Xcode 14 para compilar código Swift 4 y Swift 4.2, la mayoría de las funcionalidades de Swift 5.8 estarán disponibles. Dicho esto, los siguientes cambios solo están disponibles para código desarrollado en Swift 5.8 o posterior:
 
 - Las funciones que devuelven un tipo opaco requieren el _runtime_ de Swift 5.1.
 - La expresión `try?` no introduce un nivel adicional de opcionalidad en las expresiones que ya devuelven opcionales.
 - Se infiere que las expresiones de inicialización de enteros literales grandes son del tipo de entero correcto. Por ejemplo, `UInt64(0xffff_ffff_ffff_ffff)` resulta en el valor correcto en lugar de desbordarse.
 
-La concurrencia requiere Swift 5.5 o posterior, y una versión de la biblioteca estándar de Swift que proporcione los tipos de concurrencia correspondientes. En las plataformas de Apple, establece un _target_ de implementación de al menos iOS 15, macOS 12, tvOS 15, o watchOS 8.0.
+La concurrencia requiere Swift 5.8 o posterior, y una versión de la biblioteca estándar de Swift que proporcione los tipos de concurrencia correspondientes. En las plataformas de Apple, establece un _target_ de implementación de al menos iOS 13, macOS 10.15, tvOS 13, o watchOS 6.
 
-Un _target_ desarrollado en Swift 5.5 puede depender de uno desarrollado en Swift 4.2 o Swift 4, y viceversa. Esto significa que si tienes un proyecto grande que está dividido en varios _frameworks_, podrás migrar tu código de Swift 4 a Swift 5.5 un _framework_ a la vez.
+Un _target_ escrito en Swift 5.8 puede depender de uno escrito en Swift 4.2 o Swift 4, y viceversa. Esto significa que si tienes un proyecto grande que está dividido en varios _frameworks_, podrás migrar tu código de Swift 4 a Swift 5.8 un _framework_ a la vez.

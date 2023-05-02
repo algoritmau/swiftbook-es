@@ -1,0 +1,69 @@
+---
+env:
+  browser: true
+  es2021: true
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: latest
+  sourceType: module
+
+extends:
+  - next/core-web-vitals
+  - eslint:recommended
+  - eslint-next-config
+
+plugins:
+  - react
+
+rules:
+  arrow-body-style:
+    - error
+    - as-needed
+    - { requireReturnForObjectLiteral: true }
+  camelcase: error
+  capitalized-comments:
+    - error
+    - always
+    - { ignoreConsecutiveComments: true }
+  comma-dangle:
+    - error
+    - never
+  consistent-return: off
+  curly:
+    - error
+    - multi
+  default-case: error
+  default-case-last: error
+  dot-notation: error
+  multiline-comment-style:
+    - error
+    - starred-block
+  newline-before-return: error
+  no-alert: error
+  no-use-before-define: error
+  no-unused-vars: error
+  semi:
+    - error
+    - never
+  use-isnan: error
+
+  import/extensions:
+    - error
+    - ignorePackages
+    - ts: never
+    - tsx: never
+
+  promise/catch-or-return: error
+
+  prettier/prettier: warn
+
+  react/jsx-filename-extension: off
+  react/jsx-props-no-spreading: off
+  react/prop-types: off
+  react/react-in-jsx-scope: off
+  react/function-component-definition:
+    - error
+    - namedComponents: arrow-function
+    - unnamedComponents: arrow-function

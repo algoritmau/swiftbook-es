@@ -2,26 +2,31 @@
 title: Operadores Básicos
 ---
 
-import CodeSnippet from '../../components/CodeSnippet.js'
-import Callout from '../../components/Callout.js'
+import Callout from '@components/Callout'
+import DynamicImage from '@components/DynamicImage'
+import Hero from '@components/Hero'
 
-# Operadores Básicos
+<Hero>
+  # Operadores Básicos
 
-Un _operador_ es un símbolo o frase especial que se utiliza para verificar, cambiar o combinar valores. Por ejemplo, el operador de adición (`+`) suma dos números, como en `let i = 1 + 2`, mientras que el operador lógico Y (_AND_) —`&&`— combina dos valores booleanos, como en `if codigoPuertaIngresado && aproboEscanerDeRetina`.
+  Realiza operaciones como asignación, aritmética, y comparación.
+</Hero>
 
-Swift provee los operadores que puede que ya conozcas de lenguajes como C, y mejora varios aspectos con el fin de eliminar errores comunes de codificación. El operador de asignación (`=`) no devuelve un valor, esto, con el fin evitar que se utilice erróneamente cuando se pretende usar el operador «igual que» (`==`). Los operadores aritméticos (`+`, `-`, `*`, `/`, `%`, y demás) detectan y bloquean el desbordamiento de valores, para prevenir resultados inesperados al trabajar con números que se puedan hacer más grandes o más pequeños que el rango de valor permitido por el tipo que los almacena. Puedes habilitar el mecanismo de desbordamiento de valores en Swift, mediante el uso de los operadores de desbordamiento, como se describe en [Operadores de desbordamiento](./operadores-avanzados#operadores-de-desbordamiento).
+Un _operador_ es un símbolo o frase especial que se utiliza para verificar, cambiar o combinar valores. Por ejemplo, el operador de adición (`+`) suma dos números —como en `let i = 1 + 2`— y el operador lógico _AND_ (`&&`) combina dos valores booleanos —como en `if ingresoCodigoPuerta && aproboEscanerDeRetina`—.
 
-Swift también proporciona «operadores de rango» —los cuales no existen en C—, tales como `a..<b` y `a...b`, como una forma concisa de expresar un rango de valores.
+Swift soporta los operadores que puede que ya conozcas de lenguajes como C, y mejora muchos aspectos con el fin de eliminar errores comunes de codificación. El operador de asignación (`=`) no devuelve un valor; esto, con el fin de evitar que se utilice erróneamente cuando lo que se pretende es usar el operador «igual que» (`==`). Los operadores aritméticos (`+`, `-`, `*`, `/`, `%`, y demás) detectan e impiden el desbordamiento de valores, para prevenir resultados inesperados al trabajar con números que se puedan hacer más grandes o más pequeños que el rango de valor permitido por el tipo que los almacena. Puedes habilitar el mecanismo de desbordamiento de valores en Swift mediante el uso de los operadores de desbordamiento, como se describe en [Operadores de desbordamiento](./operadores-avanzados#operadores-de-desbordamiento).
 
-Este capítulo describe los operadores más comunes de Swift. En [Operadores avanzados](./operadores-avanzados), se cubren los operadores avanzados de Swift, y se describe cómo definir tus propios operadores e implementar los operadores estándar para crear tus propios tipos.
+Swift también provee «operadores de rango» —los cuales no existen en C—, tales como `a..<b` y `a...b`, como una forma concisa de expresar un rango de valores.
+
+Este capítulo describe los operadores comunes de Swift. En [Operadores avanzados](./operadores-avanzados), se cubren los operadores avanzados de Swift, y se describe cómo definir tus propios operadores e implementar los operadores estándar para crear tus propios tipos.
 
 ## Terminología
 
 Los operadores pueden ser unarios, binarios o ternarios:
 
-- Los operadores _unarios_ operan en un solo elemento (como `-a`). Los operadores unarios _prefijo_ aparecen inmediatamente _antes_ de su objetivo (como en `!b`), y los operadores unarios _posfijo_ aparecen inmediatamente _después_ de su objetivo (como en `c!`).
-- Los operadores _binarios_ operan en dos elementos (como en `2 + 3`) y son _interfijos_, ya que aparecen entre sus dos objetivos.
-- Los operadores _ternarios_ operan en tres elementos. Al igual que C, Swift solo tiene un operador ternario: el operador condicional ternario (`a ? b : c`).
+- Los operadores _unarios_ operan sobre un solo elemento (como `-a`). Los operadores unarios _prefijo_ aparecen inmediatamente _antes_ de su objetivo (como en `!b`), y los operadores unarios _posfijo_ aparecen inmediatamente _después_ de su objetivo (como en `c!`).
+- Los operadores _binarios_ operan sobre dos elementos (como en `2 + 3`) y son _interfijos_, ya que aparecen entre sus dos objetivos.
+- Los operadores _ternarios_ operan sobre tres elementos. Al igual que C, Swift solo tiene un operador ternario: el operador condicional ternario (`a ? b : c`).
 
 Los valores sobre los que actúa un operador se conocen como _operandos_. En la expresión `1 + 2`, el símbolo `+` es un operador interfijo y sus dos operandos son los valores `1` y `2`.
 
@@ -29,92 +34,98 @@ Los valores sobre los que actúa un operador se conocen como _operandos_. En la 
 
 El operador de _asignación_ `(=)` se usa para asignar un valor. Al nombre del operando a la izquierda se le asigna el valor del operando a la derecha. En la expresión `a = b`, se inicializa o actualiza el valor de `a` con el valor de `b`:
 
-<CodeSnippet>
-  {`let b = 10
-var a = 5\n
+```swift showLineNumbers
+let b = 10
+var a = 5
+
 a = b
-// a es ahora igual a 10`}
-</CodeSnippet>
+// ahora, a es igual a 10
+```
 
 Si el lado derecho de la asignación es una tupla con múltiples valores, sus elementos se pueden descomponer en múltiples constantes o variables al mismo tiempo:
 
-<CodeSnippet>
-  {`let (x, y) = (1, 2)
-// x es igual a 1, y y es igual a 2`}
-</CodeSnippet>
+```swift showLineNumbers
+let (x, y) = (1, 2)
+// x es igual a 1, y y es igual a 2
+```
 
-A diferencia del operador de asignación en C y Objective-C, el operador de asignación en Swift no devuelve un valor. La siguiente instrucción no es válida:
+A diferencia del operador de asignación en C y Objective-C, el operador de asignación de Swift no devuelve un valor. La siguiente instrucción no es válida:
 
-<CodeSnippet>
-  {`if x = y {
-    // Esto no es válido, porque x = y no devuelve un valor.
-}`}
-</CodeSnippet>
+```swift showLineNumbers
+if x = y {
+  // Esto no es válido, porque x = y no devuelve un valor.
+}
+```
 
 Esta característica previene el uso accidental del operador de asignación (`=`) en ocasiones en las cuales, en realidad, se desea usar el operador «igual que» (`==`). Al hacer `if x = y` inválido, Swift te ayuda a evitar este tipo de errores en tu código.
 
 ## Operadores aritméticos
 
-Swift provee los cuatro _operadores aritméticos_ estándar para todos los tipos numéricos:
+Swift soporta los cuatro _operadores aritméticos_ estándar para todos los tipos numéricos:
 
 - Suma (`+`)
 - Resta (`-`)
 - Multiplicación (`*`)
 - División (`/`)
 
-<CodeSnippet>
-  {`1 + 2       // igual a 3
-5 - 3       // igual a 2
-2 * 3       // igual a 6
-10.0 / 2.5  // igual a 4.0`}
-</CodeSnippet>
+```swift showLineNumbers
+1 + 2       // es igual a 3
+5 - 3       // es igual a 2
+2 * 3       // es igual a 6
+10.0 / 2.5  // es igual a 4.0
+```
 
-A diferencia de los operadores aritméticos en C y Objective-C, los operadores aritméticos en Swift no permiten, por defecto, el desborde de valores. Puedes habilitar el mecanismo de desbordamiento de valores utilizando los operadores de desbordamiento de Swift (como en `a &+ b`). Para más información, visita [Operadores de desbordamiento](./operadores-avanzados#operadores-de-desbordamiento).
+A diferencia de los operadores aritméticos en C y Objective-C, los operadores aritméticos de Swift no permiten, por defecto, el desborde de valores. Puedes habilitar el mecanismo de desbordamiento de valores utilizando los operadores de desbordamiento de Swift (como en `a &+ b`). Para más información, visita [Operadores de desbordamiento](./operadores-avanzados#operadores-de-desbordamiento).
 
 El operador de adición también soporta la concatenación de cadenas:
 
-<CodeSnippet>{`"Hola, " + "mundo"  // es igual a "Hola, mundo"`}</CodeSnippet>
+```swift showLineNumbers
+"Hola, " + "mundo"  // es igual a "Hola, mundo"
+```
 
-### Operador de resto
+### Operador de residuo
 
-El _operador de resto_ (`%`) se usa para calcular el resto de la división de dos valores enteros `Int`. En la expresión `a % b`, el operador de resto calcula cuántas veces cabe `b` en `a` y devuelve el valor que queda (conocido como _resto_).
+El _operador de residuo_ (`%`) se usa para calcular el residuo de la división de dos valores enteros `Int`. En la expresión `a % b`, el operador de residuo calcula cuántas veces cabe `b` en `a` y devuelve el valor restante (conocido como _residuo_).
 
 <Callout>
-  Al operador de resto (`%`) se le conoce también como _operador módulo_ en
-  otros lenguajes. Sin embargo, su comportamiento en Swift con número negativos
-  significa que —estrictamente hablando—, es una operación de resto más que de
-  tipo módulo.
+  Al operador de residuo (`%`) se le conoce también como _operador módulo_ en
+  otros lenguajes. Sin embargo, su comportamiento en Swift para números
+  negativos significa que —estrictamente hablando— es una operación de residuo
+  más que de tipo módulo.
 </Callout>
 
-Así es como funciona el operador de resto. Para calcular `9 % 4`, primero se calcula cuántos `4`s caben en un `9`:
+Así es como funciona el operador de residuo. Para calcular `9 % 4`, primero se calcula cuántos `4`s caben en un `9`:
 
-<img
-  src="/assets/images/remainderInteger_2x.png"
+<DynamicImage
+  baseName="remainderInteger"
   alt="Graphical illustration of the remainder operation"
-  width={337}
-  height={66}
-  className="figure-small"
+  width={288}
+  height={61}
 />
 
-Es posible insertar dos `4`s en un `9`, y resta `1` (se muestra en naranja).
+Es posible insertar dos `4`s en un `9`, y el restante es `1` (la franja color anaranjado).
 
 En Swift, esto se escribiría como:
 
-<CodeSnippet>{`9 % 4    // es igual a 1`}</CodeSnippet>
+```swift showLineNumbers
+9 % 4    // es igual a 1
+```
 
-Para determinar la respuesta de `a % b`, el operador `%` calcula la siguiente ecuación y arroja `resto` como su valor a devolver:
+Para determinar la respuesta de `a % b`, el operador `%` calcula la siguiente ecuación y arroja `residuo` como su valor a devolver:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`a` = (`b` × `algún multiplicador`) + `resto`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`a` = (`b` × `algún multiplicador`) + `residuo`
 
-donde `algún multiplicador` es el mayor número de múltiplos de `b` que caben en `a`.
+donde `algún multiplicador` es el número mayor de múltiplos de `b` que caben en `a`.
 
 Al insertar `9` y `4` en esta ecuación, se tiene que:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`9` = (`4` × `2`) + `1`
 
-El mismo método se aplica al calcular el resto para un valor negativo de `a`:
+El mismo método se aplica al calcular el residuo para un valor negativo de `a`:
 
-<CodeSnippet>{`-9 % 4   // es igual a -1`}</CodeSnippet>
+```swift showLineNumbers
+-9 % 4   // es igual a -1
+```
 
 Al insertar `-9` y `4` en esta ecuación, se tiene que:
 
@@ -128,36 +139,37 @@ El signo de `b` es ignorado para valores negativos de `b`. Esto significa que la
 
 El signo de un valor numérico se puede alternar con el prefijo `-`, conocido como el _operador unario de resta_:
 
-<CodeSnippet>
-  {`let tres = 3
+```swift showLineNumbers {2, 3} /-tres/ /-menosTres/
+let tres = 3
 let menosTres = -tres       // menosTres es igual a -3
-let masTres = -menosTres    // masTres es igual a 3, o «menos menos tres»`}
-</CodeSnippet>
+let masTres = -menosTres    // masTres es igual a 3, o «menos menos tres»
+```
 
 El operador unario de resta (`-`) precede directamente a su operando, sin ningún espacio en blanco.
 
 ### Operador unario de suma
 
-El _operador unario de suma_ (`+`) simplemente devuelve el valor de su operando, sin ningún cambio.:
+El _operador unario de suma_ (`+`) simplemente devuelve el valor de su operando, sin ningún cambio:
 
-<CodeSnippet>
-  {`let menosSeis = -6
-let tambienMenosSeis = +menosSeis  // tambienMenosSeis es igual a -6`}
-</CodeSnippet>
+```swift showLineNumbers {2} /+/
+let menosSeis = -6
+let tambienMenosSeis = +menosSeis  // tambienMenosSeis es igual a -6
+```
 
-Aunque el operador unario de suma no hace nada como tal, puedes usarlo (con números positivos) para darle simetría a tu código cuando haces uso del operador unario de resta para números negativos.
+Aunque el operador unario de suma no hace nada como tal, puedes usarlo para darle simetría a tu código (para los números positivos) cuando también usas el operador unario de resta para números negativos.
 
 ## Operadores de asignación compuesta
 
 Al igual que C, Swift ofrece _operadores de asignación compuesta_, los cuales combinan asignación (`=`) con otra operación. Un ejemplo de esto es el _operador de adición asignación_ (`+=`):
 
-<CodeSnippet>
-  {`var a = 1\n
-a += 2
-// a es ahora igual a 3`}
-</CodeSnippet>
+```swift showLineNumbers {3} /+=/
+var a = 1
 
-La expresión `a += 2` es la forma concisa de `a = a + 2`. Efectivamente, la adición y la asignación se combinan en un operador que realiza ambas operaciones al mismo tiempo.
+a += 2
+// ahora, a es igual a 3
+```
+
+La expresión `a += 2` es la forma concisa de `a = a + 2`. Efectivamente, la adición y la asignación se combinan en un único operador que realiza ambas operaciones al mismo tiempo.
 
 <Callout>
   Los operadores de asignación compuesta no devuelven un valor. Por ejemplo, no
@@ -186,45 +198,46 @@ Swift cuenta con los siguientes operadores de comparación:
 
 Cada uno de los operadores de comparación devuelve un valor booleano, para indicar si un enunciado es verdadero (`true`) o falso (`false`):
 
-<CodeSnippet>
-  {`1 == 1   // true porque 1 es igual a 1
+```swift showLineNumbers
+1 == 1   // true porque 1 es igual a 1
 2 != 1   // true porque 2 no es igual a 1
 2 > 1    // true porque 2 es mayor que 1
 1 < 2    // true porque 1 es menor que 2
 1 >= 1   // true porque 1 es mayor o igual a 1
-2 <= 1   // false porque 2 no es mayor o igual a 1`}
-</CodeSnippet>
+2 <= 1   // false porque 2 no es menor o igual a 1
+```
 
 Los operadores de comparación se utilizan, a menudo, en las instrucciones condicionales; como, por ejemplo, en la instrucción `if`:
 
-<CodeSnippet>
-  {`let nombre = "mundo"\n
+```swift showLineNumbers {3} /==/
+let nombre = "mundo"
+
 if nombre == "mundo" {
     print("Hola, mundo.")
 } else {
-    print("Lo siento, \\(nombre), pero no te reconozco.")
+    print("Lo siento, \(nombre), pero no te reconozco.")
 }
-// Imprime "Hola, mundo." porque nombre es, en efecto, igual a "mundo".`}
-</CodeSnippet>
+// Imprime "Hola, mundo." porque nombre es, en efecto, igual a "mundo".
+```
 
 Para más información sobre la instrucción `if`, visita [Flujo de control](./flujo-de-control).
 
-Puedes comparar dos tuplas si estas tienen el mismo tipo y el mismo número de valores. Las tuplas se comparan de izquierda a derecha, un valor a la vez, hasta que la comparación encuentra dos valores que no sean iguales. En caso de existir, estos dos valores son comparados y el resultado de dicha comparación determinará el resultado general de la comparación de las tuplas. Si todos los elementos de ambas tuplas son iguales, entonces las tuplas son consideradas iguales. Por ejemplo:
+Puedes comparar dos tuplas si estas tienen el mismo tipo y el mismo número de valores. Las tuplas se comparan de izquierda a derecha, un valor a la vez, hasta que la comparación encuentra dos valores que no sean iguales. En tal caso, esos dos valores son comparados y el resultado de dicha comparación determinará el resultado general de la comparación de las tuplas. Si todos los elementos de ambas tuplas son iguales, entonces las tuplas son consideradas iguales. Por ejemplo:
 
-<CodeSnippet>
-  {`(1, "pantera") < (2, "manzana")   // true porque 1 es menor que 2; "pantera" y "manzana" no se comparan
+```swift showLineNumbers
+(1, "pantera") < (2, "manzana")    // true porque 1 es menor que 2; "pantera" y "manzana" no se comparan
 (3, "manzana") < (3, "naranja")    // true porque 3 es igual a 3, y "manzana" es menor que "naranja"
-(4, "perro") == (4, "perro")       // true porque 4 es igual a 4, y "perro" es igual a "perro"`}
-</CodeSnippet>
+(4, "perro") == (4, "perro")       // true porque 4 es igual a 4, y "perro" es igual a "perro"
+```
 
 En el ejemplo anterior, puedes notar el mecanismo de comparación de izquierda a derecha en la primera línea. Dado que `1` es menor que `2`, `(1, "pantera")` es considerada menor que `(2, "manzana")`, independientemente de cualquier otro valor de las tuplas. No importa que `"pantera"` no sea menor que `"manzana"`, porque la comparación ya ha sido determinada por los primeros elementos de los tuplas. Sin embargo, cuando los primeros elementos de las tuplas son iguales, sus segundos elementos _sí_ son comparados; esto es lo que ocurre en las líneas segunda y tercera.
 
-Las tuplas se pueden comparar con un determinado operador solo si dicho operador puede ser aplicado a cada valor en las respectivas tuplas. Por ejemplo, como se demuestra en el código a continuación, es posible comparar dos tuplas de tipo `(String, Int)` porque tanto los valores tipo `String` como los tipo `Int` pueden compararse usando el operador `<`. Contrario a esto, dos tuplas de tipo `(String, Bool)` no pueden ser comparadas usando el operador `<` porque este operador no puede ser usado con valores tipo `Bool`.
+Las tuplas solo pueden ser comparadas mediante un determinado operador si dicho operador puede operar sobre cada valor de las respectivas tuplas. Por ejemplo, como se demuestra en el código a continuación, resulta posible comparar dos tuplas de tipo `(String, Int)` porque tanto los valores de tipo `String` como los de tipo `Int` pueden ser comparados mediante el operador `<`. Contrario a esto, dos tuplas de tipo `(String, Bool)` no pueden compararse mediante el operador `<` porque dicho operador no puede operar sobre valores de tipo `Bool`.
 
-<CodeSnippet>
-  {`("azul", -1) < ("morado", 1)        // OK, evalúa a true
-("azul", false) < ("morado", true)  // Error porque < no puede comparar valores booleanos`}
-</CodeSnippet>
+```swift showLineNumbers
+("azul", -1) < ("morado", 1)        // OK, evalúa a true
+("azul", false) < ("morado", true)  // Error porque < no puede comparar valores booleanos
+```
 
 <Callout>
   La librería estándar de Swift incluye operadores de comparación de tuplas para
@@ -234,44 +247,45 @@ Las tuplas se pueden comparar con un determinado operador solo si dicho operador
 
 ## Operador condicional ternario
 
-El _operador condicional ternario_ es un operador especial, con tres operandos, el cual toma la forma `pregunta ? respuesta1 : respuesta2`. Es un atajo para evaluar una de las dos expresiones, basado en el hecho de que `pregunta` evalúe a verdadero (`true`) o falso (`false`). Si el valor de `pregunta` es `true`, el operador evalúa `respuesta1` y devuelve su valor; de lo contrario, evalúa `respuesta2` y devuelve su valor.
+El _operador condicional ternario_ es un operador especial, con tres operandos, el cual toma la forma `pregunta ? respuesta1 : respuesta2`. Es un atajo para evaluar una de las dos expresiones dependiendo si `pregunta` es verdadero o falso. Si el valor de `pregunta` es `true`, el operador evalúa `respuesta1` y devuelve su valor. De lo contrario, el operador evalúa `respuesta2` y devuelve su valor.
 
 El operador condicional ternario es un atajo para el código a continuación:
 
-<CodeSnippet>
-  {`if pregunta {
+```swift showLineNumbers
+if pregunta {
     respuesta1
 } else {
     respuesta2
-}`}
-</CodeSnippet>
+}
+```
 
-Aquí hay un ejemplo, en el que se calcula la altura de la fila de una tabla. La altura de la fila debe ser 50 unidades más alta que la altura del contenido, si la fila tiene un encabezado, y 20 unidades más alta si la fila no tiene un encabezado:
+Acá tenemos un ejemplo, en el que se calcula la altura de la fila de una tabla. La altura de la fila debe ser 50 unidades más alta que la altura de su contenido, si la fila tiene un encabezado, y 20 unidades más alta si la fila no tiene un encabezado:
 
-<CodeSnippet>
-  {`let alturaContenido = 40
+```swift showLineNumbers {3}
+let alturaContenido = 40
 let tieneEncabezado = true
 let alturaFila = alturaContenido + (tieneEncabezado ? 50 : 20)
-// alturaFila es igual a 90`}
-</CodeSnippet>
+// alturaFila es igual a 90
+```
 
 El ejemplo anterior es una forma concisa del código a continuación:
 
-<CodeSnippet>
-  {`let alturaContenido = 40
+```swift showLineNumbers
+let alturaContenido = 40
 let tieneEncabezado = true
-let alturaFila: Int\n
+let alturaFila: Int
+
 if tieneEncabezado {
     alturaFila = alturaContenido + 50
 } else {
     alturaFila = alturaContenido + 20
 }
-// alturaFila es igual a 90`}
-</CodeSnippet>
+// alturaFila es igual a 90
+```
 
 El uso del operador condicional ternario en el primer ejemplo significa que a `alturaFila` se le puede asignar el valor correcto en una sola línea de código, lo cual es más conciso que el código utilizado en el segundo ejemplo.
 
-El operador condicional ternario proporciona un atajo eficiente para decidir cuál de las dos expresiones considerar. Sin embargo, debes utilizar el operador condicional ternario con cuidado. Abusar de lo conciso puede conllevar a escribir código difícil de leer. Evita combinar múltiples instancias del operador condicional ternario en un mismo enunciado compuesto.
+El operador condicional ternario proporciona un atajo eficiente para decidir cuál de las dos expresiones considerar. Sin embargo, debes utilizar el operador condicional ternario con cuidado. Abusar de lo conciso puede resultar en un código difícil de leer. Evita combinar múltiples instancias del operador condicional ternario en un mismo enunciado compuesto.
 
 ## Operador _nil-coalescing_
 
@@ -279,9 +293,11 @@ El _operador nil-coalescing_ (`a ?? b`) extrae un opcional `a`, si este contiene
 
 El operador _nil-coalescing_ es una forma concisa del código a continuación:
 
-<CodeSnippet>{`a != nil ? a! : b`}</CodeSnippet>
+```swift showLineNumbers
+a != nil ? a! : b
+```
 
-El código anterior utiliza el operador condicional ternario y la extracción forzada (`a!`) para acceder al valor contenido por `a` cuando `a` no es `nil`, y para devolver `b` en el caso contrario. El operador _nil-coalescing_ brinda una manera más elegante de encapsular esta verificación y extracción condicionales de forma más concisa y legible.
+El código anterior utiliza el operador condicional ternario y la extracción forzada (`a!`) para acceder al valor contenido por `a` cuando `a` no es `nil`, y para devolver `b` en el caso contrario. El operador _nil-coalescing_ brinda una manera más elegante de encapsular esta verificación y extracción condicionales de forma concisa y legible.
 
 <Callout>
   Si el valor de `a` no es `nil`, el valor de `b` no es evaluado. A esto se le
@@ -290,28 +306,30 @@ El código anterior utiliza el operador condicional ternario y la extracción fo
 
 El siguiente ejemplo, utiliza el operador _nil-coalescing_ para elegir entre un nombre de color predeterminado y un nombre de color opcional, definido por el usuario:
 
-<CodeSnippet>
-  {`let nombreColorPredeterminado = "rojo"
-var nombreColorDefinidoPorUsuario: String?   // resulta en nil, por defecto\n
-var nombreColorParaUsar = nombreColorDefinidoPorUsuario ?? nombreColorPredeterminado
-// nombreColorDefinidoPorUsuario es nil, por lo que a nombreColorParaUsar
-// se le asigna el valor predeterminado de "rojo"`}
-</CodeSnippet>
+```swift showLineNumbers {4}
+let nombreColorPredeterminado = "rojo"
+var nombreColorDefinidoPorUsuario: String?   // por defecto, resulta en nil
 
-La variable `nombreColorDefinidoPorUsuario` se define como un `String` opcional, con un valor predeterminado de `nil`. Como el tipo de `nombreColorDefinidoPorUsuario` es opcional, puedes usar el operador _nil-coalescing_ para considerar su valor. En el ejemplo anterior, el operador es utilizado para determinar un valor inicial para una variable de tipo `String` llamada `nombreColorParaUsar`. Dado que `nombreColorDefinidoPorUsuario` es `nil`, la expresión `nombreColorDefinidoPorUsuario ?? nombreColorPredeterminado` devuelve el valor de `nombreColorPredeterminado`, es decir, `"rojo"`.
+var nombreColorAUsar = nombreColorDefinidoPorUsuario ?? nombreColorPredeterminado
+// nombreColorDefinidoPorUsuario es nil, por lo que a nombreColorAUsar
+// se le asigna el valor predeterminado de "rojo"
+```
 
-Si asignas un valor diferente de `nil` a `nombreColorDefinidoPorUsuario` y ejecutas la verificación con el operador _nil-coalescing_ nuevamente, el valor contenido por `nombreColorDefinidoPorUsuario` se usará en lugar del predeterminado:
+La variable `nombreColorDefinidoPorUsuario` se define como un `String` opcional, con un valor predeterminado de `nil`. Como el tipo de `nombreColorDefinidoPorUsuario` es opcional, puedes usar el operador _nil-coalescing_ para considerar su valor. En el ejemplo anterior, el operador es utilizado para determinar un valor inicial para una variable de tipo `String` llamada `nombreColorAUsar`. Dado que `nombreColorDefinidoPorUsuario` es `nil`, la expresión `nombreColorDefinidoPorUsuario ?? nombreColorPredeterminado` devuelve el valor de `nombreColorPredeterminado`, es decir, `"rojo"`.
 
-<CodeSnippet>
-  {`nombreColorDefinidoPorUsuario = "verde"\n
-nombreColorParaUsar = nombreColorDefinidoPorUsuario ?? nombreColorPredeterminado
-// nombreColorDefinidoPorUsuario no es nil, por lo que a nombreColorParaUsar
-// se le asigna "verde"`}
-</CodeSnippet>
+Si a `nombreColorDefinidoPorUsuario` le asignas un valor diferente a `nil` y ejecutas la verificación con el operador _nil-coalescing_ nuevamente, el valor contenido por `nombreColorDefinidoPorUsuario` se usará en lugar del predeterminado:
+
+```swift showLineNumbers {3}
+nombreColorDefinidoPorUsuario = "verde"
+
+nombreColorAUsar = nombreColorDefinidoPorUsuario ?? nombreColorPredeterminado
+// nombreColorDefinidoPorUsuario no es nil, por lo que a nombreColorAUsar
+// se le asigna "verde"
+```
 
 ## Operadores de rango
 
-Swift incluye varios _operadores de rango_, que son maneras concisas de expresar un rango de valores.
+Swift incluye muchos _operadores de rango_, los cuales son maneras concisas de expresar un rango de valores.
 
 ### Operador de rango cerrado
 
@@ -319,79 +337,82 @@ El _operador de rango cerrado_ (`a...b`) define un rango que va de `a` a `b`, e 
 
 El operador de rango cerrado es útil al iterar sobre un rango, del cual se desean usar todos sus valores, como en el caso de un ciclo `for-in`:
 
-<CodeSnippet>
-  {`for index in 1...5 {
-    print("\\(index) multiplicado por 5 es \\(index * 5)")
+```swift showLineNumbers {1} /1...5/
+for indice in 1...5 {
+    print("\(indice) multiplicado por 5 es \(indice * 5)")
 }
 // 1 multiplicado por 5 es 5
 // 2 multiplicado por 5 es 10
 // 3 multiplicado por 5 es 15
 // 4 multiplicado por 5 es 20
-// 5 multiplicado por 5 es 25`}
-</CodeSnippet>
+// 5 multiplicado por 5 es 25
+```
 
 Para más información sobre los ciclos `for-in`, visita [Flujo de control](./flujo-de-control).
 
 ### Operador de rango semiabierto
 
-El _operador de rango semiabierto_ (`a..<b`) define un rango que va de `a` a `b`, pero _no incluye_ a `b`. Se considera _semiabierto_ porque contiene su primer valor, pero no el valor final. Al igual que con el operador de rango cerrado, el valor de `a` no debe ser mayor que el de `b`. Si el valor de `a` es igual a `b`, entonces el rango será un rango vacío.
+El _operador de rango semiabierto_ (`a..<b`) define un rango que va de `a` a `b`, pero que _no incluye_ a `b`. Se considera _semiabierto_ porque contiene su primer valor, pero no a su valor final. Al igual que con el operador de rango cerrado, el valor de `a` no debe ser mayor que el de `b`. Si el valor de `a` es igual a `b`, entonces el rango será un rango vacío.
 
 Los rangos semiabiertos son particularmente útiles al trabajar con listas basadas en cero, como los _arrays_, donde resulta conveniente contar hasta (pero sin incluir) la longitud de la lista:
 
-<CodeSnippet>
-  {`let nombres = ["Ana", "Alejandro", "Cindy", "Laura"]
-let conteo = nombres.count\n
+```swift showLineNumbers {4} /0..<conteo/
+let nombres = ["Ana", "Alejandro", "Cindy", "Laura"]
+let conteo = nombres.count
+
 for i in 0..<conteo {
-    print("La persona #\\(i + 1) se llama \\(nombres[i])")
+    print("La persona #\(i + 1) se llama \(nombres[i])")
 }
 // La persona #1 se llama Ana
 // La persona #2 se llama Alejandro
 // La persona #3 se llama Cindy
-// La persona #4 se llama Laura`}
-</CodeSnippet>
+// La persona #4 se llama Laura
+```
 
-Nota que el _array_ contiene cuatro elementos, pero `0..<conteo` solo cuenta hasta `3` (el índice del último elemento en el _array_), porque es un rango semiabierto. Para más información sobre _arrays_, visita [Arrays](./tipos-de-colecciones#arrays).
+Observa que el _array_ contiene cuatro elementos, pero `0..<conteo` solo cuenta hasta `3` (el índice del último elemento en el _array_), porque es un rango semiabierto. Para más información sobre _arrays_, visita [Arrays](./tipos-de-colecciones#arrays).
 
 ### Rangos unilaterales
 
-El operador de rango cerrado cuenta con una forma alternativa para los rangos que continúan lo más lejos posible en una dirección; por ejemplo, un rango que incluye todos los elementos de un _array_ desde el índice 2 hasta el final del _array_. En estos casos, puedes omitir el valor en uno de los lados del operador. A este tipo de rangos se les denomina _rango unilateral_, porque el operador tiene un valor, solamente, en uno de los lados. Por ejemplo:
+El operador de rango cerrado cuenta con una forma alternativa para rangos que continúan lo más lejos posible en una dirección; por ejemplo, un rango que incluye todos los elementos de un _array_ desde el índice 2 hasta el final del _array_. En estos casos, puedes omitir el valor en uno de los lados del operador. A este tipo de rangos se les denomina _rangos unilaterales_, porque el operador tiene un valor, solamente, en uno de los lados. Por ejemplo:
 
-<CodeSnippet>
-  {`for nombre in nombres[2...] {
+```swift showLineNumbers {1, 7} /2.../ /...2/
+for nombre in nombres[2...] {
     print(nombre)
 }
 // Cindy
-// Laura\n
+// Laura
+
 for nombre in nombres[...2] {
     print(nombre)
 }
 // Ana
 // Alejandro
-// Cindy`}
-</CodeSnippet>
+// Cindy
+```
 
 El operador de rango semiabierto también tiene una forma unilateral, donde solo se escribe su valor final. Al igual que cuando incluyes un valor en ambos lados, el valor final no forma parte del rango. Por ejemplo:
 
-<CodeSnippet>
-  {`for nombre in nombres[..<2] {
+```swift showLineNumbers {1} /..<2/
+for nombre in nombres[..<2] {
     print(nombre)
 }
 // Ana
-// Alejandro`}
-</CodeSnippet>
+// Alejandro
+```
 
 Los rangos unilaterales se pueden utilizar en otros contextos, no solo en los _subscripts_. No puedes iterar sobre un rango unilateral que omita un primer valor, ya que no estaría claro donde debe comenzar la iteración. Aunque _sí puedes_ iterar en un rango unilateral que omita su valor final; sin embargo, como el rango continúa indefinidamente, asegúrate de agregar una condición final explícita para el ciclo. También puedes verificar si un rango unilateral contiene un valor en particular, como se muestra en el código a continuación.
 
-<CodeSnippet>
-  {`let rango = ...5\n
+```swift showLineNumbers {1} /...5/
+let rango = ...5
+
 rango.contains(7)   // false
 rango.contains(4)   // true
-rango.contains(-1)  // true`}
-</CodeSnippet>
+rango.contains(-1)  // true
+```
 
 ## Operadores lógicos
 
-Los _operadores lógicos_ modifican o combinan los valores lógicos booleanos `true` y `false`. Swift provee los tres operadores lógicos básicos encontrados en lenguajes basados en C:
+Los _operadores lógicos_ modifican o combinan los valores lógicos booleanos `true` y `false`. Swift soporta los tres operadores lógicos básicos encontrados en lenguajes basados en C:
 
 - NO (_NOT_) lógico (`!`)
 - Y (_AND_) lógico (`&&`)
@@ -403,13 +424,14 @@ El _operador lógico NO_ (`!`) invierte un valor booleano, de manera que `true` 
 
 El operador lógico NO es un operador prefijo, y aparece inmediatamente antes de su operando, sin ningún espacio en blanco. Se puede leer como _«no `a`»_, como se observa en el siguiente ejemplo.:
 
-<CodeSnippet>
-  {`let entradaPermitida = false\n
+```swift showLineNumbers {3} /!/
+let entradaPermitida = false
+
 if !entradaPermitida {
     print("ACCESO DENEGADO")
 }
-// Imprime "ACCESO DENEGADO"`}
-</CodeSnippet>
+// Imprime "ACCESO DENEGADO"
+```
 
 La expresión `if !entradaPermitida` se puede leer como _«si no entrada permitida»_. La línea subsiguiente solo se ejecuta si _«no entrada permitida»_ es `true`; es decir, si `entradaPermitida` es `false`.
 
@@ -423,16 +445,17 @@ Si cualquiera de los dos valores es `false`, toda la expresión será `false`. D
 
 Este ejemplo considera dos valores de tipo `Bool` y solo permite el acceso si ambos valores son `true`:
 
-<CodeSnippet>
-  {`let codigoPuertaIngresado = true
-let aproboEscanerDeRetina = false\n
-if codigoPuertaIngresado && aproboEscanerDeRetina {
+```swift showLineNumbers {4} /&&/
+let ingresoCodigoPuerta = true
+let aproboEscanerDeRetina = false
+
+if ingresoCodigoPuerta && aproboEscanerDeRetina {
     print("¡Bienvenida!")
 } else {
     print("ACCESO DENEGADO")
 }
-// Imprime "ACCESO DENEGADO"`}
-</CodeSnippet>
+// Imprime "ACCESO DENEGADO"
+```
 
 ### Operador lógico O
 
@@ -442,35 +465,36 @@ Al igual que el operador lógico Y, el operador lógico O utiliza la evaluación
 
 En el siguiente ejemplo, el primer valor booleano (`tieneLlaveDeLaPuerta`) es `false`, pero el segundo valor (`conoceClaveMaestra`) es `true`. Dado que un valor es `true`, toda la expresión evalúa a `true`, y se permite el acceso:
 
-<CodeSnippet>
-  {`let tieneLlaveDeLaPuerta = false
-let conoceClaveMaestra = true\n
+```swift showLineNumbers {4} /||/
+let tieneLlaveDeLaPuerta = false
+let conoceClaveMaestra = true
+
 if tieneLlaveDeLaPuerta || conoceClaveMaestra {
     print("¡Bienvenida!")
 } else {
     print("ACCESO DENEGADO")
 }
-// Imprime "¡Bienvenida!"`}
-</CodeSnippet>
+// Imprime "¡Bienvenida!"
+```
 
 ### Combinación de operadores lógicos
 
 Puedes combinar múltiples operadores lógicos para crear expresiones compuestas más largas:
 
-<CodeSnippet>
-  {`if codigoPuertaIngresado && aproboEscanerDeRetina || tieneLlaveDeLaPuerta || conoceClaveMaestra {
+```swift showLineNumbers {1}
+if ingresoCodigoPuerta && aproboEscanerDeRetina || tieneLlaveDeLaPuerta || conoceClaveMaestra {
     print("¡Bienvenida!")
 } else {
     print("ACCESO DENEGADO")
 }
-// Imprime "¡Bienvenida!"`}
-</CodeSnippet>
+// Imprime "¡Bienvenida!"
+```
 
 Este ejemplo usa múltiples operadores `&&` y `||` para crear una expresión compuesta más larga. Sin embargo, los operadores `&&` y `||` siguen teniendo dos operandos solamente, por lo que son, en realidad, tres expresiones pequeñas unidas entre sí. El ejemplo puede leerse como:
 
 > «Si hemos ingresado el código correcto de la puerta y aprobado el escáner de retina o si tenemos una llave válida de la puerta o si conocemos la clave maestra de emergencia, entonces permítase el acceso.»
 
-Con base en los valores de `codigoPuertaIngresado`, `aproboEscanerDeRetina`, y `tieneLlaveDeLaPuerta`, las dos primeras subexpresiones son `false`. Sin embargo, se conoce la clave maestra de emergencia, por lo tanto, toda la expresión compuesta evalúa a `true`.
+Con base en los valores de `ingresoCodigoPuerta`, `aproboEscanerDeRetina`, y `tieneLlaveDeLaPuerta`, las dos primeras subexpresiones son `false`. Sin embargo, se conoce la clave maestra de emergencia, por lo tanto, toda la expresión compuesta evalúa a `true`.
 
 <Callout>
   Los operadores lógicos `&&` y `||` de Swift se asocian a la izquierda, lo que
@@ -482,13 +506,13 @@ Con base en los valores de `codigoPuertaIngresado`, `aproboEscanerDeRetina`, y `
 
 Algunas veces resulta conveniente incluir paréntesis —aunque no sea estrictamente necesario—, para hacer que la intención de una expresión compleja sea más fácil de leer. En el ejemplo anterior (acceso a la puerta), es útil agregar paréntesis alrededor de la primera parte de la expresión compuesta para hacer que su intención sea explícita:
 
-<CodeSnippet>
-  {`if (codigoPuertaIngresado && aproboEscanerDeRetina) || tieneLlaveDeLaPuerta || conoceClaveMaestra {
+```swift showLineNumbers {1} /(ingresoCodigoPuerta && aproboEscanerDeRetina)/
+if (ingresoCodigoPuerta && aproboEscanerDeRetina) || tieneLlaveDeLaPuerta || conoceClaveMaestra {
     print("¡Bienvenida!")
 } else {
     print("ACCESO DENEGADO")
 }
-// Imprime "¡Bienvenida!"`}
-</CodeSnippet>
+// Imprime "¡Bienvenida!"
+```
 
 Los paréntesis dejan en claro que los dos primeros valores se consideran como parte de un posible estado, aparte, en la lógica general. El resultado de la expresión compuesta no cambia, pero la intención general es más clara para el lector. Siempre elige la legibilidad sobre la brevedad; usa paréntesis donde estos ayuden a hacer tus intenciones claras.

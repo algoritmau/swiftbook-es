@@ -2,14 +2,18 @@
 title: Fundamentos
 ---
 
-import CodeSnippet from '../../components/CodeSnippet.js'
-import Callout from '../../components/Callout.js'
+import Callout from '@components/Callout'
+import Hero from '@components/Hero'
 
-# Fundamentos
+<Hero>
+  # Fundamentos
 
-Swift es un nuevo lenguaje de programación para desarrollar aplicaciones para iOS, macOS, watchOS, y tvOS. Sin embargo, muchas partes de Swift te resultarán familiares a partir de tu experiencia desarrollando en C y Objective-C.
+  Trabaja con tipos comunes de datos y escribe sintaxis básica.
+</Hero>
 
-Swift proporciona sus propias versiones de todos los tipos fundamentales de C y Objective-C, incluyendo `Int` para enteros, `Double` y `Float` para valores de punto flotante, `Bool` para valores de tipo _booleano_, y `String` para datos textuales. Swift también ofrece poderosas versiones de los tres tipos principales de colecciones: `Array`, `Set`, y `Dictionary`, como se describe en [Tipos de Colecciones](./tipos-de-colecciones).
+Swift es un lenguaje de programación para desarrollar aplicaciones para iOS, macOS, watchOS, y tvOS. Si tienes experiencia desarrollando en C u Objective-C, muchas partes de Swift te resultarán familiares.
+
+Swift proporciona sus propias versiones de todos los tipos fundamentales de C y Objective-C, incluyendo `Int` para enteros, `Double` y `Float` para valores de punto flotante, `Bool` para valores _booleanos_, y `String` para datos textuales. Swift también ofrece poderosas versiones de los tres tipos principales de colecciones: `Array`, `Set`, y `Dictionary`, como se describe en [Tipos de Colecciones](./tipos-de-colecciones).
 
 Al igual que C, Swift utiliza variables para almacenar y referenciar valores mediante un nombre de identificación. Swift también hace un uso extensivo de variables cuyos valores no se pueden modificar. Dichas variables se conocen como constantes y son mucho más poderosas que las constantes en C. En Swift, las constantes son utilizadas para hacer que el código resulte más seguro y más claro en la intención cuando se trabaja con valores que no necesitan cambiar.
 
@@ -27,10 +31,10 @@ Las constantes y variables asocian un nombre (como `numeroMaximoDeIntentosDeInic
 
 Las constantes y variables deben ser declararadas antes de ser utilizadas. Para declarar constantes, se usa la palabra clave `let`, mientras que las variables se declaran con la palabra clave `var`. A continuación, se muestra un ejemplo de cómo se pueden utilizar las constantes y variables para realizar un seguimiento del número de intentos de inicio de sesión que ha realizado un usuario:
 
-<CodeSnippet>
-  {`let numeroMaximoDeIntentosDeInicioDeSesion = 10
-var intentoActualDeInicioDeSesion = 0`}
-</CodeSnippet>
+```swift showLineNumbers
+let numeroMaximoDeIntentosDeInicioDeSesion = 10
+var intentoActualDeInicioDeSesion = 0
+```
 
 Este código puede leerse como:
 
@@ -40,7 +44,9 @@ En este ejemplo, el número máximo de intentos de inicio de sesión permitidos 
 
 Puedes declarar múltiples constantes o variables en una sola línea, separadas por comas:
 
-<CodeSnippet>{`var x = 0.0, y = 0.0, z = 0.0`}</CodeSnippet>
+```swift showLineNumbers
+var x = 0.0, y = 0.0, z = 0.0
+```
 
 <Callout>
   Si un valor almacenado en tu código nunca cambia, siempre debes declararlo
@@ -54,7 +60,9 @@ Al declarar una constante o variable, puedes proveer una _«definición de tipo�
 
 En este ejemplo se proporciona una definición de tipo para una variable llamada `mensajeDeBienvenida`, para indicar que la variable puede almacenar valores de tipo `String`:
 
-<CodeSnippet>{`var mensajeDeBienvenida: String`}</CodeSnippet>
+```swift showLineNumbers
+var mensajeDeBienvenida: String
+```
 
 Los dos puntos en la declaración significan _«…de tipo…»_, por lo que el código anterior se puede leer como:
 
@@ -64,11 +72,15 @@ La frase _«de tipo `String`"»_ significa _«puede almacenar cualquier valor de
 
 Ahora, a la variable `mensajeDeBienvenida` se le puede asignar cualquier cadena como valor sin ningún problema:
 
-<CodeSnippet>{`mensajeDeBienvenida = "Hola"`}</CodeSnippet>
+```swift showLineNumbers
+mensajeDeBienvenida = "Hola"
+```
 
 Puedes definir múltiples variables del mismo tipo en una sola línea, separadas por comas, con una única definición de tipo después del nombre de la última variable:
 
-<CodeSnippet>{`var rojo, verde, azul: Double`}</CodeSnippet>
+```swift showLineNumbers
+var rojo, verde, azul: Double
+```
 
 <Callout>
   En la práctica, resulta inusual la necesidad de escribir definiciones de tipo.
@@ -85,11 +97,11 @@ Puedes definir múltiples variables del mismo tipo en una sola línea, separadas
 
 Los nombres de constantes y variables pueden incluir casi cualquier caracter, incluyendo caracteres [Unicode](https://es.wikipedia.org/wiki/Unicode):
 
-<CodeSnippet>
-  {`let π = 3.14159
+```swift showLineNumbers
+let π = 3.14159
 let 你好 = "你好世界"
-let 🐶🐮 = "dogcow"`}
-</CodeSnippet>
+let 🐶🐮 = "dogcow"
+```
 
 Los nombres de constantes y variables no pueden contener caracteres de espacio en blanco (_whitespace characters_), símbolos matemáticos, flechas, valores escalares Unicode de uso privado ni caracteres de dibujo de líneas y recuadros (_line- and box-drawing characters_). Tampoco pueden comenzar con un número, aunque estos se pueden incluir en otras partes del nombre.
 
@@ -97,45 +109,47 @@ Una vez que has declarado una constante o variable de cierto tipo, no podrás vo
 
 <Callout>
   Si necesitas dar a una constante o variable el mismo nombre que una palabra
-  clave reservada de Swift, rodea la palabra clave con comillas invertidas 
-  (<code>`</code>) al usarla como nombre de una variable o constante. Sin
+  clave reservada de Swift, rodea la palabra clave con comillas invertidas (
+  <code>`</code>) al usarla como nombre de una variable o constante. Sin
   embargo, evita usar palabras clave como nombres a menos que no tengas
   absolutamente ninguna opción.
 </Callout>
 
 Puedes cambiar el valor de una variable existente a otro valor de un tipo compatible. En este ejemplo, el valor de `recepcionAmigable` cambia de `"¡Hola!"` a `"Bonjour!"`:
 
-<CodeSnippet>
-  {`var recepcionAmigable = "¡Hola!"\n
+```swift showLineNumbers {3}
+var recepcionAmigable = "¡Hola!"
+
 recepcionAmigable = "Bonjour!"
-// recepcionAmigable ahora es "Bonjour!"`}
-</CodeSnippet>
+// Ahora, recepcionAmigable es "Bonjour!"
+```
 
 A diferencia de una variable, el valor de una constante no se puede cambiar después de haber sido asignado. Intentar cambiarlo, resultará en un error al momento de compilar el código:
 
-<CodeSnippet>
-  {`let nombreDelLenguaje = "Swift"\n
+```swift showLineNumbers {3}
+let nombreDelLenguaje = "Swift"
+
 nombreDelLenguaje = "Swift ++"
-// cannot assign to value: 'nombreDelLenguaje' is a 'let' constant.`}
-</CodeSnippet>
+// cannot assign to value: 'nombreDelLenguaje' is a 'let' constant.
+```
 
 ### Imprimiendo constantes y variables
 
 Puedes imprimir el valor actual de una constante o variable mediante la función `print(_:separator:terminator:)`:
 
-<CodeSnippet>
-  {`print(recepcionAmigable)
-// Imprime "Bonjour!"`}
-</CodeSnippet>
+```swift showLineNumbers
+print(recepcionAmigable)
+// Imprime "Bonjour!"
+```
 
 La función `print(_:separator:terminator:)` es una función global que imprime uno o más valores en una salida apropiada. En Xcode, por ejemplo, la función `print(_:separator:terminator:)` imprime su salida en el panel de _consola_ de Xcode. Los parámetros `separator` y `terminator` tienen valores predeterminados, por lo que puedes omitirlos al llamar esta función. Por defecto, la función termina la línea que imprime agregando un salto de línea. Para imprimir un valor sin un salto de línea después del mismo, pasa una cadena vacía como _terminator_. Por ejemplo, `print(someValue, terminator: "")`. Para más información sobre parámetros con valores predeterminados, consulta [Parámetros con valores predeterminados](./funciones#parametros-con-valores-predeterminados).
 
 Usa _interpolación de cadenas_ para insertar el nombre de una constante o variable como _placeholder_ en una cadena más larga y solicitarle a Swift que le reemplace con el valor actual de esa constante o variable. Envuelve el nombre entre paréntesis y precédelo con una barra inclinada invertida (`\`) para indicar que es un _placeholder_:
 
-<CodeSnippet>
-  {`print("¡El valor actual de recepcionAmigable es \\(recepcionAmigable)!")
-// Imprime "¡El valor actual de recepcionAmigable es Bonjour!"`}
-</CodeSnippet>
+```swift showLineNumbers
+print("¡El valor actual de recepcionAmigable es \(recepcionAmigable)!")
+// Imprime "¡El valor actual de recepcionAmigable es Bonjour!"
+```
 
 Todas las opciones que se pueden utilizar con la interpolación de cadenas, se describen en [Interpolación de cadenas](./cadenas-y-caracteres#interpolacion-de-cadenas).
 
@@ -145,22 +159,24 @@ Usa comentarios para incluir texto no ejecutable en tu código, como una nota o 
 
 Los comentarios en Swift son muy similares a los comentarios en C. Los comentarios de una sola línea comienzan con dos barras inclinadas (`//`):
 
-<CodeSnippet>{`// Esto es un comentario.`}</CodeSnippet>
+```swift showLineNumbers
+// Esto es un comentario.
+```
 
 Los comentarios de varias líneas comienzan con una barra inclinada seguida de un asterisco (`/*`) y terminan con un asterisco seguido de una barra inclinada (`*/`):
 
-<CodeSnippet>
-  {`/* Esto también es un comentario,
-pero está escrito en varias líneas. */`}
-</CodeSnippet>
+```swift showLineNumbers
+/* Esto también es un comentario,
+pero está escrito en varias líneas. */
+```
 
 A diferencia de los comentarios de varias líneas en C, los comentarios de varias líneas en Swift se pueden anidar dentro de otros comentarios de varias líneas. Puedes escribir comentarios anidados iniciando un bloque de comentarios de varias líneas y luego iniciando un segundo comentario de varias líneas dentro del primer bloque. A continuación, se cierra el segundo bloque, seguido del primer bloque:
 
-<CodeSnippet>
-  {`/* Este es el comienzo del primer comentario de varias líneas.
- /* Este es el segundo comentario de varias líneas (anidado). */
-Este es el final del primer comentario de varias líneas. */`}
-</CodeSnippet>
+```swift showLineNumbers
+/* Este es el comienzo del primer comentario de varias líneas.
+    /* Este es el segundo comentario de varias líneas (anidado). */
+Este es el final del primer comentario de varias líneas. */
+```
 
 Los comentarios anidados de varias líneas te permiten comentar grandes bloques de código de forma rápida y sencilla, incluso si el código ya contiene comentarios de varias líneas.
 
@@ -168,10 +184,10 @@ Los comentarios anidados de varias líneas te permiten comentar grandes bloques 
 
 A diferencia de muchos otros lenguajes, Swift _no_ requiere que escribas un punto y coma (`;`) después de cada declaración en tu código, aunque puedes hacerlo si así lo deseas. Sin embargo, _sí_ se requiere si quisieras escribir múltiples declaraciones en una sola línea:
 
-<CodeSnippet>
-  {`let gato = "🐱"; print(gato)
-// Imprime "🐱"`}
-</CodeSnippet>
+```swift showLineNumbers {1} /;/
+let gato = "🐱"; print(gato)
+// Imprime "🐱"
+```
 
 ## Enteros
 
@@ -183,10 +199,10 @@ Swift proporciona enteros con y sin signo en diversos formatos: 8, 16, 32, y 64 
 
 Es posible acceder a los valores mínimos y máximos de cada tipo de entero mediante las propiedades `min` y `max`:
 
-<CodeSnippet>
-  {`let valorMinimo = UInt8.min // valorMinimo es igual a 0 y es de tipo UInt8
-let valorMaximo = UInt8.max // valorMaximo es igual a 255 y es de tipo UInt8`}
-</CodeSnippet>
+```swift showLineNumbers
+let valorMinimo = UInt8.min // valorMinimo es igual a 0 y es de tipo UInt8
+let valorMaximo = UInt8.max // valorMaximo es igual a 255 y es de tipo UInt8
+```
 
 Los valores de estas propiedades son del tipo numérico de longitud correcta (como `UInt8` en el ejemplo anterior) y, por lo tanto, se pueden usar en expresiones junto con otros valores del mismo tipo.
 
@@ -248,26 +264,26 @@ La inferencia de tipo es particularmente útil al declarar una constante o varia
 
 Por ejemplo, si asignas un valor literal de `42` a una nueva constante sin especificar de qué tipo es, Swift infiere que quieres que la constante sea de tipo `Int`, porque la has inicializado con un número que parece un entero:
 
-<CodeSnippet>
-  {`let significadoDeLaVida = 42
-// se infiere que significadoDeLaVida es de tipo Int`}
-</CodeSnippet>
+```swift showLineNumbers
+let significadoDeLaVida = 42
+// Se infiere que significadoDeLaVida es de tipo Int
+```
 
 Del mismo modo, si no especificas un tipo para un literal de punto flotante, Swift infiere que quieres crear un `Double`:
 
-<CodeSnippet>
-  {`let pi = 3.14159
-// se infiere que pi es de tipo Double`}
-</CodeSnippet>
+```swift showLineNumbers
+let pi = 3.14159
+// Se infiere que pi es de tipo Double
+```
 
 Swift siempre elige `Double` (en lugar de `Float`) al momento de inferir el tipo de números de punto flotante.
 
 Si combinas literales enteros y de punto flotante en una expresión, se inferirá un tipo `Double` del contexto:
 
-<CodeSnippet>
-  {`let otroPi = 3 + 0.14159
-// también se infiere que otroPi es de tipo Double`}
-</CodeSnippet>
+```swift showLineNumbers
+let otroPi = 3 + 0.14159
+// También se infiere que otroPi es de tipo Double
+```
 
 El valor literal de `3` no tiene un tipo explícito en sí mismo, por lo que se deduce un tipo de salida adecuado `Double` a partir de la presencia de un literal de punto flotante como parte de la suma.
 
@@ -282,12 +298,12 @@ Los literales enteros se pueden escribir como:
 
 Todos estos literales enteros tienen un valor decimal de `17`:
 
-<CodeSnippet>
-  {`let enteroDecimal = 17
-let enteroBinario = 0b10001       // 17 en notación binaria
-let enteroOctal = 0o21            // 17 en notación octal
-let enteroHexadecimal = 0x11      // 17 en notación hexadecimal`}
-</CodeSnippet>
+```swift showLineNumbers
+let enteroDecimal = 17
+let enteroBinario = 0b10001     // 17 en notación binaria
+let enteroOctal = 0o21          // 17 en notación octal
+let enteroHexadecimal = 0x11    // 17 en notación hexadecimal
+```
 
 Los literales de punto flotante pueden ser decimales (sin prefijo) o hexadecimales (con el prefijo `0x`). Siempre deben tener un número (o número hexadecimal) a ambos lados del punto decimal. Los flotantes decimales también pueden tener un _exponente_ opcional, representado por una e mayúscula o minúscula; los flotantes hexadecimales deben tener un exponente, representado por una p mayúscula o minúscula.
 
@@ -303,19 +319,19 @@ Para números hexadecimales con un exponente `exp`, el número base se multiplic
 
 Todos estos literales de punto flotante tienen un valor decimal de `12.1875`:
 
-<CodeSnippet>
-  {`let doubleDecimal = 12.1875
+```swift showLineNumbers
+let doubleDecimal = 12.1875
 let doubleExponente = 1.21875e1
-let doubleHexadecimal = 0xC.3p0`}
-</CodeSnippet>
+let doubleHexadecimal = 0xC.3p0
+```
 
 Los literales numéricos pueden contener formato adicional para que sean más fáciles de leer. Tanto los números enteros como los flotantes se pueden rellenar con ceros adicionales y pueden contener guiones bajos para facilitar la lectura. Ningún tipo de formato afecta el valor subyacente del literal:
 
-<CodeSnippet>
-  {`let doubleDecorado = 000123.456
+```swift showLineNumbers
+let doubleDecorado = 000123.456
 let unMillon = 1_000_000
-let pocoMasDeUnMillon = 1_000_000.000_000_1`}
-</CodeSnippet>
+let pocoMasDeUnMillon = 1_000_000.000_000_1
+```
 
 ## Conversión de tipo numérico
 
@@ -327,23 +343,24 @@ Utiliza los otros tipos de enteros solo cuando se requieran específicamente par
 
 El rango de números que se pueden almacenar en una constante o variable entera es diferente para cada tipo numérico. Una constante o variable de tipo `Int8` puede almacenar números entre `-128` y `127`, mientras que una constante o variable de tipo `UInt8` puede almacenar números entre `0` y `255`. Un número que no encaja en una constante o variable de tipo entero de tamaño fijo es reportado como un error al momento de compilar tu código:
 
-<CodeSnippet>
-  {`let noPuedeSerNegativo: UInt8 = -1
-// UInt8 no puede almacenar números negativos, por lo que esto generará un error\n
+```swift showLineNumbers
+let noPuedeSerNegativo: UInt8 = -1
+// UInt8 no puede almacenar números negativos, por lo que esto genera un error
+
 let muyGrande: Int8 = Int8.max + 1
 // Int8 no puede almacenar un número mayor que su valor máximo,
-// por lo que esto también generará un error`}
-</CodeSnippet>
+// por lo que esto también generará un error
+```
 
 Dado que cada tipo numérico puede almacenar un rango diferente de valores, debes optar por una conversión de tipo numérico caso por caso. Mediante este enfoque, se evitan errores de conversión ocultos y ayuda a que las intenciones de conversión de tipos sean explícitas en tu código.
 
 Para convertir un tipo de número específico a otro, inicializa un nuevo número del tipo deseado con el valor existente. En el siguiente ejemplo, la constante `dosMil` es de tipo `UInt16`, mientras que la constante `uno` es de tipo `UInt8`. No se pueden sumar directamente, porque no son del mismo tipo. En cambio, en este ejemplo se llama a `UInt16(uno)` para crear un nuevo `UInt16` inicializado con el valor de `uno`, y usa este valor en lugar del original:
 
-<CodeSnippet>
-  {`let dosMil: UInt16 = 2_000
+```swift showLineNumbers {3}
+let dosMil: UInt16 = 2_000
 let uno: UInt8 = 1
-let dosMilUno = dosMil + UInt16(uno)`}
-</CodeSnippet>
+let dosMilUno = dosMil + UInt16(uno)
+```
 
 Debido a que ambos lados de la adición ahora son del tipo `UInt16`, se permite la adición. Se infiere que la constante de salida (`dosMilUno`) es del tipo `UInt16`, porque es la suma de dos valores `UInt16`.
 
@@ -353,21 +370,21 @@ Debido a que ambos lados de la adición ahora son del tipo `UInt16`, se permite 
 
 Las conversiones entre tipos numéricos enteros y de punto flotante deben hacerse de manera explícita:
 
-<CodeSnippet>
-  {`let tres = 3
+```swift showLineNumbers {3}
+let tres = 3
 let puntoUnoCuatroUnoCincoNueve = 0.14159
 let pi = Double(tres) + puntoUnoCuatroUnoCincoNueve
-// pi es igual a 3.14159, y se infiere que es de tipo Double`}
-</CodeSnippet>
+// pi es igual a 3.14159 y se infiere que es de tipo Double
+```
 
 Acá, el valor de la constante `tres` se usa para crear un nuevo valor de tipo `Double`, de modo que ambos lados de la suma sean del mismo tipo. Sin esta conversión en su lugar, no se permitiría la suma.
 
 La conversión de punto flotante a entero también debe hacerse de manera explícita. Un tipo entero se puede inicializar con un valor de tipo `Double` o `Float`:
 
-<CodeSnippet>
-  {`let piEntero = Int(pi)
-// piEntero es igual a 3, y se infiere que es de tipo Int`}
-</CodeSnippet>
+```swift showLineNumbers {1}
+let piEntero = Int(pi)
+// piEntero es igual a 3 y se infiere que es de tipo Int
+```
 
 Los valores de punto flotante siempre se truncan cuando se usan para inicializar un nuevo valor entero de esta manera. Esto significa que `4.75` se convierte en `4` y `-3.9` se convierte en `-3`.
 
@@ -385,14 +402,16 @@ Los _alias de tipos_ (_type aliases_) definen un nombre alternativo para un tipo
 
 Los alias de tipos son útiles cuando deseas referirte a un tipo existente con un nombre que sea contextualmente más apropiado, como cuando se trabaja con datos de un tamaño específico de una fuente externa:
 
-<CodeSnippet>{`typealias MuestraDeAudio = UInt16`}</CodeSnippet>
+```swift showLineNumbers
+typealias MuestraDeAudio = UInt16
+```
 
 Una vez que definas un alias de tipo, puedes usar el alias en cualquier lugar donde pueda usarse el nombre original:
 
-<CodeSnippet>
-  {`var maximaAmplitudHallada = MuestraDeAudio.min
-// maximaAmplitudHallada ahora es 0`}
-</CodeSnippet>
+```swift showLineNumbers
+var maximaAmplitudHallada = MuestraDeAudio.min
+// maximaAmplitudHallada ahora es 0
+```
 
 Aquí, `MuestraDeAudio` se define como un alias para `UInt16`. Debido a que es un alias, el llamado a `MuestraDeAudio.min` en realidad llama a `UInt16.min`, el cual proporciona un valor inicial de `0` para la variable `maximaAmplitudHallada`.
 
@@ -400,43 +419,45 @@ Aquí, `MuestraDeAudio` se define como un alias para `UInt16`. Debido a que es u
 
 Swift tiene un tipo _booleano_ básico, llamado `Bool`. Los valores booleanos se les conoce como _lógicos_ porque solo pueden ser verdaderos o falsos. Swift proporciona dos valores constantes booleanos—`true` y `false`:
 
-<CodeSnippet>
-  {`let naranjasSonAnaranjadas = true
-let verdurasSonDeliciosas = false`}
-</CodeSnippet>
+```swift showLineNumbers
+let naranjasSonAnaranjadas = true
+let verdurasSonDeliciosas = false
+```
 
 Los tipos de `naranjasSonAnaranjadas` y `verdurasSonDeliciosas` se han inferido como `Bool` por el hecho de que se inicializaron con valores literales booleanos. Al igual que con `Int` y `Double` anteriormente, no tienes que declarar constantes o variables como `Bool` si les asignas `true` o `false` al momento de crearlas. La inferencia de tipo hace que un código en Swift sea más conciso y legible al inicializar constantes o variables con otros valores cuyo tipo ya se conoce.
 
 Los valores booleanos son particularmente útiles cuando se trabaja con instrucciones condicionales como la instrucción `if`:
 
-<CodeSnippet>
-  {`if verdurasSonDeliciosas {
+```swift showLineNumbers {1}
+if verdurasSonDeliciosas {
     print("¡Mmm, deliciosas verduras!")
 } else {
-    print("Guac, las verduras son horribles.")
+    print("No, las verduras son horribles.")
 }
-// Imprime "Guac, las verduras son horribles."`}
-</CodeSnippet>
+// Imprime "No, las verduras son horribles."
+```
 
 Las instrucciones condicionales, como la instrucción `if`, se tratan con más detalle en [Flujo de control](./flujo-de-control).
 
 La seguridad de tipo de Swift previene que valores no booleanos se sustituyan por `Bool`. El siguiente ejemplo resulta en un error al momento de compilar:
 
-<CodeSnippet>
-  {`let i = 1\n
+```swift showLineNumbers {3}
+let i = 1
+
 if i {
     // Este ejemplo no se compilará y reportará un error
-}`}
-</CodeSnippet>
+}
+```
 
 Sin embargo, el siguiente ejemplo alternativo es válido:
 
-<CodeSnippet>
-  {`let i = 1\n
+```swift showLineNumbers {3}
+let i = 1
+
 if i == 1 {
     // Este ejemplo se compilará sin problemas
-}`}
-</CodeSnippet>
+}
+```
 
 El resultado de la comparación `i == 1` es de tipo `Bool`, por lo que este segundo ejemplo pasa la verificación de tipos. Comparaciones como `i == 1` se analizan en [Operadores Básicos](./operadores-basicos).
 
@@ -448,10 +469,10 @@ Las _tuplas_ agrupan múltiples valores en un solo valor compuesto. Los valores 
 
 En este ejemplo, `(404, "Not Found")` es una tupla que describe un _código de estado HTTP_. Un código de estado HTTP es un valor especial devuelto por un servidor web cada vez que se le solicita una página web. El código de estado `404 Not Found` es devuelto si se solicita una página web que no existe.
 
-<CodeSnippet>
-  {`let http404Error = (404, "Not Found")
-// http404Error es de tipo (Int, String) y es igual a (404, "Not Found")`}
-</CodeSnippet>
+```swift showLineNumbers
+let errorHTTP404 = (404, "Not Found")
+// errorHTTP404 es de tipo (Int, String) y es igual a (404, "Not Found")
+```
 
 La tupla `(404, "Not Found")` agrupa un `Int` y una cadena para dar al código de estado HTTP dos valores separados: un número y una descripción legible por humanos. Se puede describir como _«una tupla de tipo `(Int, String)`»_.
 
@@ -459,43 +480,50 @@ Puedes crear tuplas a partir de cualquier permutación de tipos y pueden contene
 
 Puedes descomponer el contenido de una tupla en constantes o variables separadas, a las que luego podrás acceder como de costumbre:
 
-<CodeSnippet>
-  {`let (codigoDeEstado, mensajeDeEstado) = http404Error\n
-print("El código de estado es \\(codigoDeEstado)")
-// Imprime "El código de estado es 404"\n
-print("El mensaje de estado es \\(mensajeDeEstado)")
-// Imprime "El mensaje de estado es Not Found"`}
-</CodeSnippet>
+```swift showLineNumbers {1}
+let (codigoDeEstado, mensajeDeEstado) = errorHTTP404
+
+print("El código de estado es \(codigoDeEstado)")
+// Imprime "El código de estado es 404"
+
+print("El mensaje de estado es \(mensajeDeEstado)")
+// Imprime "El mensaje de estado es Not Found"
+```
 
 Si solo necesitas algunos de los valores de la tupla, ignora las partes de la tupla con un guión bajo (`_`) al descomponerla:
 
-<CodeSnippet>
-  {`let (soloElCodigoDeEstado, _) = http404Error\n
-print("El código de estado es \\(soloElCodigoDeEstado)")
-// Imprime "El código de estado es 404"`}
-</CodeSnippet>
+```swift showLineNumbers {1} /_/
+let (soloElCodigoDeEstado, _) = errorHTTP404
+
+print("El código de estado es \(soloElCodigoDeEstado)")
+// Imprime "El código de estado es 404"
+```
 
 Alternativamente, accede a los valores de los elementos individuales de una tupla utilizando números de índices, comenzando por cero:
 
-<CodeSnippet>
-  {`print("El código de estado es \\(http404Error.0)")
-// Imprime "El código de estado es 404"\n
-print("El mensaje de estado es \\(http404Error.1)")
-// Imprime "El mensaje de estado es Not Found"`}
-</CodeSnippet>
+```swift showLineNumbers {1, 4}
+print("El código de estado es \(errorHTTP404.0)")
+// Imprime "El código de estado es 404"
+
+print("El mensaje de estado es \(errorHTTP404.1)")
+// Imprime "El mensaje de estado es Not Found"
+```
 
 Puedes nombrar los elementos individuales en una tupla al momento de crear la tupla:
 
-<CodeSnippet>{`let http200Status = (codigoDeEstado: 200, descripcion: "OK")`}</CodeSnippet>
+```swift showLineNumbers
+let respuestaHTTP200 = (codigoDeEstado: 200, descripcion: "OK")
+```
 
 Si nombras los elementos de una tupla, podrás utilizar los nombres de los elementos para acceder a los valores de dichos elementos:
 
-<CodeSnippet>
-  {`print("El código de estado es \\(http200Status.codigoDeEstado)")
-// Imprime "El código de estado es 200"\n
-print("El mensaje de estado es \\(http200Status.descripcion)")
-// Imprime "El mensaje de estado es OK"`}
-</CodeSnippet>
+```swift showLineNumbers {1, 4}
+print("El código de estado es \(respuestaHTTP200.codigoDeEstado)")
+// Imprime "El código de estado es 200"
+
+print("El mensaje de estado es \(respuestaHTTP200.descripcion)")
+// Imprime "El mensaje de estado es OK"
+```
 
 Las tuplas son particularmente útiles como valores devueltos por una función. Una función que solicita una página web puede devolver una tupla de tipo `(Int, String)` para describir el éxito o el fracaso de la solicitud de la página. Al devolver una tupla con dos valores distintos, cada uno de un tipo diferente, la función proporciona información más útil sobre su resultado que si solo pudiera devolver un único valor de un único tipo. Para obtener más información, consulte [Funciones con múltiples valores devueltos](./funciones#funciones-con-multiples-valores-devueltos).
 
@@ -522,11 +550,11 @@ Aquí hay un ejemplo de cómo se pueden usar opcionales para lidiar con la ausen
 
 El siguiente ejemplo utiliza el inicializador para intentar convertir un `String` en un `Int`:
 
-<CodeSnippet>
-  {`let posibleNumero = "123"
+```swift showLineNumbers
+let posibleNumero = "123"
 let numeroConvertido = Int(posibleNumero)
-// se infiere que numeroConvertido es de tipo "Int?", o "Int opcional"`}
-</CodeSnippet>
+// Se infiere que numeroConvertido es de tipo "Int?" (o "Int opcional")
+```
 
 Dado que el inicializador podría fallar, este devuelve un `Int` _opcional_, en lugar de un `Int`. Un `Int` opcional se escribe `Int?`, no `Int`. El signo de interrogación indica que el valor que contiene es opcional, lo que significa que puede contener _algún_ valor `Int`, o puede no contener _ningún valor en absoluto_. (No puede contener nada más, como un valor `Bool` o un valor `String`. O es un `Int`, o no es nada en absoluto).
 
@@ -534,12 +562,13 @@ Dado que el inicializador podría fallar, este devuelve un `Int` _opcional_, en 
 
 Para fijar una variable opcional en un estado sin valor, asígnale el valor especial `nil`:
 
-<CodeSnippet>
-  {`var codigoDeRespuestaDelServidor: Int? = 404
+```swift showLineNumbers
+var codigoDeRespuestaDelServidor: Int? = 404
 // codigoDeRespuestaDelServidor contiene un valor real Int de 404
+
 codigoDeRespuestaDelServidor = nil
-// codigoDeRespuestaDelServidor ahora no contiene valor`}
-</CodeSnippet>
+// Ahora, codigoDeRespuestaDelServidor no contiene ningún valor
+```
 
 <Callout>
   No puede usar `nil` con constantes y variables no opcionales. Si una constante
@@ -550,10 +579,10 @@ codigoDeRespuestaDelServidor = nil
 
 Si defines una variable opcional sin proporcionar un valor predeterminado, a la variable se le asigna `nil` automáticamente:
 
-<CodeSnippet>
-  {`var respuestaEncuesta: String?
-// a respuestaEncuesta se le asigna nil automáticamente`}
-</CodeSnippet>
+```swift showLineNumbers
+var respuestaEncuesta: String?
+// A respuestaEncuesta se le asigna nil automáticamente
+```
 
 <Callout>
   El concepto de `nil` en Swift no es el mismo que `nil` en Objective-C. En
@@ -568,21 +597,21 @@ Puedes usar una instrucción `if` para averiguar si un opcional contiene un valo
 
 Si un opcional tiene un valor, se considera que «no es igual a» `nil`:
 
-<CodeSnippet>
-  {`if numeroConvertido != nil {
+```swift showLineNumbers {1}
+if numeroConvertido != nil {
     print("numeroConvertido contiene algún valor entero.")
 }
-// Imprime "numeroConvertido contiene algún valor entero."`}
-</CodeSnippet>
+// Imprime "numeroConvertido contiene algún valor entero."
+```
 
 Si estás seguro de que un opcional _sí_ contiene un valor, puedes acceder a su valor subyacente agregando un signo de exclamación (`!`) al final del nombre del opcional. El signo de exclamación dice efectivamente: «Sé que este opcional definitivamente tiene un valor; por favor, úsenlo». Esto se conoce como _extracción forzada_ del valor del opcional:
 
-<CodeSnippet>
-  {`if numeroConvertido != nil {
-    print("numeroConvertido tiene un valor entero de \\(numeroConvertido!).")
+```swift showLineNumbers {2} /numeroConvertido!/
+if numeroConvertido != nil {
+    print("numeroConvertido tiene un valor entero de \(numeroConvertido!).")
 }
-// Imprime "numeroConvertido tiene un valor entero de 123."`}
-</CodeSnippet>
+// Imprime "numeroConvertido tiene un valor entero de 123."
+```
 
 Para obtener más información sobre la instrucción `if`, visita [Flujo de control](./flujo-de-control).
 
@@ -599,25 +628,22 @@ Puedes usar la _vinculación opcional_ para averiguar si un opcional contiene un
 
 Escribe una vinculación opcional para una instrucción `if` de la siguiente manera:
 
-<p class="pseudocode">
-  <span class="pseudocode__keyword">if let</span>{' '}
-  <span class="pseudocode__highlight">nombreDeLaConstante</span> ={' '}
-  <span class="pseudocode__highlight">algunOpcional</span> &lcub; <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">instrucciones</span><br />
-  <span>&rcub;</span>
-</p>
+```swift
+if let <#nombreDeLaConstante#> = <#algunOpcional#> {
+    <#instrucciones#>
+}
+```
 
 Es posible reescribir el ejemplo `posibleNumero` de la sección [Opcionales](#opcionales) usando vinculación opcional en lugar de extracción forzada:
 
-<CodeSnippet>
-  {`if let numeroReal = Int(posibleNumero) {
-    print("La cadena \"\\(posibleNumero)\" tiene un valor entero de \\(numeroReal)")
+```swift showLineNumbers {1}
+if let numeroReal = Int(posibleNumero) {
+    print("La cadena '\(posibleNumero)' tiene un valor entero de \(numeroReal)")
 } else {
-    print("La cadena \"\\(posibleNumero)\" no pudo ser convertida en un entero")
+    print("La cadena '\(posibleNumero)' no pudo ser convertida en un entero")
 }
-// Imprime "La cadena "123" tiene un valor entero de 123"`}
-</CodeSnippet>
+// Imprime "La cadena '123' tiene un valor entero de 123"
+```
 
 Este código puede leerse como:
 
@@ -629,20 +655,21 @@ Puedes usar tanto constantes como variables con vinculación opcional. Si quisie
 
 Puedes incluir cuantas vinculaciones opcionales y condiciones booleanas necesites en una instrucción `if`, separadas por comas. Si alguno de los valores en las vinculaciones opcionales es `nil` o cualquier condición booleana se evalúa a `false`, toda la condición de la instrucción `if` se considera `false`. Las siguientes instrucciones `if` son equivalentes:
 
-<CodeSnippet>
-  {`if let primerNumero = Int("4"), let segundoNumero = Int("42"), primerNumero < segundoNumero && segundoNumero < 100 {
-    print("\\(primerNumero) < \\(segundoNumero) < 100")
+```swift showLineNumbers {1, 6-8}
+if let primerNumero = Int("4"), let segundoNumero = Int("42"), primerNumero < segundoNumero && segundoNumero < 100 {
+    print("\(primerNumero) < \(segundoNumero) < 100")
 }
-// Imprime "4 < 42 < 100"\n
+// Imprime "4 < 42 < 100"
+
 if let primerNumero = Int("4") {
-    if let segundoNumero = Int("42") {
-        if primerNumero < segundoNumero && segundoNumero < 100 {
-            print("\\(primerNumero) < \\(segundoNumero) < 100")
-        }
+  if let segundoNumero = Int("42") {
+    if primerNumero < segundoNumero && segundoNumero < 100 {
+      print("\(primerNumero) < \(segundoNumero) < 100")
     }
+  }
 }
-// Imprime "4 < 42 < 100"`}
-</CodeSnippet>
+// Imprime "4 < 42 < 100"
+```
 
 Las constantes y variables creadas mediante vinculación opcional en una instrucción `if`, solo están disponibles dentro del cuerpo de la instrucción `if`. En contraste, las constantes y variables creadas con una instrucción `guard` están disponibles en las líneas de código que le siguen a la instrucción `guard`, como se describe en [Salida temprana](./flujo-de-control#salida-temprana).
 
@@ -658,39 +685,39 @@ Los opcionales extraídos de forma implícita son útiles cuando se confirma que
 
 Un opcional extraído de forma implícita es, en el fondo, un opcional normal; pero también puede usarse como un valor no opcional, sin la necesidad de extraer el valor opcional cada vez que se accede a este. El siguiente ejemplo muestra la diferencia en el comportamiento entre una cadena opcional y una cadena opcional extraída de forma implícita al acceder al valor que contiene como un `String` explícito:
 
-<CodeSnippet>
-  {`let cadenaOpcional: String? = "Una cadena opcional."
-let cadenaForzada: String = cadenaOpcional! // Requiere un signo de exclamación\n
+```swift showLineNumbers
+let cadenaOpcional: String? = "Una cadena opcional."
+let cadenaForzada: String = cadenaOpcional! // Requiere un signo de exclamación
 let cadenaAsumida: String! = "Una cadena opcional extraída de forma implícita."
-let cadenaImplicita: String = cadenaAsumida // No es necesario un signo de exclamación`}
-</CodeSnippet>
+let cadenaImplicita: String = cadenaAsumida // No es necesario un signo de exclamación
+```
 
 Puedes pensar de un opcional extraído de forma implícita como dar permiso para que el opcional sea extraído forzadamente, si hace falta. Cuando usas el valor de un opcional extraído de forma implícita, Swift primero intenta usarlo como un valor opcional ordinario. Si no se puede usar como un opcional, Swift extrae el valor de manera forzada. En el código anterior, el valor opcional `cadenaAsumida` es extraído de manera forzada antes de asignar su valor a `cadenaImplicita` porque `cadenaImplicita` tiene un tipo `String`, explícito y no opcional. En el código a continuación, `cadenaOpcional` no tiene un tipo explícito, por lo que es un opcional ordinario.
 
-<CodeSnippet>
-  {`let cadenaOpcional = cadenaAsumida
-// El tipo de cadenaOpcional es "String?" y cadenaAsumida no se extrae de manera forzada.`}
-</CodeSnippet>
+```swift showLineNumbers
+let cadenaOpcional = cadenaAsumida
+// El tipo de cadenaOpcional es "String?" y cadenaAsumida no se extrae de manera forzada.
+```
 
 Si un opcional extraído de forma implícita es `nil` e intentas acceder al valor que contiene, generarás un error de tiempo de ejecución. El resultado es, exactamente, el mismo que si colocaras un signo de exclamación después de un opcional normal que no contiene ningún valor.
 
 Puedes verificar si un opcional extraído de forma implícita es `nil` de la misma manera en que verificas un opcional normal:
 
-<CodeSnippet>
-  {`if cadenaAsumida != nil {
+```swift showLineNumbers {1}
+if cadenaAsumida != nil {
     print(cadenaAsumida!)
 }
-// Imprime "Una cadena opcional extraída de forma implícita."`}
-</CodeSnippet>
+// Imprime "Una cadena opcional extraída de forma implícita."
+```
 
 También puedes usar un opcional extraído de forma implícita con vinculación opcional, para verificar y extraer su valor en una sola instrucción:
 
-<CodeSnippet>
-  {`if let cadenaDefinitiva = cadenaAsumida {
+```swift showLineNumbers {1}
+if let cadenaDefinitiva = cadenaAsumida {
     print(cadenaDefinitiva)
 }
-// Imprime "Una cadena opcional extraída de forma implícita."`}
-</CodeSnippet>
+// Imprime "Una cadena opcional extraída de forma implícita."
+```
 
 <Callout>
   No utilices un opcional extraído de forma implícita si existe la posibilidad
@@ -699,7 +726,7 @@ También puedes usar un opcional extraído de forma implícita con vinculación 
   útil de una variable.
 </Callout>
 
-## Error Handling
+## Manejo de errores
 
 Utiliza el _manejo de errores_ para responder a las condiciones de errores que tu programa pueda encontrar durante la ejecución.
 
@@ -707,42 +734,44 @@ A diferencia de los opcionales, los cuales pueden usar la presencia o ausencia d
 
 Cuando una función encuentra una condición de error, _arroja_ un error. El llamador de esa función puede _atrapar_ el error y responder adecuadamente.
 
-<CodeSnippet>
-  {`func puedeArrojarUnError() throws {
+```swift showLineNumbers /throws/
+func puedeArrojarUnError() throws {
     // Esta función puede que arroje o no un error
-}`}
-</CodeSnippet>
+}
+```
 
 Una función indica que puede arrojar un error al incluir la palabra clave `throws` en su declaración. Al llamar una función que puede arrojar un error, precede la expresión con la palabra clave `try`.
 
 Swift propaga, automáticamente, los errores fuera de su ámbito actual hasta que sean manejados por una cláusula `catch`.
 
-<CodeSnippet>
-  {`do {
+```swift showLineNumbers {4}
+do {
     try puedeArrojarUnError()
     // No se arrojó un error
 } catch {
     // Se arrojó un error
-}`}
-</CodeSnippet>
+}
+```
 
 Una instrucción `do` crea un nuevo ámbito contenedor, el cual le permite a los errores propagarse a una o más cláusulas `catch`.
 
 Acá hay un ejemplo de cómo se puede usar el manejo de errores para responder a diferentes condiciones de error:
 
-<CodeSnippet>
-  {`func prepararUnSandwich() throws {
+```swift showLineNumbers {9-13}
+func prepararUnSandwich() throws {
     // ...
-}\n
+}
+
 do {
-    try prepararUnSandwich()\n
+    try prepararUnSandwich()
+
     comerUnSandwich()
 } catch SandwichError.noHayPlatosLimpios {
     lavarPlatos()
 } catch SandwichError.faltanIngredientes(let ingredientes) {
     comprarProvisiones(ingredientes)
-}`}
-</CodeSnippet>
+}
+```
 
 En este ejemplo, la función `prepararUnSandwich()` arrojará un error si no hay platos limpios disponibles o si falta algún ingrediente. Debido a que `prepararUnSandwich()` puede arrojar un error, la llamada de la función se precede con una instrucción `try`. Al envolver la llamada de la función en una instrucción `do`, cualquier error que se arroje, se propagará a las cláusulas `catch` proporcionadas.
 
@@ -766,29 +795,32 @@ La diferencia entre las aserciones y las precondiciones se encuentra en el momen
 
 Para escribir una aserción, se llama a la función [`assert(_:_:file:line:)`](https://developer.apple.com/documentation/swift/1541112-assert) desde la biblioteca estándar de Swift. Esta función recibe una expresión que se evalúa a `true` o `false` y un mensaje que mostrar si el resultado de la condición es `false`. Por ejemplo:
 
-<CodeSnippet>
-  {`let edad = -3\n
+```swift showLineNumbers {3}
+let edad = -3
+
 assert(edad >= 0, "La edad de una persona no puede ser menor que cero.")
-// Esta aserción falla porque -3 no es >= 0`}
-</CodeSnippet>
+// Esta aserción falla porque -3 no es >= 0
+```
 
 En este ejemplo, la ejecución del código continúa si `edad >= 0` resulta en `true`, es decir, si el valor de `edad` no es negativo. Si el valor de `edad` es negativo —como en el código anterior—, entonces `edad >= 0` se evalúa a `false`, y la aserción falla, terminando la aplicación.
 
 Puedes omitir el mensaje de afirmación, por ejemplo, cuando simplemente repetiría la condición como prosa.
 
-<CodeSnippet>{`assert(edad >= 0)`}</CodeSnippet>
+```swift showLineNumbers
+assert(edad >= 0)
+```
 
 Si el código ya comprueba la condición, usa la función [`assertionFailure(_:file:line:)`](https://developer.apple.com/documentation/swift/1539616-assertionfailure) para indicar que una aserción ha fallado. Por ejemplo:
 
-<CodeSnippet>
-  {`if edad > 10 {
+```swift showLineNumbers {6}
+if edad > 10 {
     print("Puedes subir a la Montaña Rusa o a la Rueda de la Fortuna.")
 } else if edad >= 0 {
     print("Puedes subir a la Rueda de la Fortuna.")
 } else {
     assertionFailure("La edad de una persona no puede ser menor que cero.")
-}`}
-</CodeSnippet>
+}
+```
 
 ### Imponer precondiciones
 
@@ -796,10 +828,10 @@ Usa una precondición siempre y cuando exista la posibilidad de que una condici�
 
 Para escribir una precondición, llama a la función [`precondition(_:_:file:line:)`](https://developer.apple.com/documentation/swift/1540960-precondition). Esta función recibe una expresión que se evalúa a `true` o `false` y un mensaje que mostrar si el resultado de la condición es `false`. Por ejemplo:
 
-<CodeSnippet>
-  {`// En la implementación de un subscript…
-precondition(index > 0, "El índice debe ser mayor que cero.")`}
-</CodeSnippet>
+```swift showLineNumbers
+// En la implementación de un subscript…
+precondition(index > 0, "El índice debe ser mayor que cero.")
+```
 
 También puedes llamar a la función [`preconditionFailure(_:file:line:)`](https://developer.apple.com/documentation/swift/1539374-preconditionfailure) para indicar que se ha producido una falla. Por ejemplo, si se ha alcanzado el caso predeterminado de una instrucción `switch`, pero todos los datos válidos de entrada debieron haber sido manejados por uno de los otros casos de la instrucción.
 

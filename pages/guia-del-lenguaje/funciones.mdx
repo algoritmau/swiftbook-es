@@ -2,10 +2,14 @@
 title: Funciones
 ---
 
-import Callout from '../../components/Callout.js'
-import CodeSnippet from '../../components/CodeSnippet.js'
+import Callout from '@components/Callout'
+import Hero from '@components/Hero'
 
-# Funciones
+<Hero>
+  # Funciones
+
+  Define e invoca funciones, etiqueta sus argumentos, y usa sus valores de retorno.
+</Hero>
 
 Una _función_ es un segmento auto-contenido de código que ejecuta una tarea específica. A una función le das un nombre que comunica lo que esta hace, y usas dicho nombre para _llamar_ a la función y que esta ejecute su tarea, cuando sea necesario.
 
@@ -21,23 +25,24 @@ Cada función tiene un nombre, el cual describe la tarea que la función ejecuta
 
 La función del siguiente ejemplo se llama `saludar(persona)`, ya que eso es lo que esta hace, toma el nombre de una persona como entrada y devuelve un saludo para esta persona. Para hacer esto, defines un parámetro de entrada, un valor de tipo `String` llamado `persona`, y un valor de devolución —de tipo `String`— llamado `saludo`, el cual contiene un saludo para la persona:
 
-<CodeSnippet>
-  {`func saludar(persona: String) -> String {
-    let saludo = "¡Hola, " + persona + "!"\n
+```swift showLineNumbers
+func saludar(persona: String) -> String {
+    let saludo = "¡Hola, " + persona + "!"
+
     return saludo
-}`}
-</CodeSnippet>
+}
+```
 
 Toda esta información va dentro de la _definición_ de una función, la cual va precedida por la palabra clave `func`. Para indicar el tipo de devolución de una función, utiliza la _flecha de devolución_ (`->`) —un guión seguido de un signo _mayor que_—, seguida por el nombre del tipo de devolución.
 
 La definición describe lo que la función hace, lo que espera recibir, y lo que devuelve al ejecutarse. La definición también facilita que la función pueda ser llamada desde cualquier lugar de tu código, evitando ambigüedades.
 
-<CodeSnippet>
-  {`print(saludar(persona: "Ana"))
-// Imprime «¡Hola, Ana!»
+```swift showLineNumbers
+print(saludar(persona: "Ana"))
+// Imprime "¡Hola, Ana!"
 print(saludar(persona: "Pedro"))
-// Imprime «¡Hola, Pedro!»`}
-</CodeSnippet>
+// Imprime "¡Hola, Pedro!"
+```
 
 Para llamar a la función `saludar(persona:)`, le pasas un valor de tipo `String` luego de la etiqueta del argumento `persona`, así: `saludar(persona: "Ana")`. Dado que la función devuelve una cadena, `saludar(persona:)` puede serle pasada a una llamada a la función `print(_:separator:terminator:)` para imprimir dicha cadena y ver su valor de devolución, como se ve en el ejemplo anterior.
 
@@ -58,13 +63,14 @@ Puedes llamar a la función `saludar(persona)` múltiples veces con distintos va
 
 Para acortar el cuerpo de esta función, puedes combinar la creación del mensaje y la instrucción de devolución en una sola línea:
 
-<CodeSnippet>
-  {`func saludarOtraVez(persona: String) -> String {
+```swift showLineNumbers
+func saludarOtraVez(persona: String) -> String {
     return "¡Hola nuevamente, " + persona + "!"
-}\n
+}
+
 print(saludarOtraVez(persona: "Ana"))
-// Imprime «¡Hola nuevamente, Ana!»`}
-</CodeSnippet>
+// Imprime "¡Hola nuevamente, Ana!"
+```
 
 ## Parámetros de funciones y valores de devolución
 
@@ -74,13 +80,14 @@ Los parámetros y los valores de devolución de las funciones son extremadamente
 
 Las funciones no requieren la definición de parámetros de entrada. Acá se tiene una función sin parámetros de entrada, la cual siempre devuelve el mismo mensaje `String` al ser llamada:
 
-<CodeSnippet>
-  {`func decirHolaMundo() -> String {
+```swift showLineNumbers
+func decirHolaMundo() -> String {
     return "Hola, mundo."
-}\n
+}
+
 print(decirHolaMundo())
-// Imprime «Hola, mundo.»`}
-</CodeSnippet>
+// Imprime "Hola, mundo."
+```
 
 La definición de la función requiere de paréntesis aun cuando esta no toma ningún parámetro. El nombre de la función también va seguido de un par de paréntesis al momento de llamar a la función.
 
@@ -90,17 +97,18 @@ Las funciones pueden tener múltiples parámetros de entrada, los cuales se escr
 
 Esta función toma como entrada el nombre de una persona y un indicador de que ya se ha saludado o no a dicha persona, y devuelve un saludo apropiado para la persona:
 
-<CodeSnippet>
-  {`func saludar(persona: String, fueSaludada: Bool) -> String {
+```swift showLineNumbers
+func saludar(persona: String, fueSaludada: Bool) -> String {
     if fueSaludada {
         return saludarNuevamente(persona: persona)
     } else {
         return saludar(persona: persona)
     }
-}\n
+}
+
 print(saludar(persona: "Cindy", fueSaludada: true))
-// Imprime «¡Hola otra vez, Cindy!»`}
-</CodeSnippet>
+// Imprime "¡Hola otra vez, Cindy!"
+```
 
 Para llamar a la función `saludar(persona:fueSaludada:)`, le pasas un valor argumento de tipo `String`, con la etiqueta `persona` y un valor argumento de tipo `Bool`, con la etiqueta `fueSaludada` — en paréntesis y separados por coma. Observa que esta función es diferente a la función `saludar(persona)` que se mostró en una sección anterior. Aunque el nombre de ambas funciones empieza por `saludar`, la función `saludar(persona:fueSaludada:)` toma dos argumentos, mientras que la función `saludar(persona:)` solo toma uno.
 
@@ -108,13 +116,14 @@ Para llamar a la función `saludar(persona:fueSaludada:)`, le pasas un valor arg
 
 Las funciones no requieren definir un tipo de devolución. Aquí tenemos una versión de la función `saludar(persona:)`, la cual imprime su propia cadena en lugar de devolverla:
 
-<CodeSnippet>
-  {`func saludar(persona: String) {
-    print("¡Hola, \\(persona)!")
-}\n
+```swift showLineNumbers
+func saludar(persona: String) {
+    print("¡Hola, \(persona)!")
+}
+
 saludar(persona: "Jorge")
-// Imprime «¡Hola, Jorge!»`}
-</CodeSnippet>
+// Imprime "¡Hola, Jorge!"
+```
 
 Dado que no necesita devolver un valor, la definición de la función no incluye la flecha de devolución (`->`) o un tipo de devolución.
 
@@ -128,19 +137,23 @@ Dado que no necesita devolver un valor, la definición de la función no incluye
 
 El valor de devolución de una función puede ignorarse al llamar a la función:
 
-<CodeSnippet>
-  {`func imprimirYContar(cadena: String) -> Int {
-    print(cadena)\n
+```swift showLineNumbers
+func imprimirYContar(cadena: String) -> Int {
+    print(cadena)
+
     return cadena.count
-}\n
+}
+
 func imprimirSinContar(cadena: String) {
     let _ = imprimirYContar(cadena: string)
-}\n
+}
+
 imprimirYContar(cadena: "Hola, mundo")
-// Imprime «Hola, mundo» y devuelve un valor de 12\n
+// Imprime "Hola, mundo" y devuelve un valor de 12
+
 imprimirSinContar(cadena: "Hola, mundo")
-// Imprime «Hola, mundo», pero no devuelve un valor`}
-</CodeSnippet>
+// Imprime "Hola, mundo", pero no devuelve un valor
+```
 
 La primera función —`imprimirYContar(cadena:)`— imprime una cadena y luego devuelve su número de caracteres como un `Int`. La segunda función — `imprimirSinContar(cadena:)`— llama a la primera función, pero ignora su valor de devolución. Cuando se llama a la segunda función, el mensaje es impreso por la primera función, pero no se utiliza su valor de devolución.
 
@@ -158,20 +171,24 @@ Es posible usar una tupla como el tipo de devolución de una función para devol
 
 El siguiente ejemplo define una función llamada `minMax(array:)`, la cual encuentra los números menor y mayor en un _array_ de valores `Int`:
 
-<CodeSnippet>
-  {`func minMax(array: [Int]) -> (min: Int, max: Int) {
+```swift showLineNumbers
+func minMax(array: [Int]) -> (min: Int, max: Int) {
     var minimoActual = array[0]
-    var maximoActual = array[0]\n
+    var maximoActual = array[0]
+
     for valor in array[1..<array.count] {
+
         if valor < minimoActual {
             minimoActual = valor
         } else if valor > maximoActual {
             maximoActual = valor
         }
-    }\n
+
+    }
+
     return (minimoActual, maximoActual)
-}`}
-</CodeSnippet>
+}
+```
 
 La función `minMax(array:)` devuelve una tupla que contiene dos valores `Int`. Estos valores se etiquetan `min` y `max` de manera que se puede acceder a ellos por su nombre al referenciar al valor de devolución de la función.
 
@@ -179,11 +196,12 @@ El cuerpo de la función `minMax(array:)` empieza asignando a dos variables llam
 
 Dado que a los valores que conforman la tupla se le asignaron nombres como parte del valor de devolución de la función, a estos se puede acceder mediante sintaxis de punto para obtener los valores mínimos y máximo que se hallaron:
 
-<CodeSnippet>
-  {`let limites = minMax(array: [8, -6, 2, 109, 3, 71])\n
-print("min es \\(limites.min) y max es \\(bounds.max)")
-// Imprime «min es -6 y max es 109"`}
-</CodeSnippet>
+```swift showLineNumbers
+let limites = minMax(array: [8, -6, 2, 109, 3, 71])
+
+print("min es \(limites.min) y max es \(bounds.max)")
+// Imprime "min es -6 y max es 109"
+```
 
 Observa que no hace falta nombrar a los miembros de la tupla en el momento en que la tupla es devuelta por la función ya que sus nombres han sido previamente especificados como parte del valor de devolución de la función.
 
@@ -202,47 +220,55 @@ La función `minMax(array:)` vista anteriormente devuelve una tupla que contiene
 
 Para lidiar —de manera segura— con un _array_ vacío, escribe la función `minMax(array:)` con una tupla opcional como valor a devolver y un valor a devolver de `nil` cuando el _array_ esté vacío:
 
-<CodeSnippet>
-  {`func minMax(array: [Int]) -> (min: Int, max: Int)? {
-    if array.isEmpty { return nil }\n
+```swift showLineNumbers
+func minMax(array: [Int]) -> (min: Int, max: Int)? {
+    if array.isEmpty { return nil }
+
     var minimoActual = array[0]
-    var maximoActual = array[0]\n
+    var maximoActual = array[0]
+
     for valor in array[1..<array.count] {
+
         if valor < minimoActual {
             minimoActual = valor
         } else if valor > maximoActual {
             maximoActual = valor
         }
-    }\n
+
+    }
+
     return (minimoActual, maximoActual)
-}`}
-</CodeSnippet>
+}
+```
 
 Puedes utilizar encadenamiento opcional para verificar si la versión de la función `minMax(array:)` devuelve una tupla real o `nil`:
 
-<CodeSnippet>
-  {`if let limites = minMax(array: [8, -6, 2, 109, 3, 71]) {
-    print("min es \\(limites.min) y max es \\(limites.max)")
+```swift showLineNumbers
+  if let limites = minMax(array: [8, -6, 2, 109, 3, 71]) {
+    print("min es \(limites.min) y max es \(limites.max)")
 }
-// Imprime «min es -6 y max es 109»`}
-</CodeSnippet>
+// Imprime "min es -6 y max es 109"
+```
 
 ### Funciones con un valor de devolución implícito
 
 Si todo el cuerpo de una función es una sola expresión, la función —implícitamente— devuelve dicha expresión. Por ejemplo, las dos siguientes funciones tienen el mismo comportamiento:
 
-<CodeSnippet>
-  {`func saludo(para persona: String) -> String {
+```swift showLineNumbers
+func saludo(para persona: String) -> String {
     "¡Hola, " + persona + "!"
-}\n
+}
+
 print(saludo(para: "Andrea"))
-// Imprime «¡Hola, Andrea!»\n
+// Imprime "¡Hola, Andrea!"
+
 func otroSaludo(para persona: String) -> String {
     return "¡Hola, " + persona + "!"
-}\n
+}
+
 print(otroSaludo(para: "Andrea"))
-// Imprime «¡Hola, Andrea!»`}
-</CodeSnippet>
+// Imprime "¡Hola, Andrea!"
+```
 
 Toda la definición de la función `saludo(para:)` es el mensaje de saludo que esta devuelve, lo que le permite usar esta forma abreviada. La función `otroSaludo(para:)` devuelve el mismo mensaje de saludo usando la palabra clave `return` como una función más extensa. Para cualquier función que escribas como una sola línea que devuelve algo, puedes omitir `return`.
 
@@ -258,13 +284,14 @@ Como verás en [Declaración concisa de getters](./propiedades#declaracion-conci
 
 Cada parámetro de una función tiene tanto una _etiqueta de argumento_ como un _nombre de parámetro_. La etiqueta de argumento se usa al invocar una función — cada argumento se escribe en la llamada de la función con su etiqueta de argumento precediéndole. El nombre del parámetro se utiliza en la implementación de la función. Por defecto, los parámetros utilizan su nombre de parámetro como su etiqueta de argumento.
 
-<CodeSnippet>
-  {`func algunaFuncion(nombrePrimerParametro: Int, nombreSegundoParametro: Int) {
+```swift showLineNumbers
+func algunaFuncion(nombrePrimerParametro: Int, nombreSegundoParametro: Int) {
     // En el cuerpo de la función, nombrePrimerParametro y nombreSegundoParametro
     // se refieren a los valores argumento del primer y segundo parámetros.
-}\n
-algunaFuncion(nombrePrimerParametro: 1, nombreSegundoParametro: 2)`}
-</CodeSnippet>
+}
+
+algunaFuncion(nombrePrimerParametro: 1, nombreSegundoParametro: 2)
+```
 
 Todos los parámetros deben tener nombres únicos. Aunque es posible que múltiples parámetros tengan la misma etiqueta de argumento, tener etiquetas de argumentos únicas ayuda a que tu código sea más legible.
 
@@ -272,22 +299,23 @@ Todos los parámetros deben tener nombres únicos. Aunque es posible que múltip
 
 Debes definir una etiqueta de argumento antes del nombre del parámetro, separados por un espacio:
 
-<CodeSnippet>
-  {`func algunaFuncion(etiquetaArgumento nombreParametro: Int) {
+```swift showLineNumbers
+func algunaFuncion(etiquetaArgumento nombreParametro: Int) {
     // En el cuerpo de la función, nombreParametro hace referencia al
     // valor argumento para dicho parámetro.
-}`}
-</CodeSnippet>
+}
+```
 
 Acá vemos una variante de la función `saludar(persona:)`, la cual toma el nombre y lugar de origen de una persona, y devuelve un saludo:
 
-<CodeSnippet>
-  {`func saludar(persona: String, de lugarOrigen: String) -> String {
-    return "¡Hola, \\(persona)!  Es un placer que puedas visitarnos desde \\(lugarOrigen)."
-}\n
+```swift showLineNumbers
+func saludar(persona: String, de lugarOrigen: String) -> String {
+    return "¡Hola, \(persona)!  Es un placer que puedas visitarnos desde \(lugarOrigen)."
+}
+
 print(saludar(persona: "Luisa", from: "Cupertino"))
-// Prints «¡Hola, Luisa! Es un placer que puedas visitarnos desde Cupertino.»`}
-</CodeSnippet>
+// Prints "¡Hola, Luisa! Es un placer que puedas visitarnos desde Cupertino."
+```
 
 El uso de etiquetas de argumento permiten que una función pueda ser llamada de manera expresiva, como una instrucción, mientras provee un cuerpo legible y de clara intención.
 
@@ -295,13 +323,14 @@ El uso de etiquetas de argumento permiten que una función pueda ser llamada de 
 
 Si no quieres una etiqueta de argumento para un parámetro, agrega un guión bajo (`_`) en lugar de una etiqueta de argumento explícita para dicho parámetro.
 
-<CodeSnippet>
-  {`func algunaFuncion(_ primerNombreParametro: Int, segundoNombreParametro: Int) {
+```swift showLineNumbers
+func algunaFuncion(_ primerNombreParametro: Int, segundoNombreParametro: Int) {
     // En el cuerpo de la función, primerNombreParametro y segundoNombreParametro
     // se refieren a los valores argumento para el primer y segundo parámetros.
-}\n
-algunaFuncion(1, segundoNombreParametro: 2)`}
-</CodeSnippet>
+}
+
+algunaFuncion(1, segundoNombreParametro: 2)
+```
 
 Si un parámetro tiene una etiqueta de argumento, el argumento _debe_ ir acompañado de la etiqueta al momento de llamar la función.
 
@@ -309,41 +338,49 @@ Si un parámetro tiene una etiqueta de argumento, el argumento _debe_ ir acompa�
 
 Puedes definir un _valor predeterminado_ para cualquier parámetro de una función, asignando un valor al parámetro después del tipo del parámetro. Si un valor predeterminado ya se ha definido, puedes omitir el parámetro al invocar la función.
 
-<CodeSnippet>
-  {`func algunaFuncion(parametroSinValorPredeterminado: Int, parametroConValorPredeterminado: Int = 12) {
+```swift showLineNumbers
+func algunaFuncion(parametroSinValorPredeterminado: Int, parametroConValorPredeterminado: Int = 12) {
     // Si omites el segundo argumento al invocar la función, entonces
     // el valor de parametroConValorPredeterminado será 12 dentro del
     // cuerpo de la función.
-}\n
-algunaFuncion(parametroSinValorPredeterminado: 3, parametroConValorPredeterminado: 6) // parametroConValorPredeterminado es 6
-algunaFuncion(parametroSinValorPredeterminado: 4) // parametroConValorPredeterminado es 12`}
-</CodeSnippet>
+}
+
+algunaFuncion(parametroSinValorPredeterminado: 3, parametroConValorPredeterminado: 6)
+// parametroConValorPredeterminado es 6
+
+algunaFuncion(parametroSinValorPredeterminado: 4)
+// parametroConValorPredeterminado es 12
+```
 
 Coloca los parámetros que no tienen valor predeterminado al inicio de la lista de parámetros de una función, antes de los parámetros que sí tienen valores predeterminados. Los parámetros que no tienen valores predeterminados suelen ser más importantes para el significado de la función, por lo que al escribirlos primero, resulta más fácil identificar cuando la misma función está siendo llamada, independientemente de que se omita o no algún parámetro predeterminado.
 
-### Parámetros _variadic_
+### Parámetros _«variádicos»_
 
-Un parámetro _variadic_ acepta cero o más valores de un tipo específico. Puedes usar parámetros _variadic_ para especificar que al parámetro se le puede pasar un número variable de valores de entrada al momento de llamar la función. Escribe parámetros _variadic_ insertando tres puntos (`...`) después del tipo del parámetro:
+Un parámetro _«variádico»_ acepta cero o más valores de un tipo específico. Puedes usar parámetros _«variádico»_ para especificar que al parámetro se le puede pasar un número variable de valores de entrada al momento de llamar la función. Escribe parámetros _«variádicos»_ insertando tres puntos (`...`) después del tipo del parámetro:
 
-Los valores que se le pasan a un parámetro _variadic_ estarán disponibles dentro del cuerpo de la función como un _array_ del tipo apropiado. Por ejemplo, un parámetro _variadic_ con el nombre de `numeros` y de tipo `Double...`, estará disponible dentro del cuerpo de la función como un _array_ constante, llamado `numeros`, de tipo `[Double]`.
+Los valores que se le pasan a un parámetro _«variádico»_ estarán disponibles dentro del cuerpo de la función como un _array_ del tipo apropiado. Por ejemplo, un parámetro _«variádico»_ con el nombre de `numeros` y de tipo `Double...`, estará disponible dentro del cuerpo de la función como un _array_ constante, llamado `numeros`, de tipo `[Double]`.
 
 En el siguiente ejemplo, se calcula la _media aritmética_ (también conocida como _promedio_) de una lista de números de cualquier tamaño:
 
-<CodeSnippet>
-  {`func mediaAritmetica(_ numeros: Double...) -> Double {
-    var total: Double = 0\n
+```swift showLineNumbers
+func mediaAritmetica(_ numeros: Double...) -> Double {
+    var total: Double = 0
+
     for numero in numeros {
         total += numero
-    }\n
-    return total / Double(numeros.count)
-}\n
-mediaAritmetica(1, 2, 3, 4, 5)
-// Devuelve 3.0, que es la media aritmética de esos cinco números.\n
-mediaAritmetica(3, 8.25, 18.75)
-// Devuelve 10.0, que es la media aritmética de esos tres números.`}
-</CodeSnippet>
+    }
 
-Una función puede tener múltiples parámetros _variadic_. El primer parámetro que le siga a un parámetro _variadic_ deberá tener una etiqueta de argumento. Una etiqueta de argumento elimina la ambigüedad sobre cuáles argumentos le son pasados al parámetro _variadic_ y cuáles le son pasados a los parámetros que le siguen al _variadic_.
+    return total / Double(numeros.count)
+}
+
+mediaAritmetica(1, 2, 3, 4, 5)
+// Devuelve 3.0, que es la media aritmética de esos cinco números.
+
+mediaAritmetica(3, 8.25, 18.75)
+// Devuelve 10.0, que es la media aritmética de esos tres números.
+```
+
+Una función puede tener múltiples parámetros _«variádicos»_. El primer parámetro que le siga a un parámetro _«variádico»_ deberá tener una etiqueta de argumento. Una etiqueta de argumento elimina la ambigüedad sobre cuáles argumentos le son pasados al parámetro _«variádico»_ y cuáles le son pasados a los parámetros que le siguen al _«variádico»_.
 
 ### Parámetros _in-out_
 
@@ -355,30 +392,33 @@ Solamente puedes pasar una variable como el argumento para un parámetro _in-out
 
 <Callout>
   Los parámetros _in-out_ no pueden tener valores predeterminados y los
-  parámetros _variadic_ no pueden ser usados como parámetros _in-out_.
+  parámetros _«variádicos»_ no pueden ser usados como parámetros _in-out_.
 </Callout>
 
 Acá tenemos un ejemplo con una función llamada `intercambiarDosEnteros(_:_:)`, la cual tiene dos parámetros _in-out_, enteros con nombres `a` y `b`.
 
-<CodeSnippet>
-  {`func intercambiarDosEnteros(_ a: inout Int, _ b: inout Int) {
-    let aTemporal = a\n
+```swift showLineNumbers
+func intercambiarDosEnteros(_ a: inout Int, _ b: inout Int) {
+    let aTemporal = a
+
     a = b
     b = aTemporal
-}`}
-</CodeSnippet>
+}
+```
 
 La función `intercambiarDosEnteros(:_:_)` simplemente intercambia los valores de `a` y `b` entre sí. La función ejecuta este cambio slmscenando el valor de `a` en una constante temporal llamada `aTemporal`, y luego asigna el valor de `b` a `a`, y asigna el valor de `aTemporal` a `b`.
 
 Puedes invocar a la función `intercambiarDosEnteros(_:_:)` con dos valores de tipo `Int` para intercambiar sus valores. Nota que los nombres de `algunEntero` y `otroEntero` van precedidos de un _ampersand_ al ser pasados como argumentos para la función `intercambiarDosEnteros(_:_:)`:
 
-<CodeSnippet>
-  {`var algunEntero = 3
-var otroEntero = 107\n
-intercambiarDosEnteros(&algunEntero, &otroEntero)\n
-print("algunEntero es ahora \\(algunEntero), y otroEntero es ahora \\(otroEntero)")
-// Imprime «algunEntero es ahora 107, y otroEntero es ahora 3»`}
-</CodeSnippet>
+```swift showLineNumbers
+var algunEntero = 3
+var otroEntero = 107
+
+intercambiarDosEnteros(&algunEntero, &otroEntero)
+
+print("algunEntero es ahora \(algunEntero), y otroEntero es ahora \(otroEntero)")
+// Imprime "algunEntero es ahora 107, y otroEntero es ahora 3"
+```
 
 El ejemplo anterior muestra que los valores originales de `algunEntero` y `otroEntero` fueron modificados por la función `intercambiarDosEnteros(_:_:)`, aun cuando estas variables se definieron fuera de la función.
 
@@ -397,14 +437,15 @@ Cada función tiene un _tipo de función_ específico, el cual se compone del ti
 
 Por ejemplo:
 
-<CodeSnippet>
-  {`func sumarDosEnteros(_ a: Int, _ b: Int) -> Int {
+```swift showLineNumbers
+func sumarDosEnteros(_ a: Int, _ b: Int) -> Int {
     return a + b
-}\n
+}
+
 func multiplicarDosEnteros(_ a: Int, _ b: Int) -> Int {
     return a * b
-}`}
-</CodeSnippet>
+}
+```
 
 Este ejemplo define dos funciones matemáticas simples, llamadas `sumarDosEnteros` y `multiplicarDosEnteros`. Cada una de estas funciones toma dos valores `Int` y devuelve un valor `Int`, el cual es el resultado de llevar a cabo la operación matemática apropiada.
 
@@ -414,11 +455,11 @@ El tipo de estas dos funciones es `(Int, Int) -> Int`. Esto puede leerse como:
 
 Acá se tiene otro ejemplo, de una función sin parámetros ni valor de devolución:
 
-<CodeSnippet>
-  {`func imprimirHolaMundo() {
+```swift showLineNumbers
+func imprimirHolaMundo() {
     print("Hola, mundo")
-}`}
-</CodeSnippet>
+}
+```
 
 El tipo de esta función es `() -> Void`, o _una función que no tiene parámetros y que devuelve `Void`._
 
@@ -426,7 +467,9 @@ El tipo de esta función es `() -> Void`, o _una función que no tiene parámetr
 
 Puedes usar tipos de funciones al igual que cualquier otro tipo en Swift. Por ejemplo, puedes definer una constante o una variable para que sea del tipo de una función y asignar una función apropiada para esa variable:
 
-<CodeSnippet>{`var funcionMatematica: (Int, Int) -> Int = sumarDosEnteros`}</CodeSnippet>
+```swift showLineNumbers
+var funcionMatematica: (Int, Int) -> Int = sumarDosEnteros
+```
 
 Esto puede leerse como:
 
@@ -436,25 +479,25 @@ La función `sumarDosEnteros(_:_:)` tiene el mismo tipo que la variable `funcion
 
 Ahora puedes invocar a la función asignada mediante el nombre de `funcionMatematica`:
 
-<CodeSnippet>
-  {`print("Resultado: \\(funcionMatematica(2, 3))")
-// Imprime «Resultado: 5»`}
-</CodeSnippet>
+```swift showLineNumbers
+print("Resultado: \(funcionMatematica(2, 3))")
+// Imprime "Resultado: 5"
+```
 
 Una función diferente con el mismo tipo le puede ser asignada a la misma variable, de la misma forma en que se hace con otros tipos:
 
-<CodeSnippet>
-  {`funcionMatematica = multiplicarDosEnteros\n
-print("Resultado: \\(funcionMatematica(2, 3))")
-// Imprime «Resultado: 6»`}
-</CodeSnippet>
+```swift showLineNumbers
+funcionMatematica = multiplicarDosEnteros\n
+print("Resultado: \(funcionMatematica(2, 3))")
+// Imprime "Resultado: 6"
+```
 
 Al igual que con cualquier otro tipo, puedes dejar que Swift se encargue de inferir el tipo de una función cuando esta se asigna a una constante o variable:
 
-<CodeSnippet>
-  {`let otraFuncionMatematica = sumarDosEnteros
-// Se infiere que el tipo de otraFuncionMatematica es (Int, Int) -> Int`}
-</CodeSnippet>
+```swift showLineNumbers
+let otraFuncionMatematica = sumarDosEnteros
+// Se infiere que el tipo de otraFuncionMatematica es (Int, Int) -> Int
+```
 
 ### Tipos de funciones como tipos de parámetros
 
@@ -462,13 +505,14 @@ Puedes usar el tipo de una función —como `(Int, Int) -> Int`— como el tipo 
 
 Acá hay un ejemplo para imprimir los resultados de las funciones matemáticas previamente definidas:
 
-<CodeSnippet>
-  {`func imprimirResultadoMatematico(_ funcionMatematica: (Int, Int) -> Int, _ a: Int, _ b: Int) {
-    print("Resultado: \\(funcionMatematica(a, b))")
-}\n
+```swift showLineNumbers
+func imprimirResultadoMatematico(_ funcionMatematica: (Int, Int) -> Int, _ a: Int, _ b: Int) {
+    print("Resultado: \(funcionMatematica(a, b))")
+}
+
 imprimirResultadoMatematico(sumarDosEnteros, 3, 5)
-// Imprime «Resultado: 8»`}
-</CodeSnippet>
+// Imprime "Resultado: 8"
+```
 
 Este ejemplo define una función llamada `imprimirResultadoMatematico(_:_:_:)`, la cual tiene tres parámetros. El primer parámetro se llama `funcionMatematica` y es de tipo `(Int, Int) -> Int`. Puedes pasar cualquier función de ese tipo como el argumento para este primer parámetro. Los segundo y tercer parámetros se llaman `a` y `b`, y son ambos de tipo `Int`. Estos son usados como los valores de entrada para la función matemática que se provea.
 
@@ -482,48 +526,52 @@ Puedes utilizar el tipo de una función como el valor de devolución de otra fun
 
 El siguiente ejemplo define dos funciones simples, llamadas `avanzar(_:)` y `regresar(_:)`. La función `avanzar(_:)` devuelve su valor de entrada incrementado en una unidad, y la función `regresar(_:)` devuelve su valor de entrada disminuido en una unidad. Ambas funciones tienen un tipo de `(Int) -> Int`:
 
-<CodeSnippet>
-  {`func avanzar(_ input: Int) -> Int {
+```swift showLineNumbers
+func avanzar(_ input: Int) -> Int {
     return input + 1
-}\n
+}
+
 func regresar(_ input: Int) -> Int {
     return input - 1
-}`}
-</CodeSnippet>
+}
+```
 
 Acá tenemos una función llamada `elegirFuncionDeMovimiento(debeRegresar:)`, cuyo tipo de devolución es `(Int) -> Int`. La función `elegirFuncionDeMovimiento(debeRegresar:)` devuelve la función `avanzar(_:)` o la función `regresar(_:)` basándose en un parámetro _booleano_ llamado `debeRegresar`:
 
-<CodeSnippet>
-  {`func elegirFuncionDeMovimiento(debeRegresar: Bool) -> (Int) -> Int {
+```swift showLineNumbers
+func elegirFuncionDeMovimiento(debeRegresar: Bool) -> (Int) -> Int {
     return debeRegresar ? regresar : avanzar
-}`}
-</CodeSnippet>
+}
+```
 
 Ahora puedes usar la función `elegirFuncionDeMovimiento(debeRegresar:)` para obtener una función que se moverá en una dirección o la otra:
 
-<CodeSnippet>
-  {`var valorActual = 3
+```swift showLineNumbers
+var valorActual = 3
 let moverseHaciaCero = elegirFuncionDeMovimiento(debeRegresar: valorActual > 0)
-// moverseHaciaCero ahora se refiere a la función regresar()`}
-</CodeSnippet>
+// moverseHaciaCero ahora se refiere a la función regresar()
+```
 
 El ejemplo anterior determina si un movimiento positivo o negativo se necesita para mover una variable llamada `valorActual` progresivamente hacia cero. `valorActual` tiene un valor inicial de `3`, por lo que `valorActual > 0` devuelve `true`, haciendo que `elegirFuncionDeMovimiento(debeRegresar:)` devuelva la función `regresar(_:)`. Una referencia a la función devuelta se almacena en una constante llamada `moverseHaciaCero`.
 
 Ahora que `moverseHaciaCero` referencia la función correcta, puede usarse par contar hasta cero:
 
-<CodeSnippet>
-  {`print("Contando hasta cero:")
-// Contando hasta cero:\n
+```swift showLineNumbers
+print("Contando hasta cero:")
+// Contando hasta cero:
+
 while valorActual != 0 {
-    print("\\(valorActual)...")
+    print("\(valorActual)...")
+
     valorActual = moverseHaciaCero(valorActual)
-}\n
+}
+
 print("¡Cero!")
 // 3...
 // 2...
 // 1...
-// ¡Cero!`}
-</CodeSnippet>
+// ¡Cero!
+```
 
 ## Funciones anidadas
 
@@ -533,23 +581,28 @@ Las funciones anidadas están ocultas del mundo exterior por defecto, pero aún 
 
 Puedes reescribir la función `elegirFuncionDeMovimiento(debeRegresar:)` del ejemplo anterior para usar y devolver funciones anidadas:
 
-<CodeSnippet>
-  {`func elegirFuncionDeMovimiento(debeRegresar: Bool) -> (Int) -> Int {
+```swift showLineNumbers
+func elegirFuncionDeMovimiento(debeRegresar: Bool) -> (Int) -> Int {
     func avanzar(input: Int) -> Int { return input + 1 }
-    func regresar(input: Int) -> Int { return input - 1 }\n
+    func regresar(input: Int) -> Int { return input - 1 }
+
     return debeRegresar ? regresar : avanzar
-}\n
+}
+
 var valorActual = -4
 let moverseHaciaCero = elegirFuncionDeMovimiento(debeRegresar: valorActual > 0)
-// moverseHaciaCero ahora se refiere a la función anidada avanzar()\n
+// moverseHaciaCero ahora se refiere a la función anidada avanzar()
+
 while valorActual != 0 {
-    print("\\(valorActual)... ")
+    print("\(valorActual)... ")
+
     valorActual = moverseHaciaCero(valorActual)
-}\n
+}
+
 print("!Cero!")
 // -4...
 // -3...
 // -2...
 // -1...
-// !Cero!`}
-</CodeSnippet>
+// !Cero!
+```

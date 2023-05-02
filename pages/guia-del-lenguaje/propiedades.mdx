@@ -2,10 +2,15 @@
 title: Properties
 ---
 
-import CodeSnippet from '../../components/CodeSnippet.js'
-import Callout from '../../components/Callout.js'
+import Callout from '@components/Callout'
+import DynamicImage from '@components/DynamicImage'
+import Hero from '@components/Hero'
 
-# Properties
+<Hero>
+  # Properties
+
+  Access stored and computed values that are part of an instance or type.
+</Hero>
 
 _Properties_ associate values with a particular class, structure, or enumeration. Stored properties store constant and variable values as part of an instance, whereas computed properties calculate (rather than store) a value. Computed properties are provided by classes, structures, and enumerations. Stored properties are provided only by classes and structures.
 
@@ -23,16 +28,18 @@ You can provide a default value for a stored property as part of its definition,
 
 The example below defines a structure called `FixedLengthRange`, which describes a range of integers whose range length can't be changed after it's created:
 
-<CodeSnippet>
-  {`struct FixedLengthRange {
+```swift showLineNumbers
+struct FixedLengthRange {
     var firstValue: Int
     let length: Int
-}\n
+}
+
 var rangeOfThreeItems = FixedLengthRange(firstValue: 0, length: 3)
-// the range represents integer values 0, 1, and 2\n
+// the range represents integer values 0, 1, and 2
+
 rangeOfThreeItems.firstValue = 6
-// the range now represents integer values 6, 7, and 8`}
-</CodeSnippet>
+// the range now represents integer values 6, 7, and 8
+```
 
 Instances of `FixedLengthRange` have a variable stored property called `firstValue` and a constant stored property called `length`. In the example above, `length` is initialized when the new range is created and can't be changed thereafter, because it's a constant property.
 
@@ -40,12 +47,13 @@ Instances of `FixedLengthRange` have a variable stored property called `firstVal
 
 If you create an instance of a structure and assign that instance to a constant, you can't modify the instance's properties, even if they were declared as variable properties:
 
-<CodeSnippet>
-  {`let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)
-// this range represents integer values 0, 1, 2, and 3\n
+```swift showLineNumbers
+let rangeOfFourItems = FixedLengthRange(firstValue: 0, length: 4)
+// this range represents integer values 0, 1, 2, and 3
+
 rangeOfFourItems.firstValue = 6
-// this will report an error, even though firstValue is a variable property`}
-</CodeSnippet>
+// this will report an error, even though firstValue is a variable property
+```
 
 Because `rangeOfFourItems` is declared as a constant (with the `let` keyword), it isn't possible to change its `firstValue` property, even though `firstValue` is a variable property.
 
@@ -69,25 +77,28 @@ Lazy properties are useful when the initial value for a property is dependent on
 
 The example below uses a lazy stored property to avoid unnecessary initialization of a complex class. This example defines two classes called `DataImporter` and `DataManager`, neither of which is shown in full:
 
-<CodeSnippet>
-  {`class DataImporter {
+```swift showLineNumbers
+class DataImporter {
     /*
     DataImporter is a class to import data from an external file.
     The class is assumed to take a nontrivial amount of time to initialize.
     */
     var filename = "data.txt"
     // the DataImporter class would provide data importing functionality here
-}\n
+}
+
 class DataManager {
     lazy var importer = DataImporter()
     var data: [String] = []
     // the DataManager class would provide data management functionality here
-}\n
-let manager = DataManager()\n
+}
+
+let manager = DataManager()
+
 manager.data.append("Some data")
 manager.data.append("Some more data")
-// the DataImporter instance for the importer property hasn't yet been created`}
-</CodeSnippet>
+// the DataImporter instance for the importer property hasn't yet been created
+```
 
 The `DataManager` class has a stored property called `data`, which is initialized with a new, empty array of `String` values. Although the rest of its functionality isn't shown, the purpose of this `DataManager` class is to manage and provide access to this array of `String` data.
 
@@ -97,11 +108,11 @@ Because it's possible for a `DataManager` instance to manage its data without ev
 
 Because it's marked with the `lazy` modifier, the `DataImporter` instance for the `importer` property is only created when the `importer` property is first accessed, such as when its `filename` property is queried:
 
-<CodeSnippet>
-  {`print(manager.importer.filename)
+```swift showLineNumbers
+print(manager.importer.filename)
 // the DataImporter instance for the importer property has now been created
-// Prints "data.txt"`}
-</CodeSnippet>
+// Prints "data.txt"
+```
 
 <Callout>
   If a property marked with the `lazy` modifier is accessed by multiple threads
@@ -119,34 +130,42 @@ Swift unifies these concepts into a single property declaration. A Swift propert
 
 In addition to stored properties, classes, structures, and enumerations can define _computed properties_, which don't actually store a value. Instead, they provide a getter and an optional setter to retrieve and set other properties and values indirectly.
 
-<CodeSnippet>
-  {`struct Point {
+```swift showLineNumbers
+struct Point {
     var x = 0.0, y = 0.0
-}\n
+}
+
 struct Size {
     var width = 0.0, height = 0.0
-}\n
+}
+
 struct Rect {
     var origin = Point()
     var size = Size()
+
     var center: Point {
         get {
             let centerX = origin.x + (size.width / 2)
-            let centerY = origin.y + (size.height / 2)\n
+            let centerY = origin.y + (size.height / 2)
+
             return Point(x: centerX, y: centerY)
-        }\n
+        }
+
         set(newCenter) {
             origin.x = newCenter.x - (size.width / 2)
             origin.y = newCenter.y - (size.height / 2)
         }
     }
-}\n
+}
+
 var square = Rect(origin: Point(x: 0.0, y: 0.0), size: Size(width: 10.0, height: 10.0))
-let initialSquareCenter = square.center\n
-square.center = Point(x: 15.0, y: 15.0)\n
-print("square.origin is now at (\\(square.origin.x), \\(square.origin.y))")
-// Prints "square.origin is now at (10.0, 10.0)"`}
-</CodeSnippet>
+let initialSquareCenter = square.center
+
+square.center = Point(x: 15.0, y: 15.0)
+
+print("square.origin is now at (\(square.origin.x), \(square.origin.y))")
+// Prints "square.origin is now at (10.0, 10.0)"
+```
 
 This example defines three structures for working with geometric shapes:
 
@@ -162,56 +181,60 @@ The square variable's `center` property is then accessed through dot syntax `(sq
 
 The center property is then set to a new value of `(15, 15)`, which moves the square up and to the right, to the new position shown by the orange square in the diagram below. Setting the `center` property calls the setter for `center`, which modifies the `x` and `y` values of the stored `origin` property, and moves the square to its new position.
 
-<img
-  src="/assets/images/computedProperties_2x.png"
+<DynamicImage
+  baseName="computedProperties"
   alt="A cartesian coordinate system with two points and a line drawn between them."
-  width={388}
-  height={387}
-  className="figure-small"
+  width={477}
+  height={500}
 />
 
 ### Shorthand Setter Declaration
 
 If a computed property's setter doesn't define a name for the new value to be set, a default name of `newValue` is used. Here's an alternative version of the `Rect` structure that takes advantage of this shorthand notation:
 
-<CodeSnippet>
-  {`struct AlternativeRect {
+```swift showLineNumbers
+struct AlternativeRect {
     var origin = Point()
     var size = Size()
+
     var center: Point {
         get {
             let centerX = origin.x + (size.width / 2)
-            let centerY = origin.y + (size.height / 2)\n
+            let centerY = origin.y + (size.height / 2)
+
             return Point(x: centerX, y: centerY)
-        }\n
+        }
+
         set {
             origin.x = newValue.x - (size.width / 2)
             origin.y = newValue.y - (size.height / 2)
         }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 ### Shorthand Getter Declaration
 
 If the entire body of a getter is a single expression, the getter implicitly returns that expression. Here's an another version of the `Rect` structure that takes advantage of this shorthand notation and the shorthand notation for setters:
 
-<CodeSnippet>
-  {`struct CompactRect {
+```swift showLineNumbers
+struct CompactRect {
     var origin = Point()
     var size = Size()
+
     var center: Point {
         get {
             Point(x: origin.x + (size.width / 2),
                   y: origin.y + (size.height / 2))
-        }\n
+        }
+
         set {
             origin.x = newValue.x - (size.width / 2)
             origin.y = newValue.y - (size.height / 2)
         }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 Omitting the return from a getter follows the same rules as omitting `return` from a function, as described in [Functions With an Implicit Return](./funciones#funciones-con-devolucion-implicita).
 
@@ -229,17 +252,20 @@ A computed property with a getter but no setter is known as a _read-only compute
 
 You can simplify the declaration of a read-only computed property by removing the `get` keyword and its braces:
 
-<CodeSnippet>
-  {`struct Cuboid {
+```swift showLineNumbers
+struct Cuboid {
     var width = 0.0, height = 0.0, depth = 0.0
+
     var volume: Double {
         return width * height * depth
     }
-}\n
-let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)\n
-print("the volume of fourByFiveByTwo is \\(fourByFiveByTwo.volume)")
-// Prints "the volume of fourByFiveByTwo is 40.0"`}
-</CodeSnippet>
+}
+
+let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)
+
+print("the volume of fourByFiveByTwo is \(fourByFiveByTwo.volume)")
+// Prints "the volume of fourByFiveByTwo is 40.0"
+```
 
 This example defines a new structure called `Cuboid`, which represents a 3D rectangular box with `width`, `height`, and `depth` properties. This structure also has a read-only computed property called `volume`, which calculates and returns the current volume of the cuboid. It doesn't make sense for `volume` to be settable, because it would be ambiguous as to which values of `width`, `height`, and `depth` should be used for a particular `volume` value. Nonetheless, it's useful for a `Cuboid` to provide a read-only computed property to enable external users to discover its current calculated volume.
 
@@ -277,30 +303,35 @@ Similarly, if you implement a `didSet` observer, it's passed a constant paramete
 
 Here's an example of `willSet` and `didSet` in action. The example below defines a new class called `StepCounter`, which tracks the total number of steps that a person takes while walking. This class might be used with input data from a pedometer or other step counter to keep track of a person's exercise during their daily routine.
 
-<CodeSnippet>
-  {`class StepCounter {
+```swift showLineNumbers
+class StepCounter {
     var totalSteps: Int = 0 {
         willSet(newTotalSteps) {
-            print("About to set totalSteps to \\(newTotalSteps)")
-        }\n
+            print("About to set totalSteps to \(newTotalSteps)")
+        }
+
         didSet {
             if totalSteps > oldValue  {
-                print("Added \\(totalSteps - oldValue) steps")
+                print("Added \(totalSteps - oldValue) steps")
             }
         }
     }
-}\n
-let stepCounter = StepCounter()\n
+}
+
+let stepCounter = StepCounter()
+
 stepCounter.totalSteps = 200
 // About to set totalSteps to 200
 // Added 200 steps
+
 stepCounter.totalSteps = 360
 // About to set totalSteps to 360
 // Added 160 steps
+
 stepCounter.totalSteps = 896
 // About to set totalSteps to 896
-// Added 536 steps`}
-</CodeSnippet>
+// Added 536 steps
+```
 
 The `StepCounter` class declares a `totalSteps` property of type `Int`. This is a stored property with `willSet` and `didSet` observers.
 
@@ -318,16 +349,18 @@ A property wrapper adds a layer of separation between code that manages how a pr
 
 To define a property wrapper, you make a structure, enumeration, or class that defines a `wrappedValue` property. In the code below, the `TwelveOrLess` structure ensures that the value it wraps always contains a number less than or equal to `12`. If you ask it to store a larger number, it stores `12` instead.
 
-<CodeSnippet>
-  {`@propertyWrapper
+```swift showLineNumbers
+@propertyWrapper
 struct TwelveOrLess {
     private var number = 0
+
     var wrappedValue: Int {
-        get { return number }\n
+        get { return number }
+
         set { number = min(newValue, 12) }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The setter ensures that new values are less than `12`, and the getter returns the stored value.
 
@@ -341,40 +374,50 @@ The setter ensures that new values are less than `12`, and the getter returns th
 
 You apply a wrapper to a property by writing the wrapper's name before the property as an attribute. Here's a structure that stores a rectangle that uses the `TwelveOrLess` property wrapper to ensure its dimensions are always `12` or less:
 
-<CodeSnippet>
-  {`struct SmallRectangle {
+```swift showLineNumbers
+struct SmallRectangle {
     @TwelveOrLess var height: Int
     @TwelveOrLess var width: Int
-}\n
-var rectangle = SmallRectangle()\n
+}
+
+var rectangle = SmallRectangle()
+
 print(rectangle.height)
-// Prints "0"\n
-rectangle.height = 10\n
+// Prints "0"
+
+rectangle.height = 10
+
 print(rectangle.height)
-// Prints "10"\n
-rectangle.height = 24\n
+// Prints "10"
+
+rectangle.height = 24
+
 print(rectangle.height)
-// Prints "12"`}
-</CodeSnippet>
+// Prints "12"
+```
 
 The `height` and `width` properties get their initial values from the definition of `TwelveOrLess`, which sets `TwelveOrLess.number` to zero. The setter in `TwelveOrLess` treats `10` as a valid value so storing the number `10` in `rectangle.height` proceeds as written. However, `24` is larger than `TwelveOrLess` allows, so trying to store `24` end up setting `rectangle.height` to `12` instead, the largest allowed value.
 
 When you apply a wrapper to a property, the compiler synthesizes code that provides storage for the wrapper and code that provides access to the property through the wrapper. (The property wrapper is responsible for storing the wrapped value, so there's no synthesized code for that.) You could write code that uses the behavior of a property wrapper, without taking advantage of the special attribute syntax. For example, here's a version of `SmallRectangle` from the previous code listing that wraps its properties in the `TwelveOrLess` structure explicitly, instead of writing `@TwelveOrLess` as an attribute:
 
-<CodeSnippet>
-  {`struct SmallRectangle {
+```swift showLineNumbers
+struct SmallRectangle {
     private var _height = TwelveOrLess()
-    private var _width = TwelveOrLess()\n
+    private var _width = TwelveOrLess()
+
     var height: Int {
-        get { return _height.wrappedValue }\n
+        get { return _height.wrappedValue }
+
         set { _height.wrappedValue = newValue }
     }
+
     var width: Int {
-        get { return _width.wrappedValue }\n
+        get { return _width.wrappedValue }
+
         set { _width.wrappedValue = newValue }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The `_height` and `_width` properties store an instance of the property wrapper, `TwelveOrLess`. The getter and setter for `height` and `width` wrap access to the `wrappedValue` property.
 
@@ -382,75 +425,88 @@ The `_height` and `_width` properties store an instance of the property wrapper,
 
 The code in the examples above sets the initial value for the wrapped property by giving `number` an initial value in the definition of `TwelveOrLess`. Code that uses this property wrapper, can't specify a different initial value for a property that's wrapped by `TwelveOrLess`—for example, the definition of `SmallRectangle` can't give `height` or `width` initial values. To support setting an initial value or other customization, the property wrapper needs to add an initializer. Here's an expanded version of `TwelveOrLess` called `SmallNumber` that defines initializers that set the wrapped and maximum value:
 
-<CodeSnippet>
-  {`@propertyWrapper
+```swift showLineNumbers
+@propertyWrapper
 struct SmallNumber {
     private var maximum: Int
-    private var number: Int\n
+    private var number: Int
+
     var wrappedValue: Int {
-        get { return number }\n
+        get { return number }
+
         set { number = min(newValue, maximum) }
-    }\n
+    }
+
     init() {
         maximum = 12
         number = 0
-    }\n
+    }
+
     init(wrappedValue: Int) {
         maximum = 12
         number = min(wrappedValue, maximum)
-    }\n
+    }
+
     init(wrappedValue: Int, maximum: Int) {
         self.maximum = maximum
         number = min(wrappedValue, maximum)
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The definition of `SmallNumber` includes three initializers—`init()`, `init(wrappedValue:)`, and `init(wrappedValue:maximum:)`—which the examples below use to set the wrapped value and the maximum value. For information about initialization and initializer syntax, see [Initialization](./inicializacion).
 
 When you apply a wrapper to a property and you don't specify an initial value, Swift uses the `init()` initializer to set up the wrapper. For example:
 
-<CodeSnippet>
-  {`struct ZeroRectangle {
+```swift showLineNumbers
+struct ZeroRectangle {
     @SmallNumber var height: Int
     @SmallNumber var width: Int
-}\n
-var zeroRectangle = ZeroRectangle()\n
+}
+
+var zeroRectangle = ZeroRectangle()
+
 print(zeroRectangle.height, zeroRectangle.width)
-// Prints "0 0"`}
-</CodeSnippet>
+// Prints "0 0"
+```
 
 The instances of `SmallNumber` that wrap `height` and `width` are created by calling `SmallNumber()`. The code inside that initializer sets the initial wrapped value and the initial maximum value, using the default values of zero and 12. The property wrapper still provides all of the initial values, like the earlier example that used `TwelveOrLess` in `SmallRectangle`. Unlike that example, `SmallNumber` also supports writing those initial values as part of declaring the property.
 
 When you specify an initial value for the property, Swift uses the `init(wrappedValue:)` initializer to set up the wrapper. For example:
 
-<CodeSnippet>
-  {`struct UnitRectangle {
+```swift showLineNumbers
+struct UnitRectangle {
     @SmallNumber var height: Int = 1
     @SmallNumber var width: Int = 1
-}\n
-var unitRectangle = UnitRectangle()\n
+}
+
+var unitRectangle = UnitRectangle()
+
 print(unitRectangle.height, unitRectangle.width)
-// Prints "1 1"`}
-</CodeSnippet>
+// Prints "1 1"
+```
 
 When you write `= 1` on a property with a wrapper, that's translated into a call to the `init(wrappedValue:)` initializer. The instances of `SmallNumber` that wrap `height` and `width` are created by calling `SmallNumber(wrappedValue: 1)`. The initializer uses the wrapped value that's specified here, and it uses the default maximum value of `12`.
 
 When you write arguments in parentheses after the custom attribute, Swift uses the initializer that accepts those arguments to set up the wrapper. For example, if you provide an initial value and a maximum value, Swift uses the `init(wrappedValue:maximum:)` initializer:
 
-<CodeSnippet>
-  {`struct NarrowRectangle {
+```swift showLineNumbers
+struct NarrowRectangle {
     @SmallNumber(wrappedValue: 2, maximum: 5) var height: Int
     @SmallNumber(wrappedValue: 3, maximum: 4) var width: Int
-}\n
-var narrowRectangle = NarrowRectangle()\n
+}
+
+var narrowRectangle = NarrowRectangle()
+
 print(narrowRectangle.height, narrowRectangle.width)
-// Prints "2 3"\n
+// Prints "2 3"
+
 narrowRectangle.height = 100
-narrowRectangle.width = 100\n
+narrowRectangle.width = 100
+
 print(narrowRectangle.height, narrowRectangle.width)
-// Prints "5 4"`}
-</CodeSnippet>
+// Prints "5 4"
+```
 
 The instance of `SmallNumber` that wraps `height` is created by calling `SmallNumber(wrappedValue: 2, maximum: 5)`, and the instance that wraps `width` is created by calling `SmallNumber(wrappedValue: 3, maximum: 4)`.
 
@@ -458,18 +514,22 @@ By including arguments to the property wrapper, you can set up the initial state
 
 When you include property wrapper arguments, you can also specify an initial value using assignment. Swift treats the assignment like a `wrappedValue` argument and uses the initializer that accepts the arguments you include. For example:
 
-<CodeSnippet>
-  {`struct MixedRectangle {
+```swift showLineNumbers
+struct MixedRectangle {
     @SmallNumber var height: Int = 1
     @SmallNumber(maximum: 9) var width: Int = 2
-}\n
-var mixedRectangle = MixedRectangle()\n
+}
+
+var mixedRectangle = MixedRectangle()
+
 print(mixedRectangle.height)
-// Prints "1"\n
-mixedRectangle.height = 20\n
+// Prints "1"
+
+mixedRectangle.height = 20
+
 print(mixedRectangle.height)
-// Prints "12"`}
-</CodeSnippet>
+// Prints "12"
+```
 
 The instance of `SmallNumber` that wraps `height` is created by calling `SmallNumber(wrappedValue: 1)`, which uses the default maximum value of `12`. The instance that wraps `width` is created by calling `SmallNumber(wrappedValue: 2, maximum: 9)`.
 
@@ -479,13 +539,15 @@ In addition to the wrapped value, a property wrapper can expose additional funct
 
 In the `SmallNumber` example above, if you try to set the property to a number that's too large, the property wrapper adjusts the number before storing it. The code below adds a `projectedValue` property to the `SmallNumber` structure to keep track of whether the property wrapper adjusted the new value for the property before storing that new value.
 
-<CodeSnippet>
-  {`@propertyWrapper
+```swift showLineNumbers
+@propertyWrapper
 struct SmallNumber {
     private var number: Int
-    private(set) var projectedValue: Bool\n
+    private(set) var projectedValue: Bool
+
     var wrappedValue: Int {
-        get { return number }\n
+        get { return number }
+
         set {
             if newValue > 12 {
                 number = 12
@@ -495,23 +557,30 @@ struct SmallNumber {
                 projectedValue = false
             }
         }
-    }\n
+    }
+
     init() {
         self.number = 0
         self.projectedValue = false
     }
-}\n
+}
+
 struct SomeStructure {
     @SmallNumber var someNumber: Int
-}\n
-var someStructure = SomeStructure()\n
-someStructure.someNumber = 4\n
+}
+
+var someStructure = SomeStructure()
+
+someStructure.someNumber = 4
+
 print(someStructure.$someNumber)
-// Prints "false"\n
-someStructure.someNumber = 55\n
+// Prints "false"
+
+someStructure.someNumber = 55
+
 print(someStructure.$someNumber)
-// Prints "true"`}
-</CodeSnippet>
+// Prints "true"
+```
 
 Writing `someStructure.$someNumber` accesses the wrapper's projected value. After storing a small number like four, the value of `someStructure.$someNumber` is `false`. However, the projected value is `true` after trying to store a number that's too large, like 55.
 
@@ -519,14 +588,17 @@ A property wrapper can return a value of any type as its projected value. In thi
 
 When you access a projected value from code that's part of the type, like a property getter or an instance method, you can omit `self.` before the property name, just like accessing other properties. The code in the following example refers to the projected value of the wrapper around `height` and `width` as `$height` and `$width`:
 
-<CodeSnippet>
-  {`enum Size {
+```swift showLineNumbers
+enum Size {
     case small, large
-}\n
+}
+
 struct SizedRectangle {
     @SmallNumber var height: Int
-    @SmallNumber var width: Int\n
+    @SmallNumber var width: Int
+
     mutating func resize(to size: Size) -> Bool {
+
         switch size {
         case .small:
             height = 10
@@ -534,11 +606,12 @@ struct SizedRectangle {
         case .large:
             height = 100
             width = 100
-        }\n
+        }
+
         return $height || $width
     }
-}`}
-</CodeSnippet>
+}
+```
 
 Because property wrapper syntax is just syntactic sugar for a property with a getter and a setter, accessing `height` and `width` behaves the same as accessing any other property. For example, the code in `resize(to:)` accesses `height` and `width` using their property wrapper. If you call `resize(to: .large)`, the switch case for `.large` sets the rectangle's `height` and `width` to `100`. The wrapper prevents the value of those properties from being larger than `12`, and it sets the projected value to `true`, to record the fact that it adjusted their values. At the end of `resize(to:)`, the return statement checks `$height` and `$width` to determine whether the property wrapper adjusted either `height` or `width`.
 
@@ -559,15 +632,17 @@ However, you can also define _computed variables_ and define observers for store
 
 You can apply a property wrapper to a local stored variable, but not to a global variable or a computed variable. For example, in the code below, `myNumber` uses `SmallNumber` as a property wrapper.
 
-<CodeSnippet>
-  {`func someFunction() {
-    @SmallNumber var myNumber: Int = 0\n
+```swift showLineNumbers
+func someFunction() {
+    @SmallNumber var myNumber: Int = 0
+
     myNumber = 10
-    // now myNumber is 10\n
+    // now myNumber is 10
+
     myNumber = 24
     // now myNumber is 12
-}`}
-</CodeSnippet>
+}
+```
 
 Like when you apply `SmallNumber` to a property, setting the value of `myNumber` to `10` is valid. Because the property wrapper doesn't allow values higher than `12`, it sets `myNumber` to `12` instead of `24`.
 
@@ -596,29 +671,32 @@ In C and Objective-C, you define static constants and variables associated with 
 
 You define type properties with the `static` keyword. For computed type properties for class types, you can use the `class` keyword instead to allow subclasses to override the superclass's implementation. The example below shows the syntax for stored and computed type properties:
 
-<CodeSnippet>
-  {`struct SomeStructure {
+```swift showLineNumbers
+struct SomeStructure {
     static var storedTypeProperty = "Some value."
     static var computedTypeProperty: Int {
         return 1
     }
-}\n
+}
+
 enum SomeEnumeration {
     static var storedTypeProperty = "Some value."
     static var computedTypeProperty: Int {
         return 6
     }
-}\n
+}
+
 class SomeClass {
     static var storedTypeProperty = "Some value."
     static var computedTypeProperty: Int {
         return 27
-    }\n
+    }
+
     class var overrideableComputedTypeProperty: Int {
         return 107
     }
-}`}
-</CodeSnippet>
+}
+```
 
 <Callout>
   The computed type property examples above are for read-only computed type
@@ -630,50 +708,55 @@ class SomeClass {
 
 Type properties are queried and set with dot syntax, just like instance properties. However, type properties are queried and set on the _type_, not on an instance of that type. For example:
 
-<CodeSnippet>
-  {`print(SomeStructure.storedTypeProperty)
-// Prints "Some value."\n
-SomeStructure.storedTypeProperty = "Another value."\n
+```swift showLineNumbers
+print(SomeStructure.storedTypeProperty)
+// Prints "Some value."
+
+SomeStructure.storedTypeProperty = "Another value."
+
 print(SomeStructure.storedTypeProperty)
 // Prints "Another value."
+
 print(SomeEnumeration.computedTypeProperty)
 // Prints "6"
+
 print(SomeClass.computedTypeProperty)
-// Prints "27"`}
-</CodeSnippet>
+// Prints "27"
+```
 
 The examples that follow use two stored type properties as part of a structure that models an audio level meter for a number of audio channels. Each channel has an integer audio level between `0` and `10` inclusive.
 
 The figure below illustrates how two of these audio channels can be combined to model a stereo audio level meter. When a channel's audio level is `0`, none of the lights for that channel are lit. When the audio level is `10`, all of the lights for that channel are lit. In this figure, the left channel has a current level of `9`, and the right channel has a current level of `7`:
 
-<img
-  src="/assets/images/staticPropertiesVUMeter_2x.png"
+<DynamicImage
+  baseName="staticPropertiesVUMeter"
   alt="Graphic scale with the static properties of a VU Meter."
-  width={243}
-  height={356}
-  className="figure-small"
+  width={299}
+  height={446}
 />
 
 The audio channels described above are represented by instances of the `AudioChannel` structure:
 
-<CodeSnippet>
-  {`struct AudioChannel {
+```swift showLineNumbers
+struct AudioChannel {
     static let thresholdLevel = 10
-    static var maxInputLevelForAllChannels = 0\n
+    static var maxInputLevelForAllChannels = 0
+
     var currentLevel: Int = 0 {
         didSet {
             if currentLevel > AudioChannel.thresholdLevel {
                 // cap the new audio level to the threshold level
                 currentLevel = AudioChannel.thresholdLevel
-            }\n
+            }
+
             if currentLevel > AudioChannel.maxInputLevelForAllChannels {
                 // store this as the new overall maximum input level
                 AudioChannel.maxInputLevelForAllChannels = currentLevel
             }
         }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The `AudioChannel` structure defines two stored type properties to support its functionality. The first, `thresholdLevel`, defines the maximum threshold value an audio level can take. This is a constant value of `10` for all `AudioChannel` instances. If an audio signal comes in with a higher value than `10`, it will be capped to this threshold value (as described below).
 
@@ -694,27 +777,31 @@ The `currentLevel` property has a `didSet` property observer to check the value 
 
 You can use the `AudioChannel` structure to create two new audio channels called `leftChannel` and `rightChannel`, to represent the audio levels of a stereo sound system:
 
-<CodeSnippet>
-  {`var leftChannel = AudioChannel()
-var rightChannel = AudioChannel()`}
-</CodeSnippet>
+```swift showLineNumbers
+var leftChannel = AudioChannel()
+var rightChannel = AudioChannel()
+```
 
 If you set the `currentLevel` of the _left_ channel to `7`, you can see that the `maxInputLevelForAllChannels` type property is updated to equal `7`:
 
-<CodeSnippet>
-  {`leftChannel.currentLevel = 7\n
+```swift showLineNumbers
+leftChannel.currentLevel = 7
+
 print(leftChannel.currentLevel)
 // Prints "7"
+
 print(AudioChannel.maxInputLevelForAllChannels)
-// Prints "7"`}
-</CodeSnippet>
+// Prints "7"
+```
 
 If you try to set the `currentLevel` of the _right_ channel to `11`, you can see that the right channel's `currentLevel` property is capped to the maximum value of `10`, and the `maxInputLevelForAllChannels` type property is updated to equal `10`:
 
-<CodeSnippet>
-  {`rightChannel.currentLevel = 11\n
+```swift showLineNumbers
+rightChannel.currentLevel = 11
+
 print(rightChannel.currentLevel)
 // Prints "10"
+
 print(AudioChannel.maxInputLevelForAllChannels)
-// Prints "10"`}
-</CodeSnippet>
+// Prints "10"
+```

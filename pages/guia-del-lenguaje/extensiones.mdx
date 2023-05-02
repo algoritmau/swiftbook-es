@@ -2,10 +2,14 @@
 title: Extensions
 ---
 
-import Callout from '../../components/Callout.js'
-import CodeSnippet from '../../components/CodeSnippet.js'
+import Callout from '@components/Callout'
+import Hero from '@components/Hero'
 
-# Extensions
+<Hero>
+  # Extensions
+
+  Add functionality to an existing type.
+</Hero>
 
 _Extensions_ add new functionality to an existing class, structure, enumeration, or protocol type. This includes the ability to extend types for which you don't have access to the original source code (known as _retroactive modeling_). Extensions are similar to categories in Objective-C. (Unlike Objective-C categories, Swift extensions don't have names.)
 
@@ -29,23 +33,23 @@ In Swift, you can even extend a protocol to provide implementations of its requi
 
 Declare extensions with the `extension` keyword:
 
-<CodeSnippet>
-  {`extension SomeType {
+```swift showLineNumbers
+extension SomeType {
     // new functionality to add to SomeType goes here
-}`}
-</CodeSnippet>
+}
+```
 
 An extension can extend an existing type to make it adopt one or more protocols. To add protocol conformance, you write the protocol names the same way as you write them for a class or structure:
 
-<CodeSnippet>
-  {`extension SomeType: SomeProtocol, AnotherProtocol {
+```swift showLineNumbers
+extension SomeType: SomeProtocol, AnotherProtocol {
     // implementation of protocol requirements goes here
-}`}
-</CodeSnippet>
+}
+```
 
-Adding protocol conformance in this way is described in [Adding Protocol Conformance with an Extension](./protocolos).
+Adding protocol conformance in this way is described in [Adding Protocol Conformance with an Extension](./protocolos#adding-protocol-conformance-with-an-extension).
 
-An extension can be used to extend an existing generic type, as described in [Extending a Generic Type](./genericos). You can also extend a generic type to conditionally add functionality, as described in [Extensions with a Generic Where Clause](./genericos).
+An extension can be used to extend an existing generic type, as described in [Extending a Generic Type](./genericos#extending-a-generic-type). You can also extend a generic type to conditionally add functionality, as described in [Extensions with a Generic Where Clause](./genericos#extensions-with-a-generic-where-clause).
 
 <Callout>
   If you define an extension to add new functionality to an existing type, the
@@ -57,21 +61,25 @@ An extension can be used to extend an existing generic type, as described in [Ex
 
 Extensions can add computed instance properties and computed type properties to existing types. This example adds five computed instance properties to Swift's built-in `Double` type, to provide basic support for working with distance units:
 
-<CodeSnippet>
-  {`extension Double {
+```swift showLineNumbers
+extension Double {
     var km: Double { return self * 1_000.0 }
     var m: Double { return self }
     var cm: Double { return self / 100.0 }
     var mm: Double { return self / 1_000.0 }
     var ft: Double { return self / 3.28084 }
-}\n
-let oneInch = 25.4.mm\n
-print("One inch is \\(oneInch) meters")
-// Prints "One inch is 0.0254 meters"\n
-let threeFeet = 3.ft\n
-print("Three feet is \\(threeFeet) meters")
-// Prints "Three feet is 0.914399970739201 meters"`}
-</CodeSnippet>
+}
+
+let oneInch = 25.4.mm
+
+print("One inch is \(oneInch) meters")
+// Prints "One inch is 0.0254 meters"
+
+let threeFeet = 3.ft
+
+print("Three feet is \(threeFeet) meters")
+// Prints "Three feet is 0.914399970739201 meters"
+```
 
 These computed properties express that a `Double` value should be considered as a certain unit of length. Although they're implemented as computed properties, the names of these properties can be appended to a floating-point literal value with dot syntax, as a way to use that literal value to perform distance conversions.
 
@@ -81,9 +89,12 @@ Other units require some conversion to be expressed as a value measured in meter
 
 These properties are read-only computed properties, and so they're expressed without the `get` keyword, for brevity. Their return value is of type `Double`, and can be used within mathematical calculations wherever a `Double` is accepted:
 
+```swift showLineNumbers
 let aMarathon = 42.km + 195.m
+
 print("A marathon is \(aMarathon) meters long")
 // Prints "A marathon is 42195.0 meters long"
+```
 
 <Callout>
   Extensions can add new computed properties, but they can't add stored
@@ -102,46 +113,49 @@ If you use an extension to add an initializer to a structure that was declared i
 
 The example below defines a custom `Rect` structure to represent a geometric rectangle. The example also defines two supporting structures called `Size` and `Point`, both of which provide default values of `0.0` for all of their properties:
 
-<CodeSnippet>
-  {`struct Size {
+```swift showLineNumbers
+struct Size {
     var width = 0.0, height = 0.0
-}\n
+}
+
 struct Point {
     var x = 0.0, y = 0.0
-}\n
+}
+
 struct Rect {
     var origin = Point()
     var size = Size()
-}`}
-</CodeSnippet>
+}
+```
 
 Because the `Rect` structure provides default values for all of its properties, it receives a default initializer and a memberwise initializer automatically, as described in [Default Initializers](./inicializacion). These initializers can be used to create new `Rect` instances:
 
-<CodeSnippet>
-  {`let defaultRect = Rect()
+```swift showLineNumbers
+let defaultRect = Rect()
 let memberwiseRect = Rect(origin: Point(x: 2.0, y: 2.0),
-     size: Size(width: 5.0, height: 5.0))`}
-</CodeSnippet>
+    size: Size(width: 5.0, height: 5.0))
+```
 
 You can extend the `Rect` structure to provide an additional initializer that takes a specific center point and size:
 
-<CodeSnippet>
-  {`extension Rect {
+```swift showLineNumbers
+extension Rect {
     init(center: Point, size: Size) {
         let originX = center.x - (size.width / 2)
-        let originY = center.y - (size.height / 2)\n
+        let originY = center.y - (size.height / 2)
+
         self.init(origin: Point(x: originX, y: originY), size: size)
     }
-}`}
-</CodeSnippet>
+}
+```
 
 This new initializer starts by calculating an appropriate origin point based on the provided `center` point and `size` value. The initializer then calls the structure's automatic memberwise initializer `init(origin:size:)`, which stores the new origin and size values in the appropriate properties:
 
-<CodeSnippet>
-  {`let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
-                        size: Size(width: 3.0, height: 3.0))
-// centerRect's origin is (2.5, 2.5) and its size is (3.0, 3.0)`}
-</CodeSnippet>
+```swift showLineNumbers
+let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
+    size: Size(width: 3.0, height: 3.0))
+// centerRect's origin is (2.5, 2.5) and its size is (3.0, 3.0)
+```
 
 <Callout>
   If you provide a new initializer with an extension, you are still responsible
@@ -153,28 +167,28 @@ This new initializer starts by calculating an appropriate origin point based on 
 
 Extensions can add new instance methods and type methods to existing types. The following example adds a new instance method called `repetitions` to the `Int` type:
 
-<CodeSnippet>
-  {`extension Int {
+```swift showLineNumbers
+extension Int {
     func repetitions(task: () -> Void) {
         for _ in 0..<self {
             task()
         }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The `repetitions(task:)` method takes a single argument of type `() -> Void`, which indicates a function that has no parameters and doesn't return a value.
 
 After defining this extension, you can call the `repetitions(task:)` method on any integer to perform a task that many number of times:
 
-<CodeSnippet>
-  {`3.repetitions {
+```swift showLineNumbers
+3.repetitions {
     print("Hello!")
 }
 // Hello!
 // Hello!
-// Hello!`}
-</CodeSnippet>
+// Hello!
+```
 
 ### Mutating Instance Methods
 
@@ -182,16 +196,18 @@ Instance methods added with an extension can also modify (or _mutate_) the insta
 
 The example below adds a new mutating method called `square` to Swift's `Int` type, which squares the original value:
 
-<CodeSnippet>
-  {`extension Int {
+```swift showLineNumbers
+extension Int {
     mutating func square() {
         self = self * self
     }
-}\n
-var someInt = 3\n
+}
+
+var someInt = 3
+
 someInt.square()
-// someInt is now 9`}
-</CodeSnippet>
+// someInt is now 9
+```
 
 ## Subscripts
 
@@ -202,39 +218,43 @@ Extensions can add new subscripts to an existing type. This example adds an inte
 
 …and so on:
 
-<CodeSnippet>
-  {`extension Int {
+```swift showLineNumbers
+extension Int {
     subscript(digitIndex: Int) -> Int {
-        var decimalBase = 1\n
+        var decimalBase = 1
+
         for _ in 0..<digitIndex {
             decimalBase *= 10
-        }\n
+        }
+
         return (self / decimalBase) % 10
     }
-}\n
+}
+
 746381295[0] // returns 5
 746381295[1] // returns 9
 746381295[2] // returns 2
-746381295[8] // returns 7`}
-</CodeSnippet>
+746381295[8] // returns 7
+```
 
 If the `Int` value doesn't have enough digits for the requested index, the subscript implementation returns `0`, as if the number had been padded with zeros to the left:
 
-<CodeSnippet>
-  {`746381295[9]
+```swift showLineNumbers
+746381295[9]
 // returns 0, as if you had requested:
-0746381295[9]`}
-</CodeSnippet>
+0746381295[9]
+```
 
 ## Nested Types
 
 Extensions can add new nested types to existing classes, structures, and enumerations:
 
-<CodeSnippet>
-  {`extension Int {
+```swift showLineNumbers
+extension Int {
     enum Kind {
         case negative, zero, positive
-    }\n
+    }
+
     var kind: Kind {
         switch self {
         case 0:
@@ -245,8 +265,8 @@ Extensions can add new nested types to existing classes, structures, and enumera
             return .negative
         }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 This example adds a new nested enumeration to `Int`. This enumeration, called `Kind`, expresses the kind of number that a particular integer represents. Specifically, it expresses whether the number is negative, zero, or positive.
 
@@ -254,8 +274,8 @@ This example also adds a new computed instance property to `Int`, called `kind`,
 
 The nested enumeration can now be used with any `Int` value:
 
-<CodeSnippet>
-  {`func printIntegerKinds(_ numbers: [Int]) {
+```swift showLineNumbers
+func printIntegerKinds(_ numbers: [Int]) {
     for number in numbers {
         switch number.kind {
         case .negative:
@@ -265,12 +285,14 @@ The nested enumeration can now be used with any `Int` value:
         case .positive:
             print("+ ", terminator: "")
         }
-    }\n
+    }
+
     print("")
-}\n
+}
+
 printIntegerKinds([3, 19, -27, 0, -6, 0, 7])
-// Prints "+ + - 0 - 0 + "`}
-</CodeSnippet>
+// Prints "+ + - 0 - 0 + "
+```
 
 This function, `printIntegerKinds(_:)`, takes an input _array_ of `Int` values and iterates over those values in turn. For each integer in the _array_, the function considers the `kind` computed property for that integer, and prints an appropriate description.
 

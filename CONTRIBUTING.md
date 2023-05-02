@@ -1,10 +1,10 @@
-# Bienvenid@ a la guía de contribución de The Swift Programming Language en Español
+# Guía de contribución
 
-¡Gracias por invertir tu tiempo en contribuir con nuestro proyecto! Cualquier aporte que hagas se verá reflejado en [swift-book-es.vercel.app/](https://swift-book-es.vercel.app/) ✨.
+¡Gracias por dedicar tu tiempo en contribuir con nuestro proyecto! Cualquier aporte que hagas se verá reflejado en [swiftbook.es](https://swiftbook.es) ✨.
 
 Lee nuestro [código de conducta](./CODE_OF_CONDUCT.md), el cual nos permite mantener nuestra comunidad accesible y respetable.
 
-En esta guía, brindamos una descripción general del flujo de trabajo de contribución desde la apertura de un _issue_, la creación de un _PR_, la revisión, y la fusión (_merge_) del _PR_.
+Esta guía presenta una descripción general del flujo de trabajo de contribución desde la apertura de un _issue_, la creación de un _PR_, la revisión, y la fusión (_merge_) del _PR_.
 
 Usa el ícono de la tabla de contenido en la esquina superior izquierda de este documento para acceder rápidamente a una sección específica de esta guía.
 
@@ -12,7 +12,7 @@ Usa el ícono de la tabla de contenido en la esquina superior izquierda de este 
 
 ## Traduciendo las páginas
 
-La traducción al español de [_The Swift Programming Language_](https://docs.swift.org/swift-book/) consiste en una serie de páginas maquetadas mediante [MDX](https://mdxjs.com/) que luego son renderizadas por [Nextra](https://github.com/shuding/nextra) y son las que consumimos día a día, cada uno de estos archivos markdown (`.mdx`) corresponde a una página del libro. En [Progreso de Traducción](https://github.com/spaceinvadev/swift-book-es/issues/3), podrás encontrar una lista de todas las páginas que se deben traducir; este es, a su vez, un issue de progreso para llevar un seguimiento y registro de las traducciones.
+La traducción al español de [_The Swift Programming Language_](https://docs.swift.org/swift-book/) consiste en una serie de páginas maquetadas mediante [MDX](https://mdxjs.com/) que luego son renderizadas por [Nextra](https://github.com/shuding/nextra) y son las que consumimos día a día, cada uno de estos archivos markdown (`.mdx`) corresponde a una página del libro. En [Progreso de Traducción](https://github.com/trsplms/swift-book-es/issues/3), podrás encontrar una lista de todas las páginas que se deben traducir; este es, a su vez, un issue de progreso para llevar un seguimiento y registro de las traducciones.
 
 <br />
 
@@ -20,13 +20,13 @@ La traducción al español de [_The Swift Programming Language_](https://docs.sw
 
 Buscando mantener un orden en las traducciones, contamos con el issue de progreso. Para poder empezar a traducir sigue los siguientes pasos. Por favor, no empieces a traducir hasta no haber seguido todos estos pasos y haberte sido asignada una página. La idea es que no pierdas preciado trabajo y tiempo si la página ya ha sido asignada a alguien más; a veces puedo tardar en asignar, así que, ten paciencia:
 
-1. Dirígete al issue de [Progreso de Traducción](https://github.com/spaceinvadev/swift-book-es/issues/3) y verifica cuáles páginas pendientes por traducción están disponibles.
+1. Dirígete al issue de [Progreso de Traducción](https://github.com/trsplms/swift-book-es/issues/3) y verifica cuáles páginas pendientes por traducción están disponibles.
 
-2. Si ya sabes cuál página quieres traducir, deja un comentario etiquetándome (@spaceinvadev) con la página que quieres traducir, para así poder asignártela.
+2. Si ya sabes cuál página quieres traducir, deja un comentario etiquetándome (@trsplms) con la página que quieres traducir, para así poder asignártela.
 
 3. Espera una respuesta en los comentarios o revisa que la página que deseas traducir ya tiene tu nombre de usuario al lado entre paréntesis:
 
-> Fundamentos.mdx (@spaceinvadev)
+> Fundamentos.mdx (@trsplms)
 
 De esta forma ya sabes que puedes empezar a traducir.
 
@@ -36,13 +36,13 @@ De esta forma ya sabes que puedes empezar a traducir.
 
 ## Crear un fork, clonar
 
-Para empezar a traducir y crear tu primera contribución, debes crear un fork del repositorio, que no es más que hacer una copia del repositorio base a tus repositorios; de esta manera, evitamos choques no deseados con el contenido oficial. Seguidamente, clonarás tu repositorio (fork) a tu máquina local para tener todo el código de las páginas y, así, poder abrirlas en tu editor de texto. Finalmente, cuando termines de traducir una página, pódras crear tu primer PR para su revisión. Parece mucho, pero sigue estas instrucciones:
+Para empezar a traducir y crear tu primera contribución, debes crear un fork del repositorio, que no es más que hacer una copia del repositorio base a tus repositorios; de esta manera, evitamos choques no deseados con el contenido oficial. Seguidamente, clonarás tu repositorio a tu máquina local para tener todo el código de las páginas y, así, poder abrirlas en tu editor de texto. Finalmente, cuando termines de traducir una página, pódras crear tu primer PR para su revisión. Parece mucho, pero sigue estas instrucciones:
 
-1. Para crear un fork del repositorio, dirígete a la [página principal](https://github.com/spaceinvadev/swift-book-es) del repositorio.
+1. Para crear un fork del repositorio, dirígete a la [página principal](https://github.com/trsplms/swift-book-es) del repositorio.
 
-2. En la parte superior derecha, haz clic en el botón **Fork**. Esto creará un fork en tus repositorios. Al finalizar, estarás en una página similar a la del repositorio principal, solo que con tu nombre de usuario. También puedes hacer un fork de un repositorio usando el subcomando `gh repo fork`: `gh repo fork spaceinvadev/swift-book-es`.
+2. En la parte superior derecha, haz clic en el botón **Fork**. Esto creará un fork en tus repositorios. Al finalizar, estarás en una página similar a la del repositorio principal, solo que con tu nombre de usuario. También puedes hacer un fork de un repositorio usando el subcomando `gh repo fork`: `gh repo fork trsplms/swift-book-es`.
 
-3. Ahora, debes clonar el repositorio en tu máquina local; para esto, justo donde quedaste en el paso anterior dale clic en **Code**. Allí encontrarás la dirección de tu repositorio, cópiala y desde tu terminal, ejecuta `git clone <URL_DEL_REPOSITORIO>` pegando el enlace de tu repositorio para clonar. También puedes hacerlo con el subcomando `gh repo clone`: `gh repo clone spaceinvadev/swift-book-es`.
+3. Ahora, debes clonar el repositorio en tu máquina local; para esto, justo donde quedaste en el paso anterior dale clic en **Code**. Allí encontrarás la dirección de tu repositorio, cópiala y desde tu terminal, ejecuta `git clone <URL_DEL_REPOSITORIO>` pegando el enlace de tu repositorio para clonar. También puedes hacerlo con el subcomando `gh repo clone`: `gh repo clone trsplms/swift-book-es`.
 
 4. Ya con el repositorio clonado, ábrelo en tu editor de texto. Ahora, debes crear una rama para trabajar.
 
@@ -110,10 +110,10 @@ Puedes encontrar más detalle sobre el estilo que deben llevar las traducciones 
 
 ## Extensión de MDX para VS Code
 
-MDX permite el uso de JSX en Markdown, por lo que es recomendable instalar la extensión [MDX](https://marketplace.visualstudio.com/items?itemName=silvenon.mdx) en VS Code para tener _highlighting_ de la sintaxis de archivos `.mdx`. De igual manera, te recomiendo instalar el tema [AlterNight](https://spaceinvadev.github.io/alternight-showcase-website/) (_shameless plug_ 😅) el cual incluye un buen _highlighting_ de la sintaxis de archivos `.mdx`
+MDX permite el uso de JSX en Markdown, por lo que es recomendable instalar la extensión [MDX](https://marketplace.visualstudio.com/items?itemName=silvenon.mdx) en VS Code para tener _highlighting_ de la sintaxis de archivos `.mdx`. De igual manera, te recomiendo instalar el tema [AlterNight](https://trsplms.github.io/alternight-showcase-website/) (_shameless plug_ 😅) el cual incluye un buen _highlighting_ de la sintaxis de archivos `.mdx`
 
 <br />
 
-### A traducir 🏃‍
+### A traducir 🏃
 
-Si has llegado hasta aquí, ¿qué esperas?, pide una página que quieras traducir en [este issue](https://github.com/spaceinvadev/swift-book-es/issues/3) y empieza a contribuir con la comunidad de Swift ❤️
+Si has llegado hasta aquí, ¿qué esperas?, pide una página que quieras traducir en [este issue](https://github.com/trsplms/swift-book-es/issues/3) y empieza a contribuir con la comunidad de Swift ❤️

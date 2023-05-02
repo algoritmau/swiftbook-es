@@ -1,68 +1,75 @@
 ---
-title: Error Handling
+title: Manejo de errores
 ---
 
-import Callout from '../../components/Callout.js'
-import CodeSnippet from '../../components/CodeSnippet.js'
+import Callout from '@components/Callout'
+import Hero from '@components/Hero'
 
-# Error Handling
+<Hero>
+  # Manejo de errores
 
-_Error handling_ is the process of responding to and recovering from error conditions in your program. Swift provides first-class support for throwing, catching, propagating, and manipulating recoverable errors at runtime.
+  Cómo responder ante errores y recuperarse de estos.
+</Hero>
 
-Some operations aren't guaranteed to always complete execution or produce a useful output. Optionals are used to represent the absence of a value, but when an operation fails, it's often useful to understand what caused the failure, so that your code can respond accordingly.
+El _manejo de errores_ es el proceso de responder y recuperarse de situaciones de error en tu programa. Swift ofrece soporte de primera clase para arrojar, capturar, propagar, y manipular errores recuperables en tiempo de ejecución.
 
-As an example, consider the task of reading and processing data from a file on disk. There are a number of ways this task can fail, including the file not existing at the specified path, the file not having read permissions, or the file not being encoded in a compatible format. Distinguishing among these different situations allows a program to resolve some errors and to communicate to the user any errors it can't resolve.
+Algunas operaciones no siempre garantizan el total cumplimiento de la ejecución o la producción de una salida útil. Los opcionales se utilizan para representar la ausencia de un valor, pero cuando una operación falla, suele ser útil entender la causa de la falla, para que tu código pueda responder en consecuencia.
+
+Como ejemplo, considera la tarea de leer y procesar datos desde un archivo en disco. Hay diversas maneras en las que esta tarea puede fallar, incluyendo que el archivo no exista en la ruta especificada, que el archivo no tenga permisos de lectura, o que el archivo no esté codificado en un formato compatible. Distinguir entre estas diferentes situaciones le permite a un programa resolver algunos errores y comunicarle al usuario sobre cualquier error que no pueda resolver.
 
 <Callout>
-  Error handling in Swift interoperates with error handling patterns that use
-  the `NSError` class in Cocoa and Objective-C. For more information about this
-  class, see [Handling Cocoa Errors in
+  El manejo de errores en Swift interopera con los patrones de manejo de errores
+  que utilizan la clase `NSError` en Cocoa y Objective-C. Para obtener más
+  información sobre esta clase, consulta [Manejo de errores de Cocoa en
   Swift](https://developer.apple.com/documentation/swift/cocoa_design_patterns/handling_cocoa_errors_in_swift).
 </Callout>
 
-## Representing and Throwing Errors
+## Representación y lanzamiento de errores
 
-In Swift, errors are represented by values of types that conform to the `Error` protocol. This empty protocol indicates that a type can be used for error handling.
+En Swift, los errores se representan mediante valores de tipos que se ajustan al protocolo `Error`. Este protocolo vacío indica que un tipo puede ser utilizado para el manejo de errores.
 
-Swift enumerations are particularly well suited to modeling a group of related error conditions, with associated values allowing for additional information about the nature of an error to be communicated. For example, here's how you might represent the error conditions of operating a vending machine inside a game:
+Las enumeraciones de Swift son particularmente adecuadas para modelar un grupo de condiciones de error relacionadas, con valores asociados que permiten comunicar información adicional sobre la naturaleza de un error a comunicar. Por ejemplo, así es como podrías representar las condiciones de error asociadas con la operación de una máquina expendedora dentro de un juego:
 
-<CodeSnippet>
-  {`enum VendingMachineError: Error {
-    case invalidSelection
-    case insufficientFunds(coinsNeeded: Int)
-    case outOfStock
-}`}
-</CodeSnippet>
+```swift showLineNumbers
+enum ErrorMaquinaExpendedora: Error {
+    case seleccionInvalida
+    case fondosInsuficientes(monedasRequeridas: Int)
+    case agotado
+}
+```
+Arrojar un error te permite indicar que algo inesperado ha ocurrido y que el flujo normal de ejecución no puede continuar. Para arrojar un error, utiliza una sentencia `throw`. Por ejemplo, el siguiente código arroja un error para indicar que la máquina expendedora requiere cinco monedas adicionales:
 
-Throwing an error lets you indicate that something unexpected happened and the normal flow of execution can't continue. You use a `throw` statement to throw an error. For example, the following code throws an error to indicate that five additional coins are needed by the vending machine:
+```swift showLineNumbers
+throw ErrorMaquinaExpendedora.fondosInsuficientes(monedasRequeridas: 5)
+```
 
-<CodeSnippet>{`throw VendingMachineError.insufficientFunds(coinsNeeded: 5)`}</CodeSnippet>
+## Manejo de errores
 
-## Handling Errors
+Cuando se arroja un error, algún segmento de código circundante debe hacerse responsable de manejar el error; por ejemplo, corrigiendo el problema, intentando un enfoque alternativo, o informando al usuario sobre el fallo.
 
-When an error is thrown, some surrounding piece of code must be responsible for handling the error—for example, by correcting the problem, trying an alternative approach, or informing the user of the failure.
+Hay cuatro maneras de manejar los errores en Swift. Puedes propagar el error desde una función al código que llama a dicha función, manejar el error usando una sentencia `do-catch`, manejar el error como un valor opcional, o afirmar que el error no ocurrirá. Cada enfoque se describe en una sección más adelante.
 
-There are four ways to handle errors in Swift. You can propagate the error from a function to the code that calls that function, handle the error using a `do-catch` statement, handle the error as an optional value, or assert that the error will not occur. Each approach is described in a section below.
-
-When a function throws an error, it changes the flow of your program, so it's important that you can quickly identify places in your code that can throw errors. To identify these places in your code, write the `try` keyword—or the `try?` or `try!` variation—before a piece of code that calls a function, method, or initializer that can throw an error. These keywords are described in the sections below.
+Cuando una función arroja un error, el flujo de tu programa cambia, por lo que es importante que puedas identificar rápidamente los lugares de tu código que puedan arrojar errores. Para identificar estos lugares en tu código, escribe la palabra clave `try` —o una de sus variantes: `try?` o `try!`— antes de una parte de código que invoque a una función, método o inicializador que pueda lanzar un error. Estas palabras clave se describen en las siguientes secciones.
 
 <Callout>
-  Error handling in Swift resembles exception handling in other languages, with
-  the use of the `try`, `catch`, and `throw` keywords. Unlike exception handling
-  in many languages—including Objective-C—error handling in Swift doesn't
-  involve unwinding the call stack, a process that can be computationally
-  expensive. As such, the performance characteristics of a `throw` statement are
-  comparable to those of a `return` statement.
+  El manejo de errores en Swift se asemeja a la gestión de excepciones en otros
+  lenguajes —por el uso de las palabras clave `try`, `catch` y `throw`—. A
+  diferencia de la gestión de excepciones en muchos lenguajes (incluyendo
+  Objective-C), la gestión de errores en Swift no involucra desentrañar el _call
+  stack_, un proceso que puede ser computacionalmente costoso. Por lo tanto, las
+  características de rendimiento de una sentencia `throw` son comparables a las
+  de una sentencia `return`.
 </Callout>
 
 ### Propagating Errors Using Throwing Functions
 
 To indicate that a function, method, or initializer can throw an error, you write the `throws` keyword in the function's declaration after its parameters. A function marked with `throws` is called a _throwing function_. If the function specifies a return type, you write the `throws` keyword before the return arrow (`->`).
 
-<CodeSnippet>
-  {`func canThrowErrors() throws -> String
-func cannotThrowErrors() -> String`}
-</CodeSnippet>
+```swift showLineNumbers {1} /throws/
+func canThrowErrors() throws -> String
+
+func cannotThrowErrors() -> String
+```
 
 A throwing function propagates errors that are thrown inside of it to the scope from which it's called.
 
@@ -71,68 +78,80 @@ A throwing function propagates errors that are thrown inside of it to the scope 
   nonthrowing function must be handled inside the function.
 </Callout>
 
-In the example below, the `VendingMachine` class has a `vend(itemNamed:)` method that throws an appropriate `VendingMachineError` if the requested item isn't available, is out of stock, or has a cost that exceeds the current deposited amount:
+In the example below, the `VendingMachine` class has a `vend(itemNamed:)` method that throws an appropriate `ErrorMaquinaExpendedora` if the requested item isn't available, is out of stock, or has a cost that exceeds the current deposited amount:
 
-<CodeSnippet>
-  {`struct Item {
+```swift showLineNumbers
+struct Item {
     var price: Int
     var count: Int
-}\n
+}
+
 class VendingMachine {
     var inventory = [
         "Candy Bar": Item(price: 12, count: 7),
         "Chips": Item(price: 10, count: 4),
         "Pretzels": Item(price: 7, count: 11)
     ]
-    var coinsDeposited = 0\n
+    var coinsDeposited = 0
+
     func vend(itemNamed name: String) throws {
         guard let item = inventory[name] else {
-            throw VendingMachineError.invalidSelection
-        }\n
+            throw ErrorMaquinaExpendedora.seleccionInvalida
+        }
+
         guard item.count > 0 else {
-            throw VendingMachineError.outOfStock
-        }\n
+            throw ErrorMaquinaExpendedora.agotado
+        }
+
         guard item.price <= coinsDeposited else {
-            throw VendingMachineError.insufficientFunds(coinsNeeded: item.price - coinsDeposited)
-        }\n
-        coinsDeposited -= item.price\n
+            throw ErrorMaquinaExpendedora.fondosInsuficientes(monedasRequeridas: item.price - coinsDeposited)
+        }
+
+        coinsDeposited -= item.price
+
         var newItem = item
+
         newItem.count -= 1
-        inventory[name] = newItem\n
-        print("Dispensing \\(name)")
+        inventory[name] = newItem
+
+        print("Dispensing \(name)")
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The implementation of the `vend(itemNamed:)` method uses `guard` statements to exit the method early and throw appropriate errors if any of the requirements for purchasing a snack aren't met. Because a `throw` statement immediately transfers program control, an item will be vended only if all of these requirements are met.
 
 Because the `vend(itemNamed:)` method propagates any errors it throws, any code that calls this method must either handle the errors—using a `do-catch` statement, `try?`, or `try!`—or continue to propagate them. For example, the `buyFavoriteSnack(person:vendingMachine:)` in the example below is also a throwing function, and any errors that the `vend(itemNamed:)` method throws will propagate up to the point where the `buyFavoriteSnack(person:vendingMachine:)` function is called.
 
-<CodeSnippet>
-  {`let favoriteSnacks = [
+```swift showLineNumbers
+let favoriteSnacks = [
     "Alice": "Chips",
     "Bob": "Licorice",
     "Eve": "Pretzels",
-]\n
+]
+
 func buyFavoriteSnack(person: String, vendingMachine: VendingMachine) throws {
-    let snackName = favoriteSnacks[person] ?? "Candy Bar"\n
+    let snackName = favoriteSnacks[person] ?? "Candy Bar"
+
     try vendingMachine.vend(itemNamed: snackName)
-}`}
-</CodeSnippet>
+}
+```
 
 In this example, the `buyFavoriteSnack(person: vendingMachine:)` function looks up a given person's favorite snack and tries to buy it for them by calling the `vend(itemNamed:)` method. Because the `vend(itemNamed:)` method can throw an error, it's called with the `try` keyword in front of it.
 
 Throwing initializers can propagate errors in the same way as throwing functions. For example, the initializer for the `PurchasedSnack` structure in the listing below calls a throwing function as part of the initialization process, and it handles any errors that it encounters by propagating them to its caller.
 
-<CodeSnippet>
-  {`struct PurchasedSnack {
-    let name: String\n
+```swift showLineNumbers
+struct PurchasedSnack {
+    let name: String
+
     init(name: String, vendingMachine: VendingMachine) throws {
-        try vendingMachine.vend(itemNamed: name)\n
+        try vendingMachine.vend(itemNamed: name)
+
         self.name = name
     }
-}`}
-</CodeSnippet>
+}
+```
 
 ### Handling Errors Using `Do-Catch`
 
@@ -140,97 +159,82 @@ You use a `do-catch` statement to handle errors by running a block of code. If a
 
 Here is the general form of a `do-catch` statement:
 
-<p class="pseudocode">
-  <span class="pseudocode__keyword">do</span> &lcub; <br />
-  &emsp;&emsp;
-  <span class="pseudocode__keyword">try</span>
-  <span class="pseudocode__highlight">expression</span> <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span> <br />
-  <span>&rcub;</span>
-  <span class="pseudocode__keyword">catch</span>
-  <span class="pseudocode__highlight">pattern 1</span> &lcub; <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span> <br />
-  <span>&rcub;</span>
-  <span class="pseudocode__keyword">catch</span>
-  <span class="pseudocode__highlight">pattern 2</span>
-  <span class="pseudocode__keyword">where</span>
-  <span class="pseudocode__highlight">condition</span> &lcub; <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span> <br />
-  <span>&rcub;</span>
-  <span class="pseudocode__keyword">catch</span>
-  <span class="pseudocode__highlight">pattern 3</span>,
-  <span class="pseudocode__highlight">pattern 4</span>
-  <span class="pseudocode__keyword">where</span>
-  <span class="pseudocode__highlight">condition</span> &lcub; <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span> <br />
-  <span>&rcub;</span>
-  <span class="pseudocode__keyword">catch</span> <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span> <br />
-  <span>&rcub;</span>
-</p>
+```swift showLineNumbers
+do {
+    try <#expression#>
+    <#statements#>
+} catch <#pattern 1#> {
+    <#statements#>
+} catch <#pattern 2#> where <#condition#> {
+    <#statements#>
+} catch <#pattern 3#>, <#pattern 4#> where <#condition#> {
+    <#statements#>
+} catch {
+    <#statements#>
+}
+```
 
 You write a pattern after `catch` to indicate what errors that clause can handle. If a `catch` clause doesn't have a pattern, the clause matches any error and binds the error to a local constant named `error`. For more information about pattern matching, see [Patterns](../referencia-del-lenguaje/patrones).
 
-For example, the following code matches against all three cases of the `VendingMachineError` enumeration.
+For example, the following code matches against all three cases of the `ErrorMaquinaExpendedora` enumeration.
 
-<CodeSnippet>
-  {`var vendingMachine = VendingMachine()
-vendingMachine.coinsDeposited = 8\n
+```swift showLineNumbers
+var vendingMachine = VendingMachine()
+
+vendingMachine.coinsDeposited = 8
+
 do {
-    try buyFavoriteSnack(person: "Alice", vendingMachine: vendingMachine)\n
+    try buyFavoriteSnack(person: "Alice", vendingMachine: vendingMachine)
+
     print("Success! Yum.")
-} catch VendingMachineError.invalidSelection {
+} catch ErrorMaquinaExpendedora.seleccionInvalida {
     print("Invalid Selection.")
-} catch VendingMachineError.outOfStock {
+} catch ErrorMaquinaExpendedora.agotado {
     print("Out of Stock.")
-} catch VendingMachineError.insufficientFunds(let coinsNeeded) {
-    print("Insufficient funds. Please insert an additional \\(coinsNeeded) coins.")
+} catch ErrorMaquinaExpendedora.fondosInsuficientes(let monedasRequeridas) {
+    print("Insufficient funds. Please insert an additional \(monedasRequeridas) coins.")
 } catch {
-    print("Unexpected error: \\(error).")
+    print("Unexpected error: \(error).")
 }
-// Prints "Insufficient funds. Please insert an additional 2 coins."`}
-</CodeSnippet>
+// Prints "Insufficient funds. Please insert an additional 2 coins."
+```
 
 In the above example, the `buyFavoriteSnack(person:vendingMachine:)` function is called in a `try` expression, because it can throw an error. If an error is thrown, execution immediately transfers to the `catch` clauses, which decide whether to allow propagation to continue. If no pattern is matched, the error gets caught by the final `catch` clause and is bound to a local `error` constant. If no error is thrown, the remaining statements in the `do` statement are executed.
 
 The `catch` clauses don't have to handle every possible error that the code in the `do` clause can throw. If none of the `catch` clauses handle the error, the error propagates to the surrounding scope. However, the propagated error must be handled by _some_ surrounding scope. In a nonthrowing function, an enclosing `do-catch `statement must handle the error. In a throwing function, either an enclosing `do-catch `statement or the caller must handle the error. If the error propagates to the top-level scope without being handled, you'll get a runtime error.
 
-For example, the above example can be written so any error that isn't a `VendingMachineError` is instead caught by the calling function:
+For example, the above example can be written so any error that isn't a `ErrorMaquinaExpendedora` is instead caught by the calling function:
 
-<CodeSnippet>
-  {`func nourish(with item: String) throws {
+```swift showLineNumbers
+func nourish(with item: String) throws {
     do {
         try vendingMachine.vend(itemNamed: item)
-    } catch is VendingMachineError {
+    } catch is ErrorMaquinaExpendedora {
         print("Couldn't buy that from the vending machine.")
     }
-}\n
+}
+
 do {
     try nourish(with: "Beet-Flavored Chips")
 } catch {
-    print("Unexpected non-vending-machine-related error: \\(error)")
+    print("Unexpected non-vending-machine-related error: \(error)")
 }
-// Prints "Couldn't buy that from the vending machine."`}
-</CodeSnippet>
+// Prints "Couldn't buy that from the vending machine."
+```
 
-In the `nourish(with:)` function, if `vend(itemNamed:)` throws an error that's one of the cases of the `VendingMachineError` enumeration, `nourish(with:)` handles the error by printing a message. Otherwise, `nourish(with:)` propagates the error to its call site. The error is then caught by the general `catch` clause.
+In the `nourish(with:)` function, if `vend(itemNamed:)` throws an error that's one of the cases of the `ErrorMaquinaExpendedora` enumeration, `nourish(with:)` handles the error by printing a message. Otherwise, `nourish(with:)` propagates the error to its call site. The error is then caught by the general `catch` clause.
 
 Another way to catch several related errors is to list them after `catch`, separated by commas. For example:
 
-<CodeSnippet>
-  {`func eat(item: String) throws {
+```swift showLineNumbers
+func eat(item: String) throws {
     do {
         try vendingMachine.vend(itemNamed: item)
-    } catch VendingMachineError.invalidSelection, VendingMachineError.insufficientFunds, VendingMachineError.outOfStock {
+    } catch ErrorMaquinaExpendedora.seleccionInvalida, ErrorMaquinaExpendedora.fondosInsuficientes, VendingMachineError.agotado {
         print("Invalid selection, out of stock, or not enough money.")
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The `eat(item:)` function lists the vending machine errors to catch, and its error text corresponds to the items in that list. If any of the three listed errors are thrown, this `catch` clause handles them by printing a message. Any other errors are propagated to the surrounding scope, including any vending-machine errors that might be added later.
 
@@ -238,30 +242,35 @@ The `eat(item:)` function lists the vending machine errors to catch, and its err
 
 You use `try?` to handle an error by converting it to an optional value. If an error is thrown while evaluating the `try?` expression, the value of the expression is `nil`. For example, in the following code `x` and `y` have the same value and behavior:
 
-<CodeSnippet>
-  {`func someThrowingFunction() throws -> Int {
+```swift showLineNumbers
+func someThrowingFunction() throws -> Int {
     // ...
-}\n
+}
+
 let x = try? someThrowingFunction()
-let y: Int?\n
+
+let y: Int?
+
 do {
     y = try someThrowingFunction()
 } catch {
     y = nil
-}`}
-</CodeSnippet>
+}
+```
 
 If `someThrowingFunction()` throws an error, the value of `x` and `y` is `nil`. Otherwise, the value of `x` and `y` is the value that the function returned. Note that `x` and `y` are an optional of whatever type `someThrowingFunction()` returns. Here the function returns an integer, so `x` and `y` are optional integers.
 
 Using `try?` lets you write concise error handling code when you want to handle all errors in the same way. For example, the following code uses several approaches to fetch data, or returns `nil` if all of the approaches fail.
 
-<CodeSnippet>
-  {`func fetchData() -> Data? {
-    if let data = try? fetchDataFromDisk() { return data }\n
-    if let data = try? fetchDataFromServer() { return data }\n
+```swift showLineNumbers
+  func fetchData() -> Data? {
+    if let data = try? fetchDataFromDisk() { return data }
+
+    if let data = try? fetchDataFromServer() { return data }
+
     return nil
-}`}
-</CodeSnippet>
+}
+```
 
 ### Disabling Error Propagation
 
@@ -269,7 +278,9 @@ Sometimes you know a throwing function or method won't, in fact, throw an error 
 
 For example, the following code uses a `loadImage(atPath:)` function, which loads the image resource at a given path or throws an error if the image can't be loaded. In this case, because the image is shipped with the application, no error will be thrown at runtime, so it's appropriate to disable error propagation.
 
-<CodeSnippet>{`let photo = try! loadImage(atPath: "./Resources/John Appleseed.jpg")`}</CodeSnippet>
+```swift showLineNumbers
+let photo = try! loadImage(atPath: "./Resources/John Appleseed.jpg")
+```
 
 ## Specifying Cleanup Actions
 
@@ -277,20 +288,22 @@ You use a `defer` statement to execute a set of statements just before code exec
 
 A `defer` statement defers execution until the current scope is exited. This statement consists of the `defer` keyword and the statements to be executed later. The deferred statements may not contain any code that would transfer control out of the statements, such as a `break` or a `return` statement, or by throwing an error. Deferred actions are executed in the reverse of the order that they're written in your source code. That is, the code in the first `defer` statement executes last, the code in the second `defer` statement executes second to last, and so on. The last `defer` statement in source code order executes first.
 
-<CodeSnippet>
-  {`func processFile(filename: String) throws {
+```swift showLineNumbers
+func processFile(filename: String) throws {
     if exists(filename) {
-        let file = open(filename)\n
+        let file = open(filename)
+
         defer {
             close(file)
-        }\n
+        }
+
         while let line = try file.readline() {
             // Work with the file.
         }
         // close(file) is called here, at the end of the scope.
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The above example uses a `defer` statement to ensure that the `open(_:)` function has a corresponding call to `close(_:)`.
 

@@ -1,4 +1,4 @@
-> Para conocer el estado y progreso actuales de la traducción, visita [Progreso de la traducción](https://github.com/spaceinvadev/swift-book-es/issues/3)
+> Para conocer el estado y progreso actuales de la traducción, visita [Progreso de la traducción](https://github.com/trsplms/swift-book-es/issues/3)
 
 <br />
 <br />
@@ -11,7 +11,7 @@ Sigue esta guía de estilo para, así, ser consistente con el resto de las pági
 
 ## Texto en bloques de código
 
-He decidido traducir los _strings_, comentarios, y nombres de funciones y variables para brindar mayor entendimiento y contexto en los ejemplos usados en los bloques de código. ¡Ten cuidado de no traducir nombres que hagan referencia a código (variables, clases, etc).!
+He decidido traducir los _strings_, comentarios, y nombres de funciones y variables para brindar mayor entendimiento y contexto en los ejemplos usados en los bloques de código. ¡Ten cuidado de no traducir nombres que hagan referencia a código (variables, clases, etc)!
 
 Ejemplo:
 
@@ -50,20 +50,38 @@ let totalFrutas = "Tengo \(manzanas + naranjas) frutas."
 imprimir(totalFrutas)
 ```
 
-### Componentes `<CodeSnippet>` para bloques de código
+### Bloques de código
 
-Los bloques de código se representan con componentes `<CodeSnippet>`. Por ninguna razón modifiques los espacios, saltos de línea, o sangrías (_indentation_) de estos componentes. El doble de uso de _forward slashes_ (`//`) en los ejemplos que involucran interpolación de strings no es un error, debe ser así por razones de renderizado.
+Los bloques de código se representan con la siguiente sintaxis:
 
-```swift
-<CodeSnippet>
-  {`let manzanas = 3
+```swift showLineNumbers
+let manzanas = 3
 let naranjas = 5
-let resumenManzanas = "Tengo \\(manzanas) manzanas."
-let resumenFrutas = "Tengo \\(manzanas + naranjas) frutas."`}
-</CodeSnippet>
+let resumenManzanas = "Tengo \(manzanas) manzanas."
+let resumenFrutas = "Tengo \(manzanas + naranjas) frutas."
 ```
 
-Por razones de renderizado, el código dentro de componentes `<CodeSnippet>` no contiene sangrías a partir de la segunda línea. Esto solo a la hora de incluirlo en el archivo `.mdx`. El resultado final incluye la sangría necesaria para que el código se vea correctamente.
+Puedes resaltar líneas específicas de un bloque de código usando la siguiente sintaxis:
+
+```swift showLineNumbers {2, 4}
+let manzanas = 3
+let naranjas = 5
+let resumenManzanas = "Tengo \(manzanas) manzanas."
+let resumenFrutas = "Tengo \(manzanas + naranjas) frutas."
+```
+
+En el ejemplo anterior, se resaltan las líneas 2 y 4.
+
+También puedes resaltar palabras o términos específicos de un bloque de código usando la siguiente sintaxis:
+
+```swift showLineNumbers {2, 4} /let/
+let manzanas = 3
+let naranjas = 5
+let resumenManzanas = "Tengo \(manzanas) manzanas."
+let resumenFrutas = "Tengo \(manzanas + naranjas) frutas."
+```
+
+En el ejemplo anterior, se resaltan las líneas 2 y 4, y la palabra `let`.
 
 Algunos bloques de código pueden contener saltos de línea que no están el documento original. Esto, con el fin de brindar una mejor legibilidad de los ejemplos y bloques de código.
 

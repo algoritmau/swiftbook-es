@@ -2,10 +2,14 @@
 title: Clausuras
 ---
 
-import Callout from '../../components/Callout.js'
-import CodeSnippet from '../../components/CodeSnippet.js'
+import Callout from '@components/Callout'
+import Hero from '@components/Hero'
 
-# Clausuras
+<Hero>
+  # Clausuras
+
+  Agrupa código que se ejecuta en conjunto sin crear una función nombrada.
+</Hero>
 
 Las _clausuras_ (del inglés _closures_) son bloques auto-contenidos de funcionalidad que pueden ser pasados y usados en todo tu código. Las clausuras en Swift son similares a los bloques en C y Objective-C, y a las _lambdas_ en otros lenguajes de programación.
 
@@ -42,7 +46,9 @@ La librería estándar de Swift proporciona un método llamado `sorted(by:)`, el
 
 Los ejemplos de expresiones clausura a continuación, usan el método `sorted(by:)` para ordenar un _array_ de valores de tipo `String` en orden alfabético invertido. Acá tenemos el _array_ inicial a ordenar:
 
-<CodeSnippet>{`let nombres = ["Cindy", "Mauricio", "Sandy", "Luisa", "Jorge"]`}</CodeSnippet>
+```swift showLineNumbers
+let nombres = ["Cindy", "Mauricio", "Sandy", "Luisa", "Jorge"]
+```
 
 El método `sorted(by:)` acepta una clausura que toma dos argumentos del mismo tipo que los valores del _array_ y devuelve un valor de tipo `Bool` para indicar si el primer valor debe aparecer antes o después del segundo una vez los valores son ordenados. La clausura para ordenar debe devolver `true` si el primer valor debe aparecer _primero_ que el segundo, y `false` en caso contrario.
 
@@ -50,13 +56,14 @@ El siguiente ejemplo ordena un _array_ de valores de tipo `String`, por lo que l
 
 Una forma de proporcionar la clausura de ordenamiento es escribir una función normal del tipo correcto, y pasarla como argumento al método `sorted(by:)`:
 
-<CodeSnippet>
-  {`func invertir(_ s1: String, _ s2: String) -> Bool {
+```swift showLineNumbers {5}
+func invertir(_ s1: String, _ s2: String) -> Bool {
     return s1 > s2
-}\n
+}
+
 var nombresInvertidos = nombres.sorted(by: invertir)
-// nombresInvertidos es igual a ["Sandy", "Mauricio", "Luisa", "Jorge", "Cindy"]`}
-</CodeSnippet>
+// nombresInvertidos es igual a ["Sandy", "Mauricio", "Luisa", "Jorge", "Cindy"]
+```
 
 Si la primera cadena (`s1`) es mayor que la segunda (`s2`), la función `invertir(_:_:)` devolverá `true`, indicando que `s1` debería aparecer antes que `s2` en el _array_ ordenado. Para los caracteres de una cadena, «mayor que» significa «aparecer en el alfabeto después que». Esto quiere decir que la letra `«B»` es «mayor que» la letra `«A»`, y que la cadena `«Maura»` es mayor que la cadena `«Maira»`. Esto brinda un ordenamiento alfabético invertido, con la cadena `«Sandy»` ocupando un lugar antes que `«Mauricio»`, y así sucesivamente.
 
@@ -66,29 +73,21 @@ Sin embargo, esta es una forma más bien tediosa y larga de escribir lo que es, 
 
 La sintaxis de expresiones clausura tiene la siguiente forma general:
 
-<div class="pseudocode">
-  <p>
-    &lcub; (<span class="pseudocode__highlight">parámetros</span>) ->{' '}
-    <span class="pseudocode__highlight">tipo a devolver</span>{' '}
-    <span class="pseudocode__keyword">in</span>
-  </p>
-  <p>
-    &emsp;&emsp;<span class="pseudocode__highlight">instrucciones</span>
-  </p>
-  <p>
-    <span>&rcub;</span>
-  </p>
-</div>
+```swift
+{ (<#parámetros#>) -> <#tipo a devolver#> in
+    <#instrucciones#>
+}
+```
 
 Los _parámetros_ en la sintaxis de expresiones clausura pueden ser parámetros _in-out_, pero no pueden tener un valor predeterminado. Los parámetros _variádicos_ pueden usarse si se les asigna un nombre. También pueden usarse las tuplas como tipos de parámetro y como tipos a devolver.
 
 El ejemplo a continuación muestra la versión en expresión clausura de la función `invertir(_:_:)` definida anteriormente:
 
-<CodeSnippet>
-  {`nombresInvertidos = nombres.sorted(by: { (s1: String, s2: String) -> Bool in
+```swift showLineNumbers
+nombresInvertidos = nombres.sorted(by: { (s1: String, s2: String) -> Bool in
     return s1 > s2
-})`}
-</CodeSnippet>
+})
+```
 
 Observa que la declaración del tipo de parámetros y a devolver para esta clausura interna es idéntico a la declaración de la función `invertir(_:_:)`. En ambos casos, se escribe como `(s1: String, s2: String) -> Bool`. Sin embargo, para la expresión clausura interna, el tipo de los parámetros y a devolver se escribe _dentro_ de los paréntesis, y no fuera de estos.
 
@@ -96,7 +95,9 @@ El inicio del cuerpo de la clausura lo determina la palabra clave `in`. Esta pal
 
 Ya que el cuerpo de la clausura es tan conciso, puede incluso escribirse en una sola línea:
 
-<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: { (s1: String, s2: String) -> Bool in return s1 > s2 } )`}</CodeSnippet>
+```swift showLineNumbers
+nombresInvertidos = nombres.sorted(by: { (s1: String, s2: String) -> Bool in return s1 > s2 } )
+```
 
 Esto refleja el hecho de que la invocación misma al método `sorted(by:)` se mantiene igual. Un par de paréntesis siguen conteniendo todo el argumento para el método. Sin embargo, ese argumento es ahora una clausura interna.
 
@@ -104,7 +105,9 @@ Esto refleja el hecho de que la invocación misma al método `sorted(by:)` se ma
 
 Dado que la clausura de ordenamiento le es pasada como un argumento a un método, Swift puede inferir los tipos de sus parámetros y el tipo del valor que devuelve. El método `sorted(by:)` es invocado sobre un _array_ de cadenas, por lo que su argumento debe ser una función de tipo `(String, String) -> Bool`. Esto, quiere decir que no hace falta escribir los tipos `(String, String)` y `Bool` como parte de la definición de la expresión clausura. Como todos los tipos pueden inferirse, también es posible omitir la flecha de devolución (`->`) y los paréntesis alrededor de los nombres de los parámetros:
 
-<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: { s1, s2 in return s1 > s2 } )`}</CodeSnippet>
+```swift showLineNumbers
+nombresInvertidos = nombres.sorted(by: { s1, s2 in return s1 > s2 } )
+```
 
 Siempre que se pasa una clausura —a manera de expresión clausura interna— a una función o método, resulta posible inferir el tipo de los parámetros y el tipo a devolver. Como resultado, nuncá tendrás que escribir una clausura interna en su forma completa cuando tengas que usar dicha clausura como el argumento para una función o método.
 
@@ -114,7 +117,9 @@ En todo caso, es posible ser explícito con los tipos, si así se quiere, y se a
 
 Las clausuras de una sola expresión pueden devolver, de manera implícita, el resultado de su única expresión al omitir la palabra clave `return` en su declaración, como en esta versión del ejemplo anterior:
 
-<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: { s1, s2 in s1 > s2 } )`}</CodeSnippet>
+```swift showLineNumbers
+nombresInvertidos = nombres.sorted(by: { s1, s2 in s1 > s2 } )
+```
 
 Aquí, el tipo de la función del argumento del método `sorted(by:)` deja claro que un valor de tipo `Bool` debe ser devuelto por la clausura. Como el cuerpo de la clausura contiene una única expresión (`s1 > s2`) —la cual devuelve un valor de tipo `Bool`—, no existe ambigüedad, por lo que la palabra `return` puede omitirse.
 
@@ -124,7 +129,9 @@ De manera automática, Swift provee nombres de argumentos concisos para las clau
 
 Si utilizas estos nombres de argumentos concisos dentro de tu expresión clausura, podrás omitir la lista de argumentos de la clausura en su definición. El tipo de los nombres de argumentos concisos se infiere del tipo de la función esperada, y el argumento conciso con el número mayor que utilices, determina el número de argumentos que la función toma. También puede omitirse la palabra clave `in`, ya que la expresión clausura solo se compone de su cuerpo:
 
-<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: { $0 > $1 } )`}</CodeSnippet>
+```swift showLineNumbers
+nombresInvertidos = nombres.sorted(by: { $0 > $1 } )
+```
 
 Aquí, `$0` y `$1` hacen referencia al primer y segundo argumentos de la clausura. Como `$1` es el argumento conciso con el número mayor, se entiende que la clausura toma dos argumentos. Ya que la función `sorted(by:)` espera recibir una cláusura cuyos ambos argumentos son de tipo `String`, los argumentos concisos `$0` y `$1` son ambos de tipo `String`.
 
@@ -132,35 +139,43 @@ Aquí, `$0` y `$1` hacen referencia al primer y segundo argumentos de la clausur
 
 Existe una forma incluso _más corta_ de escribir la expresión clausura anterior. El tipo `String` de Swift define una implementación específica para las cadenas del operador «mayor que» (`>`), como un método que tiene dos parámetros de tipo `String` y que devuelve un valor de tipo `Bool`. Esto concuerda, exactamente, con el tipo de función que requiere el método `sorted(by:)`. Por lo tanto, puedes simplemente pasar el operador «mayor que» y Swift inferirá que quieres usar su implementación específica para las cadenas:
 
-<CodeSnippet>{`nombresInvertidos = nombres.sorted(by: >)`}</CodeSnippet>
+```swift showLineNumbers
+nombresInvertidos = nombres.sorted(by: >)
+```
 
-Para mayor información sobre los métodos operadores, visita [Métodos operadores](./operadores-avanzados#metodos-operadores).
+Para mayor información sobre los métodos operadores, visita [Métodos operadores](./operadores-avanzados#métodos-operadores).
 
 ## Clausuras colgantes
 
 Si necesitas pasarle una expresión clausura a una función como el argumento final de la función, y dicha expresión clausura es larga, puede ser útil escribirla como una _clausura colgante_ (del inglés _trailing closure_) en lugar de la manera regular. Para escribir una clausura colgante, defínela después de los paréntesis de invocación, aun cuando dicha clausura colgante es un argumento mismo de la función. Al usar la sintaxis para clausuras colgantes, no se escribe la etiqueta de argumento para la primera clausura como parte de la invocación de la función. Al llamar una función, es posible incluir múltiples clausuras colgantes; sin embargo, los primeros ejemplos a continuación solo usan una sola clausura colgante.
 
-<CodeSnippet>
-  {`func UnaFuncionCualquieraQueTomaUnaClausura(clausura: () -> Void) {
+```swift showLineNumbers
+func UnaFuncionCualquieraQueTomaUnaClausura(clausura: () -> Void) {
     // El cuerpo de la función va aquí
-}\n
+}
+
 // Así es como llamarías a esta función sin usar una clausura colgante:
 UnaFuncionCualquieraQueTomaUnaClausura(clausura: {
     // El cuerpo de la clausura va aquí
-})\n
+}
+
 // Así es como llamarías a esta función usando una clausura colgante:
 UnaFuncionCualquieraQueTomaUnaClausura() {
     // El cuerpo de la clausura colgante va aquí
-}`}
-</CodeSnippet>
+}
+```
 
 La clausura para ordenar cadenas de la sección anterior —[Sintaxis de expresiones clausura](#sintaxis-de-expresiones-clausura)—, puede escribirse por fuera de los paréntesis del método `sorted(by:)`, como una clausura colgante:
 
-<CodeSnippet>{`nombresInvertidos = nombres.sorted() { $0 > $1 }`}</CodeSnippet>
+```swift showLineNumbers
+nombresInvertidos = nombres.sorted() { $0 > $1 }
+```
 
 Si se proporciona una expresión clausura como el único argumento de una función o método y dicha expresión se provee como una clausura colgante, no hará falta escribir un par de paréntesis —`()`— después del nombre de la función o método al invocar la función:
 
-<CodeSnippet>{`nombresInvertidos = nombres.sorted { $0 > $1 }`}</CodeSnippet>
+```swift showLineNumbers
+nombresInvertidos = nombres.sorted { $0 > $1 }
+```
 
 Las clausuras colgantes son más útiles cuando una clausura es lo suficientemente larga como para escribirla en una sola línea. Por ejemplo, el tipo `Array` de Swift tiene un método `map(_:)`, el cual toma una expressión clausura como su único argumento. La clausura es invocada una vez para cada elemento del _array_ y devuelve un valor alternativo mapeado (posiblemente de algún otro tipo) para cada elemento. Las reglas del mapeo y el tipo del valor a devolver, los especificas al escribir código en la clausura que le pasas al método `map(_:)`.
 
@@ -168,31 +183,33 @@ Luego de aplicar a cada elemento del _array_ la clausura proporcionada, el méto
 
 Así es como puedes usar el método `map(_:)` con una clausura colgante para convertir un _array_ de valores tipo `Int` en un _array_ de valores tipo `String`. Usaremos el _array_ `[16, 58, 510]` para crear el nuevo _array_ `["UnoSeis", "CincoOcho", "CincoUnoCero"]`:
 
-<CodeSnippet>
-  {`let nombresDigitos = [
+```swift showLineNumbers
+let nombresDigitos = [
     0: "Cero",  1: "Uno",  2: "Dos",   3: "Tres", 4: "Cuatro",
     5: "Cinco", 6: "Seis", 7: "Siete", 8: "Ocho", 9: "Nueve"
 ]
-let numeros = [16, 58, 510]`}
-</CodeSnippet>
+let numeros = [16, 58, 510]
+```
 
 El código arriba crea un diccionario de mapeo entre los dígitos enteros y el nombre en español de cada uno. También define un _array_ de enteros, listo para ser convertido en cadenas.
 
 Ahora podemos usar el _array_ `numeros` para crear un _array_ de valores de tipo `String`, al pasarle una expresión clausura al método `map(_:)` del _array_ como una clausura colgante:
 
-<CodeSnippet>
-  {`let cadenas = numeros.map { (numero) -> String in
+```swift showLineNumbers
+let cadenas = numeros.map { (numero) -> String in
     var numero = numero
-    var conversion = ""\n
+    var conversion = ""
+
     repeat {
         conversion = nombresDigitos[numero % 10]! + conversion
         numero /= 10
-    } while numero > 0\n
+    } while numero > 0
+
     return conversion
 }
 // cadenas se infiere a ser de tipo [String]
-// su valor es ["UnoSeis", "CincoOcho", "CincoUnoCero"]`}
-</CodeSnippet>
+// su valor es ["UnoSeis", "CincoOcho", "CincoUnoCero"]
+```
 
 El método `map(_:)` llama a la expresión clausura una vez para cada elemento del _array_. No hace falta que especifiques el tipo del parámetro de entrada de la clausura —`numero`—, ya que este puede inferirse a partir de los valores en el _array_ a ser mapeado.
 
@@ -221,25 +238,27 @@ El uso de una clausura colgante en el ejemplo anterior encapsula, de manera perf
 
 Si una función toma múltiples clausuras, omite la etiqueta de argumento para la primera clausura colgante y etiqueta a las demás clausuras colgantes. Por ejemplo, la función a continuación carga una imagen para una galería de fotos:
 
-<CodeSnippet>
-  {`func cargarFoto(desde servidor: Servidor, finalizacion: (Foto) -> Void, alFallar: () -> Void) {\n
+```swift showLineNumbers
+func cargarFoto(desde servidor: Servidor, finalizacion: (Foto) -> Void, alFallar: () -> Void) {
+
     if let foto = descargar("foto.jpg", desde: servidor) {
         finalizacion(foto)
     } else {
         alFallar()
-    }\n
-}`}
-</CodeSnippet>
+    }
+
+}
+```
 
 Al invocar esta función para cargar una foto, le pasas dos clausuras. La primera clausura es un manejador de finalización, el cual muestra una foto luego de una descarga exitosa. La segunda clausura es un manejador de error que muestra un error al usuario.
 
-<CodeSnippet>
-  {`cargarFoto(desde: algunServidor) { foto in
+```swift showLineNumbers
+cargarFoto(desde: algunServidor) { foto in
     algunaVista.fotoActual = foto
 } alFallar: {
     print("No fue posible descargar la siguiente foto.")
-}`}
-</CodeSnippet>
+}
+```
 
 En este ejemplo, la función `cargarFoto(desde:finalizacion:alFallar:)` envía su tarea de red al fondo y llama uno de los dos manejadores de finalización cuando la tarea de red finaliza. Al escribir la función de esta manera, te permites separar, de manera limpia, el código encargado de manejar un fallo en la red de aquel código que actualiza la interfaz de usuario después de una descarga exitosa —en lugar de usar solo una clausura que se encargue de ambas circunstancias—.
 
@@ -251,16 +270,19 @@ En Swift, la forma más simple de una clausura que puede capturar valores es una
 
 Acá se tiene un ejemplo de una función llamada `crearIncrementador`, la cual contiene una función anidada llamada `incrementador`. La función anidada `incrementador()` captura dos valores —`totalActual` y `cantidad`— de su contexto contenedor. Luego de capturar estos valores, `crearIncrementador` devuelve `incrementar` como una clausura que incrementa `totalActual` por `cantidad` cada vez que se le invoca.
 
-<CodeSnippet>
-  {`func crearIncrementador(paraIncremento cantidad: Int) -> () -> Int {
-    var totalActual = 0\n
+```swift showLineNumbers
+func crearIncrementador(paraIncremento cantidad: Int) -> () -> Int {
+    var totalActual = 0
+
     func incrementador() -> Int {
-        totalActual += cantidad\n
+        totalActual += cantidad
+
         return totalActual
-    }\n
+    }
+
     return incrementador
-}`}
-</CodeSnippet>
+}
+```
 
 El tipo devuelto por `crearIncrementador` es `() -> Int`. Esto, quiere decir que devuelve una _función_ en vez de un simple valor. La función devuelta no tiene parámetros y devuelve, a su vez, un valor de tipo `Int` cada vez que se le llama. Para aprender sobre cómo las funciones pueden devolver otras funciones, visita [Tipos función como tipos de devolución](./funciones#tipos-funcion-como-tipos-de-devolucion).
 
@@ -270,12 +292,13 @@ La función `crearIncrementador(paraIncremento:)` tiene un único parámetro de 
 
 Al considerarla de manera aislada, la función anidada `incrementador` puede parecer inusual:
 
-<CodeSnippet>
-  {`func incrementador() -> Int {
-    totalActual += cantidad\n
+```swift showLineNumbers
+func incrementador() -> Int {
+    totalActual += cantidad
+
     return totalActual
-}`}
-</CodeSnippet>
+}
+```
 
 La función `incrementador()` no tiene ningún parámetro y, aún así, se refiere a `totalActual` y `cantidad` desde adentro de su cuerpo. Esto lo consigue al capturar una referencia a `totalActual` y `cantidad` desde su función contenedora y usándola dentro de su propio cuerpo de función. Capturar por referencia garantiza que `totalActual` y `cantidad` no desaparezcan cuando la llamada a `crearIncrementador` finalice, y garantiza también que `totalActual` esté disponible la próxima vez que la función `incrementador` sea invocada.
 
@@ -289,33 +312,36 @@ La función `incrementador()` no tiene ningún parámetro y, aún así, se refie
 
 Acá tenemos un ejemplo de `crearIncrementador` en acción:
 
-<CodeSnippet>{`let incrementarPorDiez = crearIncrementador(paraIncremento: 10)`}</CodeSnippet>
+```swift showLineNumbers
+let incrementarPorDiez = crearIncrementador(paraIncremento: 10)
+```
 
 Este ejemplo estipula que una constante llamada `incrementarPorDiez` referencie a una función `incrementador` que agrega `10` a su variable `totalActual` cada vez que es invocada. Al llamar la función múltiples veces, podemos ver este comportamiento en acción:
 
-<CodeSnippet>
-  {`incrementarPorDiez()
+```swift showLineNumbers
+incrementarPorDiez()
 // Devuelve un valor de 10
 incrementarPorDiez()
 // Devuelve un valor de 20
 incrementarPorDiez()
-// Devuelve un valor de 30`}
-</CodeSnippet>
+// Devuelve un valor de 30
+```
 
 Si creas un segundo incrementador, este tendrá su propia referencia almacenada a una nueva variable `totalActual`, por separado:
 
-<CodeSnippet>
-  {`let incrementarPorSiete = crearIncrementador(paraIncremento: 7)\n
+```swift showLineNumbers
+let incrementarPorSiete = crearIncrementador(paraIncremento: 7)
+
 incrementarPorSiete()
-// Devuelve un valor de 7`}
-</CodeSnippet>
+// Devuelve un valor de 7
+```
 
 Al invocar el incrementador original —`incrementarPorDiez`— de nuevo, este continúa incrementando su propia variable `totalActual` y no afecta la variable capturada por `incrementarPorSiete`:
 
-<CodeSnippet>
-  {`incrementarPorDiez()
-// Devuelve un valor de 40`}
-</CodeSnippet>
+```swift showLineNumbers
+incrementarPorDiez()
+// Devuelve un valor de 40
+```
 
 Si asignas una clausura a una propiedad de la instancia de una clase, y la clausura captura dicha instancia al referenciar a la instancia o a sus miemebros, habrás creado un ciclo de referencia fuerte entre la clausura y la instancia. Swift hace uso de las _listas de captura_ para romper ciclos de referencia fuerte. Para más información, revisa [Ciclos de referencia fuerte para clausuras](./conteo-automatico-de-referencias#ciclos-de-referencia-fuerte-para-clausuras).
 
@@ -327,13 +353,16 @@ Cada que asignas una función o una clausura a una constante o variable, estás 
 
 Esto también significa que si tú asignas una clausura a dos variables o constantes diferentes, ambas constantes o variables referenciarán a la misma clausura.
 
-<CodeSnippet>
-  {`let incrementarPorDiezTambien = incrementarPorDiez\n
+```swift showLineNumbers
+let incrementarPorDiezTambien = incrementarPorDiez
+
+
 incrementarPorDiezTambien()
-// Devuelve un valor de 50\n
+// Devuelve un valor de 50
+
 incrementarPorDiez()
-// Devuelve un valor de 60`}
-</CodeSnippet>
+// Devuelve un valor de 60
+```
 
 El ejemplo anterior muestra que invocar `incrementarPorDiezTambien` es lo mismo que invocar `incrementarPorDiez`. Dado que ambas referencian a la misma clausura, ambas incrementan y devuelven el mismo valor actual.
 
@@ -343,12 +372,13 @@ Se dice que una clausura _escapa_ de una función cuando dicha clausura le es pa
 
 Una manera en que una clausura puede escapar es almacenándola en una variable que esté definida por fuera de la función. Como ejemplo, muchas de las funciones que inician una operación asíncrona, toman una clausura (como argumento) a manera de gestionador de finalización. La invocación de la función termina luego de iniciar la operación, pero no se invoca la clausura hasta que la operación es completada, es decir, la clausura debe escapar para ser invocada más adelante. Por ejemplo:
 
-<CodeSnippet>
-  {`var gestionadoresDeFinalizacion: [() -> Void] = []\n
+```swift showLineNumbers
+var gestionadoresDeFinalizacion: [() -> Void] = []
+
 func algunaFuncionConUnaClausuraQueEscapa(gestionadorDeFinalizacion: @escaping () -> Void) {
   gestionadoresDeFinalizacion.append(gestionadorDeFinalizacion)
-}`}
-</CodeSnippet>
+}
+```
 
 La función `algunaFuncionConUnaClausuraQueEscapa(_:)` recibe una clausura como su argumento y la agrega a un _array_ declarado fuera de la función. De no haber marcado el parámetro de esta función con `@escaping`, habría ocurrido un error de tiempo de compilación.
 
@@ -356,49 +386,58 @@ Una clausura que escapa y que, a su vez, referencia a `self`, requiere de especi
 
 Por lo general, una clausura captura variables implícitamente al usarlas en el cuerpo de la clausura, pero en este caso hace falta ser explícito. Si deseas capturar `self`, agrega `self`, explícitamente, al usarla, o incluye `self` en la lista de captura de la clausura. Agregar `self` de manera explícita te permite expresar tu intención y te recuerda confirmar que no existe un ciclo de referencia. Por ejemplo, en el código a continuación, la clausura que se le pasa a `algunaFuncionConUnaClausuraQueEscapa(_:)` referencia a `self` explícitamente. Contrario a esto, la clausura que se le pasa a `algunaFuncionSinUnaClausuraQueEscapa(_:)` es una clausura que no escapa, lo que quiere decir que esta puede referenciar `self` implícitamente.
 
-<CodeSnippet>
-  {`func algunaFuncionSinUnaClausuraQueEscapa(clausura: () -> Void) {
+```swift showLineNumbers
+func algunaFuncionSinUnaClausuraQueEscapa(clausura: () -> Void) {
     clausura()
-}\n
+}
+
 class AlgunaClase {
-    var x = 10\n
+    var x = 10
+
     func hacerAlgo() {
         algunaFuncionConUnaClausuraQueEscapa { self.x = 100 }
         algunaFuncionSinUnaClausuraQueEscapa { x = 200 }
     }
-}\n
-let instancia = AlgunaClase()\n
-instancia.hacerAlgo()\n
+}
+
+let instancia = AlgunaClase()
+
+instancia.hacerAlgo()
+
 print(instancia.x)
-// Imprime "200"\n
-gestionadoresDeFinalizacion.first?()\n
+// Imprime "200"
+
+gestionadoresDeFinalizacion.first?()
+
 print(instancia.x)
-// Imprime "100"`}
-</CodeSnippet>
+// Imprime "100"
+```
 
 Acá tenemos una versión de `hacerAlgo()` que captura `self` al incluirlo en la lista de captura de la clausura, para luego referenciar `self` implícitamente:
 
-<CodeSnippet>
-  {`class AlgunaOtraClase {
-    var x = 10\n
+```swift showLineNumbers
+class AlgunaOtraClase {
+    var x = 10
+
     func hacerAlgo() {
         algunaFuncionConUnaClausuraQueEscapa { [self] in x = 100 }
         algunaFuncionSinUnaClausuraQueEscapa { x = 200 }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 Si `self` es una instancia de una estructura o enumeración, siempre podrás referenciar `self` de manera implícita. Sin embargo, una clausura que escapa no puede capturar una referencia mutable a `self` cuando `self` es una instancia de una estructura o de una enumeración. Las estructuras y enumeraciones no permiten mutabilidad compartida, como se vio en [Las estructuras y enumeraciones son tipos de valores](./estructuras-y-clases#las-estructuras-y-enumeraciones-son-tipos-de-valores).
 
-<CodeSnippet>
-  {`struct AlgunaEstructura {
-    var x = 10\n
+```swift showLineNumbers
+struct AlgunaEstructura {
+    var x = 10
+
     mutating func hacerAlgo() {
         algunaFuncionSinUnaClausuraQueEscapa { x = 200 }  // OK
         algunaFuncionConUnaClausuraQueEscapa { x = 100 }  // Error
     }
-}`}
-</CodeSnippet>
+}
+```
 
 La invocación a la función `algunaFuncionConUnaClausuraQueEscapa` del ejemplo arriba, es un error porque está dentro de un método mutable, por lo que `self` es mutable. Esto viola la regla que señala que las clausuras que escapan no pueden capturar una referencia mutable a `self` para las estructuras.
 
@@ -410,42 +449,49 @@ Es común _llamar_ funciones que toman autoclausuras, pero no es común _impleme
 
 Una autoclausura te permite retrasar la evaluación, ya que el código dentro de esta no es ejecutado hasta que no se invoca la clausura. Retrasar la evaluación es útil para aquel código que conlleva efectos secundarios o que resulta computacionalmente costoso, ya que te permite controlar el momento en que dicho código es evaluado. El siguiente código muestra cómo una clausura retrasa la evaluación.
 
-<CodeSnippet>
-  {`var clientesEnEspera = ["Cindy", "Mauricio", "Sandy", "Luisa", "Jorge"]\n
-print(clientesEnEspera.count)
-// Imprime "5"\n
-let proveedorDeClientes = { clientesEnEspera.remove(at: 0) }\n
+```swift showLineNumbers
+var clientesEnEspera = ["Cindy", "Mauricio", "Sandy", "Luisa", "Jorge"]
+
 print(clientesEnEspera.count)
 // Imprime "5"
-print("¡Atendiendo ahora a \\(proveedorDeClientes())!")
-// Imprime "¡Atendiendo ahora a Cindy!"
+
+let proveedorDeClientes = { clientesEnEspera.remove(at: 0) }
+
 print(clientesEnEspera.count)
-// Imprime "4"`}
-</CodeSnippet>
+// Imprime "5"
+
+print("¡Atendiendo ahora a \(proveedorDeClientes())!")
+// Imprime "¡Atendiendo ahora a Cindy!"
+
+print(clientesEnEspera.count)
+// Imprime "4"
+```
 
 Aun cuando el primer elemento del _array_ `clientesEnEspera` es removido por el código dentro de la clausura, el elemento como tal no es removido hasta que la clausura no es realmente invocada. Si nunca se invoca la clausura, la expresión dentro de esta nunca es evaluada, por lo que el elemento del _array_ nunca sería eliminado. Observa que el tipo de `proveedorDeClientes` no es `String` sino `() -> String`, es decir, una función sin parámetros que devuelve una cadena.
 
 Puedes conseguir la misma dinámica de evaluación retrasada al pasar una clausura como argumento para una función.
 
-<CodeSnippet>
-  {`// clientesEnEspera es ["Mauricio", "Sandy", "Luisa", "Jorge"]
+```swift showLineNumbers
+// clientesEnEspera es ["Mauricio", "Sandy", "Luisa", "Jorge"]
 func atender(cliente proveedorDeClientes: () -> String) {
-  print("Atendiendo ahora a \\(proveedorDeClientes())!")
-}\n
+  print("Atendiendo ahora a \(proveedorDeClientes())!")
+}
+
 atender(cliente: { clientesEnEspera.remove(at: 0) } )
-// Imprime "¡Atendiendo ahora a Mauricio!"`}
-</CodeSnippet>
+// Imprime "¡Atendiendo ahora a Mauricio!"
+```
 
 La función `atender(cliente:)`, en el ejemplo anterior, toma una clausura explícita que devuelve el nombre de un cliente. La siguiente versión de `atender(cliente:)` ejecuta la misma operación, pero en lugar de tomar una clausura explícita, toma una autoclausura al marcar el tipo de su parámetro con el atributo `@autoclosure`. Ahora es posible invocar la función como si tomara un `String` como argumento en vez de una clausura. El argumento se convierte automáticamente en una clausura, porque el tipo del parámetro de `proveedorDeClientes` ha sido marcado con el atributo `@autoclosure`.
 
-<CodeSnippet>
-  {`// clientesEnEspera es ["Sandy", "Luisa", "Jorge"]
+```swift showLineNumbers
+// clientesEnEspera es ["Sandy", "Luisa", "Jorge"]
 func atender(cliente proveedorDeClientes: @autoclosure () -> String) {
-  print("¡Atendiendo ahora a \\(proveedorDeClientes())!")
-}\n
+  print("¡Atendiendo ahora a \(proveedorDeClientes())!")
+}
+
 atender(cliente: clientesEnEspera.remove(at: 0))
-// Imprime "¡Atendiendo ahora a Sandy!"`}
-</CodeSnippet>
+// Imprime "¡Atendiendo ahora a Sandy!"
+```
 
 <Callout>
   Abusar del uso de autoclausuras puede hacer que tu código resulte díficil de
@@ -455,21 +501,25 @@ atender(cliente: clientesEnEspera.remove(at: 0))
 
 Si deseas una autoclausura a la que se le permita escapar, utiliza ambos atributos: `@autoclosure` y `@escaping`. El atributo `@escaping` es descrito arriba en [Clausuras que escapan](#clausuras-que-escapan).
 
-<CodeSnippet>
-  {`// clientesEnEspera es ["Luisa", "Jorge"]
-var proveedoresDeClientes: [() -> String] = []\n
+```swift showLineNumbers
+// clientesEnEspera es ["Luisa", "Jorge"]
+var proveedoresDeClientes: [() -> String] = []
+
 func recopilarProveedoresDeClientes(_ proveedorDeClientes: @autoclosure @escaping () -> String) {
     proveedoresDeClientes.append(proveedorDeClientes)
-}\n
+}
+
 recopilarProveedoresDeClientes(clientesEnEspera.remove(at: 0))
-recopilarProveedoresDeClientes(clientesEnEspera.remove(at: 0))\n
+recopilarProveedoresDeClientes(clientesEnEspera.remove(at: 0))
+
 print("Se recopilaron \\(proveedoresDeClientes.count) clausuras.")
-// Prints "Se recoliparon 2 clausuras."\n
+// Prints "Se recoliparon 2 clausuras."
+
 for proveedorDeClientes in proveedoresDeClientes {
-    print("¡Atendiendo ahora a \\(proveedorDeClientes())!")
+    print("¡Atendiendo ahora a \(proveedorDeClientes())!")
 }
 // Imprime "¡Atendiendo ahora a Luisa!"
-// Prints "¡Atendiendo ahora a Jorge!"`}
-</CodeSnippet>
+// Prints "¡Atendiendo ahora a Jorge!"
+```
 
 En el código anterior, en lugar de invocar la clausura que le fue pasada como su argumento `proveedorDeClientes`, ls función `recopilarProveedoresDeClientes(_:)` agrega la clausura al _array_ `proveedoresDeClientes`. El _array_ es declarado por fuera del ámbito de la función, lo que siginifica que las clausuras en el _array_ pueden ejecutarse una vez la invocación de la función termine. Como resultado, al valor del argumento `proveedorDeClientes` debe permitírsele escapar del ámbito de la función.
