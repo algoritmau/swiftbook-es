@@ -2,8 +2,14 @@
 title: Métodos
 ---
 
-import CodeSnippet from '../../components/CodeSnippet.js'
-import Callout from '../../components/Callout.js'
+import Callout from '@components/Callout'
+import Hero from '@components/Hero'
+
+<Hero>
+  # Métodos
+
+  Define e invoca funciones que forman parte de una instancia o de un tipo.
+</Hero>
 
 # Métodos
 
@@ -17,43 +23,49 @@ Los _métodos de instancia_ son funciones que pertenecen a instancias de una cla
 
 Para definir un método de instancia, defínelo dentro de los paréntesis (de apertura y cierre) del tipo al que pertenece. Un método de instancia tiene acceso implícito a todos los métodos de instancias y propiedades de dicho tipo. Un método de instancia solo puede ser llamado en una instancia específica del tipo al que pertenece. No puede ser llamado de manera aislada sin una instancia existente.
 
-Acá tenemos un ejemplo que define una clase sencilla, llamada Contador, la cual puede ser usada para contar el número de veces que ocurre una acción:
+Acá tenemos un ejemplo que define una clase sencilla, llamada `Contador`, la cual puede ser usada para contar el número de veces que ocurre una acción:
 
-<CodeSnippet>
-  {`class Contador {
-    var cuenta = 0\n
+```swift showLineNumbers
+class Contador {
+    var cuenta = 0
+
     func incrementar() {
         cuenta += 1
-    }\n
+    }
+
     func incrementar(en cantidad: Int) {
         cuenta += cantidad
-    }\n
+    }
+
     func restablecer() {
         cuenta = 0
     }
-}`}
-</CodeSnippet>
+}
+```
 
 La clase `Contador` define tres métodos de instancia:
 
 - `incrementar()` incrementa el contador por 1.
-- `incrementar(en: Int)` incrementa el contador por una cantidad entera especificada.
+- `incrementar(en: Int)` incrementa el contador por una cantidad entera en particular.
 - `restablecer()` restablece el contador a cero.
 
 La clase `Contador` también declara una propiedad variable, `cuenta`, para hacer seguimiento del valor actual del contador.
 
-Para invocar un método de instancia, utiliza la misma sintaxis de punto que las propiedades:
+Para invocar un método de instancia, utiliza la misma sintaxis de punto que con las propiedades:
 
-<CodeSnippet>
-  {`let contador = Contador()
-// el valor inicial del contador es 0\n
+```swift showLineNumbers
+let contador = Contador()
+// El valor inicial del contador es 0
+
 contador.incrementar()
-// el valor del contador ahora es 1
+// Ahora, el valor del contador es 1
+
 contador.incrementar(en: 5)
-// el valor del contador ahora es 6
+// Ahora, el valor del contador es 6
+
 contador.restablecer()
-// el valor del contador ahora es 0`}
-</CodeSnippet>
+// Ahora, el valor del contador es 0
+```
 
 Los parámetros de una función pueden tener tanto un nombre (para usar en el cuerpo de la función) como una etiqueta de argumento (para usar al llamar a la función), como se describe en [Etiquetas de argumentos y nombres de parámetros de funciones](./funciones#etiquetas-de-argumentos-de-funciones-y-nombres-de-parametros). Lo mismo ocurre con los parámetros de los métodos, ya que los métodos no son más que funciones asociadas con un tipo.
 
@@ -63,31 +75,34 @@ Todas las instancias de un tipo tienen una propiedad implícita, llamada `self`,
 
 El método `incrementar()` , del ejemplo anterior, se podría haber escrito así:
 
-<CodeSnippet>
-  {`func incrementar() {
+```swift showLineNumbers
+func incrementar() {
     self.cuenta += 1
-}`}
-</CodeSnippet>
+}
+```
 
 En la práctica, no hace falta que escribas `self` muy a menudo en tu código. Si no agregas `self`explícitamente, Swift asumirá que estás referenciando una propiedad o método de la instancia actual cada que uses —dentro de un método— el nombre de una propiedad o método conocido. Esta suposición queda demostrada por el uso de `cuenta` (más que por `self.cuenta`) dentro de los tres métodos de instancia de `Contador`.
 
 La principal excepción a esta regla ocurre cuando el nombre de un parámetro de un método de instancia es el mismo que el de alguna propiedad de dicha instancia. En ese caso, el nombre del parámetro precederá al de la propiedad, y será necesario referirse a la propiedad de una manera más adecuada. Usa la propiedad `self` para diferenciar el nombre de un parámetro del nombre de una propiedad.
 
-Aquí, `self` diferencia entre un parámetro de método llamado `x` de una propiedad de instancia, también llamada `x`: 
+Aquí, `self` diferencia entre un parámetro de método llamado `x` de una propiedad de instancia, también llamada `x`:
 
-<CodeSnippet>
-  {`struct Punto {
-    var x = 0.0, y = 0.0\n
+```swift showLineNumbers {2, 4, 5} /x = 0.0/ /x: Double/ /self.x > x/
+struct Punto {
+    var x = 0.0, y = 0.0
+
     func estaALaDerechaDe(x: Double) -> Bool {
         return self.x > x
     }
-}\n
-let algunPunto = Punto(x: 4.0, y: 5.0)\n
+}
+
+let algunPunto = Punto(x: 4.0, y: 5.0)
+
 if algunPunto.estaALaDerechaDe(x: 1.0) {
     print("Este punto está a la derecha de la línea donde x == 1.0")
 }
-// Imprime "Este punto está a la derecha de la línea donde x == 1.0"`}
-</CodeSnippet>
+// Imprime "Este punto está a la derecha de la línea donde x == 1.0"
+```
 
 Sin el prefijo `self`, Swift asumiría que ambos usos de `x` se refieren al parámetro de método llamado `x`.
 
@@ -99,50 +114,57 @@ Sin embargo, si necesitas modificar las propiedades de tu estructura o enumeraci
 
 Puedes optar por este comportamiento agregando la palabra clave `mutating` antes de la palabra clave `func` de dicho método:
 
-<CodeSnippet>
-  {`struct Punto {
-    var x = 0.0, y = 0.0\n
+```swift showLineNumbers {4} /mutating/
+struct Punto {
+    var x = 0.0, y = 0.0
+
     mutating func desplazarEn(x deltaX: Double, y deltaY: Double) {
         x += deltaX
         y += deltaY
     }
-}\n
-var algunPunto = Punto(x: 1.0, y: 1.0)\n
-algunPunto.desplazarEn(x: 2.0, y: 3.0)\n
-print("El punto está ahora en (\\(algunPunto.x), \\(algunPunto.y))")
-// Imprime "El punto está ahora en (3.0, 4.0)"`}
-</CodeSnippet>
+}
 
-La estructura anterior, `Punto`, define un método modificador -`desplazarEn(x:y:)`—, el cual desplaza una instancia de `Punto` en una determinada cantidad. En lugar de devolver un nuevo punto, este método, en realidad, modifica el punto sobre el cual es llamado. La palabra clave`mutating` se añade a su definición para permitirle modificar sus propiedades.
+var algunPunto = Punto(x: 1.0, y: 1.0)
 
-Fíjate que no es posible invocar un método modificador en un tipo estructura que sea constante, ya que sus propiedades no se pueden modificar, aun cuando estas sean propiedades variables, como se describe en [Propiedades almacenadas de instancias de estructuras constantes]
+algunPunto.desplazarEn(x: 2.0, y: 3.0)
 
-<CodeSnippet>
-  {`let puntoFijo = Punto(x: 3.0, y: 3.0)\n
+print("El punto está ahora en (\(algunPunto.x), \(algunPunto.y))")
+// Imprime "El punto ahora está en (3.0, 4.0)"
+```
+
+La estructura anterior, `Punto`, define un método modificador —`desplazarEn(x:y:)`—, el cual desplaza una instancia de `Punto` en una determinada cantidad. En lugar de devolver un nuevo punto, este método, en realidad, modifica el punto sobre el cual es llamado. La palabra clave`mutating` se añade a su definición para permitirle modificar sus propiedades.
+
+Fíjate que no es posible invocar un método modificador en un tipo estructura que sea constante, ya que sus propiedades no se pueden modificar, aun cuando estas sean propiedades variables, como se describe en [Propiedades almacenadas de instancias de estructuras constantes](./propiedades#propiedades-almacenadas-de-instancias-de-estructuras-constantes).
+
+```swift showLineNumbers
+let puntoFijo = Punto(x: 3.0, y: 3.0)
+
 puntoFijo.desplazarEn(x: 2.0, y: 3.0)
-// esto devolverá un error`}
-</CodeSnippet>
+// esto devolverá un error
+```
 
 ### Asignación a `self` dentro de un método modificador
 
 Los métodos modificadores pueden asignar una instancia completamente nueva a la propiedad implícita `self`. mostrado arriba —`Punto`—, pudo haberse escrito de la siguiente manera:
 
-<CodeSnippet>
-  {`struct Punto {
-    var x = 0.0, y = 0.0\n
+```swift showLineNumbers {4-6}
+struct Punto {
+    var x = 0.0, y = 0.0
+
     mutating func desplazarEn(x deltaX: Double, y deltaY: Double) {
         self = Punto(x: x + deltaX, y: y + deltaY)
     }
-}`}
-</CodeSnippet>
+}
+```
 
 Esta versión del método modificador `moverA(x:y:)` crea una nueva estructura a cuyos valores `x` e `y` se les asigna la ubicación objetivo. El resultado final de llamar a esta versión alternativa del método será exactamente el mismo que llamar a la versión anterior.
 
 Para las enumeraciones, los métodos modificadores pueden asignar un caso diferente de la misma enumeración a la propiedad implícita `self`.
 
-<CodeSnippet>
-  {`enum InterruptorDeTresEstados {
-    case apagado, bajo, alto\n
+```swift showLineNumbers {4-13}
+enum InterruptorDeTresEstados {
+    case apagado, bajo, alto
+
     mutating func siguiente() {
         switch self {
         case .apagado:
@@ -153,38 +175,41 @@ Para las enumeraciones, los métodos modificadores pueden asignar un caso difere
             self = .bajo
         }
     }
-}\n
-var luzDelHorno = SwitchTriEstado.bajo\n
+}
+
+var luzDelHorno = SwitchTriEstado.bajo
+
 luzDelHorno.siguiente()
 // luzDelHorno ahora es igual a .alto
 luzDelHorno.siguiente()
-// luzDelHorno ahora es igual a .apagado`}
-</CodeSnippet>
+// luzDelHorno ahora es igual a .apagado
+```
 
-Este ejemplo define una enumeración para un interruptor de tres estados. El interruptor alterna entre tres estados de poder diferentes ((`apagado`, `bajo`, y `alto`) cada vez que se invoca a su método `siguiente()`. 
- 
+Este ejemplo define una enumeración para un interruptor de tres estados. El interruptor alterna entre tres estados de poder diferentes ((`apagado`, `bajo`, y `alto`) cada vez que se invoca a su método `siguiente()`.
+
 
 ## Métodos de tipo
 
 Los métodos de instancia, como se describió más arriba, son métodos que llamas sobre una instancia de un tipo en particular. También puedes definir métodos que son invocados sobre el propio tipo. A este tipo de métodos se les conoce como  _métodos de tipo_. Para definir un método de tipo, agrega la palabra clave `static` antes de la palabra clave `func`. Por su parte, las clases pueden usar la palabra clave `class` para permitirle a las subclases sobrescribir la implementación de un método definido por la superclase.
 
 <Callout type="note">
-En Objective-C, solo puedes definir métodos a nivel de tipo para clases
-de Objective-C. En Swift, puedes definir métodos a nivel de tipo para cualquier clase,
-estructura, y enumeración. Cada método de tipo está explícitamente limitado al ámbito
-del tipo al que asiste.
+  En Objective-C, solo puedes definir métodos a nivel de tipo para clases
+  de Objective-C. En Swift, puedes definir métodos a nivel de tipo para cualquier clase,
+  estructura, y enumeración. Cada método de tipo está explícitamente limitado al ámbito
+  del tipo al que asiste.
 </Callout>
 
 Para llamar a un método de tipo, usa la sintaxis de punto (al igual que con los métodos de instancia). Sin embargo, los métodos de tipos se invocan sobre el tipo, y no en una instancia del mismo. Aquí puedes ver cómo se invoca un método de tipo sobre una clase llamada `AlgunaClase`:
 
-<CodeSnippet>
-  {`class AlgunaClase {
+```swift showLineNumbers
+class AlgunaClase {
     class func algunMetodoDeTipo() {
         // La implementación del método de tipo va aquí
     }
-}\n
-AlgunaClase.algunMetodoDeTipo()`}
-</CodeSnippet>
+}
+
+AlgunaClase.algunMetodoDeTipo()
+```
 
 Dentro del cuerpo de un método de tipo, la propiedad implícita `self` eferencia al tipo mismo, en lugar de una instancia de dicho tipo. Esto significa que puedes usar `self` para diferenciar entre las propiedades de un tipo y los parámetros de los métodos del mismo (al igual que ocurre con las propiedades de una instancia y los parámetros de los métodos de la misma).
 
@@ -194,27 +219,31 @@ El siguiente ejemplo define una estructura llamada `RegistroDeNivel`, la cual ha
 
 Todos los niveles del juego (a excepción del nivel uno) están bloqueados al jugar por primera vez. Cada vez que un jugador finaliza un nivel, dicho nivel es desbloqueado para todos los jugadores en el dispositivo. La estructura `RegistroDeNivel` usa propiedades y métodos de tipo para llevar cuenta de cuáles niveles del juego han sido desbloqueados. También hace seguimiento del nivel actual para un jugador individual.
 
-<CodeSnippet>
-  {`struct RegistroDeNivel {
+```swift showLineNumbers
+struct RegistroDeNivel {
     static var mayorNivelDesbloqueado = 1
-    var nivelActual = 1\n
+    var nivelActual = 1
+
     static func desbloquear(_ nivel: Int) {
         if nivel > mayorNivelDesbloqueado { mayorNivelDesbloqueado = nivel }
-    }\n
+    }
+
     static func estaDesbloqueado(_ nivel: Int) -> Bool {
         return nivel <= mayorNivelDesbloqueado
-    }\n
+    }
+
     @discardableResult
     mutating func avanzar(a nivel: Int) -> Bool {
         if RegistroDeNivel.estaDesbloqueado(nivel) {
-            nivelActual = nivel\n
+            nivelActual = nivel
+
             return true
         } else {
             return false
         }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 La estructura `RegistroDeNivel` hace seguimiento al mayor nivel que cualquier jugador haya desbloqueado. Este valor se se almacena en una propiedad de tipo llamada `mayorNivelDesbloqueado`.
 
@@ -226,39 +255,44 @@ Para ayudar a gestionar la propiedad `nivelActual`, `RegistroDeNivel` define un 
 
 A continuación, se utiliza la estructura  `RegistroDeNivel` junto con la clase `Jugador` para hacer seguimiento y actualizar el progreso de un jugador individual:
 
-<CodeSnippet>
-  {`class Jugador {
+```swift showLineNumbers
+class Jugador {
     var registro = RegistroDeNivel()
-    let nombreJugador: String\n
+    let nombreJugador: String
+
     func completar(nivel: Int) {
         RegistroDeNivel.desbloquear(nivel + 1)
         registro.avanzar(a: nivel + 1)
-    }\n
+    }
+
     init(nombre: String) {
         nombreJugador = nombre
     }
-}`}
-</CodeSnippet>
+}
+```
 
 La clase `Jugador` crea una nueva instancia de `RegistroDeNivel` para hacer seguimiento al progreso del jugador. También provee un método llamado `completar(nivel:)`, el cual es invocado cada vez que un jugador completa un nivel en particular. Este método desbloquea el siguiente nivel para todos los jugadores y actualiza el progreso del jugador para moverlos al siguiente nivel (el valor booleano devuelto por `avanzar(a:)` es ignorado porque —mediante el llamado a `RegistroDeNivel.desbloquear()_:` en la linea anterior— se sabe que el nivel ya ha sido desbloqueado)
 
 Puedes crear una instancia de la clase `Jugador` para un nuevo jugador, y ver qué ocurre cuando el jugador completa el nivel uno:
 
-<CodeSnippet>
-  {`var jugador = Jugador(nombre: "Argyrios")\n
-jugador.completar(nivel: 1)\n
-print("Ahora, el mayor nivel desbloqueado es \\(RegistroDeNivel.mayorNivelDesbloqueado)")
-// Imprime "Ahora, el mayor nivel desbloqueado es 2"`}
-</CodeSnippet>
+```swift showLineNumbers
+var jugador = Jugador(nombre: "Argyrios")
+
+jugador.completar(nivel: 1)
+
+print("Ahora, el mayor nivel desbloqueado es \(RegistroDeNivel.mayorNivelDesbloqueado)")
+// Imprime "Ahora, el mayor nivel desbloqueado es 2"
+```
 
 Si creas un segundo jugador, a quien intentas mover a un nivel que aún no ha sido desbloqueado por ningún jugador en el juego, el intento de actualizar el nivel actual del jugador fallará:
 
-<CodeSnippet>
-  {`jugador = Jugador(nombre: "Beto")\n
-  if jugador.registro.avanzar(a: 6) {
-      print("el jugador está ahora en el nivel 6")
-  } else {
-      print("el nivel 6 no ha sido desbloqueado todavía")
-  }
-  // Imprime "el nivel 6 no ha sido desbloqueado todavía"`}
-</CodeSnippet>
+```swift showLineNumbers
+jugador = Jugador(nombre: "Beto")
+
+if jugador.registro.avanzar(a: 6) {
+    print("el jugador está ahora en el nivel 6")
+} else {
+    print("el nivel 6 no ha sido desbloqueado todavía")
+}
+// Imprime "el nivel 6 no ha sido desbloqueado todavía"
+```

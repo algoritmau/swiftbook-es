@@ -2,10 +2,14 @@
 title: Protocols
 ---
 
-import Callout from '../../components/Callout.js'
-import CodeSnippet from '../../components/CodeSnippet.js'
+import Callout from '@components/Callout'
+import Hero from '@components/Hero'
 
-# Protocols
+<Hero>
+  # Protocols
+
+  Define requirements that conforming types must implement.
+</Hero>
 
 A _protocol_ defines a blueprint of methods, properties, and other requirements that suit a particular task or piece of functionality. The protocol can then be _adopted_ by a class, structure, or enumeration to provide an actual implementation of those requirements. Any type that satisfies the requirements of a protocol is said to _conform_ to that protocol.
 
@@ -15,27 +19,27 @@ In addition to specifying requirements that conforming types must implement, you
 
 You define protocols in a very similar way to classes, structures, and enumerations:
 
-<CodeSnippet>
-  {`protocol SomeProtocol {
+```swift showLineNumbers
+protocol SomeProtocol {
     // protocol definition goes here
-}`}
-</CodeSnippet>
+}
+```
 
 Custom types state that they adopt a particular protocol by placing the protocol's name after the type's name, separated by a colon, as part of their definition. Multiple protocols can be listed, and are separated by commas:
 
-<CodeSnippet>
-  {`struct SomeStructure: FirstProtocol, AnotherProtocol {
+```swift showLineNumbers
+struct SomeStructure: FirstProtocol, AnotherProtocol {
     // structure definition goes here
-}`}
-</CodeSnippet>
+}
+```
 
 If a class has a superclass, list the superclass name before any protocols it adopts, followed by a comma:
 
-<CodeSnippet>
-  {`class SomeClass: SomeSuperclass, FirstProtocol, AnotherProtocol {
+```swift showLineNumbers
+class SomeClass: SomeSuperclass, FirstProtocol, AnotherProtocol {
     // class definition goes here
-}`}
-</CodeSnippet>
+}
+```
 
 ## Property Requirements
 
@@ -45,40 +49,41 @@ If a protocol requires a property to be gettable and settable, that property req
 
 Property requirements are always declared as variable properties, prefixed with the var keyword. Gettable and settable properties are indicated by writing `{ get set }` after their type declaration, and gettable properties are indicated by writing `{ get }`.
 
-<CodeSnippet>
-  {`protocol SomeProtocol {
+```swift showLineNumbers
+protocol SomeProtocol {
     var mustBeSettable: Int { get set }
     var doesNotNeedToBeSettable: Int { get }
-}`}
-</CodeSnippet>
+}
+```
 
 Always prefix type property requirements with the `static` keyword when you define them in a protocol. This rule pertains even though type property requirements can be prefixed with the `class` or `static` keyword when implemented by a class:
 
-<CodeSnippet>
-  {`protocol AnotherProtocol {
+```swift showLineNumbers
+protocol AnotherProtocol {
     static var someTypeProperty: Int { get set }
-}`}
-</CodeSnippet>
+}
+```
 
 Here's an example of a protocol with a single instance property requirement:
 
-<CodeSnippet>
-  {`protocol FullyNamed {
+```swift showLineNumbers
+protocol FullyNamed {
     var fullName: String { get }
-}`}
-</CodeSnippet>
+}
+```
 
 The `FullyNamed` protocol requires a conforming type to provide a fully qualified name. The protocol doesn't specify anything else about the nature of the conforming type—it only specifies that the type must be able to provide a full name for itself. The protocol states that any `FullyNamed` type must have a gettable instance property called `fullName`, which is of type `String`.
 
 Here's an example of a simple structure that adopts and conforms to the `FullyNamed` protocol:
 
-<CodeSnippet>
-  {`struct Person: FullyNamed {
+```swift showLineNumbers
+struct Person: FullyNamed {
       var fullName: String
-  }\n
-  let john = Person(fullName: "John Appleseed")
-  // john.fullName is "John Appleseed"`}
-</CodeSnippet>
+}
+
+let john = Person(fullName: "John Appleseed")
+// john.fullName is "John Appleseed"
+```
 
 This example defines a structure called `Person`, which represents a specific named person. It states that it adopts the `FullyNamed` protocol as part of the first line of its definition.
 
@@ -86,21 +91,24 @@ Each instance of `Person` has a single stored property called fullName, which is
 
 Here's a more complex class, which also adopts and conforms to the `FullyNamed` protocol:
 
-<CodeSnippet>
-  {`class Starship: FullyNamed {
+```swift showLineNumbers
+class Starship: FullyNamed {
     var prefix: String?
-    var name: String\n
+    var name: String
+
     init(name: String, prefix: String? = nil) {
         self.name = name
         self.prefix = prefix
-    }\n
+    }
+
     var fullName: String {
         return (prefix != nil ? prefix! + " " : "") + name
     }
-}\n
+}
+
 var ncc1701 = Starship(name: "Enterprise", prefix: "USS")
-// ncc1701.fullName is "USS Enterprise"`}
-</CodeSnippet>
+// ncc1701.fullName is "USS Enterprise"
+```
 
 This class implements the `fullName` property requirement as a computed read-only property for a starship. Each `Starship` class instance stores a mandatory `name` and an optional `prefix`. The `fullName` property uses the `prefix` value if it exists, and prepends it to the beginning of `name` to create a full name for the starship.
 
@@ -110,19 +118,19 @@ Protocols can require specific instance methods and type methods to be implement
 
 As with type property requirements, you always prefix type method requirements with the `static` keyword when they're defined in a protocol. This is true even though type method requirements are prefixed with the `class` or `static` keyword when implemented by a class:
 
-<CodeSnippet>
-  {`protocol SomeProtocol {
+```swift showLineNumbers
+protocol SomeProtocol {
     static func someTypeMethod()
-}`}
-</CodeSnippet>
+}
+```
 
 The following example defines a protocol with a single instance method requirement:
 
-<CodeSnippet>
-  {`protocol RandomNumberGenerator {
+```swift showLineNumbers
+protocol RandomNumberGenerator {
     func random() -> Double
-}`}
-</CodeSnippet>
+}
+```
 
 This protocol, `RandomNumberGenerator`, requires any conforming type to have an instance method called `random`, which returns a `Double` value whenever it's called. Although it's not specified as part of the protocol, it's assumed that this value will be a number from `0.0` up to (but not including) `1.0`.
 
@@ -130,27 +138,32 @@ The `RandomNumberGenerator` protocol doesn't make any assumptions about how each
 
 Here's an implementation of a class that adopts and conforms to the `RandomNumberGenerator` protocol. This class implements a pseudorandom number generator algorithm known as a _linear congruential generator_:
 
-<CodeSnippet>
-  {`class LinearCongruentialGenerator: RandomNumberGenerator {
+```swift showLineNumbers
+class LinearCongruentialGenerator: RandomNumberGenerator {
     var lastRandom = 42.0
     let m = 139968.0
     let a = 3877.0
-    let c = 29573.0\n
+    let c = 29573.0
+
     func random() -> Double {
-        lastRandom = ((lastRandom * a + c).truncatingRemainder(dividingBy:m))\n
+        lastRandom = ((lastRandom * a + c).truncatingRemainder(dividingBy:m))
+
         return lastRandom / m
     }
-}\n
-let generator = LinearCongruentialGenerator()\n
-print("Here's a random number: \\(generator.random())")
-// Prints "Here's a random number: 0.3746499199817101"\n
-print("And another one: \\(generator.random())")
-// Prints "And another one: 0.729023776863283"`}
-</CodeSnippet>
+}
+
+let generator = LinearCongruentialGenerator()
+
+print("Here's a random number: \(generator.random())")
+// Prints "Here's a random number: 0.3746499199817101"
+
+print("And another one: \(generator.random())")
+// Prints "And another one: 0.729023776863283"
+```
 
 ## Mutating Method Requirements
 
-It's sometimes necessary for a method to modify (or _mutate_) the instance it belongs to. For instance methods on value types (that is, structures and enumerations) you place the `mutating` keyword before a method's `func` keyword to indicate that the method is allowed to modify the instance it belongs to and any properties of that instance. This process is described in [Modifying Value Types from Within Instance Methods](./metodos).
+It's sometimes necessary for a method to modify (or _mutate_) the instance it belongs to. For instance methods on value types (that is, structures and enumerations) you place the `mutating` keyword before a method's `func` keyword to indicate that the method is allowed to modify the instance it belongs to and any properties of that instance. This process is described in [Modifying Value Types from Within Instance Methods](./métodos#modificando-tipos-de-valor-desde-dentro-de-métodos-de-instancia).
 
 If you define a protocol instance method requirement that's intended to mutate instances of any type that adopts the protocol, mark the method with the `mutating` keyword as part of the protocol's definition. This enables structures and enumerations to adopt the protocol and satisfy that method requirement.
 
@@ -165,88 +178,95 @@ The example below defines a protocol called `Togglable`, which defines a single 
 
 The `toggle()` method is marked with the `mutating` keyword as part of the `Togglable` protocol definition, to indicate that the method is expected to mutate the state of a conforming instance when it's called:
 
-<CodeSnippet>
-  {`protocol Togglable {
+```swift showLineNumbers
+protocol Togglable {
     mutating func toggle()
-}`}
-</CodeSnippet>
+}
+```
 
 If you implement the `Togglable` protocol for a structure or enumeration, that structure or enumeration can conform to the protocol by providing an implementation of the `toggle()` method that's also marked as `mutating`.
 
 The example below defines an enumeration called `OnOffSwitch`. This enumeration toggles between two states, indicated by the enumeration cases `on` and `off`. The enumeration's `toggle` implementation is marked as `mutating`, to match the `Togglable` protocol's requirements:
 
-<CodeSnippet>
-  {`enum OnOffSwitch: Togglable {
-    case off, on\n
+```swift showLineNumbers
+enum OnOffSwitch: Togglable {
+    case off, on
+
     mutating func toggle() {
+
         switch self {
         case .off:
             self = .on
         case .on:
             self = .off
         }
+
     }
-}\n
-var lightSwitch = OnOffSwitch.off\n
+}
+
+var lightSwitch = OnOffSwitch.off
+
 lightSwitch.toggle()
-// lightSwitch is now equal to .on`}
-</CodeSnippet>
+// lightSwitch is now equal to .on
+```
 
 ## Initializer Requirements
 
 Protocols can require specific initializers to be implemented by conforming types. You write these initializers as part of the protocol's definition in exactly the same way as for normal initializers, but without curly braces or an initializer body:
 
-<CodeSnippet>
-  {`protocol SomeProtocol {
+```swift showLineNumbers
+protocol SomeProtocol {
     init(someParameter: Int)
-}`}
-</CodeSnippet>
+}
+```
 
 ### Class Implementations of Protocol Initializer Requirements
 
 You can implement a protocol initializer requirement on a conforming class as either a designated initializer or a convenience initializer. In both cases, you must mark the initializer implementation with the `required` modifier:
 
-<CodeSnippet>
-  {`class SomeClass: SomeProtocol {
+```swift showLineNumbers
+class SomeClass: SomeProtocol {
     required init(someParameter: Int) {
         // initializer implementation goes here
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The use of the `required` modifier ensures that you provide an explicit or inherited implementation of the initializer requirement on all subclasses of the conforming class, such that they also conform to the protocol.
 
-For more information on required initializers, see [Required Initializers](./inicializacion#inicializadores-requeridos).
+For more information on required initializers, see [Required Initializers](./inicialización#inicializadores-obligatorios).
 
 <Callout>
   You don't need to mark protocol initializer implementations with the
   `required` modifier on classes that are marked with the `final` modifier,
   because `final` classes can't subclassed. For more about the final modifier,
-  see [Preventing Overrides](./herencia#prevenir-sobreescrituras).
+  see [Preventing Overrides](./herencia#prevención-de-sobreescrituras).
 </Callout>
 
 If a subclass overrides a designated initializer from a superclass, and also implements a matching initializer requirement from a protocol, mark the initializer implementation with both the `required` and `override` modifiers:
 
-<CodeSnippet>
-  {`protocol SomeProtocol {
+```swift showLineNumbers
+protocol SomeProtocol {
     init()
-}\n
+}
+
 class SomeSuperClass {
     init() {
         // initializer implementation goes here
     }
-}\n
+}
+
 class SomeSubClass: SomeSuperClass, SomeProtocol {
     // "required" from SomeProtocol conformance; "override" from SomeSuperClass
     required override init() {
         // initializer implementation goes here
     }
-}`}
-</CodeSnippet>
+}
+```
 
 ### Failable Initializer Requirements
 
-Protocols can define failable initializer requirements for conforming types, as defined in [Failable Initializers](./inicializacion#inicializadores-falibles).
+Protocols can define failable initializer requirements for conforming types, as defined in [Failable Initializers](./#nicialización#inicializadores-falibles).
 
 A failable initializer requirement can be satisfied by a failable or nonfailable initializer on a conforming type. A nonfailable initializer requirement can be satisfied by a nonfailable initializer or an implicitly unwrapped failable initializer.
 
@@ -268,19 +288,21 @@ You can use a protocol in many places where other types are allowed, including:
 
 Here's an example of a protocol used as a type:
 
-<CodeSnippet>
-  {`class Dice {
+```swift showLineNumbers
+class Dice {
     let sides: Int
-    let generator: RandomNumberGenerator\n
+    let generator: RandomNumberGenerator
+
     init(sides: Int, generator: RandomNumberGenerator) {
         self.sides = sides
         self.generator = generator
-    }\n
+    }
+
     func roll() -> Int {
         return Int(generator.random() * Double(sides)) + 1
     }
-}`}
-</CodeSnippet>
+}
+```
 
 This example defines a new class called `Dice`, which represents an _n_-sided dice for use in a board game. `Dice` instances have an integer property called `sides`, which represents how many sides they have, and a property called `generator`, which provides a random number generator from which to create dice roll values.
 
@@ -292,17 +314,19 @@ The `generator` property is of type `RandomNumberGenerator`. Therefore, you can 
 
 Here's how the `Dice` class can be used to create a six-sided dice with a `LinearCongruentialGenerator` instance as its random number generator:
 
-<CodeSnippet>
-  {`var d6 = Dice(sides: 6, generator: LinearCongruentialGenerator())\n
+```swift showLineNumbers
+var d6 = Dice(sides: 6, generator: LinearCongruentialGenerator())
+
 for _ in 1...5 {
-    print("Random dice roll is \\(d6.roll())")
-}\n
-// Random dice roll is 3
-// Random dice roll is 5
-// Random dice roll is 4
-// Random dice roll is 5
-// Random dice roll is 4`}
-</CodeSnippet>
+    print("Random dice roll is \(d6.roll())")
+}
+
+// Prints "Random dice roll is 3"
+// Prints "Random dice roll is 5"
+// Prints "Random dice roll is 4"
+// Prints "Random dice roll is 5"
+// Prints "Random dice roll is 4"
+```
 
 ## Delegation
 
@@ -310,17 +334,19 @@ _Delegation_ is a design pattern that enables a class or structure to hand off (
 
 The example below defines two protocols for use with dice-based board games:
 
-<CodeSnippet>
-  {`protocol DiceGame {
-    var dice: Dice { get }\n
+```swift showLineNumbers
+protocol DiceGame {
+    var dice: Dice { get }
+
     func play()
-}\n
+}
+
 protocol DiceGameDelegate: AnyObject {
     func gameDidStart(_ game: DiceGame)
     func game(_ game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int)
     func gameDidEnd(_ game: DiceGame)
-}`}
-</CodeSnippet>
+}
+```
 
 The `DiceGame` protocol is a protocol that can be adopted by any game that involves dice.
 
@@ -328,24 +354,31 @@ The `DiceGameDelegate` protocol can be adopted to track the progress of a `DiceG
 
 Here's a version of the _Snakes and Ladders_ game originally introduced in [Control Flow](./flujo-de-control). This version is adapted to use a `Dice` instance for its dice-rolls; to adopt the `DiceGame` protocol; and to notify a `DiceGameDelegate` about its progress:
 
-<CodeSnippet>
-  {`class SnakesAndLadders: DiceGame {
+```swift showLineNumbers
+class SnakesAndLadders: DiceGame {
     let finalSquare = 25
     let dice = Dice(sides: 6, generator: LinearCongruentialGenerator())
     var square = 0
-    var board: [Int]\n
+    var board: [Int]
+
     init() {
         board = Array(repeating: 0, count: finalSquare + 1)
         board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
         board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08
-    }\n
-    weak var delegate: DiceGameDelegate?\n
+    }
+
+    weak var delegate: DiceGameDelegate?
+
     func play() {
         square = 0
-        delegate?.gameDidStart(self)\n
+
+        delegate?.gameDidStart(self)
+
         gameLoop: while square != finalSquare {
-            let diceRoll = dice.roll()\n
-            delegate?.game(self, didStartNewTurnWithDiceRoll: diceRoll)\n
+            let diceRoll = dice.roll()
+
+            delegate?.game(self, didStartNewTurnWithDiceRoll: diceRoll)
+
             switch square + diceRoll {
             case finalSquare:
                 break gameLoop
@@ -355,11 +388,12 @@ Here's a version of the _Snakes and Ladders_ game originally introduced in [Cont
                 square += diceRoll
                 square += board[square]
             }
-        }\n
+        }
+
         delegate?.gameDidEnd(self)
     }
-}`}
-</CodeSnippet>
+}
+```
 
 For a description of the _Snakes and Ladders_ gameplay, see [Break](./flujo-de-control#break).
 
@@ -375,25 +409,31 @@ Because the `delegate` property is an _optional_ `DiceGameDelegate`, the `play()
 
 This next example shows a class called `DiceGameTracker`, which adopts the `DiceGameDelegate` protocol:
 
-<CodeSnippet>
-  {`class DiceGameTracker: DiceGameDelegate {
-    var numberOfTurns = 0\n
+```swift showLineNumbers
+class DiceGameTracker: DiceGameDelegate {
+    var numberOfTurns = 0
+
     func gameDidStart(_ game: DiceGame) {
-        numberOfTurns = 0\n
+        numberOfTurns = 0
+
         if game is SnakesAndLadders {
             print("Started a new game of Snakes and Ladders")
-        }\n
-        print("The game is using a \\(game.dice.sides)-sided dice")
-    }\n
-    func game(_ game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int) {
-        numberOfTurns += 1\n
-        print("Rolled a \\(diceRoll)")
-    }\n
-    func gameDidEnd(_ game: DiceGame) {
-        print("The game lasted for \\(numberOfTurns) turns")
+        }
+
+        print("The game is using a \(game.dice.sides)-sided dice")
     }
-}`}
-</CodeSnippet>
+
+    func game(_ game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int) {
+        numberOfTurns += 1
+
+        print("Rolled a \(diceRoll)")
+    }
+
+    func gameDidEnd(_ game: DiceGame) {
+        print("The game lasted for \(numberOfTurns) turns")
+    }
+}
+```
 
 `DiceGameTracker` implements all three methods required by `DiceGameDelegate`. It uses these methods to keep track of the number of turns a game has taken. It resets a `numberOfTurns` property to zero when the game starts, increments it each time a new turn begins, and prints out the total number of turns once the game has ended.
 
@@ -403,10 +443,12 @@ The `gameDidStart(_:)` method also accesses the `dice` property of the passed ga
 
 Here's how `DiceGameTracker` looks in action:
 
-<CodeSnippet>
-  {`let tracker = DiceGameTracker()
-let game = SnakesAndLadders()\n
-game.delegate = tracker\n
+```swift showLineNumbers
+let tracker = DiceGameTracker()
+let game = SnakesAndLadders()
+
+game.delegate = tracker
+
 game.play()
 // Started a new game of Snakes and Ladders
 // The game is using a 6-sided dice
@@ -414,8 +456,8 @@ game.play()
 // Rolled a 5
 // Rolled a 4
 // Rolled a 5
-// The game lasted for 4 turns`}
-</CodeSnippet>
+// The game lasted for 4 turns
+```
 
 ## Adding Protocol Conformance with an Extension
 
@@ -428,84 +470,92 @@ You can extend an existing type to adopt and conform to a new protocol, even if 
 
 For example, this protocol, called `TextRepresentable`, can be implemented by any type that has a way to be represented as text. This might be a description of itself, or a text version of its current state:
 
-<CodeSnippet>
-  {`protocol TextRepresentable {
+```swift showLineNumbers
+protocol TextRepresentable {
     var textualDescription: String { get }
-}`}
-</CodeSnippet>
+}
+```
 
 The `Dice` class from above can be extended to adopt and conform to `TextRepresentable`:
 
-<CodeSnippet>
-  {`extension Dice: TextRepresentable {
+```swift showLineNumbers
+extension Dice: TextRepresentable {
     var textualDescription: String {
-        return "A \\(sides)-sided dice"
+        return "A \(sides)-sided dice"
     }
-}`}
-</CodeSnippet>
+}
+```
 
 This extension adopts the new protocol in exactly the same way as if `Dice` had provided it in its original implementation. The protocol name is provided after the type name, separated by a colon, and an implementation of all requirements of the protocol is provided within the extension's curly braces.
 
 Any `Dice` instance can now be treated as `TextRepresentable`:
 
-<CodeSnippet>
-  {`let d12 = Dice(sides: 12, generator: LinearCongruentialGenerator())\n
+```swift showLineNumbers
+let d12 = Dice(sides: 12, generator: LinearCongruentialGenerator())
+
 print(d12.textualDescription)
-// Prints "A 12-sided dice"`}
-</CodeSnippet>
+// Prints "A 12-sided dice"
+```
 
 Similarly, the `SnakesAndLadders` game class can be extended to adopt and conform to the `TextRepresentable` protocol:
 
-<CodeSnippet>
-  {`extension SnakesAndLadders: TextRepresentable {
+```swift showLineNumbers
+  extension SnakesAndLadders: TextRepresentable {
     var textualDescription: String {
-        return "A game of Snakes and Ladders with \\(finalSquare) squares"
+        return "A game of Snakes and Ladders with \(finalSquare) squares"
     }
-}\n
+}
+
 print(game.textualDescription)
-// Prints "A game of Snakes and Ladders with 25 squares"`}
-</CodeSnippet>
+// Prints "A game of Snakes and Ladders with 25 squares"
+```
 
 ### Conditionally Conforming to a Protocol
 
-A generic type may be able to satisfy the requirements of a protocol only under certain conditions, such as when the type's generic parameter conforms to the protocol. You can make a generic type conditionally conform to a protocol by listing constraints when extending the type. Write these constraints after the name of the protocol you're adopting by writing a generic `where` clause. For more about generic `where` clauses, see [Generic Where Clauses](./genericos#clausulas-where-genericas).
+A generic type may be able to satisfy the requirements of a protocol only under certain conditions, such as when the type's generic parameter conforms to the protocol. You can make a generic type conditionally conform to a protocol by listing constraints when extending the type. Write these constraints after the name of the protocol you're adopting by writing a generic `where` clause. For more about generic `where` clauses, see [Generic Where Clauses](./genéricos#cláusulas-where-genéricas).
 
 The following extension makes `Array` instances conform to the `TextRepresentable` protocol whenever they store elements of a type that conforms to `TextRepresentable`.
 
-<CodeSnippet>
-  {`extension Array: TextRepresentable where Element: TextRepresentable {
+```swift showLineNumbers
+extension Array: TextRepresentable where Element: TextRepresentable {
     var textualDescription: String {
-        let itemsAsText = self.map { $0.textualDescription }\n
+        let itemsAsText = self.map { $0.textualDescription }
+
         return "[" + itemsAsText.joined(separator: ", ") + "]"
     }
-}\n
+}
+
 let myDice = [d6, d12]
+
 print(myDice.textualDescription)
-// Prints "[A 6-sided dice, A 12-sided dice]"`}
-</CodeSnippet>
+// Prints "[A 6-sided dice, A 12-sided dice]"
+```
 
 ### Declaring Protocol Adoption with an Extension
 
 If a type already conforms to all of the requirements of a protocol, but hasn't yet stated that it adopts that protocol, you can make it adopt the protocol with an empty extension:
 
-<CodeSnippet>
-  {`struct Hamster {
+```swift showLineNumbers
+struct Hamster {
     var name: String
+
     var textualDescription: String {
-        return "A hamster named \\(name)"
+        return "A hamster named \(name)"
     }
-}\n
-extension Hamster: TextRepresentable {}`}
-</CodeSnippet>
+}
+
+extension Hamster: TextRepresentable {}
+```
 
 Instances of `Hamster` can now be used wherever `TextRepresentable` is the required type:
 
-<CodeSnippet>
-  {`let simonTheHamster = Hamster(name: "Simon")
-let somethingTextRepresentable: TextRepresentable = simonTheHamster\n
+```swift showLineNumbers
+let simonTheHamster = Hamster(name: "Simon")
+let somethingTextRepresentable: TextRepresentable = simonTheHamster
+
 print(somethingTextRepresentable.textualDescription)
-// Prints "A hamster named Simon"`}
-</CodeSnippet>
+// Prints "A hamster named Simon"
+```
 
 <Callout>
   Types don't automatically adopt a protocol just by satisfying its
@@ -527,17 +577,19 @@ To receive a synthesized implementation of `==`, declare conformance to `Equatab
 
 The example below defines a `Vector3D` structure for a three-dimensional position vector (`x`, `y`, `z`), similar to the Vector2D structure. Because the `x`, `y`, and `z` properties are all of an `Equatable` type, `Vector3D` receives synthesized implementations of the equivalence operators.
 
-<CodeSnippet>
-  {`struct Vector3D: Equatable {
+```swift showLineNumbers
+struct Vector3D: Equatable {
     var x = 0.0, y = 0.0, z = 0.0
-}\n
+}
+
 let twoThreeFour = Vector3D(x: 2.0, y: 3.0, z: 4.0)
-let anotherTwoThreeFour = Vector3D(x: 2.0, y: 3.0, z: 4.0)\n
+let anotherTwoThreeFour = Vector3D(x: 2.0, y: 3.0, z: 4.0)
+
 if twoThreeFour == anotherTwoThreeFour {
     print("These two vectors are also equivalent.")
 }
-// Prints "These two vectors are also equivalent."`}
-</CodeSnippet>
+// Prints "These two vectors are also equivalent."
+```
 
 Swift provides a synthesized implementation of `Hashable` for the following kinds of custom types:
 
@@ -551,41 +603,43 @@ Swift provides a synthesized implementation of `Comparable` for enumerations tha
 
 The example below defines a `SkillLevel` enumeration with cases for beginners, intermediates, and experts. Experts are additionally ranked by the number of stars they have.
 
-<CodeSnippet>
-  {`enum SkillLevel: Comparable {
+```swift showLineNumbers
+enum SkillLevel: Comparable {
     case beginner
     case intermediate
     case expert(stars: Int)
-}\n
+}
+
 var levels = [SkillLevel.intermediate, SkillLevel.beginner,
-              SkillLevel.expert(stars: 5), SkillLevel.expert(stars: 3)]\n
+              SkillLevel.expert(stars: 5), SkillLevel.expert(stars: 3)]
+
 for level in levels.sorted() {
     print(level)
 }
 // Prints "beginner"
 // Prints "intermediate"
 // Prints "expert(stars: 3)"
-// Prints "expert(stars: 5)"`}
-</CodeSnippet>
+// Prints "expert(stars: 5)"
+```
 
 ## Collections of Protocol Types
 
 A protocol can be used as the type to be stored in a collection such as an array or a dictionary, as mentioned in [Protocols as Types](#protocols-as-types). This example creates an array of `TextRepresentable` things:
 
-<CodeSnippet>
-  {`let things: [TextRepresentable] = [game, d12, simonTheHamster]`}
-</CodeSnippet>
+```swift showLineNumbers
+let things: [TextRepresentable] = [game, d12, simonTheHamster]
+```
 
 It's now possible to iterate over the items in the array, and print each item's textual description:
 
-<CodeSnippet>
-  {`for thing in things {
+```swift showLineNumbers
+for thing in things {
     print(thing.textualDescription)
 }
 // A game of Snakes and Ladders with 25 squares
 // A 12-sided dice
-// A hamster named Simon`}
-</CodeSnippet>
+// A hamster named Simon
+```
 
 Note that the `thing` constant is of type `TextRepresentable`. It's not of type `Dice`, or `DiceGame`, or `Hamster`, even if the actual instance behind the scenes is of one of those types. Nonetheless, because it's of type `TextRepresentable`, and anything that's `TextRepresentable` is known to have a `textualDescription` property, it's safe to access `thing.textualDescription` each time through the loop.
 
@@ -593,29 +647,31 @@ Note that the `thing` constant is of type `TextRepresentable`. It's not of type 
 
 A protocol can _inherit_ one or more other protocols and can add further requirements on top of the requirements it inherits. The syntax for protocol inheritance is similar to the syntax for class inheritance, but with the option to list multiple inherited protocols, separated by commas:
 
-<CodeSnippet>
-  {`protocol InheritingProtocol: SomeProtocol, AnotherProtocol {
+```swift showLineNumbers
+protocol InheritingProtocol: SomeProtocol, AnotherProtocol {
     // protocol definition goes here
-}`}
-</CodeSnippet>
+}
+```
 
 Here's an example of a protocol that inherits the `TextRepresentable` protocol from above:
 
-<CodeSnippet>
-  {`protocol PrettyTextRepresentable: TextRepresentable {
+```swift showLineNumbers
+protocol PrettyTextRepresentable: TextRepresentable {
     var prettyTextualDescription: String { get }
-}`}
-</CodeSnippet>
+}
+```
 
 This example defines a new protocol, `PrettyTextRepresentable`, which inherits from `TextRepresentable`. Anything that adopts `PrettyTextRepresentable` must satisfy all of the requirements enforced by `TextRepresentable`, _plus_ the additional requirements enforced by `PrettyTextRepresentable`. In this example, `PrettyTextRepresentable` adds a single requirement to provide a gettable property called `prettyTextualDescription` that returns a `String`.
 
 The `SnakesAndLadders` class can be extended to adopt and conform to `PrettyTextRepresentable`:
 
-<CodeSnippet>
-  {`extension SnakesAndLadders: PrettyTextRepresentable {
+```swift showLineNumbers
+extension SnakesAndLadders: PrettyTextRepresentable {
     var prettyTextualDescription: String {
-        var output = textualDescription + ":\\n"\n
+        var output = textualDescription + ":\n"
+
         for index in 1...finalSquare {
+
             switch board[index] {
             case let ladder where ladder > 0:
                 output += "▲ "
@@ -624,11 +680,13 @@ The `SnakesAndLadders` class can be extended to adopt and conform to `PrettyText
             default:
                 output += "○ "
             }
-        }\n
+
+        }
+
         return output
     }
-}`}
-</CodeSnippet>
+}
+```
 
 This extension states that it adopts the `PrettyTextRepresentable` protocol and provides an implementation of the `prettyTextualDescription` property for the `SnakesAndLadders` type. Anything that's `PrettyTextRepresentable` must also be `TextRepresentable`, and so the implementation of `prettyTextualDescription` starts by accessing the `textualDescription` property from the `TextRepresentable` protocol to begin an output string. It appends a colon and a line break, and uses this as the start of its pretty text representation. It then iterates through the array of board squares, and appends a geometric shape to represent the contents of each square:
 
@@ -638,21 +696,21 @@ This extension states that it adopts the `PrettyTextRepresentable` protocol and 
 
 The `prettyTextualDescription` property can now be used to print a pretty text description of any `SnakesAndLadders` instance:
 
-<CodeSnippet>
-  {`print(game.prettyTextualDescription)
+```swift showLineNumbers
+print(game.prettyTextualDescription)
 // A game of Snakes and Ladders with 25 squares:
-// ○ ○ ▲ ○ ○ ▲ ○ ○ ▲ ▲ ○ ○ ○ ▼ ○ ○ ○ ○ ▼ ○ ○ ▼ ○ ▼ ○`}
-</CodeSnippet>
+// ○ ○ ▲ ○ ○ ▲ ○ ○ ▲ ▲ ○ ○ ○ ▼ ○ ○ ○ ○ ▼ ○ ○ ▼ ○ ▼ ○
+```
 
 ## Class-Only Protocols
 
 You can limit protocol adoption to class types (and not structures or enumerations) by adding the `AnyObject` protocol to a protocol's inheritance list.
 
-<CodeSnippet>
-  {`protocol SomeClassOnlyProtocol: AnyObject, SomeInheritedProtocol {
+```swift showLineNumbers
+  protocol SomeClassOnlyProtocol: AnyObject, SomeInheritedProtocol {
     // class-only protocol definition goes here
-}`}
-</CodeSnippet>
+}
+```
 
 In the example above, `SomeClassOnlyProtocol` can only be adopted by class types. It's a compile-time error to write a structure or enumeration definition that tries to adopt `SomeClassOnlyProtocol`.
 
@@ -673,24 +731,29 @@ Protocol compositions have the form `SomeProtocol & AnotherProtocol`. You can li
 
 Here's an example that combines two protocols called `Named` and `Aged` into a single protocol composition requirement on a function parameter:
 
-<CodeSnippet>
-  {`protocol Named {
+```swift showLineNumbers
+protocol Named {
     var name: String { get }
-}\n
+}
+
 protocol Aged {
     var age: Int { get }
-}\n
+}
+
 struct Person: Named, Aged {
     var name: String
     var age: Int
-}\n
+}
+
 func wishHappyBirthday(to celebrator: Named & Aged) {
-    print("Happy birthday, \\(celebrator.name), you're \\(celebrator.age)!")
-}\n
-let birthdayPerson = Person(name: "Malcolm", age: 21)\n
+    print("Happy birthday, \(celebrator.name), you're \(celebrator.age)!")
+}
+
+let birthdayPerson = Person(name: "Malcolm", age: 21)
+
 wishHappyBirthday(to: birthdayPerson)
-// Prints "Happy birthday, Malcolm, you're 21!"`}
-</CodeSnippet>
+// Prints "Happy birthday, Malcolm, you're 21!"
+```
 
 In this example, the `Named` protocol has a single requirement for a gettable `String` property called `name`. The `Aged` protocol has a single requirement for a gettable `Int` property called `age`. Both protocols are adopted by a structure called `Person`.
 
@@ -700,29 +763,36 @@ The example then creates a new `Person` instance called `birthdayPerson` and pas
 
 Here's an example that combines the `Named` protocol from the previous example with a `Location` class:
 
-<CodeSnippet>
-  {`class Location {
+```swift showLineNumbers
+class Location {
     var latitude: Double
-    var longitude: Double\n
+    var longitude: Double
+
     init(latitude: Double, longitude: Double) {
         self.latitude = latitude
         self.longitude = longitude
     }
-}\n
+}
+
 class City: Location, Named {
-    var name: String\n
+    var name: String
+
     init(name: String, latitude: Double, longitude: Double) {
         self.name = name
+
         super.init(latitude: latitude, longitude: longitude)
     }
-}\n
+}
+
 func beginConcert(in location: Location & Named) {
-    print("Hello, \\(location.name)!")
-}\n
-let seattle = City(name: "Seattle", latitude: 47.6, longitude: -122.3)\n
+    print("Hello, \(location.name)!")
+}
+
+let seattle = City(name: "Seattle", latitude: 47.6, longitude: -122.3)
+
 beginConcert(in: seattle)
-// Prints "Hello, Seattle!"`}
-</CodeSnippet>
+// Prints "Hello, Seattle!"
+```
 
 The `beginConcert(in:)` function takes a parameter of type `Location & Named`, which means “any type that's a subclass of `Location` and that conforms to the `Named` protocol.” In this case, `City` satisfies both requirements.
 
@@ -738,64 +808,69 @@ You can use the `is` and `as` operators described in [Type Casting](./type-casti
 
 This example defines a protocol called `HasArea`, with a single property requirement of a gettable `Double` property called `area`:
 
-<CodeSnippet>
-  {`protocol HasArea {
+```swift showLineNumbers
+protocol HasArea {
     var area: Double { get }
-}`}
-</CodeSnippet>
+}
+```
 
 Here are two classes, `Circle` and `Country`, both of which conform to the `HasArea` protocol:
 
-<CodeSnippet>
-  {`class Circle: HasArea {
+```swift showLineNumbers
+  class Circle: HasArea {
     let pi = 3.1415927
     var radius: Double
-    var area: Double { return pi * radius * radius }\n
+    var area: Double { return pi * radius * radius }
+
     init(radius: Double) { self.radius = radius }
-}\n
+}
+
 class Country: HasArea {
-    var area: Double\n
+    var area: Double
+
     init(area: Double) { self.area = area }
-}`}
-</CodeSnippet>
+}
+```
 
 The `Circle` class implements the `area` property requirement as a computed property, based on a stored `radius` property. The `Country` class implements the `area` requirement directly as a stored property. Both classes correctly conform to the `HasArea` protocol.
 
 Here's a class called `Animal`, which doesn't conform to the `HasArea` protocol:
 
-<CodeSnippet>
-  {`class Animal {
-    var legs: Int\n
+```swift showLineNumbers
+class Animal {
+    var legs: Int
+
     init(legs: Int) { self.legs = legs }
-}`}
-</CodeSnippet>
+}
+```
 
 The `Circle`, `Country`, and `Animal` classes don't have a shared base class. Nonetheless, they're all classes, and so instances of all three types can be used to initialize an array that stores values of type `AnyObject`:
 
-<CodeSnippet>
-  {`let objects: [AnyObject] = [
+```swift showLineNumbers
+let objects: [AnyObject] = [
     Circle(radius: 2.0),
     Country(area: 243_610),
     Animal(legs: 4)
-]`}
-</CodeSnippet>
+]
+```
 
 The `objects` array is initialized with an array literal containing a `Circle` instance with a radius of 2 units; a `Country` instance initialized with the surface area of the United Kingdom in square kilometers; and an `Animal` instance with four legs.
 
 The `objects` array can now be iterated, and each object in the array can be checked to see if it conforms to the `HasArea` protocol:
 
-<CodeSnippet>
-  {`for object in objects {
+```swift showLineNumbers
+for object in objects {
+
     if let objectWithArea = object as? HasArea {
-        print("Area is \\(objectWithArea.area)")
+        print("Area is \(objectWithArea.area)")
     } else {
         print("Something that doesn't have an area")
     }
 }
 // Area is 12.5663708
 // Area is 243610.0
-// Something that doesn't have an area`}
-</CodeSnippet>
+// Something that doesn't have an area
+```
 
 Whenever an object in the array conforms to the `HasArea` protocol, the optional value returned by the `as?` operator is unwrapped with optional binding into a constant called `objectWithArea`. The `objectWithArea` constant is known to be of type `HasArea`, and so its `area` property can be accessed and printed in a type-safe way.
 
@@ -811,12 +886,12 @@ An optional protocol requirement can be called with optional chaining, to accoun
 
 The following example defines an integer-counting class called `Counter`, which uses an external data source to provide its increment amount. This data source is defined by the `CounterDataSource` protocol, which has two optional requirements:
 
-<CodeSnippet>
-  {`@objc protocol CounterDataSource {
+```swift showLineNumbers
+@objc protocol CounterDataSource {
     @objc optional func increment(forCount count: Int) -> Int
     @objc optional var fixedIncrement: Int { get }
-}`}
-</CodeSnippet>
+}
+```
 
 The `CounterDataSource` protocol defines an optional method requirement called `increment(forCount:)` and an optional property requirement called `fixedIncrement`. These requirements define two different ways for data sources to provide an appropriate increment amount for a `Counter` instance.
 
@@ -829,10 +904,11 @@ The `CounterDataSource` protocol defines an optional method requirement called `
 
 The `Counter` class, defined below, has an optional dataSource property of type `CounterDataSource?`:
 
-<CodeSnippet>
-  {`class Counter {
+```swift showLineNumbers
+class Counter {
     var count = 0
-    var dataSource: CounterDataSource?\n
+    var dataSource: CounterDataSource?
+
     func increment() {
         if let amount = dataSource?.increment?(forCount: count) {
             count += amount
@@ -840,8 +916,8 @@ The `Counter` class, defined below, has an optional dataSource property of type 
             count += amount
         }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The `Counter` class stores its current value in a variable property called `count`. The `Counter` class also defines a method called increment, which increments the `count` property every time the method is called.
 
@@ -857,17 +933,19 @@ If it's _not_ possible to retrieve a value from the `increment(forCount:)` metho
 
 Here's a simple `CounterDataSource` implementation where the data source returns a constant value of `3` every time it's queried. It does this by implementing the optional `fixedIncrement` property requirement:
 
-<CodeSnippet>
-  {`class ThreeSource: NSObject, CounterDataSource {
+```swift showLineNumbers
+class ThreeSource: NSObject, CounterDataSource {
     let fixedIncrement = 3
-}`}
-</CodeSnippet>
+}
+```
 
 You can use an instance of `ThreeSource` as the data source for a new `Counter` instance:
 
-<CodeSnippet>
-  {`var counter = Counter()\n
-counter.dataSource = ThreeSource()\n
+```swift showLineNumbers
+var counter = Counter()
+
+counter.dataSource = ThreeSource()
+
 for _ in 1...4 {
     counter.increment()
     print(counter.count)
@@ -875,15 +953,15 @@ for _ in 1...4 {
 // 3
 // 6
 // 9
-// 12`}
-</CodeSnippet>
+// 12
+```
 
 The code above creates a new `Counter` instance; sets its data source to be a new `ThreeSource` instance; and calls the counter's `increment()` method four times. As expected, the counter's `count` property increases by three each time `increment()` is called.
 
 Here's a more complex data source called `TowardsZeroSource`, which makes a `Counter` instance count up or down towards zero from its current `count` value:
 
-<CodeSnippet>
-  {`class TowardsZeroSource: NSObject, CounterDataSource {
+```swift showLineNumbers
+class TowardsZeroSource: NSObject, CounterDataSource {
     func increment(forCount count: Int) -> Int {
         if count == 0 {
             return 0
@@ -893,16 +971,17 @@ Here's a more complex data source called `TowardsZeroSource`, which makes a `Cou
             return -1
         }
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The `TowardsZeroSource` class implements the optional `increment(forCount:)` method from the `CounterDataSource` protocol and uses the `count` argument value to work out which direction to count in. If `count` is already `zero`, the method returns `0` to indicate that no further counting should take place.
 
 You can use an instance of `TowardsZeroSource` with the existing `Counter` instance to count from `-4` to zero. Once the counter reaches zero, no more counting takes place:
 
-<CodeSnippet>
-  {`counter.count = -4
-counter.dataSource = TowardsZeroSource()\n
+```swift showLineNumbers
+counter.count = -4
+counter.dataSource = TowardsZeroSource()
+
 for _ in 1...5 {
     counter.increment()
     print(counter.count)
@@ -911,8 +990,8 @@ for _ in 1...5 {
 // -2
 // -1
 // 0
-// 0`}
-</CodeSnippet>
+// 0
+```
 
 ## Protocol Extensions
 
@@ -920,23 +999,25 @@ Protocols can be extended to provide method, initializer, subscript, and compute
 
 For example, the `RandomNumberGenerator` protocol can be extended to provide a `randomBool()` method, which uses the result of the required `random()` method to return a random `Bool` value:
 
-<CodeSnippet>
-  {`extension RandomNumberGenerator {
+```swift showLineNumbers
+extension RandomNumberGenerator {
     func randomBool() -> Bool {
         return random() > 0.5
     }
-}`}
-</CodeSnippet>
+}
+```
 
 By creating an extension on the protocol, all conforming types automatically gain this method implementation without any additional modification.
 
-<CodeSnippet>
-  {`let generator = LinearCongruentialGenerator()\n
-print("Here's a random number: \\(generator.random())")
+```swift showLineNumbers
+let generator = LinearCongruentialGenerator()
+
+print("Here's a random number: \(generator.random())")
 // Prints "Here's a random number: 0.3746499199817101"
-print("And here's a random Boolean: \\(generator.randomBool())")
-// Prints "And here's a random Boolean: true"`}
-</CodeSnippet>
+
+print("And here's a random Boolean: \(generator.randomBool())")
+// Prints "And here's a random Boolean: true"
+```
 
 Protocol extensions can add implementations to conforming types but can't make a protocol extend or inherit from another protocol. Protocol inheritance is always specified in the protocol declaration itself.
 
@@ -953,50 +1034,53 @@ You can use protocol extensions to provide a default implementation to any metho
 
 For example, the `PrettyTextRepresentable` protocol, which inherits the `TextRepresentable` protocol can provide a default implementation of its required `prettyTextualDescription` property to simply return the result of accessing the `textualDescription` property:
 
-<CodeSnippet>
-  {`extension PrettyTextRepresentable  {
+```swift showLineNumbers
+extension PrettyTextRepresentable  {
     var prettyTextualDescription: String {
         return textualDescription
     }
-}`}
-</CodeSnippet>
+}
+```
 
 ### Adding Constraints to Protocol Extensions
 
-When you define a protocol extension, you can specify constraints that conforming types must satisfy before the methods and properties of the extension are available. You write these constraints after the name of the protocol you're extending by writing a generic `where` clause. For more about generic `where` clauses, see [Generic Where Clauses](./genericos#clausulas-where-genericas).
+When you define a protocol extension, you can specify constraints that conforming types must satisfy before the methods and properties of the extension are available. You write these constraints after the name of the protocol you're extending by writing a generic `where` clause. For more about generic `where` clauses, see [Generic Where Clauses](./genéricos#cláusulas-where-genéricas).
 
 For example, you can define an extension to the `Collection` protocol that applies to any collection whose elements conform to the `Equatable` protocol. By constraining a collection's elements to the `Equatable` protocol, a part of the standard library, you can use the `==` and `!=` operators to check for equality and inequality between two elements.
 
-<CodeSnippet>
-  {`extension Collection where Element: Equatable {
+```swift showLineNumbers
+extension Collection where Element: Equatable {
     func allEqual() -> Bool {
         for element in self {
+
             if element != self.first {
                 return false
             }
-        }\n
+
+        }
+
         return true
     }
-}`}
-</CodeSnippet>
+}
+```
 
 The `allEqual()` method returns `true` only if all the elements in the collection are equal.
 
 Consider two arrays of integers, one where all the elements are the same, and one where they aren't:
 
-<CodeSnippet>
-  {`let equalNumbers = [100, 100, 100, 100, 100]
-let differentNumbers = [100, 100, 200, 100, 200]`}
-</CodeSnippet>
+```swift showLineNumbers
+let equalNumbers = [100, 100, 100, 100, 100]
+let differentNumbers = [100, 100, 200, 100, 200]
+```
 
 Because arrays conform to `Collection` and integers conform to `Equatable`, `equalNumbers` and `differentNumbers` can use the `allEqual()` method:
 
-<CodeSnippet>
-  {`print(equalNumbers.allEqual())
+```swift showLineNumbers
+print(equalNumbers.allEqual())
 // Prints "true"
 print(differentNumbers.allEqual())
-// Prints "false"`}
-</CodeSnippet>
+// Prints "false"
+```
 
 <Callout>
   If a conforming type satisfies the requirements for multiple constrained

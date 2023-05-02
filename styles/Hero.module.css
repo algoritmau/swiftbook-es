@@ -1,0 +1,17 @@
+.container {
+  margin: 32px 0 40px 0;
+  border-left: solid 4px #ccc;
+  padding: 20px 20px 20px 20px;
+}
+
+.container p {
+  margin-block-start: 0.8rem;
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    margin: 40px 0 40px 2px;
+    padding: 20px;
+  }
+}

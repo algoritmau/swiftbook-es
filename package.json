@@ -1,11 +1,11 @@
 {
   "name": "swift-book-es",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Repository of the Spanish translation of The Swift Programming Language book",
   "author": {
     "name": "Mauricio Paternina",
-    "email": "hello@spaceinva.dev",
-    "url": "https://spaceinva.dev"
+    "email": "hello@trspl.ms",
+    "url": "https://trspl.ms"
   },
   "private": true,
   "scripts": {
@@ -15,26 +15,25 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "12.0.4",
-    "nextra": "^2.0.0-beta.5",
-    "nextra-theme-docs": "^2.0.0-beta.5",
-    "prism-react-renderer": "^1.2.1",
-    "prismjs": "^1.25.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "next": "13.2.4",
+    "nextra": "^2.2.19",
+    "nextra-theme-docs": "^2.2.19",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.2.0",
-    "eslint-config-airbnb": "^19.0.0",
-    "eslint-config-next": "12.0.4",
-    "prettier": "^2.4.1",
-    "react-syntax-highlighter": "^15.4.5"
+    "@types/node": "18.15.3",
+    "eslint": "^8.36.0",
+    "eslint-config-next": "^13.2.4",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/spaceinvadev/swift-book-es.git"
+    "url": "https://github.com/trsplms/swift-book-es.git"
   },
   "issues": {
-    "url": "https://github.com/spaceinvadev/swift-book-es#issues"
+    "url": "https://github.com/trsplms/swift-book-es#issues"
   }
 }

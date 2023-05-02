@@ -2,10 +2,15 @@
 title: Control Flow
 ---
 
-import CodeSnippet from '../../components/CodeSnippet.js'
-import Callout from '../../components/Callout.js'
+import Callout from '@components/Callout'
+import DynamicImage from '@components/DynamicImage'
+import Hero from '@components/Hero'
 
-# Control Flow
+<Hero>
+  # Control Flow
+
+  Structure code with branches, loops, and early exits.
+</Hero>
 
 Swift provides a variety of control flow statements. These include `while` loops to perform a task multiple times; `if`, `guard`, and `switch` statements to execute different branches of code based on certain conditions; and statements such as `break` and `continue` to transfer the flow of execution to another point in your code.
 
@@ -19,43 +24,45 @@ You use the `for-in` loop to iterate over a sequence, such as items in an array,
 
 This example uses a `for-in` loop to iterate over the items in an array:
 
-<CodeSnippet>
-  {`let names = ["Anna", "Alex", "Brian", "Jack"]\n
+```swift showLineNumbers
+let names = ["Anna", "Alex", "Brian", "Jack"]
+
 for name in names {
-    print("Hello, \\(name)!")
+    print("Hello, \(name)!")
 }
 // Hello, Anna!
 // Hello, Alex!
 // Hello, Brian!
-// Hello, Jack!`}
-</CodeSnippet>
+// Hello, Jack!
+```
 
 You can also iterate over a dictionary to access its key-value pairs. Each item in the dictionary is returned as a `(key, value)` tuple when the dictionary is iterated, and you can decompose the `(key, value)` tuple's members as explicitly named constants for use within the body of the `for-in` loop. In the code example below, the dictionary's keys are decomposed into a constant called `animalName`, and the dictionary's values are decomposed into a constant called `legCount`.
 
-<CodeSnippet>
-  {`let numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]\n
+```swift showLineNumbers
+let numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]
+
 for (animalName, legCount) in numberOfLegs {
-    print("\\(animalName)s have \\(legCount) legs")
+    print("\(animalName)s have \(legCount) legs")
 }
 // cats have 4 legs
 // ants have 6 legs
-// spiders have 8 legs`}
-</CodeSnippet>
+// spiders have 8 legs
+```
 
 The contents of a `Dictionary` are inherently unordered, and iterating over them doesn't guarantee the order in which they will be retrieved. In particular, the order you insert items into a `Dictionary` doesn't define the order they're iterated. For more about arrays and dictionaries, see [Collection Types](./tipos-de-colecciones).
 
 You can also use `for-in` loops with numeric ranges. This example prints the first few entries in a five-times table:
 
-<CodeSnippet>
-  {`for index in 1...5 {
-    print("\\(index) times 5 is \\(index * 5)")
+```swift showLineNumbers
+for index in 1...5 {
+    print("\(index) times 5 is \(index * 5)")
 }
 // 1 times 5 is 5
 // 2 times 5 is 10
 // 3 times 5 is 15
 // 4 times 5 is 20
-// 5 times 5 is 25`}
-</CodeSnippet>
+// 5 times 5 is 25
+```
 
 The sequence being iterated over is a range of numbers from `1` to `5`, inclusive, as indicated by the use of the closed range operator (`...`). The value of `index` is set to the first number in the range (`1`), and the statements inside the loop are executed. In this case, the loop contains only one statement, which prints an entry from the five-times table for the current value of `index`. After the statement is executed, the value of `index` is updated to contain the second value in the range (`2`), and the `print(_:separator:terminator:)` function is called again. This process continues until the end of the range is reached.
 
@@ -63,46 +70,51 @@ In the example above, `index` is a constant whose value is automatically set at 
 
 If you don't need each value from a sequence, you can ignore the values by using an underscore in place of a variable name.
 
-<CodeSnippet>
-  {`let base = 3
+```swift showLineNumbers
+let base = 3
 let power = 10
-var answer = 1\n
+var answer = 1
+
 for _ in 1...power {
     answer *= base
-}\n
-print("\\(base) to the power of \\(power) is \\(answer)")
-// Prints "3 to the power of 10 is 59049"`}
-</CodeSnippet>
+}
+
+print("\(base) to the power of \(power) is \(answer)")
+// Prints "3 to the power of 10 is 59049"
+```
 
 The example above calculates the value of one number to the power of another (in this case, `3` to the power of `10`). It multiplies a starting value of `1` (that is, `3` to the power of `0`) by `3`, ten times, using a closed range that starts with `1` and ends with `10`. For this calculation, the individual counter values each time through the loop are unnecessary—the code simply executes the loop the correct number of times. The underscore character (`_`) used in place of a loop variable causes the individual values to be ignored and doesn't provide access to the current value during each iteration of the loop.
 
 In some situations, you might not want to use closed ranges, which include both endpoints. Consider drawing the tick marks for every minute on a watch face. You want to draw `60` tick marks, starting with the `0` minute. Use the half-open range operator (`..<`) to include the lower bound but not the upper bound. For more about ranges, see [Range Operators](./operadores-basicos#operadores-de-rango).
 
-<CodeSnippet>
-  {`let minutes = 60\n
+```swift showLineNumbers
+let minutes = 60
+
 for tickMark in 0..<minutes {
     // render the tick mark each minute (60 times)
-}`}
-</CodeSnippet>
+}
+```
 
 Some users might want fewer tick marks in their UI. They could prefer one mark every `5` minutes instead. Use the `stride(from:to:by:)` function to skip the unwanted marks.
 
-<CodeSnippet>
-  {`let minuteInterval = 5\n
+```swift showLineNumbers
+let minuteInterval = 5
+
 for tickMark in stride(from: 0, to: minutes, by: minuteInterval) {
     // render the tick mark every 5 minutes (0, 5, 10, 15 ... 45, 50, 55)
-}`}
-</CodeSnippet>
+}
+```
 
 Closed ranges are also available, by using `stride(from:through:by:)` instead:
 
-<CodeSnippet>
-  {`let hours = 12
-let hourInterval = 3\n
+```swift showLineNumbers
+let hours = 12
+let hourInterval = 3
+
 for tickMark in stride(from: 3, through: hours, by: hourInterval) {
     // render the tick mark every 3 hours (3, 6, 9, 12)
-}`}
-</CodeSnippet>
+}
+```
 
 The examples above use a `for-in` loop to iterate ranges, arrays, dictionaries, and strings. However, you can use this syntax to iterate _any_ collection, including your own classes and collection types, as long as those types conform to the [Sequence](https://developer.apple.com/documentation/swift/sequence) protocol.
 
@@ -119,23 +131,19 @@ A `while` loop starts by evaluating a single condition. If the condition is `tru
 
 Here's the general form of a `while` loop:
 
-<p class="pseudocode">
-  <span class="pseudocode__keyword">while</span>{' '}
-  <span class="pseudocode__highlight">condition</span> &lcub; <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span>
-  <br />
-  <span>&rcub;</span>
-</p>
+```swift
+while <#condition#> {
+    <#statements#>
+}
+```
 
 This example plays a simple game of _Snakes and Ladders_ (also known as _Chutes and Ladders_):
 
-<img
-  src="/assets/images/snakesAndLadders_2x.png"
+<DynamicImage
+  baseName="snakesAndLadders"
   alt="Illustration with instructions for the Snakes and Ladders game"
-  width={623}
-  height={299}
-  className="figure-small"
+  width={527}
+  height={246}
 />
 
 The rules of the game are as follows:
@@ -148,36 +156,41 @@ The rules of the game are as follows:
 
 The game board is represented by an array of `Int` values. Its size is based on a constant called `finalSquare`, which is used to initialize the array and also to check for a win condition later in the example. Because the players start off the board, on “square zero”, the board is initialized with 26 zero `Int` values, not 25.
 
-<CodeSnippet>
-  {`let finalSquare = 25
-var board = [Int](repeating: 0, count: finalSquare + 1)`}
-</CodeSnippet>
+```swift showLineNumbers
+let finalSquare = 25
+var board = [Int](repeating: 0, count: finalSquare + 1)
+```
 
 Some squares are then set to have more specific values for the snakes and ladders. Squares with a ladder base have a positive number to move you up the board, whereas squares with a snake head have a negative number to move you back down the board.
 
-<CodeSnippet>
-  {`board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
-board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08`}
-</CodeSnippet>
+```swift showLineNumbers
+board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
+board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08
+```
 
 Square 3 contains the bottom of a ladder that moves you up to square 11. To represent this, `board[03]` is equal to `+08`, which is equivalent to an integer value of `8` (the difference between `3` and `11`). To align the values and statements, the unary plus operator (`+i`) is explicitly used with the unary minus operator (`-i`) and numbers lower than `10` are padded with zeros. (Neither stylistic technique is strictly necessary, but they lead to neater code.)
 
-<CodeSnippet>
-  {`var square = 0
-var diceRoll = 0\n
+```swift showLineNumbers
+var square = 0
+var diceRoll = 0
+
 while square < finalSquare {
     // roll the dice
-    diceRoll += 1\n
-    if diceRoll == 7 { diceRoll = 1 }\n
+    diceRoll += 1
+
+    if diceRoll == 7 { diceRoll = 1 }
+
     // move by the rolled amount
-    square += diceRoll\n
+    square += diceRoll
+
     if square < board.count {
         // if we're still on the board, move up or down for a snake or a ladder
         square += board[square]
     }
-}\n
-print("Game over!")`}
-</CodeSnippet>
+}
+
+print("Game over!")
+```
 
 The example above uses a very simple approach to dice rolling. Instead of generating a random number, it starts with a `diceRoll` value of `0`. Each time through the `while` loop, `diceRoll` is incremented by one and is then checked to see whether it has become too large. Whenever this return value equals `7`, the dice roll has become too large and is reset to a value of `1`. The result is a sequence of `diceRoll` values that's always `1`, `2`, `3`, `4`, `5`, `6`, `1`, `2` and so on.
 
@@ -203,42 +216,45 @@ The other variation of the `while` loop, known as the `repeat-while` loop, perfo
 
 Here's the general form of a `repeat-while` loop:
 
-<p class="pseudocode">
-  <span class="pseudocode__keyword">repeat</span> &lcub; <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span>
-  <br />
-  <span>&rcub;</span> <span class="pseudocode__keyword">while</span>{' '}
-  <span class="pseudocode__highlight">condition</span>
-</p>
+```swift
+repeat {
+    <#statements#>
+} while <#condition#>
+```
 
 Here's the _Snakes and Ladders_ example again, written as a `repeat-while` loop rather than a `while` loop. The values of `finalSquare`, `board`, `square`, and `diceRoll` are initialized in exactly the same way as with a `while` loop.
 
-<CodeSnippet>
-  {`let finalSquare = 25
+```swift showLineNumbers
+let finalSquare = 25
 var board = [Int](repeating: 0, count: finalSquare + 1)
+
 board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
 board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08
+
 var square = 0
-var diceRoll = 0`}
-</CodeSnippet>
+var diceRoll = 0
+```
 
 In this version of the game, the _first_ action in the loop is to check for a ladder or a snake. No ladder on the board takes the player straight to square 25, and so it isn't possible to win the game by moving up a ladder. Therefore, it's safe to check for a snake or a ladder as the first action in the loop.
 
 At the start of the game, the player is on “square zero”. `board[0]` always equals `0` and has no effect.
 
-<CodeSnippet>
-  {`repeat {
+```swift showLineNumbers
+repeat {
     // move up or down for a snake or ladder
     square += board[square]
+
     // roll the dice
-    diceRoll += 1\n
-    if diceRoll == 7 { diceRoll = 1 }\n
+    diceRoll += 1
+
+    if diceRoll == 7 { diceRoll = 1 }
+
     // move by the rolled amount
     square += diceRoll
-} while square < finalSquare\n
-print("Game over!")`}
-</CodeSnippet>
+} while square < finalSquare
+
+print("Game over!")
+```
 
 After the code checks for snakes and ladders, the dice is rolled and the player is moved forward by `diceRoll` squares. The current loop execution then ends.
 
@@ -254,34 +270,37 @@ Swift provides two ways to add conditional branches to your code: the `if` state
 
 In its simplest form, the `if` statement has a single `if` condition. It executes a set of statements only if that condition is `true`.
 
-<CodeSnippet>
-  {`var temperatureInFahrenheit = 30\n
+```swift showLineNumbers
+var temperatureInFahrenheit = 30
+
 if temperatureInFahrenheit <= 32 {
     print("It's very cold. Consider wearing a scarf.")
 }
-// Prints "It's very cold. Consider wearing a scarf."`}
-</CodeSnippet>
+// Prints "It's very cold. Consider wearing a scarf."
+```
 
 The example above checks whether the temperature is less than or equal to 32 degrees Fahrenheit (the freezing point of water). If it is, a message is printed. Otherwise, no message is printed, and code execution continues after the `if` statement's closing brace.
 
 The `if` statement can provide an alternative set of statements, known as an _else clause_, for situations when the `if` condition is `false`. These statements are indicated by the `else` keyword.
 
-<CodeSnippet>
-  {`temperatureInFahrenheit = 40\n
+```swift showLineNumbers
+temperatureInFahrenheit = 40
+
 if temperatureInFahrenheit <= 32 {
     print("It's very cold. Consider wearing a scarf.")
 } else {
     print("It's not that cold. Wear a t-shirt.")
 }
-// Prints "It's not that cold. Wear a t-shirt."`}
-</CodeSnippet>
+// Prints "It's not that cold. Wear a t-shirt."
+```
 
 One of these two branches is always executed. Because the temperature has increased to `40` degrees Fahrenheit, it's no longer cold enough to advise wearing a scarf and so the `else` branch is triggered instead.
 
 You can chain multiple `if` statements together to consider additional clauses.
 
-<CodeSnippet>
-  {`temperatureInFahrenheit = 90\n
+```swift showLineNumbers
+temperatureInFahrenheit = 90
+
 if temperatureInFahrenheit <= 32 {
     print("It's very cold. Consider wearing a scarf.")
 } else if temperatureInFahrenheit >= 86 {
@@ -289,21 +308,22 @@ if temperatureInFahrenheit <= 32 {
 } else {
     print("It's not that cold. Wear a t-shirt.")
 }
-// Prints "It's really warm. Don't forget to wear sunscreen."`}
-</CodeSnippet>
+// Prints "It's really warm. Don't forget to wear sunscreen."
+```
 
 Here, an additional `if` statement was added to respond to particularly warm temperatures. The final else clause remains, and it prints a response for any temperatures that are neither too warm nor too cold.
 
 The final `else` clause is optional, however, and can be excluded if the set of conditions doesn't need to be complete.
 
-<CodeSnippet>
-  {`temperatureInFahrenheit = 72\n
+```swift showLineNumbers
+temperatureInFahrenheit = 72
+
 if temperatureInFahrenheit <= 32 {
     print("It's very cold. Consider wearing a scarf.")
 } else if temperatureInFahrenheit >= 86 {
     print("It's really warm. Don't forget to wear sunscreen.")
-}`}
-</CodeSnippet>
+}
+```
 
 Because the temperature is neither too cold nor too warm to trigger the `if` or `else if` conditions, no message is printed.
 
@@ -313,26 +333,17 @@ A `switch` statement considers a value and compares it against several possible 
 
 In its simplest form, a `switch` statement compares a value against one or more values of the same type.
 
-<p class="pseudocode">
-  <span class="pseudocode__keyword">switch</span>{' '}
-  <span class="pseudocode__highlight">some value to consider</span> &lcub;{' '}
-  <br />
-  <span class="pseudocode__keyword">case</span> <span class="pseudocode__highlight">
-    value 1
-  </span>: <br />
-  &emsp;&emsp;<span class="pseudocode__highlight">respond to value 1</span>
-  <br />
-  <span class="pseudocode__keyword">case</span>{' '}
-  <span class="pseudocode__highlight">value 2</span>,{' '}
-  <span class="pseudocode__highlight">value 3</span>:<br />
-  &emsp;&emsp;<span class="pseudocode__highlight">respond to value 2 or 3</span>
-  <br />
-  <span class="pseudocode__keyword">default</span>:<br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">otherwise, do something else</span>
-  <br />
-  &rcub;
-</p>
+```switch
+switch <#some value to consider#> {
+case <#value 1#>:
+    <#respond to value 1#>
+case <#value 2#>,
+    <#value 3#>:
+    <#respond to value 2 or 3#>
+default:
+    <#otherwise, do something else#>
+}
+```
 
 Every `switch` statement consists of multiple possible cases, each of which begins with the `case` keyword. In addition to comparing against specific values, Swift provides several ways for each case to specify more complex matching patterns. These options are described later in this chapter.
 
@@ -342,8 +353,9 @@ Every `switch` statement must be _exhaustive_. That is, every possible value of 
 
 This example uses a `switch` statement to consider a single lowercase character called `someCharacter`:
 
-<CodeSnippet>
-  {`let someCharacter: Character = "z"\n
+```swift showLineNumbers
+let someCharacter: Character = "z"
+
 switch someCharacter {
 case "a":
     print("The first letter of the alphabet")
@@ -352,8 +364,8 @@ case "z":
 default:
     print("Some other character")
 }
-// Prints "The last letter of the alphabet"`}
-</CodeSnippet>
+// Prints "The last letter of the alphabet"
+```
 
 The `switch` statement's first case matches the first letter of the English alphabet, `a`, and its second case matches the last letter, `z`. Because the `switch` must have a case for every possible character, not just every alphabetic character, this `switch` statement uses a `default` case to match all characters other than `a` and `z`. This provision ensures that the `switch` statement is exhaustive.
 
@@ -370,8 +382,9 @@ In contrast with `switch` statements in C and Objective-C, `switch` statements i
 
 The body of each case _must_ contain at least one executable statement. It isn't valid to write the following code, because the first case is empty:
 
-<CodeSnippet>
-  {`let anotherCharacter: Character = "a"\n
+```swift showLineNumbers
+let anotherCharacter: Character = "a"
+
 switch anotherCharacter {
 case "a": // Invalid, the case has an empty body
 case "A":
@@ -379,23 +392,24 @@ case "A":
 default:
     print("Not the letter A")
 }
-// This will report a compile-time error.`}
-</CodeSnippet>
+// This will report a compile-time error.
+```
 
 Unlike a `switch` statement in C, this `switch` statement doesn't match both `"a"` and `"A"`. Rather, it reports a compile-time error that `case "a":` doesn't contain any executable statements. This approach avoids accidental fallthrough from one case to another and makes for safer code that's clearer in its intent.
 
 To make a `switch` with a single case that matches both `"a"` and `"A"`, combine the two values into a compound case, separating the values with commas.
 
-<CodeSnippet>
-  {`let anotherCharacter: Character = "a"\n
+```swift showLineNumbers
+let anotherCharacter: Character = "a"
+
 switch anotherCharacter {
 case "a", "A":
     print("The letter A")
 default:
     print("Not the letter A")
 }
-// Prints "The letter A"`}
-</CodeSnippet>
+// Prints "The letter A"
+```
 
 For readability, a compound case can also be written over multiple lines. For more information about compound cases, see [Compound Cases](#compound-cases).
 
@@ -408,10 +422,11 @@ For readability, a compound case can also be written over multiple lines. For mo
 
 Values in `switch` cases can be checked for their inclusion in an interval. This example uses number intervals to provide a natural-language count for numbers of any size:
 
-<CodeSnippet>
-  {`let approximateCount = 62
+```swift showLineNumbers
+let approximateCount = 62
 let countedThings = "moons orbiting Saturn"
-let naturalCount: String\n
+let naturalCount: String
+
 switch approximateCount {
 case 0:
     naturalCount = "no"
@@ -425,10 +440,11 @@ case 100..<1000:
     naturalCount = "hundreds of"
 default:
     naturalCount = "many"
-}\n
-print("There are \\(naturalCount) \\(countedThings).")
-// Prints "There are dozens of moons orbiting Saturn."`}
-</CodeSnippet>
+}
+
+print("There are \(naturalCount) \(countedThings).")
+// Prints "There are dozens of moons orbiting Saturn."
+```
 
 In the above example, `approximateCount` is evaluated in a `switch` statement. Each case compares that value to a number or interval. Because the value of `approximateCount` falls between 12 and 100, `naturalCount` is assigned the value `"dozens of"`, and execution is transferred out of the `switch` statement.
 
@@ -438,29 +454,29 @@ You can use tuples to test multiple values in the same `switch` statement. Each 
 
 The example below takes an (x, y) point, expressed as a simple tuple of type `(Int, Int)`, and categorizes it on the graph that follows the example.
 
-<CodeSnippet>
-  {`let somePoint = (1, 1)\n
+```swift showLineNumbers
+let somePoint = (1, 1)
+
 switch somePoint {
 case (0, 0):
-    print("\\(somePoint) is at the origin")
+    print("\(somePoint) is at the origin")
 case (_, 0):
-    print("\\(somePoint) is on the x-axis")
+    print("\(somePoint) is on the x-axis")
 case (0, _):
-    print("\\(somePoint) is on the y-axis")
+    print("\(somePoint) is on the y-axis")
 case (-2...2, -2...2):
-    print("\\(somePoint) is inside the box")
+    print("\(somePoint) is inside the box")
 default:
     print("\(somePoint) is outside of the box")
 }
-// Prints "(1, 1) is inside the box"`}
-</CodeSnippet>
+// Prints "(1, 1) is inside the box"
+```
 
-<img
-  src="/assets/images/coordinateGraphSimple_2x.png"
+<DynamicImage
+  baseName="coordinateGraphSimple"
   alt="Two-dimension cartesian plane"
-  width={288}
-  height={288}
-  className="figure-small"
+  width={474}
+  height={500}
 />
 
 The `switch` statement determines whether the point is at the origin (0, 0), on the red x-axis, on the orange y-axis, inside the blue 4-by-4 box centered on the origin, or outside of the box.
@@ -473,25 +489,25 @@ A `switch` case can name the value or values it matches to temporary constants o
 
 The example below takes an (x, y) point, expressed as a tuple of type `(Int, Int)`, and categorizes it on the graph that follows:
 
-<CodeSnippet>
-  {`let anotherPoint = (2, 0)\n
+```swift showLineNumbers
+let anotherPoint = (2, 0)
+
 switch anotherPoint {
 case (let x, 0):
-    print("on the x-axis with an x value of \\(x)")
+    print("on the x-axis with an x value of \(x)")
 case (0, let y):
-    print("on the y-axis with a y value of \\(y)")
+    print("on the y-axis with a y value of \(y)")
 case let (x, y):
-    print("somewhere else at (\\(x), \\(y))")
+    print("somewhere else at (\(x), \(y))")
 }
-// Prints "on the x-axis with an x value of 2"`}
-</CodeSnippet>
+// Prints "on the x-axis with an x value of 2"
+```
 
-<img
-  src="/assets/images/coordinateGraphMedium_2x.png"
+<DynamicImage
+  baseName="coordinateGraphMedium"
   alt="Two-dimension cartesian plane"
-  width={288}
-  height={288}
-  className="figure-small"
+  width={474}
+  height={500}
 />
 
 The `switch` statement determines whether the point is on the red x-axis, on the orange y-axis, or elsewhere (on neither axis).
@@ -508,25 +524,25 @@ A `switch` case can use a `where` clause to check for additional conditions.
 
 The example below categorizes an (x, y) point on the following graph:
 
-<CodeSnippet>
-  {`let yetAnotherPoint = (1, -1)\n
+```swift showLineNumbers
+let yetAnotherPoint = (1, -1)
+
 switch yetAnotherPoint {
 case let (x, y) where x == y:
-    print("(\\(x), \\(y)) is on the line x == y")
+    print("(\(x), \(y)) is on the line x == y")
 case let (x, y) where x == -y:
-    print("(\\(x), \\(y)) is on the line x == -y")
+    print("(\(x), \(y)) is on the line x == -y")
 case let (x, y):
-    print("(\\(x), \\(y)) is just some arbitrary point")
+    print("(\(x), \(y)) is just some arbitrary point")
 }
-// Prints "(1, -1) is on the line x == -y"`}
-</CodeSnippet>
+// Prints "(1, -1) is on the line x == -y"
+```
 
-<img
-  src="/assets/images/coordinateGraphComplex_2x.png"
+<DynamicImage
+  baseName="coordinateGraphComplex"
   alt="Two-dimension cartesian plane"
-  width={289}
-  height={290}
-  className="figure-small"
+  width={474}
+  height={500}
 />
 
 The `switch` statement determines whether the point is on the green diagonal line where `x == y`, on the purple diagonal line where `x == -y`, or neither.
@@ -539,34 +555,36 @@ As in the previous example, the final case matches all possible remaining values
 
 Multiple `switch` cases that share the same body can be combined by writing several patterns after `case`, with a comma between each of the patterns. If any of the patterns match, then the case is considered to match. The patterns can be written over multiple lines if the list is long. For example:
 
-<CodeSnippet>
-  {`let someCharacter: Character = "e"\n
+```swift showLineNumbers
+let someCharacter: Character = "e"
+
 switch someCharacter {
 case "a", "e", "i", "o", "u":
-    print("\\(someCharacter) is a vowel")
+    print("\(someCharacter) is a vowel")
 case "b", "c", "d", "f", "g", "h", "j", "k", "l", "m",
      "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z":
-    print("\\(someCharacter) is a consonant")
+    print("\(someCharacter) is a consonant")
 default:
-    print("\\(someCharacter) isn't a vowel or a consonant")
+    print("\(someCharacter) isn't a vowel or a consonant")
 }
-// Prints "e is a vowel"`}
-</CodeSnippet>
+// Prints "e is a vowel"
+```
 
 The `switch` statement's first case matches all five lowercase vowels in the English language. Similarly, its second case matches all lowercase English consonants. Finally, the `default` case matches any other character.
 
 Compound cases can also include value bindings. All of the patterns of a compound case have to include the same set of value bindings, and each binding has to get a value of the same type from all of the patterns in the compound case. This ensures that, no matter which part of the compound case matched, the code in the body of the case can always access a value for the bindings and that the value always has the same type.
 
-<CodeSnippet>
-  {`let stillAnotherPoint = (9, 0)\n
+```swift showLineNumbers
+let stillAnotherPoint = (9, 0)
+
 switch stillAnotherPoint {
 case (let distance, 0), (0, let distance):
-    print("On an axis, \\(distance) from the origin")
+    print("On an axis, \(distance) from the origin")
 default:
     print("Not on an axis")
 }
-// Prints "On an axis, 9 from the origin"`}
-</CodeSnippet>
+// Prints "On an axis, 9 from the origin"
+```
 
 The `case` above has two patterns: `(let distance, 0)` matches points on the x-axis and `(0, let distance)` matches points on the y-axis. Both patterns include a binding for `distance` and `distance` is an integer in both patterns—which means that the code in the body of the `case` can always access a value for `distance`.
 
@@ -588,19 +606,22 @@ The `continue` statement tells a loop to stop what it's doing and start again at
 
 The following example removes all vowels and spaces from a lowercase string to create a cryptic puzzle phrase:
 
-<CodeSnippet>
-  {`let puzzleInput = "great minds think alike"
+```swift showLineNumbers
+let puzzleInput = "great minds think alike"
 var puzzleOutput = ""
-let charactersToRemove: [Character] = ["a", "e", "i", "o", "u", " "]\n
+let charactersToRemove: [Character] = ["a", "e", "i", "o", "u", " "]
+
 for character in puzzleInput {
     if charactersToRemove.contains(character) {
         continue
-    }\n
+    }
+
     puzzleOutput.append(character)
-}\n
+}
+
 print(puzzleOutput)
-// Prints "grtmndsthnklk"`}
-</CodeSnippet>
+// Prints "grtmndsthnklk"
+```
 
 The code above calls the `continue` keyword whenever it matches a vowel or a space, causing the current iteration of the loop to end immediately and to jump straight to the start of the next iteration.
 
@@ -626,9 +647,10 @@ This behavior can be used to match and ignore one or more cases in a `switch` st
 
 The following example switches on a `Character` value and determines whether it represents a number symbol in one of four languages. For brevity, multiple values are covered in a single `switch` case.
 
-<CodeSnippet>
-  {`let numberSymbol: Character = "三"  // Chinese symbol for the number 3
-var possibleIntegerValue: Int?\n
+```swift showLineNumbers
+let numberSymbol: Character = "三"  // Chinese symbol for the number 3
+var possibleIntegerValue: Int?
+
 switch numberSymbol {
 case "1", "١", "一", "๑":
     possibleIntegerValue = 1
@@ -640,14 +662,15 @@ case "4", "٤", "四", "๔":
     possibleIntegerValue = 4
 default:
     break
-}\n
-if let integerValue = possibleIntegerValue {
-    print("The integer value of \\(numberSymbol) is \\(integerValue).")
-} else {
-    print("An integer value couldn't be found for \\(numberSymbol).")
 }
-// Prints "The integer value of 三 is 3."`}
-</CodeSnippet>
+
+if let integerValue = possibleIntegerValue {
+    print("The integer value of \(numberSymbol) is \(integerValue).")
+} else {
+    print("An integer value couldn't be found for \(numberSymbol).")
+}
+// Prints "The integer value of 三 is 3."
+```
 
 This example checks `numberSymbol` to determine whether it's a Latin, Arabic, Chinese, or Thai symbol for the numbers `1` to `4`. If a match is found, one of the `switch` statement's cases sets an optional `Int?` variable called `possibleIntegerValue` to an appropriate integer value.
 
@@ -661,19 +684,22 @@ In Swift, `switch` statements don't fall through the bottom of each case and int
 
 If you need C-style fallthrough behavior, you can opt in to this behavior on a case-by-case basis with the `fallthrough` keyword. The example below uses `fallthrough` to create a textual description of a number.
 
-<CodeSnippet>
-  {`let integerToDescribe = 5
-var description = "The number \\(integerToDescribe) is"\n
+```swift showLineNumbers
+let integerToDescribe = 5
+var description = "The number \(integerToDescribe) is"
+
 switch integerToDescribe {
 case 2, 3, 5, 7, 11, 13, 17, 19:
     description += " a prime number, and also"
+
     fallthrough
 default:
     description += " an integer."
-}\n
+}
+
 print(description)
-// Prints "The number 5 is a prime number, and also an integer."`}
-</CodeSnippet>
+// Prints "The number 5 is a prime number, and also an integer."
+```
 
 This example declares a new `String` variable called `description` and assigns it an initial value. The function then considers the value of `integerToDescribe` using a `switch` statement. If the value of `integerToDescribe` is one of the prime numbers in the list, the function appends text to the end of `description`, to note that the number is prime. It then uses the `fallthrough` keyword to “fall into” the `default` case as well. The `default` case adds some extra text to the end of the description, and the `switch` statement is complete.
 
@@ -696,15 +722,11 @@ To achieve these aims, you can mark a loop statement or conditional statement wi
 
 A labeled statement is indicated by placing a label on the same line as the statement's introducer keyword, followed by a colon. Here's an example of this syntax for a `while` loop, although the principle is the same for all loops and `switch` statements:
 
-<p class="pseudocode">
-  <span class="pseudocode__highlight">label name</span>:{' '}
-  <span class="pseudocode__keyword">while</span>{' '}
-  <span class="pseudocode__highlight">condition</span> <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">statements</span>
-  <br />
-  <span>&rcub;</span>
-</p>
+```swift
+<#label name#>: while <#condition#> {
+    <#statements#>
+}
+```
 
 The following example uses the `break` and `continue` statements with a labeled `while` loop for an adapted version of the _Snakes and Ladders_ game that you saw earlier in this chapter. This time around, the game has an extra rule:
 
@@ -714,33 +736,36 @@ If a particular dice roll would take you beyond square 25, you must roll again u
 
 The game board is the same as before.
 
-<img
-  src="/assets/images/snakesAndLadders_2x.png"
+<DynamicImage
+  baseName="snakesAndLadders"
   alt="Illustration with instructions for the Snakes and Ladders game"
-  width={623}
-  height={299}
-  className="figure-small"
+  width={527}
+  height={246}
 />
 
 The values of `finalSquare`, `board`, `square`, and `diceRoll` are initialized in the same way as before:
 
-<CodeSnippet>
-  {`let finalSquare = 25
+```swift showLineNumbers
+let finalSquare = 25
 var board = [Int](repeating: 0, count: finalSquare + 1)
+
 board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
 board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08
+
 var square = 0
-var diceRoll = 0`}
-</CodeSnippet>
+var diceRoll = 0
+```
 
 This version of the game uses a `while` loop and a `switch` statement to implement the game's logic. The `while` loop has a statement label called `gameLoop` to indicate that it's the main game loop for the Snakes and Ladders game.
 
 The `while` loop's condition is `while square != finalSquare`, to reflect that you must land exactly on square 25.
 
-<CodeSnippet>
-  {`gameLoop: while square != finalSquare {
-    diceRoll += 1\n
-    if diceRoll == 7 { diceRoll = 1 }\n
+```swift showLineNumbers
+gameLoop: while square != finalSquare {
+    diceRoll += 1
+
+    if diceRoll == 7 { diceRoll = 1 }
+
     switch square + diceRoll {
     case finalSquare:
         // diceRoll will move us to the final square, so the game is over
@@ -753,9 +778,10 @@ The `while` loop's condition is `while square != finalSquare`, to reflect that y
         square += diceRoll
         square += board[square]
     }
-}\n
-print("Game over!")`}
-</CodeSnippet>
+}
+
+print("Game over!")
+```
 
 The dice is rolled at the start of each loop. Rather than moving the player immediately, the loop uses a `switch` statement to consider the result of the move and to determine whether the move is allowed:
 
@@ -780,25 +806,31 @@ The dice is rolled at the start of each loop. Rather than moving the player imme
 
 A `guard` statement, like an `if` statement, executes statements depending on the Boolean value of an expression. You use a `guard` statement to require that a condition must be `true` in order for the code after the `guard` statement to be executed. Unlike an `if` statement, a `guard` statement always has an `else` clause—the code inside the `else` clause is executed if the condition isn't `true`.
 
-<CodeSnippet>
-  {`func greet(person: [String: String]) {
+```swift showLineNumbers
+func greet(person: [String: String]) {
     guard let name = person["name"] else {
         return
-    }\n
-    print("Hello \\(name)!")\n
+    }
+
+    print("Hello \(name)!")
+
     guard let location = person["location"] else {
-        print("I hope the weather is nice near you.")\n
+        print("I hope the weather is nice near you.")
+
         return
-    }\n
-    print("I hope the weather is nice in \\(location).")
-}\n
+    }
+
+    print("I hope the weather is nice in \(location).")
+}
+
 greet(person: ["name": "John"])
 // Prints "Hello John!"
 // Prints "I hope the weather is nice near you."
+
 greet(person: ["name": "Jane", "location": "Cupertino"])
 // Prints "Hello Jane!"
-// Prints "I hope the weather is nice in Cupertino."`}
-</CodeSnippet>
+// Prints "I hope the weather is nice in Cupertino."
+```
 
 If the `guard` statement's condition is met, code execution continues after the `guard` statement's closing brace. Any variables or constants that were assigned values using an optional binding as part of the condition are available for the rest of the code block that the `guard` statement appears in.
 
@@ -814,27 +846,57 @@ The compiler uses availability information in the SDK to verify that all of the 
 
 You use an _availability condition_ in an `if` or `guard` statement to conditionally execute a block of code, depending on whether the APIs you want to use are available at runtime. The compiler uses the information from the availability condition when it verifies that the APIs in that block of code are available.
 
-<CodeSnippet>
-  {`if #available(iOS 10, macOS 10.12, *) {
+```swift showLineNumbers
+if #available(iOS 10, macOS 10.12, *) {
     // Use iOS 10 APIs on iOS, and use macOS 10.12 APIs on macOS
 } else {
     // Fall back to earlier iOS and macOS APIs
-}`}
-</CodeSnippet>
+}
+```
 
 The availability condition above specifies that in iOS, the body of the `if` statement executes only in iOS 10 and later; in macOS, only in macOS 10.12 and later. The last argument, `*`, is required and specifies that on any other platform, the body of the `if` executes on the minimum deployment target specified by your target.
 
 In its general form, the availability condition takes a list of platform names and versions. You use platform names such as `iOS`, `macOS`, `watchOS`, and `tvOS`—for the full list, see [Declaration Attributes](../referencia-del-lenguaje/atributos#atributos-de-declaracion). In addition to specifying major version numbers like iOS 8 or macOS 10.10, you can specify minor versions numbers like iOS 11.2.6 and macOS 10.13.3.
 
-<p class="pseudocode">
-  <span class="pseudocode__keyword">if #available</span> (
-  <span class="pseudocode__highlight">platform name</span>{' '}
-  <span class="pseudocode__highlight">version</span>,{' '}
-  <span class="pseudocode__highlight">...</span>, *) &lcub; <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">statements to execute if the APIs are available</span><br />
-  &rcub; <span class="pseudocode__keyword">else</span> &lcub; <br />
-  &emsp;&emsp;
-  <span class="pseudocode__highlight">fallback statements to execute if the APIs are unavailable</span><br />
-  &rcub;
-</p>
+```swift
+if #available(<#platform name#> <#version#>, <#...#>, *) {
+    <#statements to execute if the APIs are available#>
+} else {
+    <#fallback statements to execute if the APIs are unavailable#>
+}
+```
+
+When you use an availability condition with a guard statement, it refines the availability information that’s used for the rest of the code in that code block.
+
+```swift showLineNumbers
+@available(macOS 10.12, *)
+struct ColorPreference {
+    var bestColor = "blue"
+}
+
+func chooseBestColor() -> String {
+    guard #available(macOS 10.12, *) else {
+        return "gray"
+      }
+
+      let colors = ColorPreference()
+
+      return colors.bestColor
+}
+
+In the example above, the `ColorPreference` structure requires macOS 10.12 or later. The `chooseBestColor()` function begins with an availability guard. If the platform version is too old to use `ColorPreference`, it falls back to behavior that’s always available. After the `guard` statement, you can use APIs that require macOS 10.12 or later.
+
+In addition to `#available`, Swift also supports the opposite check using an unavailability condition. For example, the following two checks do the same thing:
+
+```swift showLineNumbers
+if #available(iOS 10, *) {
+} else {
+    // Fallback code
+}
+
+if #unavailable(iOS 10) {
+    // Fallback code
+}
+```
+
+Using the `#unavailable` form helps make your code more readable when the check contains only fallback code.

@@ -2,11 +2,15 @@
 title: Cadenas y caracteres
 ---
 
-import Callout from "../../components/Callout.js"
-import CodeSnippet from "../../components/CodeSnippet.js"
-import Image from "next/image"
+import Callout from '@components/Callout'
+import DynamicImage from '@components/DynamicImage'
+import Hero from '@components/Hero'
 
-# Cadenas y caracteres
+<Hero>
+  # Cadenas y caracteres
+
+  Almacena y manipula textos.
+</Hero>
 
 Una _cadena_ es una serie de caracteres, tales como `"Hola, mundo"` o `"manzana"`. En Swift, las cadenas están representadas mediante el tipo `String`. Es posible acceder al contenido de una cadena de varias formas, incluso como una colección de valores de tipo `Character`.
 
@@ -32,7 +36,9 @@ Puedes incluir valores predeterminados de tipo `String` en tu código como «lit
 
 Usa un literal de cadena como el valor inicial para una constante o variable:
 
-<CodeSnippet>{`let algunaCadena = "Un valor cualquiera para un literal de cadena"`}</CodeSnippet>
+```swift showLineNumbers
+let algunaCadena = "Un valor cualquiera para un literal de cadena"
+```
 
 Nota que Swift infiere un valor de tipo `String` para la constante `algunaCadena` ya que esta se inicializó con un valor literal de cadena.
 
@@ -40,52 +46,55 @@ Nota que Swift infiere un valor de tipo `String` para la constante `algunaCadena
 
 Si tu literal de cadena necesita múltiples líneas, usa un literal de cadena de varias líneas: una secuencia de caracteres rodeada por tres comillas dobles (`"""`):
 
-<CodeSnippet>
-  {`let cita = """
-El Conejo Blanco se puso sus gafas. «¿Por dónde debo empezar,
-con la venia de Su Majestad?», preguntó.\n
+```swift showLineNumbers
+let cita = """
+El Conejo Blanco se puso sus lentes. «¿Por dónde debo empezar,
+con la venia de Su Majestad?», preguntó.
+
 «Empieza por el principio», dijo el rey con gravedad, «y sigue
 hasta llegar al final; allí te detienes.
-"""`}
-</CodeSnippet>
+"""
+```
 
 Un literal de cadena de varias líneas incluye todas las líneas contenidas entre sus comillas de apertura y de cierrre. La cadena comienza en la primera línea después de las comillas de apertura (`"""`) y finaliza en la línea que precede a las comillas de cierre; lo cual significa, que ninguna de las cadenas a continuación, comienza o finaliza, con un salto de línea:
 
-<CodeSnippet>
-  {`let cadenaDeUnaSolaLinea = "Estas cadenas son iguales."
+```swift showLineNumbers
+let cadenaDeUnaSolaLinea = "Estas cadenas son iguales."
 let cadenaDeVariasLineas = """
 Estas cadenas son iguales.
-"""`}
-</CodeSnippet>
+"""
+```
 
 Cuando tu código fuente incluya saltos de línea dentro de un literal de cadena de varias líneas, dichos saltos de línea también formarán parte del valor de la cadena. Si quieres usar saltos de línea para hacer que tu código fuente resulte más legible, pero no quieres que estos formen parte parte del valor de la cadena, escribe una barra invertida (`\`) al final de cada línea:
 
-<CodeSnippet>
-  {`let citaModificada = """
-El Conejo Blanco se puso sus gafas. «¿Por dónde debo empezar, \\
-con la venia de Su Majestad?», preguntó.\n
-«Empieza por el principio», dijo el rey con gravedad, «y sigue \\
+```swift showLineNumbers
+let citaModificada = """
+El Conejo Blanco se puso sus lentes. «¿Por dónde debo empezar, \
+con la venia de Su Majestad?», preguntó.
+
+«Empieza por el principio», dijo el rey con gravedad, «y sigue \
 hasta llegar al final; allí te detienes."
-"""`}
-</CodeSnippet>
+"""
+```
 
 Para crear un literal de cadena de varias líneas que comience o termine con un salto de línea, escribe una línea en blanco como la primera o última línea. Por ejemplo:
 
-<CodeSnippet>
-  {`let saltosDeLinea = """\n
+```swift showLineNumbers
+let saltosDeLinea = """
+
 Esta cadena comienza con un salto de línea.
-También termina con un salto de línea.\n
-"""`}
-</CodeSnippet>
+También termina con un salto de línea.
 
-Una cadena de varias líneas puede ser sangrada (_«indented»_) para que coincida con el código a su alrededor. Los espacios en blanco antes de las comillas de cierre (`"""`), le indican a Swift el espacio en blanco a ignorar al inicio de cada una de las otras líneas. Sin embargo, si —aparte del espacio en blanco agregado antes de las comillas de cierre—, también escribes algún espacio en blanco al inicio de una línea, dicho espacio en blanco _sí_ será incluido como parte de la cadena.
+"""
+```
 
-<img
-  src="/assets/images/multilineStringWhitespace_2x.png"
+A una cadena de varias líneas puede se le puede agregar sangría (_«indentation»_) para que coincida con el código a su alrededor. Los espacios en blanco antes de las comillas de cierre (`"""`), le indican a Swift el espacio en blanco a ignorar al inicio de cada una de las otras líneas. Sin embargo, si —aparte del espacio en blanco agregado antes de las comillas de cierre—, también escribes algún espacio en blanco al inicio de una línea, dicho espacio en blanco _sí_ será incluido como parte de la cadena.
+
+<DynamicImage
+  baseName="multilineStringWhitespace"
   alt="Example of multiline string with whitespace"
-  width={592}
-  height={153}
-  className="figure-small"
+  width={519}
+  height={129}
 />
 
 En el ejemplo anterior, aún cuando todo el literal de cadena de varias líneas tiene una sangría de cuatro espacios, las primera y última líneas en la cadena no comienzan con ningún espacio en blanco. La línea del medio tiene más sangría que las comillas de cierre, por lo que comienza con esa sangría adicional de cuatro espacios.
@@ -95,26 +104,26 @@ En el ejemplo anterior, aún cuando todo el literal de cadena de varias líneas 
 Los literales de cadena pueden incluir los siguientes caracteres especiales:
 
 - Los caracteres especiales de escape: `\0` (carácter nulo), `\\` (barra invertida), `\t` (tabulador), `\n` (salto de línea), `\r` (retorno de carro), `\"` (comilla doble) y `\'` (comilla simple)
-- Un valor escalar Unicode arbitrario, escrito como `\u{_n_}`, donde _n_ es un número hexadecimal, de uno a ocho dígitos (Unicode se discute en [Unicode](#unicode) abajo).
+- Un valor escalar Unicode arbitrario, escrito como `\u{_n_}`, donde _n_ es un número hexadecimal, de uno a ocho dígitos (Unicode se discute más adelante en [Unicode](#unicode)).
 
 El código a continuación muestra cuatro ejemplos de estos caracteres especiales. La constante `palabrasSabias` contiene dos comillas dobles de escape. Las constantes `signoDolar`, `corazonNegro`, y `corazonBrillante` demuestran el formato escalar de Unicode:
 
-<CodeSnippet>
-  {`let palabrasSabias = "\\"La imaginación es más importante que el conocimiento.\\" — Einstein"
+```swift showLineNumbers
+let palabrasSabias = "\"La imaginación es más importante que el conocimiento.\" — Einstein"
 // "La imaginación es más importante que el conocimiento." — Einstein
-let signoDolar = "\u{24}"         // $, Escalar Unicode U+0024
-let corazonNegro = "\u{2665}"      // ♥, Escalar Unicode U+2665
-let corazonBrillante = "\u{1F496}"  // 💖, Escalar Unicode U+1F496`}
-</CodeSnippet>
+let signoDolar = "\u{24}"           // $,  Escalar Unicode U+0024
+let corazonNegro = "\u{2665}"       // ♥,  Escalar Unicode U+2665
+let corazonBrillante = "\u{1F496}"  // 💖, Escalar Unicode U+1F496
+```
 
 Dado que los literales de cadena de varias líneas usan tres comillas dobles en lugar de una, es posible incluir comillas dobles (`"`) sin escaparlas. Sin embargo, para insertar tres comillas dobles consecutivas (`"""`) en una cadena de varias líneas, tendrás que escapar, al menos, una de las comillas. Por ejemplo:
 
-<CodeSnippet>
-  {`let tresComillasDobles = """
-Escapando la primera comilla \\"""
-Escapando las tres comillas \\"\\"\\"
-"""`}
-</CodeSnippet>
+```swift showLineNumbers
+let tresComillasDobles = """
+Escapando la primera comilla \"""
+Escapando las tres comillas \"\"\"
+"""
+```
 
 ### Delimitadores de cadena extendidos
 
@@ -124,49 +133,52 @@ Si necesitas los efectos especiales de un carácter en un literal de cadena, haz
 
 Los literales de cadena creados mediante delimitadores extendidos también pueden ser literales de cadena de varias líneas. Puedes usar delimitadores extendidos para incluir el texto `"""` en una cadena de varias líneas, anulando el comportamiento predeterminado que da por terminado el literal. Por ejemplo:
 
-<CodeSnippet>
-  {`let tresComillasDoblesMas = #"""
+```swift showLineNumbers
+let tresComillasDoblesMas = #"""
 Aquí hay tres comillas dobles más: """
-"""#`}
-</CodeSnippet>
+"""#
+```
 
 ## Inicializando una cadena vacía
 
 Para crear una cadena vacía como punto inicial para construir una cadena más larga, bien puedes asignar un literal de cadena vacío a una variable o inicializar una nueva instancia del tipo `String` mediante sintaxis de inicializador:
 
-<CodeSnippet>
-  {`var cadenaVacia = ""            // literal de cadena vacío
+```swift showLineNumbers
+var cadenaVacia = ""            // literal de cadena vacío
 var otraCadenaVacia = String()  // sintaxis de inicializador
-// Estas dos cadenas están vacías y son equivalentes entre sí.`}
-</CodeSnippet>
+// Estas dos cadenas están vacías y son equivalentes entre sí.
+```
 
 Verifica si un valor de tipo `String` está vacío, al evaluar su propiedad booleana `isEmpty`:
 
-<CodeSnippet>
-  {`if cadenaVacia.isEmpty {
+```swift showLineNumbers
+if cadenaVacia.isEmpty {
     print("Nada que ver por aquí.")
 }
-// Imprime "Nada que ver por aquí."`}
-</CodeSnippet>
+// Imprime "Nada que ver por aquí."
+```
 
 ## Mutabilidad de una cadena
 
-Para indicar si un valor en particular, de tipo `String` puede ser modificado (es decir, que es «mutable») puedes asignarlo a una variable (en cuyo caso, podrá ser modificado), o a una constante (en cuyo caso, no podrá ser modificado):
+Para indicar si una cadena en particular puede ser modificada (es decir, para hacerla «mutable»), puedes asignarla a una variable (en cuyo caso, podrá ser modificada), o a una constante (en cuyo caso, no podrá ser modificada):
 
-<CodeSnippet>
-  {`var cadenaMutable = "Caballo"\n
-cadenaMutable += " y carruaje"
-// cadenaMutable es ahora "Caballo y carruaje"\n
-let cadenaInmutable = "Highlander"\n
-cadenaInmutable += " y otro Highlander"
+```swift showLineNumbers
+var cadenaVariable = "Caballo"
+
+cadenaVariable += " y carruaje"
+// Ahora, cadenaVariable es "Caballo y carruaje"
+
+let cadenaConstante = "Highlander"
+
+cadenaConstante += " y otro Highlander"
 // Esto resulta en un error en tiempo de compilación:
-// una cadena constante no puede ser modificada`}
-</CodeSnippet>
+// una cadena constante no puede ser modificada
+```
 
 <Callout>
   Este enfoque difiere de la modificación de cadenas en Objective-C y Cocoa, en
   donde se escoge entre dos clases (`NSString` y `NSMutableString`) para indicar
-  si una cadena puede o no modificarse.
+  si una cadena puede, o no, ser modificada.
 </Callout>
 
 ## Las cadenas son tipos de valor
@@ -181,8 +193,8 @@ Detrás de cámaras, el compilador de Swift optimiza el uso de cadenas, de maner
 
 Puedes acceder a los valores individuales de tipo `Character` en una cadena al iterar sobre la misma mediante un ciclo `for-in`:
 
-<CodeSnippet>
-  {`for caracter in "¡Perro!🐶" {
+```swift showLineNumbers
+for caracter in "¡Perro! 🐶" {
     print(caracter)
 }
 // ¡
@@ -192,50 +204,55 @@ Puedes acceder a los valores individuales de tipo `Character` en una cadena al i
 // r
 // o
 // !
-// 🐶`}
-</CodeSnippet>
+//
+// 🐶
+```
 
 El ciclo `for-in` se describe en [Ciclos `for-in`](./flujo-de-control#ciclos-for-in).
 
 De manera alterna, puedes crear una constante o variable individual de tipo `Character` a partir de un literal de cadena, con un solo carácter, agregando una anotación de tipo `Character`:
 
-<CodeSnippet>{`let signoDeExclamacion: Character = "!"`}</CodeSnippet>
+```swift showLineNumbers
+let signoDeExclamacion: Character = "!"
+```
 
 Los valores de tipo `String` se pueden construrir pasando un _array_ de valores de tipo `Character` como un argumento para su inicializador:
 
-<CodeSnippet>
-  {`let caracteresGato: [Character] = ["¡", "G", "a", "t", "o", "!", "🐱"]
-let cadenaGato = String(caracteresGato)\n
+```swift showLineNumbers {2}
+let caracteresGato: [Character] = ["¡", "G", "a", "t", "o", "!", " ", "🐱"]
+let cadenaGato = String(caracteresGato)
+
 print(cadenaGato)
-// Imprime "¡Gato!🐱"`}
-</CodeSnippet>
+// Imprime "¡Gato! 🐱"
+```
 
 ## Concatenación de cadenas y caracteres
 
 Puedes juntar (o «concatenar») valores de tipo `String` con el operador de adición (`+`) para crear una nueva cadena:
 
-<CodeSnippet>
-  {`let cadena1 = "Buenos"
+```swift showLineNumbers {3} /+/
+let cadena1 = "Buenos"
 let cadena2 = " días"
 var saludo = cadena1 + cadena2
-// saludo es ahora igual a "Buenos días"`}
-</CodeSnippet>
+// Ahora, saludo es igual a "Buenos días"
+```
 
 También puedes agregar un valor de tipo `String` a una variable existente, de tipo `String` mediante el operador de adición-asignación (`+=`):
 
-<CodeSnippet>
-  {`var instruccion = "deletrea la palabra"
+```swift showLineNumbers {2} /+=/
+var instruccion = "deletrea la palabra"
 instruccion += cadena2
-// instruccion es ahora igual a "deletrea la palabra días"`}
-</CodeSnippet>
+// Ahora, instruccion es igual a "deletrea la palabra días"
+```
 
 Puedes agregar un valor de tipo `Character` a una variable `String` usando el método `append()` del tipo `String`:
 
-<CodeSnippet>
-  {`let punto: Character = "."
+```swift showLineNumbers {3}
+let punto: Character = "."
+
 saludo.append(punto)
-// saludo es ahora igual a "Buenos días."`}
-</CodeSnippet>
+// Ahora, saludo es igual a "Buenos días."
+```
 
 <Callout>
   No es posible agregar un valor de tipo `String` o `Character` a una variable
@@ -245,40 +262,44 @@ saludo.append(punto)
 
 Si estás usando literales de cadena de varias líneas para componer las líneas de una cadena más larga, querrás que cada línea de la cadena finalice con un salto de línea, incluyendo la última línea. Por ejemplo:
 
-<CodeSnippet>
-  {`let malComienzo = """
-uno
-dos
-"""
+```swift showLineNumbers
+let malComienzo = """
+    uno
+    dos
+    """
 let final = """
-tres
-"""\n
+    tres
+    """
+
 print(malComienzo + final)
 // Imprime dos líneas:
 // uno
-// dostres\n
+// dostres
+
 let buenComienzo = """
-uno
-dos\n
-"""\n
+    uno
+    dos
+
+    """
+
 print(buenComienzo + final)
 // Imprime tres líneas:
 // uno
 // dos
-// tres`}
-</CodeSnippet>
+// tres
+```
 
 En el código anterior, concatenar `malComienzo` con `final` produce una cadena de dos líneas, lo cual no representa el resultado deseado. Dado que la última línea de `malComienzo` no finaliza con un salto de línea, esa línea se combina con la primera línea de `final`. En contraste, ambas líneas de `buenComienzo` terminan con un salto de línea, por lo que al combinarse con `final`, el resultado contiene tres líneas, lo cual sí representa el resultado deseado.
 
 ## Interpolación de cadenas
 
-La «interpolación de cadenas» es una forma de crear nuevos valores de tipo `String` a partir de la combinación de constantes, variables, literales, y expresiones, al incluir sus valores en un literal de cadena. Puedes usar la interpolación de cadenas tanto para literales de cadena de una sola línea como para aquellos de varias líneas. Cada elemento que quieras insertar en el literal de cadena, va rodeado por paréntesis y precedido por una barra invertida (`\`):
+La _interpolación de cadenas_ es una forma de crear nuevos valores de tipo `String` a partir de la combinación de constantes, variables, literales, y expresiones, al incluir sus valores en un literal de cadena. Puedes usar la interpolación de cadenas tanto para literales de cadena de una sola línea como para aquellos de varias líneas. Cada elemento que quieras insertar en el literal de cadena, va rodeado por paréntesis y precedido por una barra invertida (`\`):
 
-<CodeSnippet>
-  {`let multiplicador = 3
-let mensaje = "\\(multiplicador) por 2.5 es \\(Double(multiplicador) * 2.5)"
-// mensaje es "3 por 2.5 es 7.5"`}
-</CodeSnippet>
+```swift showLineNumbers {2} /\\/
+let multiplicador = 3
+let mensaje = "\(multiplicador) por 2.5 es \(Double(multiplicador) * 2.5)"
+// mensaje es "3 por 2.5 es 7.5"
+```
 
 En el ejemplo anterior, el valor de `multiplicador` se inserta en un literal de cadena como `\(multiplicador)`. Este marcador de posición (_«placeholder»_) es reemplazado por el valor real de `multiplicador` al momento de evaluar la interpolación de cadenas para crear una nueva cadena.
 
@@ -286,17 +307,17 @@ El valor de `multiplicador` también forma parte de una expresión más larga, m
 
 Puedes usar delimitadores de cadena extendidos para crear cadenas que contengan caracteres que, de otra manera, serían tratados como interpolación de cadenas. Por ejemplo:
 
-<CodeSnippet>
-  {`print(#"Escribe una cadena interpolada en Swift usando \\(multiplicador)."#)
-// Imprime "Escribe una cadena interpolada en Swift usando \\(multiplicador)."`}
-</CodeSnippet>
+```swift showLineNumbers
+print(#"Escribe una cadena interpolada en Swift usando \(multiplicador)."#)
+// Imprime "Escribe una cadena interpolada en Swift usando \(multiplicador)."
+```
 
 Para usar interpolación de cadenas dentro de una cadena que usa delimitadores extendidos, haz coincidir la cantidad de signos de número después de la barra invertida con la cantidad de signos de número al principio y al final de la cadena.Por ejemplo:
 
-<CodeSnippet>
-  {`print(#"6 por 7 es \\#(6 * 7)."#)
-// Imprime "6 por 7 es 42."`}
-</CodeSnippet>
+```swift showLineNumbers
+print(#"6 por 7 es \#(6 * 7)."#)
+// Imprime "6 por 7 es 42."
+```
 
 <Callout>
   Las expresiones que escribas en paréntesis dentro de una cadena interpolada no
@@ -322,56 +343,60 @@ Acá hay un ejemplo. La letra `é` puede ser representada como el escalar Unicod
 
 En ambos casos, la letra `é` es representada como un único valor del tipo `Character` de Swift que representa un grupo de grafemas extendidos. En el primer caso, el grupo contiene un solo escalar; en el segundo caso, es un grupo de dos escalares:
 
-<CodeSnippet>
-  {`let eTildada: Character = "\u{E9}"                   // é
-let eTildadaCombinada: Character = "\u{65}\u{301}"          // e seguida de  ́
-// eTildada es é, eTildadaCombinada es é`}
-</CodeSnippet>
+```swift showLineNumbers
+let eTildada: Character = "\u{E9}"                     // é
+let eTildadaCombinada: Character = "\u{65}\u{301}"     // e seguida de ´
+// eTildada es é, eTildadaCombinada es é
+```
 
 Los grupos de grafemas extendidos son una forma flexible de representar muchos caracteres tipográficos complejos como un solo valor de tipo `Character`. Por ejemplo, las sílabas «Hangul» del alfabeto coreano pueden representarse como una secuencia precompuesta o descompuesta. En Swift, ambas representaciones califican como un único valor de tipo `Character`:
 
-<CodeSnippet>
-  {`let precompuesto: Character = "\u{D55C}"   // 한
+```swift showLineNumbers
+let precompuesto: Character = "\u{D55C}"   // 한
 let descompuesto: Character = "\u{1112}\u{1161}\u{11AB}"   // ᄒ, ᅡ, ᆫ
-// precompuesto es 한, descompuesto es 한`}
-</CodeSnippet>
+// precompuesto es 한, descompuesto es 한
+```
 
 Los grupos de grafemas extendidos le permiten a los escalares usar símbolos circundantes (tales como `COMBINING ENCLOSING CIRCLE` o `U+20DD`) para encerrar otros escalares Unicode como parte de un solo valor `Character`:
 
-<CodeSnippet>
-  {`let eTildadaEncerrada: Character = "\u{E9}\u{20DD}"
-// eTildadaEncerrada es é⃝`}
-</CodeSnippet>
+```swift showLineNumbers
+let eTildadaEncerrada: Character = "\u{E9}\u{20DD}"
+// eTildadaEncerrada es  é⃝
+```
 
 Los escalares Unicode para símbolos indicadores regionales se pueden combinar en pares para formar un único valor `Character`, tal como la combinación de `REGIONAL INDICATOR SYMBOL LETTER U` (`U+1F1FA`) y `REGIONAL INDICATOR SYMBOL LETTER S` (`U+1F1F8`):
 
-<CodeSnippet>
-  {`let indicadorRegionalParaUSA: Character = "\u{1F1FA}\u{1F1F8}"
-// indicadorRegionalParaUSA es 🇺🇸`}
-</CodeSnippet>
+```swift showLineNumbers
+let indicadorRegionalParaUSA: Character = "\u{1F1FA}\u{1F1F8}"
+// indicadorRegionalParaUSA es 🇺🇸
+```
 
 ## Conteo de caracteres
 
 Para obtener la cuenta de valores tipo `Character` en una cadena, usa la propiedad `count` de la cadena:
 
-<CodeSnippet>
-  {`let animalesDomesticos = "Gato 🐈, Perro 🐕, Vaca 🐄, Caballo 🐎"\n
-print("animalesDomesticos tiene \\(animalesDomesticos.count) caracteres")
-// Imprime "animalesDomesticos tiene 34 caracteres"`}
-</CodeSnippet>
+```swift showLineNumbers
+let animalesDomesticos = "Gato 🐈, Perro 🐕, Vaca 🐄, Caballo 🐎"
+
+print("animalesDomesticos tiene \(animalesDomesticos.count) caracteres")
+// Imprime "animalesDomesticos tiene 34 caracteres"
+```
 
 Ten en cuenta que el uso que hace Swift de los grupos de grafemas extendidos para valores `Character` significa que la concatenación y modificación de cadenas puede que no siempre afecten la cuenta de los caracteres en una cadena.
 
 Por ejemplo, si inicializas una nueva cadena con la palabra (de cuatro caracteres) `cafe`, y luego agregas <code>&#96;</code> (`COMBINING ACUTE ACCENT` o `U+0301`) al final de la cadena, el conteo de caracteres de la cadena resultante seguirá siendo `4`, teniendo en el cuarto carácter, la letra `é`, en vez de `e`:
 
-<CodeSnippet>
-  {`var palabra = "cafe"\n
-print("El número de caracteres en «\\(palabra)» es \\(palabra.count)")
-// Imprime "El número de caracteres en «cafe» es 4"\n
-palabra += " \u{301}"    // COMBINING ACUTE ACCENT o U+0301\n
-print("El número de caracteres en «\\(palabra)» es \\(palabra.count)")
-// Imprime "El número de caracteres en «café» es 4"`}
-</CodeSnippet>
+```swift showLineNumbers {6}
+var palabra = "cafe"
+
+print("El número de caracteres en \(palabra) es \(palabra.count)")
+// Imprime "El número de caracteres en cafe es 4"
+
+palabra += " \u{301}"    // COMBINING ACUTE ACCENT o U+0301
+
+print("El número de caracteres en \(palabra) es \(palabra.count)")
+// Imprime "El número de caracteres en «café» es 4"
+```
 
 <Callout>
   Los grupos de grafemas extendidos se pueden componer de múltiples escalares
@@ -398,7 +423,7 @@ Puedes acceder o modificar una cadena, mediante sus métodos y propiedades, o us
 
 ### Índices de una cadena
 
-Cada valor de tipo `String` tiene un «tipo de índice» asociado, `String.Index`, el cual corresponde a la posición de cada `Character` en la cadena.
+Cada valor de tipo `String` tiene un _tipo de índice_ asociado, `String.Index`, el cual corresponde a la posición de cada `Character` en la cadena.
 
 Como se mencionó anteriormente, diferentes caracteres pueden requerir diferentes cantidades de memoria para su almacenamiento, por lo que para poder determinar cuál `Character` se encuentra en una posición en particular, debes iterar sobre cada escalar Unicode desde el comienzo o final de la cadena. Es por esta razón que las cadenas de Swift no pueden ser indexadas con valores enteros.
 
@@ -408,34 +433,37 @@ Puedes acceder a los índices anterior y posterior a un índice dado, usando los
 
 Puedes usar sintaxis de «subscript» para acceder al `Character` en un índice en particular de una cadena.
 
-<CodeSnippet>
-  {`let saludo = "¡Buenos dias!"\n
+```swift showLineNumbers {3, 5, 7, 12}
+let saludo = "¡Buenos dias!"
+
 saludo[saludo.startIndex]
 // ¡
 saludo[saludo.index(before: saludo.endIndex)]
 // !
 saludo[saludo.index(after: saludo.startIndex)]
-// B\n
-let index = saludo.index(saludo.startIndex, offsetBy: 8)\n
+// B
+
+let index = saludo.index(saludo.startIndex, offsetBy: 8)
+
 saludo[index]
-// d`}
-</CodeSnippet>
+// d
+```
 
 Si intentas acceder a un índice fuera del rango de la cadena o a un `Character` en un índice fuera del rango de la cadena, generarás un error de tiempo de ejecución.
 
-<CodeSnippet>
-  {`saludo[saludo.endIndex] // Error
-saludo.index(after: saludo.endIndex) // Error`}
-</CodeSnippet>
+```swift showLineNumbers
+saludo[saludo.endIndex] // Error
+saludo.index(after: saludo.endIndex) // Error
+```
 
 Usa la propiedad `indices` para acceder a todos los índices de los caracteres individuales de una cadena.
 
-<CodeSnippet>
-  {`for index in saludo.indices {
-    print("\\(saludo[index]) ", terminator: "")
+```swift showLineNumbers
+for index in saludo.indices {
+    print("\(saludo[index]) ", terminator: "")
 }
-// Imprime "¡ B u e n o s  d i a s ! "`}
-</CodeSnippet>
+// Imprime "¡ B u e n o s  d i a s ! "
+```
 
 <Callout>
   Puedes usar las propiedades `startIndex` y `endIndex`, y los métodos
@@ -449,23 +477,27 @@ Usa la propiedad `indices` para acceder a todos los índices de los caracteres i
 
 Para insertar un solo carácter en una cadena en un índice en específico, usa el método `insert(_:at:)`, y para insertar el contenido de otra cadena en un índice en específico, usa el método `insert(contentsOf:at:)`.
 
-<CodeSnippet>
-  {`var bienvenida = "Buenas"
-bienvenida.insert("!", at: bienvenida.endIndex)
-// bienvenida es ahora igual a «Buenas!»\n
-bienvenida.insert(contentsOf: " tardes", at: bienvenida.index(before: bienvenida.endIndex))
-// bienvenida es ahora igual a «Buenas tardes!»`}
-</CodeSnippet>
+```swift showLineNumbers {3, 6}
+var saludoDeBienvenida = "Buenas"
+
+saludoDeBienvenida.insert("!", at: saludoDeBienvenida.endIndex)
+// Ahora, saludoDeBienvenida es igual a «Buenas!»
+
+saludoDeBienvenida.insert(contentsOf: " tardes", at: saludoDeBienvenida.index(before: saludoDeBienvenida.endIndex))
+// Ahora, saludoDeBienvenida es igual a «Buenas tardes!»
+```
 
 Para remover un solo carácter de una cadena en un índice en particular, usa el método `remove(at:)`, y para remover una subcadena en un rango específico, usa el método `removeSubrange(_:)`:
 
-<CodeSnippet>
-  {`bienvenida.remove(at: bienvenida.index(before: bienvenida.endIndex))
-// bienvenida es ahora igual a «Buenas tardes»\n
-let range = bienvenida.index(bienvenida.endIndex, offsetBy: -7)..<bienvenida.endIndex\n
-bienvenida.removeSubrange(range)
-// bienvenida es ahora igual a «Buenas»`}
-</CodeSnippet>
+```swift showLineNumbers {1, 6}
+saludoDeBienvenida.remove(at: saludoDeBienvenida.index(before: saludoDeBienvenida.endIndex))
+// Ahora, saludoDeBienvenida es igual a «Buenas tardes»
+
+let range = saludoDeBienvenida.index(saludoDeBienvenida.endIndex, offsetBy: -7)..<saludoDeBienvenida.endIndex
+
+saludoDeBienvenida.removeSubrange(range)
+// Ahora, saludoDeBienvenida es igual a «Buenas»
+```
 
 <Callout>
   Puedes usar los métodos `insert(_:at:)`, `insert(contentsOf:at:)`,
@@ -479,27 +511,25 @@ bienvenida.removeSubrange(range)
 
 Al formar una subcadena a partir de una cadena —por ejemplo, mediante un «subscript» o un método como `prefix(_:)`—, el resultado es una instancia del tipo [Substring](https://developer.apple.com/documentation/swift/substring), más no otra cadena. Las subcadenas en Swift tienen la mayoría de los mismos métodos que las cadenas, lo que significa que puedes trabajar con subcadenas de la misma manera en que trabajas con cadenas. Sin embargo, a diferencia de las cadenas, solo utilizas subcadenas por un corto período de tiempo al ejecutar acciones sobre una cadena. Cuando estés listo para almacenar el resultado por un período más extenso, convierte la subcadena en una instancia de tipo `String`. Por ejemplo:
 
-<CodeSnippet>
-  {`let saludo = "Hola, mundo."
+```swift showLineNumbers
+let saludo = "Hola, mundo."
 let indice = saludo.firstIndex(of: ",") ?? saludo.endIndex
 let comienzo = saludo[..<indice]
-// comienzo es «Hola»\n
+// comienzo es "Hola"
+
 // Se convierte el resultado a tipo String para almacenamiento a largo plazo.
-let nuevaCadena = String(comienzo)`}
-</CodeSnippet>
+let nuevaCadena = String(comienzo)
+```
 
-Al igual que las cadenas, cada subcadena tiene una región de memoria donde se almacenan los caracteres que conforman la subcadena. La diferencia entre cadenas y subcadenas es que, para efectos de optimización de rendimiento, una subcadena puede reutilizar parte de la memoria que se usa para almacenar la cadena original, o parte de la memoria que se usa para almacenar otra subcadena (las cadenas cuentan con una optimización similar, pero si dos cadenas comparten una región de memoria, estas son iguales). Esta optimización de rendimiento significa que no tienes que pagar el costo de rendimiento que implica la copia de memoria hasta que no modifiques la cadena o la subcadena.
-
-Como se mencionó anteriormente, las subcadenas no son adecuadas para el almacenamiento a largo plazo, ya que estas reutilizan el almacenamiento de la cadena original, es decir, toda la cadena original deberá mantenerse en memoria siempre que cualquiera de sus subcadenas sea utilizada.
+Al igual que las cadenas, cada subcadena tiene una región de memoria donde se almacenan los caracteres que conforman la subcadena. La diferencia entre cadenas y subcadenas es que, para efectos de optimización de rendimiento, una subcadena puede reutilizar parte de la memoria que se usa para almacenar la cadena original, o parte de la memoria que se usa para almacenar otra subcadena (las cadenas cuentan con una optimización similar, pero si dos cadenas comparten una región de memoria, estas son iguales). Esta optimización de rendimiento significa que no tienes que pagar el costo de rendimiento que implica la copia de memoria hasta que no modifiques la cadena o la subcadena. Como se mencionó anteriormente, las subcadenas no son adecuadas para el almacenamiento a largo plazo, ya que estas reutilizan el almacenamiento de la cadena original, es decir, toda la cadena original deberá mantenerse en memoria siempre que cualquiera de sus subcadenas sea utilizada.
 
 En el ejemplo anterior, `saludo` es una cadena, lo que significa que tiene una región de memoria donde se almacenan los caracteres que conforman la cadena. Como `comienzo` es una subcadena de `saludo`, esta reutiliza la memoria ocupada por `saludo`. En contraste, `nuevaCadena` es una cadena; al ser creada a partir de la subcadena, cuenta con su propio almacenamiento. La siguiente figura ilustra estas relaciones:
 
-<img
-  src="/assets/images/stringSubstring_2x.png"
+<DynamicImage
+  baseName="stringSubstring"
   alt="Relaciones entre cadenas y subcadenas"
   width={382}
   height={296}
-  className="figure-small"
 />
 
 <Callout>
@@ -516,42 +546,46 @@ Swift ofrece tres formas de comparar valores textuales: igualdad de cadenas y ca
 
 ### Igualdad de cadenas y caracteres
 
-La igualdad de cadenas y caracteres se verifica mediante los operadores «igual que» (`==`) y «no igual que» (`!=`), como se describe en [Operadores de comparación](./operadores-basicos#operadores-de-comparación):
+La igualdad de cadenas y caracteres se verifica mediante los operadores «igual que» (`==`) y «no igual que» (`!=`), como se describe en [Operadores de comparación](./operadores-basicos#operadores-de-comparacion):
 
-<CodeSnippet>
-  {`let frase = "Somos muy parecidos. Tú y yo."
-let mismaFrase = "Somos muy parecidos. Tú y yo."\n
+```swift showLineNumbers
+let frase = "Somos muy parecidos. Tú y yo."
+let mismaFrase = "Somos muy parecidos. Tú y yo."
+
 if frase == mismaFrase {
     print("Estas dos cadenas son consideradas iguales.")
 }
-// Imprime "Estas dos cadenas son consideradas iguales."`}
-</CodeSnippet>
+// Imprime "Estas dos cadenas son consideradas iguales."
+```
 
 Dos valores de tipo `String` (o de tipo `Character`) se consideran iguales si sus grupos de grafemas extendidos son «canónicamente equivalentes». Dos grupos de grafemas extendidos son canónicamente equivalentes si tienen el mismo significado lingüístico y apariencia, incluso si se componen de escalares Unicode diferentes tras bambalinas.
 
 Por ejemplo, `LATIN SMALL LETTER E WITH ACUTE` (`U+00E9`) es canónicamente equivalente a `LATIN SMALL LETTER E` (`U+0065`) seguida de `COMBINING ACUTE ACCENT` (`U+0301`). Ambos grupos de grafemas extendidos son formas válidas para representar el carácter `é`, y por lo tanto, son considerados canónicamente equivalentes:
 
-<CodeSnippet>
-  {`// «¿Te apetece un café?» usando LATIN SMALL LETTER E WITH ACUTE
-let preguntaConEAcentuada = "¿Te apetece un caf\u{E9}?"\n
-// «¿Te apetece un café?» usando LATIN SMALL LETTER E y COMBINING ACUTE ACCENT
-let preguntaConEAcentuadaCombinada = "¿Te apetece un caf\u{65}\u{301}?"\n
+```swift showLineNumbers
+// "¿Te apetece un café?" usando LATIN SMALL LETTER E WITH ACUTE
+let preguntaConEAcentuada = "¿Te apetece un caf\u{E9}?"
+
+// "¿Te apetece un café?" usando LATIN SMALL LETTER E y COMBINING ACUTE ACCENT
+let preguntaConEAcentuadaCombinada = "¿Te apetece un caf\u{65}\u{301}?"
+
 if preguntaConEAcentuada == preguntaConEAcentuadaCombinada {
     print("Estas dos cadenas son consideradas iguales.")
 }
-// Imprime «Estas dos cadenas son consideradas iguales.»`}
-</CodeSnippet>
+// Imprime "Estas dos cadenas son consideradas iguales."
+```
 
 En contraste, `LATIN CAPITAL LETTER A` (`U+0041` o `"A"`) —como es usada en el idioma inglés—, no es equivalente a `CYRILLIC CAPITAL LETTER A` (`U+0410` o `"А"`), como se usa en el ruso. Los caracteres son visualmente similares, pero no tienen el mismo significado lingüístico:
 
-<CodeSnippet>
-  {`let letraLatinaMayusculaA: Character = "\u{41}"\n
-let letraCirilicaMayusculaA: Character = "\u{0410}"\n
-if letraLatinaMayusculaA != letraCirilicaMayusculaA {
+```swift showLineNumbers
+let letraALatinaMayuscula: Character = "\u{41}"
+let letraACirilicaMayuscula: Character = "\u{0410}"
+
+if letraALatinaMayuscula != letraACirilicaMayuscula {
     print("Estos dos caracteres no son equivalentes.")
 }
-// Imprime «Estos dos caracteres no son equivalentes.»`}
-</CodeSnippet>
+// Imprime "Estos dos caracteres no son equivalentes."
+```
 
 <Callout>
   Las comparaciones de cadenas y caracteres en Swift no son sensibles a
@@ -564,8 +598,8 @@ Para verificar si una cadena tiene un prefijo o sufijo de cadena en particular, 
 
 Los ejemplos a continuación consideran un array de cadenas que representan las ubicaciones de las escenas de los dos primeros actos de la obra de Shakespeare, «Romeo y Julieta»:
 
-<CodeSnippet>
-  {`let romeoYJulieta = [
+```swift showLineNumbers
+let romeoYJulieta = [
     "Acto 1 Escena 1: Verona. Una plaza pública.",
     "Acto 1 Escena 2: La mansión Capuleto.",
     "Acto 1 Escena 3: Un cuarto en la mansión Capuleto.",
@@ -577,37 +611,41 @@ Los ejemplos a continuación consideran un array de cadenas que representan las 
     "Acto 2 Escena 4: Una calle en Verona.",
     "Acto 2 Escena 5: La mansión Capuleto.",
     "Acto 2 Escena 6: La celda del hermano Lorenzo."
-]`}
-</CodeSnippet>
+]
+```
 
 Puedes usar el método `hasPrefix(_:)` con el array `romeoYJulieta` para contar el número de escenas en el Acto 1 de la obra:
 
-<CodeSnippet>
-  {`var conteoDeEscenasDelActo1 = 0\n
+```swift showLineNumbers {4}
+var conteoDeEscenasDelActo1 = 0
+
 for escena in romeoYJulieta {
     if escena.hasPrefix("Acto 1 ") {
         conteoDeEscenasDelActo1 += 1
     }
-}\n
-print("Hay \\(conteoDeEscenasDelActo1) escenas en el Acto 1.")
-// Imprime «Hay 5 escenas en el Acto 1.»`}
-</CodeSnippet>
+}
+
+print("Hay \(conteoDeEscenasDelActo1) escenas en el Acto 1.")
+// Imprime "Hay 5 escenas en el Acto 1."
+```
 
 De manera similar, usa el método `hasSuffix(_:)` para contar el número de escenas que tienen lugar en o cerca de la mansión Capuleto y de la celda del hermano Lorenzo:
 
-<CodeSnippet>
-  {`var conteoMansion = 0
-var conteoCelda = 0\n
+```swift showLineNumbers {5, 7}
+var conteoMansion = 0
+var conteoCelda = 0
+
 for escena in romeoYJulieta {
     if escena.hasSuffix("mansión Capuleto.") {
         conteoMansion += 1
     } else if escena.hasSuffix("celda del hermano Lorenzo.") {
         conteoCelda += 1
     }
-}\n
-print("\\(conteoMansion) escenas en la mansión; \\(conteoCelda) escenas en la celda")
-// Imprime «6 escenas en la mansión; 2 escenas en la celda»`}
-</CodeSnippet>
+}
+
+print("\(conteoMansion) escenas en la mansión; \(conteoCelda) escenas en la celda")
+// Imprime "6 escenas en la mansión; 2 escenas en la celda"
+```
 
 <Callout>
   Los métodos `hasPrefix(_:)` y `hasSuffix(_:)` realizan una comparación de
@@ -630,27 +668,29 @@ De manera alternativa, puedes acceder a un valor de tipo `String` en una de tres
 
 Cada ejemplo a continuación muestra una representación diferente de la siguiente cadena, la cual se compone de los caracteres `P`, `e`, `z`, `‼` (`DOUBLE EXCLAMATION MARK` o escalar Unicode `U+203C`), y el carácter 🐠 (`TROPICAL FISH` o escalar Unicode `U+1F420`):
 
-<CodeSnippet>{`let cadenaPez = "Pez‼🐠"`}</CodeSnippet>
+```swift showLineNumbers
+let cadenaPez = "Pez‼🐠"
+```
 
 ### Representación UTF-8
 
 Puedes acceder a la representación UTF-8 de una cadena al iterar sobre su propiedad `utf8`. Esta propiedad es de tipo `String.UTF8View`, que es una colección de valores, sin signo, de 8 bits (`UInt8`), uno para cada byte en la representación UTF-8 de la cadena:
 
-<img
-  src="/assets/images/UTF8_2x.png"
+<DynamicImage
+  baseName="UTF8"
   alt="Ejemplo de representación UTF-8 de una cadena"
-  width={675}
-  height={236}
-  className="figure-small"
+  width={681}
+  height={235}
 />
 
-<CodeSnippet>
-  {`for unidadDeCodigo in cadenaPez.utf8 {
-    print("\\(unidadDeCodigo) ", terminator: "")
-}\n
+```swift showLineNumbers
+for unidadDeCodigo in cadenaPez.utf8 {
+    print("\(unidadDeCodigo) ", terminator: "")
+}
+
 print("")
-// Imprime "80 101 122 226 128 188 240 159 144 160 "`}
-</CodeSnippet>
+// Imprime "80 101 122 226 128 188 240 159 144 160 "
+```
 
 En el ejemplo anterior, los primeros tres valores decimales `unidadDeCodigo` (`80`, `101`, `122`) representan los caracteres `P`, `e`, y `z`, cuya representación es la misma que su representación ASCII. Los siguientes tres valores decimales `unidadDeCodigo` (`226`, `128`, `188`) son una representación UTF-8, de 3 bytes, del carácter `DOUBLE EXCLAMATION MARK`. Los últimos cuatro valores `unidadDeCodigo` (`240`, `159`, `144`, `160`) son una representación UTF-8, de cuatro bytes, del carácter `TROPICAL FISH`.
 
@@ -658,21 +698,21 @@ En el ejemplo anterior, los primeros tres valores decimales `unidadDeCodigo` (`8
 
 Puedes acceder a la representación UTF-16 de una cadena al iterar sobre su propiedad `utf16`. Esta propiedad es de tipo `String.UTF16View`, que es una colección de valores, sin signo, de 16 bits (`UInt16`), uno para cada unidad de código de 16 bits en la representación UTF-16 de la cadena:
 
-<img
-  src="/assets/images/UTF16_2x.png"
+<DynamicImage
+  baseName="UTF16"
   alt="Ejemplo de la representación UTF-16 de una cadena"
   width={548}
-  height={236}
-  className="figure-small"
+  height={235}
 />
 
-<CodeSnippet>
-  {`for unidadDeCodigo in cadenaPez.utf16 {
-    print("\\(unidadDeCodigo) ", terminator: "")
-}\n
+```swift showLineNumbers
+for unidadDeCodigo in cadenaPez.utf16 {
+    print("\(unidadDeCodigo) ", terminator: "")
+}
+
 print("")
-// Imprime "80 101 122 8252 55357 56352 "`}
-</CodeSnippet>
+// Imprime "80 101 122 8252 55357 56352 "
+```
 
 Nuevamente, los primeros tres valores `unidadDeCodigo` (`80`, `101`, `122`) representan los caracteres `P`, `e`, y `z`, cuyas unidades de código UTF-16 tienen los mismos valores que los de la representación UTF-8 de la cadena (ya que estos escalares Unicode representan caracteres ASCII).
 
@@ -686,21 +726,21 @@ Puedes acceder a la representación escalar Unicode de una cadena al iterar sobr
 
 Cada `UnicodeScalar` tiene un propiedad con un valor que devuelve el valor escalar de 21 bits, representado dentro de un valor `UInt32`:
 
-<img
-  src="/assets/images/UnicodeScalar_2x.png"
+<DynamicImage
+  baseName="UnicodeScalar"
   alt="Example of Unicode Scalar String Representation"
   width={470}
-  height={236}
-  className="figure-small"
+  height={235}
 />
 
-<CodeSnippet>
-  {`for escalar in cadenaPez.unicodeScalars {
-    print("\\(escalar.value) ", terminator: "")
-}\n
+```swift showLineNumbers
+for escalar in cadenaPez.unicodeScalars {
+    print("\(escalar.value) ", terminator: "")
+}
+
 print("")
-// Imprime "80 101 122 8252 128032 "`}
-</CodeSnippet>
+// Imprime "80 101 122 8252 128032 "
+```
 
 Las propiedades `value` para los primeros tres valores `UnicodeScalar` (`80`, `101`, `122`) representan, una vez más, los caracteres `P`, `e`, y `z`.
 
@@ -710,14 +750,14 @@ La propiedad `value` del quinto —y último— `UnicodeScalar`, `128032`, es el
 
 Como una alternativa para obtener sus propiedades `value`, cada valor `UnicodeScalar` puede ser utilizado para construir un nuevo valor de tipo `String`, tal como se hace mediante interpolación de cadenas:
 
-<CodeSnippet>
-  {`for escalar in cadenaPez.unicodeScalars {
-    print("\\(escalar) ")
+```swift showLineNumbers
+for escalar in cadenaPez.unicodeScalars {
+    print("\(escalar) ")
 }
 // Imprime
 // P
 // e
 // z
 // ‼
-// 🐠`}
-</CodeSnippet>
+// 🐠
+```

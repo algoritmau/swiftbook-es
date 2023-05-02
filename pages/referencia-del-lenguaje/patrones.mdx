@@ -2,9 +2,14 @@
 title: Patterns
 ---
 
-import CodeSnippet from '../../components/CodeSnippet.js'
+import GrammarBlock from '@components/GrammarBlock'
+import Hero from '@components/Hero'
 
-# Patterns
+<Hero>
+  # Patterns
+
+  Match and destructure values.
+</Hero>
 
 A _pattern_ represents the structure of a single value or a composite value. For example, the structure of a tuple `(1, 2)` is a comma-separated list of two elements. Because patterns represent the structure of a value rather than any one particular value, you can match them with a variety of values. For instance, the pattern `(x, y)` matches the tuple `(1, 2)` and any other two-element tuple. In addition to matching a pattern with a value, you can extract part or all of a composite value and bind each part to a constant or variable name.
 
@@ -14,129 +19,53 @@ The first kind of pattern is used for destructuring values in simple variable, c
 
 The second kind of pattern is used for full pattern matching, where the values you're trying to match against may not be there at runtime. These include enumeration case patterns, optional patterns, expression patterns, and type-casting patterns. You use these patterns in a case label of a `switch` statement, a `catch` clause of a `do` statement, or in the case condition of an `if`, `while`, `guard`, or `for-in` statement.
 
-<div class="grammar">
-  <p class="grammar__title">GRAMMAR OF A PATTERN</p>
-  <p class="grammar__syntaxDef" id="grammar_pattern">
-    <span class="grammar__syntaxDef__name">pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_wildcard-pattern" class="grammar__syntaxDef__link">
-      wildcard-pattern
-    </a>
-    <a
-      href="./types#grammar_type-annotation"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      type-annotation
-    </a>
-    <sub class="grammar__syntaxDef__link__sub">opt</sub>
-  </p>
-  <p class="grammar__syntaxDef">
-    <span class="grammar__syntaxDef__name">pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_identifier-pattern" class="grammar__syntaxDef__link">
-      identifier-pattern
-    </a>
-    <a
-      href="./types#grammar_type-annotation"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      type-annotation
-    </a>
-    <sub class="grammar__syntaxDef__link__sub">opt</sub>
-  </p>
-  <p class="grammar__syntaxDef">
-    <span class="grammar__syntaxDef__name">pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_value-binding-pattern" class="grammar__syntaxDef__link">
-      value-binding-pattern
-    </a>
-  </p>
-  <p class="grammar__syntaxDef">
-    <span class="grammar__syntaxDef__name">pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_tuple-pattern" class="grammar__syntaxDef__link">
-      tuple-pattern
-    </a>
-    <a
-      href="./types#grammar_type-annotation"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      type-annotation
-    </a>
-    <sub class="grammar__syntaxDef__link__sub">opt</sub>
-  </p>
-  <p class="grammar__syntaxDef">
-    <span class="grammar__syntaxDef__name">pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_enum-case-pattern" class="grammar__syntaxDef__link">
-      enum-case-pattern
-    </a>
-  </p>
-  <p class="grammar__syntaxDef">
-    <span class="grammar__syntaxDef__name">pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_optional-pattern" class="grammar__syntaxDef__link">
-      optional-pattern
-    </a>
-  </p>
-  <p class="grammar__syntaxDef">
-    <span class="grammar__syntaxDef__name">pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_type-casting-pattern" class="grammar__syntaxDef__link">
-      type-casting-pattern
-    </a>
-  </p>
-  <p class="grammar__syntaxDef">
-    <span class="grammar__syntaxDef__name">pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_expression-pattern" class="grammar__syntaxDef__link">
-      expression-pattern
-    </a>
-  </p>
-</div>
+<GrammarBlock title="Grammar of a pattern">
+  _pattern_ →  _wildcard-pattern_ _type-annotation?_
+  <br />
+  _pattern_ →  _identifier-pattern_ _type-annotation?_
+  <br />
+  _pattern_ →  _value-binding-pattern_
+  <br />
+  _pattern_ →  _tuple-pattern_ _type-annotation?_
+  <br />
+  _pattern_ →  _enum-case-pattern_
+  <br />
+  _pattern_ →  _optional-pattern_
+  <br />
+  _pattern_ →  _type-casting-pattern_
+  <br />
+  _pattern_ →  _expression-pattern_
+</GrammarBlock>
 
 ## Wildcard Pattern
 
 A _wildcard pattern_ matches and ignores any value and consists of an underscore (`_`). Use a wildcard pattern when you don't care about the values being matched against. For example, the following code iterates through the closed range `1...3`, ignoring the current value of the range on each iteration of the loop:
 
-<CodeSnippet>
-  {`for _ in 1...3 {
+```swift showLineNumbers
+for _ in 1...3 {
     // Do something three times.
-}`}
-</CodeSnippet>
+}
+```
 
-<div class="grammar">
-  <p class="grammar__title">GRAMMAR OF A WILDCARD PATTERN</p>
-  <p class="grammar__syntaxDef" id="grammar_wildcard-pattern">
-    <span class="grammar__syntaxDef__name">wildcard-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <span class="grammar__syntaxDef__keyword">_</span>
-  </p>
-</div>
+<GrammarBlock title="Grammar of a wildcard pattern">
+  _wildcard-pattern_ →  _
+</GrammarBlock>
 
 ## Identifier Pattern
 
 An _identifier pattern_ matches any value and binds the matched value to a variable or constant name. For example, in the following constant declaration, `someValue` is an identifier pattern that matches the value `42` of type `Int`:
 
-<CodeSnippet>{`let someValue = 42`}</CodeSnippet>
+```swift showLineNumbers
+let someValue = 42
+```
 
 When the match succeeds, the value `42` is bound (assigned) to the constant name `someValue`.
 
 When the pattern on the left-hand side of a variable or constant declaration is an identifier pattern, the identifier pattern is implicitly a subpattern of a value-binding pattern.
 
-<div class="grammar">
-  <p class="grammar__title">GRAMMAR OF AN IDENTIFIER PATTERN</p>
-  <p class="grammar__syntaxDef">
-    <span class="grammar__syntaxDef__name">identifier-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a
-      href="./lexical-structure#grammar_identifier"
-      class="grammar__syntaxDef__link"
-    >
-      identifier
-    </a>
-  </p>
-</div>
+<GrammarBlock title="Grammar of an identifier pattern">
+  _identifier-pattern_ →  _identifier_
+</GrammarBlock>
 
 ## Value-Binding Pattern
 
@@ -144,39 +73,22 @@ A _value-binding pattern_ binds matched values to variable or constant names. Va
 
 Identifiers patterns within a value-binding pattern bind new named variables or constants to their matching values. For example, you can decompose the elements of a tuple and bind the value of each element to a corresponding identifier pattern.
 
-<CodeSnippet>
-  {`let point = (3, 2)\n
+```swift showLineNumbers
+let point = (3, 2)
+
 switch point {
 // Bind x and y to the elements of point.
 case let (x, y):
-print("The point is at (\\(x), \\(y)).")
+print("The point is at (\(x), \(y)).")
 }
-// Prints "The point is at (3, 2)."`}
-</CodeSnippet>
+// Prints "The point is at (3, 2)."
+```
 
 In the example above, `let` distributes to each identifier pattern in the tuple pattern `(x, y)`. Because of this behavior, the `switch` cases `case let (x, y):` and `case (let x, let y):` match the same values.
 
-<div class="grammar">
-  <p class="grammar__title">GRAMMAR OF A VALUE-BINDING PATTERN</p>
-  <p class="grammar__syntaxDef" id="grammar_value-binding-pattern">
-    <span class="grammar__syntaxDef__name">value-binding-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <span class="grammar__syntaxDef__keyword">var</span>
-    <a
-      href="#grammar_pattern"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      pattern
-    </a>
-    <span class="grammar__syntaxDef__divider grammar__syntaxDef__divider--regular">
-      |
-    </span>
-    <span class="grammar__syntaxDef__keyword">let</span>
-    <a href="#grammar_pattern" class="grammar__syntaxDef__link">
-      pattern
-    </a>
-  </p>
-</div>
+<GrammarBlock title="Grammar of a vaue-binding pattern">
+  _value-binding-pattern_ →  `var` _pattern_ | `let` _pattern_
+</GrammarBlock>
 
 ## Tuple Pattern
 
@@ -186,94 +98,30 @@ You can constrain a tuple pattern to match certain kinds of tuple types by using
 
 When a tuple pattern is used as the pattern in a `for-in` statement or in a variable or constant declaration, it can contain only wildcard patterns, identifier patterns, optional patterns, or other tuple patterns that contain those. For example, the following code isn't valid because the element `0` in the tuple pattern `(x, 0)` is an expression pattern:
 
-<CodeSnippet>
-  {`let points = [(0, 0), (1, 0), (1, 1), (2, 0), (2, 1)]\n
+```swift showLineNumbers
+let points = [(0, 0), (1, 0), (1, 1), (2, 0), (2, 1)]
+
 // This code isn't valid.
 for (x, 0) in points {
     /* ... */
-}`}
-</CodeSnippet>
+}
+```
 
 The parentheses around a tuple pattern that contains a single element have no effect. The pattern matches values of that single element's type. For example, the following are equivalent:
 
-<CodeSnippet>
-  {`let a = 2        // a: Int = 2
+```swift showLineNumbers
+let a = 2        // a: Int = 2
 let (a) = 2      // a: Int = 2
-let (a): Int = 2 // a: Int = 2`}
-</CodeSnippet>
+let (a): Int = 2 // a: Int = 2
+```
 
-<div class="grammar">
-  <p class="grammar__title">GRAMMAR OF A TUPLE PATTERN</p>
-  <p class="grammar__syntaxDef grammar__syntaxDef--flex">
-    <span class="grammar__syntaxDef__name">tuple-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <span class="grammar__syntaxDef__punctuation-wrapper grammar__syntaxDef__punctuation-wrapper--opening">
-      (
-    </span>
-    <a
-      href="#grammar_tuple-pattern-element-list"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      tuple-pattern-element-list
-    </a>
-    <sub class="grammar__syntaxDef__link__sub">opt</sub>
-    <span class="grammar__syntaxDef__punctuation-wrapper grammar__syntaxDef__punctuation-wrapper--closing">
-      )
-    </span>
-  </p>
-  <p class="grammar__syntaxDef" id="grammar_tuple-pattern-element-list">
-    <span class="grammar__syntaxDef__name">tuple-pattern-element-list</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a
-      href="#grammar_tuple-pattern-element"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      tuple-pattern-element
-    </a>
-    <span class="grammar__syntaxDef__divider grammar__syntaxDef__divider--regular">
-      |
-    </span>
-    <a
-      href="#grammar_tuple-pattern-element"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      tuple-pattern-element
-    </a>
-    <span class="grammar__syntaxDef__divider">,</span>
-    <a
-      href="#grammar_tuple-pattern-element-list"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      tuple-pattern-element-list
-    </a>
-  </p>
-  <p class="grammar__syntaxDef" id="grammar_tuple-pattern-element">
-    <span class="grammar__syntaxDef__name">tuple-pattern-element</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a
-      href="#grammar_pattern"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      pattern
-    </a>
-    <span class="grammar__syntaxDef__divider grammar__syntaxDef__divider--regular">
-      |
-    </span>
-    <a
-      href="./lexical-structure#grammar_identifier"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      identifier
-    </a>
-    <span class="grammar__syntaxDef__divider">:</span>
-    <a
-      href="#grammar_pattern"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      pattern
-    </a>
-  </p>
-</div>
+<GrammarBlock title="Grammar of a tuple pattern">
+  _tuple-pattern_ →  `(` _tuple-pattern-element-list?_ `)`
+  <br />
+  _tuple-pattern-element-list_ →  _tuple-pattern-element_ | _tuple-pattern-element_ `,` _tuple-pattern-element-list_
+  <br />
+  _tuple-pattern-element_ →  _pattern_ | _identifier_ `:` _pattern_
+</GrammarBlock>
 
 ## Enumeration Case Pattern
 
@@ -283,9 +131,11 @@ If the enumeration case you're trying to match has any associated values, the co
 
 An enumeration case pattern also matches values of that case wrapped in an optional. This simplified syntax lets you omit an optional pattern. Note that, because `Optional` is implemented as an enumeration, `.none` and `.some` can appear in the same `switch` as the cases of the enumeration type.
 
-<CodeSnippet>
-  {`enum SomeEnum { case left, right }
-let x: SomeEnum? = .left\n
+```swift showLineNumbers
+enum SomeEnum { case left, right }
+
+let x: SomeEnum? = .left
+
 switch x {
 case .left:
     print("Turn left")
@@ -294,37 +144,12 @@ case .right:
 case nil:
     print("Keep going straight")
 }
-// Prints "Turn left"`}
-</CodeSnippet>
+// Prints "Turn left"
+```
 
-<div class="grammar">
-  <p class="grammar__title">GRAMMAR OF AN ENUMERATION CASE PATTERN</p>
-  <p class="grammar__syntaxDef" id="grammar_enum-case-pattern">
-    <span class="grammar__syntaxDef__name">enum-case-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a
-      href="./types#grammar_type-identifier"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      type-identifier
-    </a>
-    <sub class="grammar__syntaxDef__link__sub">opt</sub>
-    <span class="grammar__syntaxDef__divider">.</span>
-    <a
-      href="./declarations#grammar_enum-case-name"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link"
-    >
-      enum-case-name
-    </a>
-    <a
-      href="#grammar_tuple-pattern"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      tuple-pattern
-    </a>
-    <sub class="grammar__syntaxDef__link__sub">opt</sub>
-  </p>
-</div>
+<GrammarBlock title="Grammar of an enumeration case pattern">
+  _enum-case-pattern_ →  _type-identifier?_ `.` _enum-case-name_ _tuple-pattern?_
+</GrammarBlock>
 
 ## Optional Pattern
 
@@ -332,103 +157,61 @@ An _optional pattern_ matches values wrapped in a `some(Wrapped)` case of an `Op
 
 Because optional patterns are syntactic sugar for `Optional` enumeration case patterns, the following are equivalent:
 
-<CodeSnippet>
-  {`let someOptional: Int? = 42\n
+```swift showLineNumbers
+let someOptional: Int? = 42
+
 // Match using an enumeration case pattern.
 if case .some(let x) = someOptional {
     print(x)
-}\n
+}
+
 // Match using an optional pattern.
 if case let x? = someOptional {
     print(x)
-}`}
-</CodeSnippet>
+}
+```
 
 The optional pattern provides a convenient way to iterate over an array of optional values in a `for-in` statement, executing the body of the loop only for non-`nil` elements.
 
-<CodeSnippet>
-  {`let arrayOfOptionalInts: [Int?] = [nil, 2, 3, nil, 5]\n
+```swift showLineNumbers
+let arrayOfOptionalInts: [Int?] = [nil, 2, 3, nil, 5]
+
 // Match only non-nil values.
 for case let number? in arrayOfOptionalInts {
-    print("Found a \\(number)")
+    print("Found a \(number)")
 }
 // Found a 2
 // Found a 3
-// Found a 5`}
-</CodeSnippet>
+// Found a 5
+```
 
-<div class="grammar">
-  <p class="grammar__title">GRAMMAR OF AN OPTIONAL PATTERN</p>
-  <p class="grammar__syntaxDef" id="grammar_optional-pattern">
-    <span class="grammar__syntaxDef__name">optional-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_identifier-pattern" class="grammar__syntaxDef__link">
-      identifier-pattern
-    </a>
-    <span class="grammar__syntaxDef__keyword">?</span>
-  </p>
-</div>
+<GrammarBlock title="Grammar of an optional pattern">
+  _optional-pattern_ →  _identifier-pattern_ `?`
+</GrammarBlock>
 
 ## Type-Casting Patterns
 
 There are two type-casting patterns, the `is` pattern and the `as` pattern. The `is` pattern appears only in `switch` statement case labels. The `is` and `as` patterns have the following form:
 
-<p class="pseudocode">
-  <span class="pseudocode__keyword">is</span>{' '}
-  <span class="pseudocode__highlight">type</span>
-  <br />
-  <span class="pseudocode__highlight">pattern</span>{' '}
-  <span class="pseudocode__keyword">as</span>{' '}
-  <span class="pseudocode__highlight">type</span>
-</p>
+
+```swift
+is <#type#>
+<#pattern#> as <#type#>
+```
 
 The `is` pattern matches a value if the type of that value at runtime is the same as the type specified in the right-hand side of the `is` pattern—or a subclass of that type. The `is` pattern behaves like the `is` operator in that they both perform a type cast but discard the returned type.
 
 The `as` pattern matches a value if the type of that value at runtime is the same as the type specified in the right-hand side of the `as` pattern—or a subclass of that type. If the match succeeds, the type of the matched value is cast to the _pattern_ specified in the right-hand side of the `as` pattern.
 
-For an example that uses a `switch` statement to match values with `is` and `as` patterns, see [Type Casting for `Any` and `AnyObject`](../language-guide/type-casting#type-casting-for-any-and-anyobject).
+For an example that uses a `switch` statement to match values with `is` and `as` patterns, see [Type Casting for `Any` and `AnyObject`](../guia-del-lenguaje/type-casting#type-casting-for-any-and-anyobject).
 
-<div class="grammar">
-  <p class="grammar__title">GRAMMAR OF A TYPE CASTING PATTERN</p>
-  <p class="grammar__syntaxDef" id="grammar_type-casting-pattern">
-    <span class="grammar__syntaxDef__name">type-casting-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a
-      href="#grammar_is-pattern"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      is-pattern
-    </a>
-    <span class="grammar__syntaxDef__divider grammar__syntaxDef__divider--regular">
-      |
-    </span>
-    <a
-      href="#grammar_as-pattern"
-      class="grammar__syntaxDef__link grammar__syntaxDef__link--last"
-    >
-      as-pattern
-    </a>
-  </p>
-  <p class="grammar__syntaxDef" id="grammar_is-pattern">
-    <span class="grammar__syntaxDef__name">is-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <span class="grammar__syntaxDef__keyword">is</span>
-    <a href="./types#grammar_type" class="grammar__syntaxDef__link">
-      type
-    </a>
-  </p>
-  <p class="grammar__syntaxDef" id="grammar_as-pattern">
-    <span class="grammar__syntaxDef__name">as-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="#grammar_pattern" class="grammar__syntaxDef__link">
-      pattern
-    </a>
-    <span class="grammar__syntaxDef__keyword">as</span>
-    <a href="./types#grammar_type" class="grammar__syntaxDef__link">
-      type
-    </a>
-  </p>
-</div>
+<GrammarBlock title="Grammar of a type-casting pattern">
+  _type-casting-pattern_ →  _is-pattern_ | _as-pattern_
+  <br />
+  _is-pattern_ →  `is` _type_
+  <br />
+  _as-pattern_ →  _pattern_ `as` _type_
+</GrammarBlock>
 
 ## Expression Pattern
 
@@ -436,42 +219,37 @@ An _expression pattern_ represents the value of an expression. Expression patter
 
 The expression represented by the expression pattern is compared with the value of an input expression using the Swift standard library `~=` operator. The matches succeeds if the `~=` operator returns `true`. By default, the `~=` operator compares two values of the same type using the `==` operator. It can also match a value with a range of values, by checking whether the value is contained within the range, as the following example shows.
 
-<CodeSnippet>
-  {`let point = (1, 2)\n
+```swift showLineNumbers
+let point = (1, 2)
+
 switch point {
 case (0, 0):
     print("(0, 0) is at the origin.")
 case (-2...2, -2...2):
-    print("(\\(point.0), \\(point.1)) is near the origin.")
+    print("(\(point.0), \(point.1)) is near the origin.")
 default:
-    print("The point is at (\\(point.0), \\(point.1)).")
+    print("The point is at (\(point.0), \(point.1)).")
 }
-// Prints "(1, 2) is near the origin."`}
-</CodeSnippet>
+// Prints "(1, 2) is near the origin."
+```
 
 You can overload the `~=` operator to provide custom expression matching behavior. For example, you can rewrite the above example to compare the `point` expression with a string representations of points.
 
-<CodeSnippet>
-  {`// Overload the ~= operator to match a string with an integer.
+```swift showLineNumbers
+// Overload the ~= operator to match a string with an integer.
 func ~= (pattern: String, value: Int) -> Bool {
-    return pattern == "\\(value)"
-}\n
+    return pattern == "\(value)"
+}
+
 switch point {
 case ("0", "0"):
     print("(0, 0) is at the origin.")
 default:
-    print("The point is at (\\(point.0), \\(point.1)).")
+    print("The point is at (\(point.0), \(point.1)).")
 }
-// Prints "The point is at (1, 2)."`}
-</CodeSnippet>
+// Prints "The point is at (1, 2)."
+```
 
-<div class="grammar">
-  <p class="grammar__title">GRAMMAR OF AN EXPRESSION PATTERN</p>
-  <p class="grammar__syntaxDef" id="grammar_expression-pattern">
-    <span class="grammar__syntaxDef__name">expression-pattern</span>
-    <span class="grammar__syntaxDef__arrow">&rarr;</span>
-    <a href="./expressions#grammar_expression" class="grammar__syntaxDef__link">
-      expression
-    </a>
-  </p>
-</div>
+<GrammarBlock title="Grammar of an expression pattern">
+  _expression-pattern_ →  _expression_
+</GrammarBlock>
