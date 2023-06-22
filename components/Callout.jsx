@@ -1,10 +1,13 @@
-import CalloutStyles from '../styles/Callout.module.css'
+import styles from '../styles/Callout.module.css'
 
-const Callout = ({ type, children }) => {
-  const calloutType = `callout--${type}`
-  let title
+export default function Callout({ type, children }) {
+  const calloutType = `container--${type}`
+  let title = 'Nota'
 
   switch (type) {
+    case 'beta':
+      title = 'Software Beta'
+      break
     case 'experiment':
       title = 'Experimenta'
       break
@@ -16,15 +19,9 @@ const Callout = ({ type, children }) => {
   }
 
   return (
-    <div
-      className={`${CalloutStyles.callout} ${
-        type !== 'note' ? CalloutStyles[calloutType] : ''
-      }`}
-    >
-      <p className={CalloutStyles.callout__title}>{title}</p>
+    <aside className={`${styles.container} ${styles[calloutType]}`}>
+      <p className={styles.title}>{title}</p>
       {children}
-    </div>
+    </aside>
   )
 }
-
-export default Callout
