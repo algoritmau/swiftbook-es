@@ -8,10 +8,10 @@ import Hero from '@components/Hero'
 <Hero>
   # Un Recorrido Por Swift
 
-  Explora las funciones y la sintaxis de Swift.
+  Explora las características y la sintaxis de Swift.
 </Hero>
 
-Es costumbre que el primer programa que se crea al aprender un nuevo lenguaje de programación es aquel que imprime la frase «¡Hola, mundo!» en la pantalla. En Swift, esto se puede conseguir mediante una sola línea de código:
+Es costumbre que el primer programa que se crea al aprender un nuevo lenguaje de programación es aquel que imprime la frase _¡Hola, mundo!_ en la pantalla. En Swift, esto se puede conseguir mediante una sola línea de código:
 
 ```swift showLineNumbers
 print("¡Hola, mundo!")
@@ -28,9 +28,7 @@ Usa `let` para crear una constante y `var` para crear una variable. No es necesa
 
 ```swift showLineNumbers
 var miVariable = 42
-
 miVariable = 50
-
 let miConstante = 42
 ```
 
@@ -45,7 +43,7 @@ let doubleExplicito: Double = 70
 ```
 
 <Callout type="experiment">
-  Crea una constante con un tipo específico `Float` y un valor de `4`.
+  Crea una constante con `Float` como su tipo explícito y un valor de `4`.
 </Callout>
 
 Los valores nunca se convierten a un tipo diferente implícitamente. Si necesitas convertir un valor a un tipo diferente, debes crear —de manera explícita— una instancia del tipo deseado.
@@ -79,13 +77,13 @@ Usa tres comillas dobles para cadenas de texto que ocupen más de una línea. La
 
 ```swift showLineNumbers
 let cita = """
-        Aun cuando hay espacios en blanco a la izquierda,
-        las líneas no contienen sangría en realidad.
-          Excepto por esta línea.
-        Las comillas dobles (") pueden aparecer sin escaparlas.
+    Aun cuando hay espacios en blanco a la izquierda,
+    las líneas no contienen sangría en realidad.
+        Excepto por esta línea.
+    Las comillas dobles (") pueden aparecer sin escaparlas.
 
-        Todavía tengo \(manzanas + naranjas) frutas.
-        """
+    Todavía tengo \(manzanas + naranjas) frutas.
+    """
 ```
 
 Crea _arrays_ y diccionarios usando corchetes (`[]`) y accede a sus elementos referenciando su índice o clave en corchetes. Está permitido agregar una coma después del último elemento.
@@ -146,7 +144,20 @@ print(puntajeDelEquipo)
 // Imprime "11"
 ```
 
-En una instrucción `if`, el condicional debe ser una expresión de tipo booleano; esto significa, que una instrucción de la forma `if puntaje { … }` es un error, ya que no se compara implícitamente con cero.
+En una instrucción `if`, el condicional debe ser una expresión de tipo booleano; esto significa, que una instrucción de la forma `if puntaje { ... }` es un error, ya que no se compara implícitamente con cero.
+
+Puede escribir `if` o `switch` después del signo igual (`=`) de una asignación o después de `return`, para elegir un valor en función de la condición.
+
+```swift showLineNumbers {1-5} /= if/
+let decoracionDelPuntaje = if puntajeDelEquipo > 50 {
+    "🎉"
+} else {
+    ""
+}
+
+print("Puntaje: ", puntajeDelEquipo, decoracionDelPuntaje)
+// Imprime "Puntaje: 11 🎉"
+```
 
 Puedes usar `if` y `let` en conjunto para lidiar con valores que podrían no existir. Estos valores son representados como opcionales. Un valor opcional puede contener un valor o `nil` —para indicar la ausencia de un valor—. Agrega un signo de interrogación (`?`) después del tipo de un valor para señalar dicho valor como opcional.
 
@@ -263,6 +274,12 @@ repeat {
 print(m)
 // Imprime "128"
 ```
+
+<Callout type="experiment">
+  Cambia la condición de `m < 100` a `m < 0` para ver cómo `while` y
+  `repeat-while` se comportan de manera diferente cuando la condición del bucle
+  es verdadera desde un inicio.
+</Callout>
 
 Es posible tener índices en un bucle al usar `..<` para crear un rango de índices.
 
@@ -394,7 +411,7 @@ var numeros = [20, 19, 7, 12]
 coincideAlguno(lista: numeros, condicion: menorQueDiez)
 ```
 
-Las funciones son, en realidad, un caso especial de _closure_: bloques de código que pueden ser llamados más tarde. El código en una clausura tiene acceso a elementos como variables y funciones que están disponibles en el ámbito en el cual se creó la clausura, incluso cuando la clausura se encuentra en un ámbito diferente al momento de ejecutarse; ya has visto un ejemplo de esto con las funciones anidadas. Puedes crear una clausura anónima al encerrar el código en llaves (`{}`). Usa `in` para separar los argumentos y el tipo devuelto por la función del cuerpo de la función.
+Las funciones son, en realidad, un caso especial de las clausuras: bloques de código que pueden ser llamados más tarde. El código en una clausura tiene acceso a elementos como variables y funciones que están disponibles en el ámbito en el cual se creó la clausura, incluso cuando la clausura se encuentra en un ámbito diferente al momento de ejecutarse; ya has visto un ejemplo de esto con las funciones anidadas. Puedes crear una clausura anónima al encerrar el código en llaves (`{}`). Usa `in` para separar los argumentos y el tipo devuelto por la función del cuerpo de la función.
 
 ```swift showLineNumbers /{/ /}/ /in/
 numeros.map({ (numero: Int) -> Int in
@@ -442,16 +459,14 @@ class Figura {
 ```
 
 <Callout type="experiment">
-  Agrega una constante con `let` y otro método que tome un argumento.
+  Agrega una propiedad constante con `let` y otro método que tome un argumento.
 </Callout>
 
 Crea una instancia de una clase al poner paréntesis después del nombre de la clase. Usa sintaxis de punto para acceder a las propiedades y métodos de la instancia.
 
 ```swift showLineNumbers
 var figura = Figura()
-
 figura.numeroDeLados = 7
-
 var descripcionFigura = descripcionBasica()
 ```
 
@@ -478,7 +493,7 @@ Usa `deinit` para crear un «desinicializador» (del inglés _deinitializer_) si
 
 Las subclases incluyen el nombre de su súperclase después de su propio nombre, separados por una coma. No es requerimiento de las clases pasar ninguna clase base estándar a las subclases, por lo que puedes incluir u omitir una súperclase si así lo requieres.
 
-Aquellos métodos de una subclase que sobreescriben la implementación de una súperclase, se marcan con `override`; sobreescribir un método por accidente, sin usar `override`, es detectado por el compilador como un error. El compilador también detecta métodos con `override` que no sobreescriben ningún método de la súperclase.
+Aquellos métodos de una subclase que redefinen la implementación de una súperclase, se marcan con `override`; redefinir un método por accidente, sin usar `override`, es detectado por el compilador como un error. El compilador también detecta métodos con `override` que no redefinen ningún método de la súperclase.
 
 ```swift showLineNumbers {1, 5, 7, 9, 16, 21} /Cuadrado: FiguraConNombre/ /override/
 class Cuadrado: FiguraConNombre {
@@ -513,7 +528,7 @@ prueba.descripcionBasica()
   y `descripcionBasica()` en la clase `Circulo`.
 </Callout>
 
-Aparte de simples propiedades que se almacenan, las propiedades pueden tener un _getter_ y un _setter_.
+Aparte de ser simples propiedades que se pueden almacenar, las propiedades pueden tener un _getter_ y un _setter_.
 
 ```swift showLineNumbers {13-15, 17-19}
 class TrianguloEquilatero: FiguraConNombre {
@@ -674,8 +689,8 @@ let descripcionDeCorazones = corazones.descripcionBasica()
 ```
 
 <Callout type="experiment">
-  Crea un método `color()` para la enumeración `Palo` que devuelva «negro» para
-  picas y tréboles, y «rojo» para corazones y diamantes.
+  Crea un método `color()` para la enumeración `Palo` que devuelva "negro" para
+  picas y tréboles, y "rojo" para corazones y diamantes.
 </Callout>
 
 Fíjate en las dos formas en que se referenció el caso `corazones` de la enumeración: al asignar un valor a la constante `corazones`, el caso `Palo.corazones` se referencia por su nombre completo porque la constante no tiene un tipo especificado explícitamente. Dentro del bucle switch, el caso se referencia mediante la forma abreviada `.corazones` porque ya sabemos que el valor de `self` es un tipo de palo. Puedes utilizar la forma abreviada siempre que el tipo del valor ya sea conocido.
@@ -741,7 +756,7 @@ func obtenerIdDeUsuario(desde servidor: String) async -> Int {
 }
 ```
 
-Para marcar el llamado a una función asíncrona, antepón el mismo con la palabra clave `await`:
+Para marcar el llamado a una función asíncrona, agrega la palabra clave `await` después de la invocación de la función:
 
 ```swift showLineNumbers {2} /await/
 func obtenerNombreDeUsuario(desde servidor: String) async -> String {
@@ -804,7 +819,7 @@ var a = ClaseBasica()
 
 a.ajustar()
 
-let descripcioDeA = a.descripcionBasica
+let descripcionDeA = a.descripcionBasica
 
 struct EstructuraBasica: ProtocoloEjemplo {
     var descripcionBasica: String = "Una estructura básica"
@@ -907,7 +922,7 @@ do {
 
 Puedes usar múltiples bloques `catch` que manejen errores específicos. Para esto, define un patrón después de `catch` al igual que lo haces después de `case` en un bucle switch.
 
-```swift showLineNumbers
+```swift showLineNumbers {5-11}
 do {
     let respuestaImpresora = try enviar(tarea: 1440, impresoraDestino: "Gutenberg")
 
@@ -1018,3 +1033,13 @@ anyCommonElements([1, 2, 3], [3])
 </Callout>
 
 Escribir `<T: Equatable>` es igual a escribir `<T> ... where T: Equatable`.
+
+
+<Callout type="beta">
+  Esta documentación contiene información preliminar sobre una API o tecnología
+  en desarrollo. Esta información está sujeta a cambios, y todo software
+  implementado en conformidad con esta documentación debe ser testeado con el
+  software final del sistema operativo.
+
+  Conoce más acerca del uso de [software beta de Apple](https://developer.apple.com/es/support/beta-software/).
+</Callout>
