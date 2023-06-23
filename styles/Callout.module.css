@@ -1,41 +1,63 @@
-.callout {
+html[class~='dark'] .container {
+  background-color: hsl(0deg 0% 16%);
+  color: hsl(0deg 0% 80%);
+}
+
+html[class~='light'] .container {
+  background-color: hsl(0deg 0% 88%);
+  color: hsl(0deg 0% 24%);
+}
+
+html[class~='dark'] .container--important {
+  background-color: hsl(8deg 8.79% 15.05%);
+  border-color: hsl(8.43deg 66.05% 51.01%);
+}
+
+html[class~='light'] .container--important {
+  background-color: hsl(8deg 100% 97%);
+  border-color: hsl(8.43deg 84.96% 51.98%);
+}
+
+html[class~='dark'] .container--experiment {
+  background-color: hsl(212.78deg 15.68% 13.72%);
+  border-color: hsl(212.14deg 66.05% 51.01%);
+}
+
+html[class~='light'] .container--experiment {
+  background-color: hsl(213.7deg 100% 97.22%);
+  border-color: hsl(212.86deg 82.85% 54.36%);
+}
+
+.container {
   margin: 32px 0 40px 0;
-  border-left: solid 5px #ccc;
-  background-color: #f5f5f5;
-  color: #242424;
-  padding: 20px 20px 20px 20px;
-  font-size: 10px;
-  border-radius: 2px;
+  border-left: solid 6px hsl(0deg 0% 69.02%);
+  padding: 20px;
+  border-radius: 4px;
 }
 
 @media screen and (min-width: 768px) {
-  .callout {
+  .container {
     margin: 40px 0 40px 2px;
-    padding: 20px;
   }
 }
 
-.callout--experiment {
-  border-color: #0088cc;
+.container--beta,
+.container--note {
+  border-color: hsl(0deg 0% 69.02%);
 }
 
-.callout--important {
-  border-color: #f05137;
-}
-
-.callout :not(:first-child),
-.callout code {
+.container :not(:first-child),
+.container code {
   margin: 0;
-  font-size: 0.96rem;
   line-height: 176%;
 }
 
-.callout__title {
-  text-transform: uppercase;
-  font-weight: normal;
-  color: #707070;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
+.container a {
+  font-size: inherit !important;
+}
+
+.title {
+  font-weight: 700;
   margin-bottom: 0.8rem;
   width: 'fit-content';
 }

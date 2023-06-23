@@ -1,4 +1,4 @@
-> Para conocer el estado y progreso actuales de la traducción, visita [Progreso de la traducción](https://github.com/trsplms/swift-book-es/issues/3)
+> Para conocer el estado y progreso actuales de la traducción, visita [Progreso de la traducción](https://github.com/patternina/swift-book-es/issues/3)
 
 <br />
 <br />
@@ -9,13 +9,40 @@ Sigue esta guía de estilo para, así, ser consistente con el resto de las pági
 
 <br />
 
-## Texto en bloques de código
+## Bloques de código
+
+[Nextra](https://nextra.site) tiene funcionalidad de _syntax highlighting_ integrada, por lo que para los bloques de código tienen el siguiente formato:
+
+- El código va encerrado en dos líneas con tres _backticks_ (` \``) cada una. La primera fila, sin embargo lleva la palabra clave  `swift`para indicar a Nextra que queremos _syntax highlighting_ para dicho lenguaje de programación. De igual, manera lleva la palabra clave`showLineNumbers` para indicarle a Nextra que queremos los números de línea visibles (esto no es implementado en la página web oficia del libro, pero es una preferencia personal).
+- Para resaltar una o varias líneas de código en un bloque, indíca los números de línea dentro de llaves (`{}`) —separados por comas (`,`) si se trata de líneas no consecutivas o por un guión (`-`) si se trata de un rango de líneas—.
+- Para resaltar palabras o cadenas dentro de un boque de código, encierra las mismas dentro de dos símbolos `/`.
+- Al igual que con los números de línea, en el libro original no se incluyen resalto de líneas o palabras dentro de los bloques de código, por lo que por preferencia personal, he decidido agregarlo a los bloques de código. Muchos de los artículos por traducir no contienen esto agregado, por lo que agradezco que al traducir una página resalten cualquier línea o palabra clave que brinde mayor contexto visual de lo que se transmite en un bloque de código.
+
+Por ejemplo, Nextra renderizará el bloque de código a continuación de manera que tenga números de línea visibles, tenga las líneas 1 y 3 resaltadas, al igual que el rango de líneas de 11 a 13. Así mismo, resaltará las palabras `let`, `var`, y la cadena `: Double`.
+
+```swift showLineNumbers {1, 3, 11-13} /let/ /var/ /: Double/
+var unaVariable = 1
+
+let unaConstante = 2
+
+print(unaVariable)
+print(unaConstante)
+
+unaVariable = 2
+var otraVariable: Double = 3
+
+print(unaVariable)
+print(otraVariable)
+print(unaVariable + unaConstante)
+```
+
+### Texto en bloques de código
 
 He decidido traducir los _strings_, comentarios, y nombres de funciones y variables para brindar mayor entendimiento y contexto en los ejemplos usados en los bloques de código. ¡Ten cuidado de no traducir nombres que hagan referencia a código (variables, clases, etc)!
 
 Ejemplo:
 
-```swift
+```swift showLineNumbers
 // Example
 let apples = 3
 let oranges = 5
@@ -27,7 +54,7 @@ print(fruitSummary)
 
 ✅ CORRECTO:
 
-```swift
+```swift showLineNumbers
 // Ejemplo
 let manzanas = 3
 let naranjas = 5
@@ -39,7 +66,7 @@ print(totalFrutas)
 
 ❌ INCORRECTO:
 
-```swift
+```swift showLineNumbers
 // Ejemplo
 let manzanas = 3
 let naranjas = 5
@@ -49,41 +76,6 @@ let totalFrutas = "Tengo \(manzanas + naranjas) frutas."
 // NO LO TRADUZCAS
 imprimir(totalFrutas)
 ```
-
-### Bloques de código
-
-Los bloques de código se representan con la siguiente sintaxis:
-
-```swift showLineNumbers
-let manzanas = 3
-let naranjas = 5
-let resumenManzanas = "Tengo \(manzanas) manzanas."
-let resumenFrutas = "Tengo \(manzanas + naranjas) frutas."
-```
-
-Puedes resaltar líneas específicas de un bloque de código usando la siguiente sintaxis:
-
-```swift showLineNumbers {2, 4}
-let manzanas = 3
-let naranjas = 5
-let resumenManzanas = "Tengo \(manzanas) manzanas."
-let resumenFrutas = "Tengo \(manzanas + naranjas) frutas."
-```
-
-En el ejemplo anterior, se resaltan las líneas 2 y 4.
-
-También puedes resaltar palabras o términos específicos de un bloque de código usando la siguiente sintaxis:
-
-```swift showLineNumbers {2, 4} /let/
-let manzanas = 3
-let naranjas = 5
-let resumenManzanas = "Tengo \(manzanas) manzanas."
-let resumenFrutas = "Tengo \(manzanas + naranjas) frutas."
-```
-
-En el ejemplo anterior, se resaltan las líneas 2 y 4, y la palabra `let`.
-
-Algunos bloques de código pueden contener saltos de línea que no están el documento original. Esto, con el fin de brindar una mejor legibilidad de los ejemplos y bloques de código.
 
 <br />
 
@@ -118,6 +110,7 @@ Aquí hay algunas sugerencias para la traducción de términos de uso común en 
 | loop                      | ciclo                                 |
 | lowercase                 | minúscula(s)                          |
 | optional binding          | vinculación opcional                  |
+| overriding                | sustitución                           |
 | render                    | renderizar (verb), renderizado (noun) |
 | scope (noun)              | ámbito                                |
 | scope (verb)              | aislar                                |
