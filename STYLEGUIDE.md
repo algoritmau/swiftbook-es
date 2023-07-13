@@ -94,6 +94,7 @@ Aquí hay algunas sugerencias para la traducción de términos de uso común en 
 | array                     | _array_                               |
 | assert                    | comprobar                             |
 | autoclosure               | autoclausura                          |
+| braces                    | llaves                                |
 | boolean                   | booleano                              |
 | bug                       | error                                 |
 | callback                  | _callback_                            |
