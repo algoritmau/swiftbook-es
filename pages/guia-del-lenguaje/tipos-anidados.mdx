@@ -2,39 +2,39 @@
 title: Tipos Anidados
 ---
 
+import Callout from '@components/Callout'
 import Hero from '@components/Hero'
 
 <Hero>
   # Tipos Anidados
 
-Define tipos dentro del ámbito de otro tipo.
-
+  Define tipos dentro del ámbito de otro tipo.
 </Hero>
 
-Las enumeraciones se suelen crear para apoyar la funcionalidad de una clase o estructura específica. De forma similar, puede ser útil definir clases y estructuras utilitarias únicamente para su uso en el contexto de un tipo más complejo. Para conseguir esto, Swift permite definir _tipos anidados_, con los que se pueden anidar enumeraciones, clases y estructuras de apoyo dentro de la definición del propio tipo.
+Las enumeraciones suelen crearse para apoyar la funcionalidad de una clase o estructura específica. De forma similar, puede ser útil definir clases y estructuras utilitarias con el único fin de usarlas dentro del contexto de un tipo más complejo. Para lograr esto, Swift te permite definir _tipos anidados_, mediante los cuales puedes anidar enumeraciones, clases y estructuras de soporte dentro de la definición del tipo que soportan.
 
-Para anidar un tipo dentro de otro tipo, escribe la definición dentro de sus llaves exteriores. Los tipos se pueden anidar en tantos niveles como se quiera.
+Para anidar un tipo dentro de otro tipo, escribe su definición dentro de las llaves exteriores del tipo que soporta. Los tipos pueden anidarse en tantos niveles como sea necesario.
 
-## Tipos Anidados en Acción
+## Tipos anidados en acción
 
-El ejemplo siguiente define la estructura llamada `NaipeBlackjack`, que representa un naipe como los usados en el juego de Blackjack. La estructura `NaipeBlackjack` contiene dos tipos anidados de enumeración llamados `Palo` y `Rango`.
+El siguiente ejemplo define una estructura llamada `CartaBlackjack`, la cual modela una carta tal y como se utiliza en el juego del Blackjack. La estructura `CartaBlackjack` contiene dos tipos de enumeración anidados llamados `Palo` y `Rango`.
 
-En el juego de Blackjack, los Ases tienen valor uno u once. Esta característica está representada por la estructura llamada `Valores`, que está anidada dentro de la enumeración `Rango`:
+En Blackjack, los ases tienen un valor de uno u once. Esta característica está representada por una estructura llamada `Valores`, la cual se encuentra anidada dentro de la enumeración `Rango`:
 
 ```swift showLineNumbers
-struct NaipeBlackjack {
+struct CartaBlackjack {
 
-    // enumeración anidada Palo
+    // Enumeración anidada Palo
     enum Palo: Character {
         case picas = "♠", corazones = "♡", diamantes = "♢", treboles = "♣"
     }
 
-    // enumeración anidada Rango
+    // Enumeración anidada Rango
     enum Rango: Int {
         case dos = 2, tres, cuatro, cinco, seis, siete, ocho, nueve, diez
-        case sota, dama, rey, _as
+        case jota, reina, rey, _as
 
-        // estructura anidada Valores
+        // Estructura anidada Valores
         struct Valores {
             let primero: Int, segundo: Int?
         }
@@ -43,7 +43,7 @@ struct NaipeBlackjack {
             switch self {
             case ._as:
                 return Valores(primero: 1, segundo: 11)
-            case .sota, .dama, .rey:
+            case .jota, .reina, .rey:
                 return Valores(primero: 10, segundo: nil)
             default:
                 return Valores(primero: self.rawValue, segundo: nil)
@@ -51,7 +51,7 @@ struct NaipeBlackjack {
         }
     }
 
-    // Propiedades y métodos de NaipeBlackjack
+    // Propiedades y métodos de CartaBlackjack
     let rango: Rango, palo: Palo
 
     var descripcion: String {
@@ -59,7 +59,7 @@ struct NaipeBlackjack {
         resultado += " el valor es \(rango.valores.primero)"
 
         if let segundo = rango.valores.segundo {
-            resultado += " o \(segundo)"
+            resultado += " u \(segundo)"
         }
 
         return resultado
@@ -67,38 +67,46 @@ struct NaipeBlackjack {
 }
 ```
 
-La enumeración `Palo` describe los cuatro palos habituales de los naipes, junto con
-un valor `Character` en bruto para representar su símbolo.
+La enumeración `Palo` describe los cuatro palos habituales de la baraja, junto con un valor `Character` en bruto para representar su símbolo.
 
-La enumeración `Rango` describe los trece posibles valores de rango de los naipes, junto con un valor `Int` en bruto para representar su valor nominal. (Este valor `Int` en bruto no se usa para los naipes Sota, Dama, Rey y As.)
+La enumeración `Rango` describe los trece posibles valores de rango de la baraja, junto con un valor `Int` en bruto para representar su valor nominal (este valor `Int` en bruto no se usa para los naipes Jota, Reina, Rey y As).
 
-Como se menciona arriba, la enumeración Rango describe una estructura anidada propia, llamada `Valores`. Esta estructura encapsula el hecho de que la mayoría de los naipes tienen un único valor, mientras que el naipe As tiene dos valores. La estructura `Valores` describe dos propiedades para representar esto:
+Como se mencionó anteriormente, la enumeración `Rango` define una estructura anidada propia, llamada `Valores`. Esta estructura encapsula el hecho de que la mayoría de las cartas tienen un valor, mientras que la carta As tiene dos valores. La estructura `Valores` define dos propiedades para representar esto:
 
 - `primero`, de tipo `Int`
 - `segundo`, de tipo `Int?`, o "`Int` opcional"
 
-Rango también describe una propiedad calculada, `valores`, que devuelve una instancia de la estructura `Valores`. Esta propiedad calculada analiza el rango del naipe y crea una nueva instancia de `Valores` con el valor adecuado para su rango. Usa valores especiales para `sota`, `dama`, `rey` y `_as`. Para los naipes numéricos, usa el valor `Int` en bruto del rango.
+`Rango` también define una propiedad calculada, `valores`, la cual devuelve una instancia de la estructura `Valores`. Esta propiedad calculada analiza el rango de la carta e inicializa una nueva instancia de `Valores` con los valores adecuados acorde a su rango. Esta utiliza valores especiales para `jota`, `reina`, `rey` y `_as`. Para las cartas numéricas, utiliza el valor `Int` en bruto del rango.
 
-La estructura `NaipeBlackjack` tiene dos propiedades: `rango` y `palo`. También tiene una propiedad calculada llamada `descripcion`, que usa los valores almacenados en `rango` y `palo` para componer una descripción del nomber y valor del naipe. La propiedad `descripcion` usa vinculación opcional para comprobar si hay un segundo valor que mostrar y, si lo hay, añade detalles de descripción adicionales para ese segundo valor.
+La estructura `CartaBlackjack` tiene dos propiedades: `rango` y `palo`. También define una propiedad calculada llamada `descripcion`, la cual usa los valores almacenados en `rango` y `palo` para componer una descripción del nombre y valor de la carta. La propiedad `descripcion` utiliza la vinculación opcional para comprobar si hay un segundo valor que mostrar y, de ser así, añade detalles adicionales para la descripción de dicho segundo valor.
 
-Debido a que `NaipeBlackjack` es una estructura sin inicializadores a medida, tiene un inicializador implícito a nivel de miembro [Inicializadores de Miembro para Tipos Estructura](./inicializacion#inicializadores-de-miembro-para-tipos-estructura). Se puede usar este inicializador para inicializar una nueva constante llamada `elAsDePicas`
+Dado que `CartaBlackjack` es una estructura sin inicializadores a medida, tiene un inicializador de miembros implícito, como se describe en[Inicializadores de miembros para las estrucuturas](./inicializacion#inicializadores-de-miembros-para-las-estructuras). Puedes usar este inicializador para inicializar una nueva constante llamada `elAsDePicas`:
 
-```swift showLineNumbers
-let elAsDePicas = NaipeBlackjack(rango: ._as, palo: .picas)
+```swift showLineNumbers {1}
+let elAsDePicas = CartaBlackjack(rango: ._as, palo: .picas)
 
 print("elAsDePicas: \(elAsDePicas.descripcion)")
-// Imprime "elAsDePicas: el palo es ♠, el valor es 1 o 11"
+// Imprime "elAsDePicas: el palo es ♠, el valor es 1 u 11"
 ```
 
-Aunque `Rango` y `Palo` están anidadas dentro de `NaipeBlackjack`, su tipo puede ser deducido del contexto, y por tanto la inicialización de esta instancia puede hacer referencia a los casos de la enumeración usando únicamente los nombres de sus casos (`.as` y `.picas`). En el ejemplo anterior, la propiedad `descripcion` informa de que el As de Picas tiene el valor `1` o `11`.
+Aun cuando `Rango` y `Palo` están anidadas dentro de `CartaBlackjack`, su tipo se puede deducir del contexto, por lo que la inicialización de esta instancia se puede permitir referenciar a los casos de la enumeración simplemente por sus nombres de caso (`.as` y `.picas`). En el ejemplo anterior, la propiedad `descripcion` informa, de manera correcta, que el As de Picas tiene un valor de `1` u `11`.
 
-## Haciendo referencia a Tipos Anidados
+## Referencias a tipos anidados
 
 Para usar un tipo anidado fuera de su contexto de definición, añade como prefijo a su nombre el nombre del tipo en el que está anidado:
 
 ```swift showLineNumbers
-let simboloDeCorazones = NaipeBlackjack.Palo.corazones.rawValue
+let simboloDeCorazones = CartaBlackjack.Palo.corazones.rawValue
 // simboloDeCorazones es "♡"
 ```
 
-Para el ejemplo anterior, esto permite mantener los nombres `Palo`, `Rango` y `Valores` deliberadamente cortos, porque sus nombres están naturalmente cualificados por el contexto en el que se definen.
+En el ejemplo anterior, esto permite mantener los nombres de `Palo`, `Rango` y `Valores` deliberadamente cortos, ya que sus nombres están naturalmente cualificados por el contexto en el que se definen.
+
+<Callout type="beta">
+  Esta documentación contiene información preliminar sobre una API o tecnología
+  en desarrollo. Esta información está sujeta a cambios, y todo software
+  implementado en conformidad con esta documentación debe ser testeado con el
+  software final del sistema operativo.
+  <br />
+  Conoce más acerca del uso de [software beta de Apple](https://developer.apple.com/es/support/beta-software/).
+</Callout>
