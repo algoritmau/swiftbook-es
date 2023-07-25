@@ -95,6 +95,7 @@ Aquí hay algunas sugerencias para la traducción de términos de uso común en 
 | assert                    | comprobar                             |
 | autoclosure               | autoclausura                          |
 | boolean                   | booleano                              |
+| braces                    | llaves                                |
 | bug                       | error                                 |
 | callback                  | _callback_                            |
 | camelCase                 | _camelCase_                           |

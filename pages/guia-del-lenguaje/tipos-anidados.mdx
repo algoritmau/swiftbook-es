@@ -1,103 +1,112 @@
 ---
-title: Nested Types
+title: Tipos Anidados
 ---
 
+import Callout from '@components/Callout'
 import Hero from '@components/Hero'
 
 <Hero>
-  # Nested Types
+  # Tipos Anidados
 
-  Define types inside the scope of another type.
+  Define tipos dentro del ámbito de otro tipo.
 </Hero>
 
-Enumerations are often created to support a specific class or structure's functionality. Similarly, it can be convenient to define utility classes and structures purely for use within the context of a more complex type. To accomplish this, Swift enables you to define _nested types_, whereby you nest supporting enumerations, classes, and structures within the definition of the type they support.
+Las enumeraciones suelen crearse para apoyar la funcionalidad de una clase o estructura específica. De forma similar, puede ser útil definir clases y estructuras utilitarias con el único fin de usarlas dentro del contexto de un tipo más complejo. Para lograr esto, Swift te permite definir _tipos anidados_, mediante los cuales puedes anidar enumeraciones, clases y estructuras de soporte dentro de la definición del tipo que soportan.
 
-To nest a type within another type, write its definition within the outer braces of the type it supports. Types can be nested to as many levels as are required.
+Para anidar un tipo dentro de otro tipo, escribe su definición dentro de las llaves exteriores del tipo que soporta. Los tipos pueden anidarse en tantos niveles como sea necesario.
 
-## Nested Types in Action
+## Tipos anidados en acción
 
-The example below defines a structure called `BlackjackCard`, which models a playing card as used in the game of Blackjack. The `BlackjackCard` structure contains two nested enumeration types called `Suit` and `Rank`.
+El siguiente ejemplo define una estructura llamada `CartaBlackjack`, la cual modela una carta tal y como se utiliza en el juego del Blackjack. La estructura `CartaBlackjack` contiene dos tipos de enumeración anidados llamados `Palo` y `Rango`.
 
-In Blackjack, the Ace cards have a value of either one or eleven. This feature is represented by a structure called Values, which is nested within the `Rank` enumeration:
+En Blackjack, los ases tienen un valor de uno u once. Esta característica está representada por una estructura llamada `Valores`, la cual se encuentra anidada dentro de la enumeración `Rango`:
 
 ```swift showLineNumbers
-struct BlackjackCard {
+struct CartaBlackjack {
 
-    // nested Suit enumeration
-    enum Suit: Character {
-        case spades = "♠", hearts = "♡", diamonds = "♢", clubs = "♣"
+    // Enumeración anidada Palo
+    enum Palo: Character {
+        case picas = "♠", corazones = "♡", diamantes = "♢", treboles = "♣"
     }
 
-    // nested Rank enumeration
-    enum Rank: Int {
-        case two = 2, three, four, five, six, seven, eight, nine, ten
-        case jack, queen, king, ace
+    // Enumeración anidada Rango
+    enum Rango: Int {
+        case dos = 2, tres, cuatro, cinco, seis, siete, ocho, nueve, diez
+        case jota, reina, rey, _as
 
-        // nested Values structure
-        struct Values {
-            let first: Int, second: Int?
+        // Estructura anidada Valores
+        struct Valores {
+            let primero: Int, segundo: Int?
         }
 
-        var values: Values {
+        var valores: Valores {
             switch self {
-            case .ace:
-                return Values(first: 1, second: 11)
-            case .jack, .queen, .king:
-                return Values(first: 10, second: nil)
+            case ._as:
+                return Valores(primero: 1, segundo: 11)
+            case .jota, .reina, .rey:
+                return Valores(primero: 10, segundo: nil)
             default:
-                return Values(first: self.rawValue, second: nil)
+                return Valores(primero: self.rawValue, segundo: nil)
             }
         }
     }
 
-    // BlackjackCard properties and methods
-    let rank: Rank, suit: Suit
+    // Propiedades y métodos de CartaBlackjack
+    let rango: Rango, palo: Palo
 
-    var description: String {
-        var output = "suit is \(suit.rawValue),"
-        output += " value is \(rank.values.first)"
+    var descripcion: String {
+        var resultado = "el palo es \(palo.rawValue),"
+        resultado += " el valor es \(rango.valores.primero)"
 
-        if let second = rank.values.second {
-            output += " or \(second)"
+        if let segundo = rango.valores.segundo {
+            resultado += " u \(segundo)"
         }
 
-        return output
+        return resultado
     }
 }
 ```
 
-The `Suit` enumeration describes the four common playing card suits, together with
-a raw `Character` value to represent their symbol.
+La enumeración `Palo` describe los cuatro palos habituales de la baraja, junto con un valor `Character` en bruto para representar su símbolo.
 
-The `Rank` enumeration describes the thirteen possible playing card ranks, together with a raw `Int` value to represent their face value. (This raw `Int` value isn't used for the Jack, Queen, King, and Ace cards.)
+La enumeración `Rango` describe los trece posibles valores de rango de la baraja, junto con un valor `Int` en bruto para representar su valor nominal (este valor `Int` en bruto no se usa para los naipes Jota, Reina, Rey y As).
 
-As mentioned above, the Rank enumeration defines a further nested structure of its own, called `Values`. This structure encapsulates the fact that most cards have one value, but the Ace card has two values. The `Values` structure defines two properties to represent this:
+Como se mencionó anteriormente, la enumeración `Rango` define una estructura anidada propia, llamada `Valores`. Esta estructura encapsula el hecho de que la mayoría de las cartas tienen un valor, mientras que la carta As tiene dos valores. La estructura `Valores` define dos propiedades para representar esto:
 
-- first, of type `Int`
-- second, of type `Int?`, or “optional `Int`”
+- `primero`, de tipo `Int`
+- `segundo`, de tipo `Int?`, o "`Int` opcional"
 
-Rank also defines a computed property, `values`, which returns an instance of the `Values` structure. This computed property considers the rank of the card and initializes a new `Values` instance with appropriate values based on its rank. It uses special values for `jack`, `queen`, `king`, and `ace`. For the numeric cards, it uses the rank's raw `Int` value.
+`Rango` también define una propiedad calculada, `valores`, la cual devuelve una instancia de la estructura `Valores`. Esta propiedad calculada analiza el rango de la carta e inicializa una nueva instancia de `Valores` con los valores adecuados acorde a su rango. Esta utiliza valores especiales para `jota`, `reina`, `rey` y `_as`. Para las cartas numéricas, utiliza el valor `Int` en bruto del rango.
 
-The `BlackjackCard` structure itself has two properties—`rank` and `suit`. It also defines a computed property called `description`, which uses the values stored in `rank` and `suit` to build a description of the name and value of the card. The `description` property uses optional binding to check whether there's a second value to display, and if so, inserts additional description detail for that second value.
+La estructura `CartaBlackjack` tiene dos propiedades: `rango` y `palo`. También define una propiedad calculada llamada `descripcion`, la cual usa los valores almacenados en `rango` y `palo` para componer una descripción del nombre y valor de la carta. La propiedad `descripcion` utiliza la vinculación opcional para comprobar si hay un segundo valor que mostrar y, de ser así, añade detalles adicionales para la descripción de dicho segundo valor.
 
-Because `BlackjackCard` is a structure with no custom initializers, it has an implicit memberwise initializer, as described in [Memberwise Initializers for Structure Types](./inicializacion). You can use this initializer to initialize a new constant called `theAceOfSpades`:
+Dado que `CartaBlackjack` es una estructura sin inicializadores a medida, tiene un inicializador de miembros implícito, como se describe en[Inicializadores de miembros para las estrucuturas](./inicializacion#inicializadores-de-miembros-para-las-estructuras). Puedes usar este inicializador para inicializar una nueva constante llamada `elAsDePicas`:
 
-```swift showLineNumbers
-let theAceOfSpades = BlackjackCard(rank: .ace, suit: .spades)
+```swift showLineNumbers {1}
+let elAsDePicas = CartaBlackjack(rango: ._as, palo: .picas)
 
-print("theAceOfSpades: \(theAceOfSpades.description)")
-// Prints "theAceOfSpades: suit is ♠, value is 1 or 11"
+print("elAsDePicas: \(elAsDePicas.descripcion)")
+// Imprime "elAsDePicas: el palo es ♠, el valor es 1 u 11"
 ```
 
-Even though `Rank` and `Suit` are nested within `BlackjackCard`, their type can be inferred from context, and so the initialization of this instance is able to refer to the enumeration cases by their case names (`.ace` and `.spades`) alone. In the example above, the `description` property correctly reports that the Ace of Spades has a value of `1` or `11`.
+Aun cuando `Rango` y `Palo` están anidadas dentro de `CartaBlackjack`, su tipo se puede deducir del contexto, por lo que la inicialización de esta instancia se puede permitir referenciar a los casos de la enumeración simplemente por sus nombres de caso (`.as` y `.picas`). En el ejemplo anterior, la propiedad `descripcion` informa, de manera correcta, que el As de Picas tiene un valor de `1` u `11`.
 
-## Referring to Nested Types
+## Referencias a tipos anidados
 
-To use a nested type outside of its definition context, prefix its name with the name of the type it's nested within:
+Para usar un tipo anidado fuera de su contexto de definición, añade como prefijo a su nombre el nombre del tipo en el que está anidado:
 
 ```swift showLineNumbers
-let heartsSymbol = BlackjackCard.Suit.hearts.rawValue
-// heartsSymbol is "♡"
+let simboloDeCorazones = CartaBlackjack.Palo.corazones.rawValue
+// simboloDeCorazones es "♡"
 ```
 
-For the example above, this enables the names of `Suit`, `Rank`, and `Values` to be kept deliberately short, because their names are naturally qualified by the context in which they're defined.
+En el ejemplo anterior, esto permite mantener los nombres de `Palo`, `Rango` y `Valores` deliberadamente cortos, ya que sus nombres están naturalmente cualificados por el contexto en el que se definen.
+
+<Callout type="beta">
+  Esta documentación contiene información preliminar sobre una API o tecnología
+  en desarrollo. Esta información está sujeta a cambios, y todo software
+  implementado en conformidad con esta documentación debe ser testeado con el
+  software final del sistema operativo.
+  <br />
+  Conoce más acerca del uso de [software beta de Apple](https://developer.apple.com/es/support/beta-software/).
+</Callout>
