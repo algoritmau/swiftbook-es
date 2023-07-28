@@ -23,7 +23,7 @@
   "protocolos": "Protocolos",
   "genericos": "Genéricos",
   "tipos-opacos": "Tipos Opacos",
-  "automatic-reference-counting": "Automatic Reference Counting",
+  "conteo-automatico-de-referencias": "Conteo Automático de Referencias",
   "seguridad-de-memoria": "Seguridad de Memoria",
   "control-de-acceso": "Control de Accesso",
   "operadores-avanzados": "Operadores Avanzados"
