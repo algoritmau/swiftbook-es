@@ -1,3 +1,7 @@
+> Una vez que Swift.org ha decidido llevar la documentación a open-source, he decidido migrar este proyecto al repositorio [NSMau/swift-book-es](https://github.com/NSMau/swift-book-es) para así poder realizar una copia exacta de la documentación oficial, y simplemente traducir el contenido. La nueva versión de la traducción al español está disponible en [swiftbook.es](https://swiftbook.es/documentation/the-swift-programming-language/) y ya está disponible para colaborar conlas traducciones.
+>
+> Por consiguiente, este repositorio pasará a ser archivado.
+
 # The Swift Programming Language en Español
 
 Este repositorio contiene el código fuente, al igual que los archivos fuente (`.mdx`) del sitio web [swiftbook.es/](https://swiftbook.es/).
